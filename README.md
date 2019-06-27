@@ -17,6 +17,19 @@ const Poloniex = require('poloniex-node-api');
 const publicClient = new Poloniex.PublicClient();
 ```
 
+- `getTickers`
+
+```javascript
+publicClient
+  .getTickers()
+  .then(data => {
+    console.log(data);
+  })
+  .catch(error => {
+    console.error(error);
+  });
+```
+
 - `get`
 
 ```javascript

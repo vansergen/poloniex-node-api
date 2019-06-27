@@ -41,4 +41,45 @@ suite('PublicClient', () => {
         done();
       });
   });
+
+  test('.getTickers()', done => {
+    const tickers = {
+      USDT_BTC: {
+        id: 121,
+        last: '9162.76459012',
+        lowestAsk: '9162.76459012',
+        highestBid: '9151.76341041',
+        percentChange: '0.04079405',
+        baseVolume: '9649722.16546198',
+        quoteVolume: '1064.67078796',
+        isFrozen: '0',
+        high24hr: '9325.00000000',
+        low24hr: '8732.23922667',
+      },
+      BTC_ETH: {
+        id: 148,
+        last: '0.02963883',
+        lowestAsk: '0.02963878',
+        highestBid: '0.02963850',
+        percentChange: '-0.02552059',
+        baseVolume: '255.46245681',
+        quoteVolume: '8544.98856973',
+        isFrozen: '0',
+        high24hr: '0.03079000',
+        low24hr: '0.02938000',
+      },
+    };
+    nock(EXCHANGE_API_URL)
+      .get('/public?command=returnTicker')
+      .times(1)
+      .reply(200, tickers);
+
+    publicClient
+      .getTickers()
+      .then(data => {
+        assert.deepEqual(data, tickers);
+        done();
+      })
+      .catch(error => assert.fail(error));
+  });
 });
