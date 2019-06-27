@@ -7,6 +7,9 @@
     "lib": "lib"
   },
   "scripts": {
+    "lint": "eslint --ext .js ./",
+    "prettier": "prettier -l *.{js,md,ts,json} **/*.{js,md,ts,json}",
+    "prettier-write": "npm run prettier -- --write",
     "test": "mocha --full-trace --ui tdd --bail --reporter spec tests/*.js"
   },
   "repository": {
