@@ -10,9 +10,29 @@ npm install poloniex-node-api
 
 ## Usage
 
+### PublicClient
+
 ```javascript
 const Poloniex = require('poloniex-node-api');
 const publicClient = new Poloniex.PublicClient();
+```
+
+- `get`
+
+```javascript
+publicClient
+  .get({ command: 'returnCurrencies' })
+  .then(data => {
+    console.log(data);
+  })
+  .catch(error => {
+    console.error(error);
+  });
+```
+
+- `request`
+
+```javascript
 publicClient
   .request({
     method: 'GET',
@@ -27,4 +47,10 @@ publicClient
   .catch(error => {
     console.error(error);
   });
+```
+
+### Test
+
+```bash
+npm test
 ```
