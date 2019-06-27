@@ -145,6 +145,21 @@ publicClient
   });
 ```
 
+### AuthenticatedClient
+
+```javascript
+const key = 'poloniexapikey';
+const secret = 'poloniexapisecret';
+const Poloniex = require('poloniex-node-api');
+const AuthenticatedClient = new Poloniex.AuthenticatedClient({ key, secret });
+```
+
+- `post`
+
+```javascript
+AuthenticatedClient.post({ command: 'returnCompleteBalances' });
+```
+
 ### SignRequest
 
 ```javascript
