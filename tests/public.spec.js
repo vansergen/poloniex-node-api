@@ -82,4 +82,26 @@ suite('PublicClient', () => {
       })
       .catch(error => assert.fail(error));
   });
+
+  test('.getVolume()', done => {
+    const volume = {
+      USDT_BTC: { USDT: '7161846.98235853', BTC: '790.32984132' },
+      USDT_ETH: { USDT: '895368.56029939', ETH: '3331.80491546' },
+      totalETH: '370.77305935',
+      totalBTC: '1845.83395826',
+      totalUSDT: '11287088.18195494',
+    };
+    nock(EXCHANGE_API_URL)
+      .get('/public?command=return24hVolume')
+      .times(1)
+      .reply(200, volume);
+
+    publicClient
+      .getVolume()
+      .then(data => {
+        assert.deepEqual(data, volume);
+        done();
+      })
+      .catch(error => assert.fail(error));
+  });
 });

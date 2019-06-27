@@ -17,11 +17,24 @@ const Poloniex = require('poloniex-node-api');
 const publicClient = new Poloniex.PublicClient();
 ```
 
-- `getTickers`
+- [`getTickers`](https://docs.poloniex.com/?shell#returnticker)
 
 ```javascript
 publicClient
   .getTickers()
+  .then(data => {
+    console.log(data);
+  })
+  .catch(error => {
+    console.error(error);
+  });
+```
+
+- [`getVolume`](https://docs.poloniex.com/?shell#return24hvolume)
+
+```javascript
+publicClient
+  .getVolume()
   .then(data => {
     console.log(data);
   })
