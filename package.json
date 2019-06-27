@@ -1,12 +1,15 @@
 {
   "name": "poloniex-node-api",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Poloniex Node.js API",
   "main": "index.js",
   "directories": {
     "lib": "lib"
   },
   "scripts": {
+    "lint": "eslint --ext .js ./",
+    "prettier": "prettier -l *.{js,md,ts,json} **/*.{js,md,ts,json}",
+    "prettier-write": "npm run prettier -- --write",
     "test": "mocha --full-trace --ui tdd --bail --reporter spec tests/*.js"
   },
   "repository": {
@@ -26,13 +29,13 @@
   },
   "homepage": "https://github.com/vansergen/poloniex-node-api#readme",
   "dependencies": {
-    "mocha": "^6.1.4",
-    "nock": "^10.0.6",
     "request": "^2.88.0",
     "request-promise": "^4.2.4"
   },
   "devDependencies": {
     "eslint": "^6.0.1",
+    "mocha": "^6.1.4",
+    "nock": "^10.0.6",
     "prettier": "^1.18.2"
   }
 }

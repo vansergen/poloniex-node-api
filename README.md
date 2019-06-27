@@ -1,4 +1,4 @@
-# Poloniex Node.js API
+# Poloniex Node.js API [![CircleCI](https://circleci.com/gh/vansergen/poloniex-node-api.svg?style=svg)](https://circleci.com/gh/vansergen/poloniex-node-api) [![npm version](https://badge.fury.io/js/poloniex-node-api.svg)](https://badge.fury.io/js/poloniex-node-api)
 
 Node.js library for [Poloniex](https://docs.poloniex.com/).
 
