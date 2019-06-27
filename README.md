@@ -56,6 +56,23 @@ publicClient
   });
 ```
 
+- [`getTradeHistory`](https://docs.poloniex.com/?shell#returntradehistory-public)
+
+```javascript
+publicClient
+  .getTradeHistory({
+    currencyPair: 'USDT_BTC',
+    start: 1410158341,
+    end: 1410499372,
+  })
+  .then(data => {
+    console.log(data);
+  })
+  .catch(error => {
+    console.error(error);
+  });
+```
+
 - `get`
 
 ```javascript
