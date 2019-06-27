@@ -91,7 +91,7 @@ publicClient
   });
 ```
 
-- [`getCurrencies`](https://docs.poloniex.com/?shell#returnchartdata)
+- [`getCurrencies`](https://docs.poloniex.com/?shell#returncurrencies)
 
 ```javascript
 try {
@@ -102,17 +102,15 @@ try {
 }
 ```
 
-- `get`
+- [`getLoanOrders`](https://docs.poloniex.com/?shell#returnloanorders)
 
 ```javascript
-publicClient
-  .get({ command: 'returnCurrencies' })
-  .then(data => {
-    console.log(data);
-  })
-  .catch(error => {
-    console.error(error);
-  });
+try {
+  const loans = await publicClient.getLoanOrders({ currency: 'USDT' });
+  console.log(currencies);
+} catch (error) {
+  console.error(error);
+}
 ```
 
 - `request`
