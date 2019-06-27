@@ -4,7 +4,7 @@ shared: &shared
   steps:
     - run:
         name: 'Node.js version'
-        command: 'echo "node: $(node -v)""'
+        command: 'echo "node: $(node -v)"'
     - run:
         name: 'npm version'
         command: 'echo "npm: v$(npm -v)"'
