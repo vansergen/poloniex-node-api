@@ -42,6 +42,33 @@ suite('PublicClient', () => {
       });
   });
 
+  test('.cb()', () => {
+    const response = { response: 1 };
+    const options = { method: 'GET', url: EXCHANGE_API_URL + '/public' };
+    nock(EXCHANGE_API_URL)
+      .get('/public')
+      .times(2)
+      .reply(200, response);
+
+    const cbreq = new Promise((resolve, reject) => {
+      const callback = (error, data) => {
+        if (error) {
+          reject(error);
+        } else {
+          assert.deepEqual(data, response);
+          resolve(data);
+        }
+      };
+      publicClient.cb('request', callback, options);
+    });
+
+    const preq = publicClient
+      .request(options)
+      .then(data => assert.deepEqual(data, response))
+      .catch(error => assert.fail(error));
+    return Promise.all([cbreq, preq]);
+  });
+
   test('.getTickers()', done => {
     const tickers = {
       USDT_BTC: {

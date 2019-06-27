@@ -113,6 +113,19 @@ try {
 }
 ```
 
+- `cb`
+
+```javascript
+const callback = (error, data) => {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log(data);
+  }
+};
+publicClient.cb('getLoanOrders', callback, { currency: 'BTC' });
+```
+
 - `request`
 
 ```javascript
