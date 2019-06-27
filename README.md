@@ -145,6 +145,31 @@ publicClient
   });
 ```
 
+### AuthenticatedClient
+
+```javascript
+const key = 'poloniexapikey';
+const secret = 'poloniexapisecret';
+const Poloniex = require('poloniex-node-api');
+const AuthenticatedClient = new Poloniex.AuthenticatedClient({ key, secret });
+```
+
+- `post`
+
+```javascript
+AuthenticatedClient.post({ command: 'returnCompleteBalances' });
+```
+
+### SignRequest
+
+```javascript
+const Poloniex = require('poloniex-node-api');
+const auth = { key: 'apikey', secret: 'apisecret' };
+const data = { form: { command: 'returnBalances', nonce: 154264078495300 } };
+const { key, sign } = Poloniex.SignRequest(data);
+console.log(sign);
+```
+
 ### Test
 
 ```bash
