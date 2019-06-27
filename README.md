@@ -73,6 +73,24 @@ publicClient
   });
 ```
 
+- [`getChartData`](https://docs.poloniex.com/?shell#returnchartdata)
+
+```javascript
+publicClient
+  .getChartData({
+    currencyPair: 'BTC_XMR',
+    period: 14400,
+    start: 1546300800,
+    end: 1546646400,
+  })
+  .then(data => {
+    console.log(data);
+  })
+  .catch(error => {
+    console.error(error);
+  });
+```
+
 - `get`
 
 ```javascript
