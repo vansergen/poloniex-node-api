@@ -1,0 +1,33 @@
+{
+  "name": "poloniex-node-api",
+  "version": "0.1.0",
+  "description": "Poloniex Node.js API",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vansergen/poloniex-node-api.git"
+  },
+  "keywords": [
+    "Poloniex",
+    "crypto",
+    "exchange",
+    "API"
+  ],
+  "author": "Sergey Bakulin",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/vansergen/poloniex-node-api/issues"
+  },
+  "homepage": "https://github.com/vansergen/poloniex-node-api#readme",
+  "dependencies": {
+    "request": "^2.88.0",
+    "request-promise": "^4.2.4"
+  },
+  "devDependencies": {
+    "eslint": "^6.0.1",
+    "prettier": "^1.18.2"
+  }
+}
