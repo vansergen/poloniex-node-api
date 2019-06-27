@@ -43,6 +43,19 @@ publicClient
   });
 ```
 
+- [`getOrderBook`](https://docs.poloniex.com/?shell#returnorderbook)
+
+```javascript
+publicClient
+  .getOrderBook({ currencyPair: 'USDT_BTC', depth: 25 })
+  .then(data => {
+    console.log(data);
+  })
+  .catch(error => {
+    console.error(error);
+  });
+```
+
 - `get`
 
 ```javascript
