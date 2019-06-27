@@ -91,6 +91,17 @@ publicClient
   });
 ```
 
+- [`getCurrencies`](https://docs.poloniex.com/?shell#returnchartdata)
+
+```javascript
+try {
+  const currencies = await publicClient.getCurrencies();
+  console.log(currencies);
+} catch (error) {
+  console.error(error);
+}
+```
+
 - `get`
 
 ```javascript

@@ -306,4 +306,47 @@ suite('PublicClient', () => {
       })
       .catch(error => assert.fail(error));
   });
+
+  test('.getCurrencies()', done => {
+    const currencies = {
+      BTC: {
+        id: 28,
+        name: 'Bitcoin',
+        humanType: 'BTC Clone',
+        currencyType: 'address',
+        txFee: '0.00050000',
+        minConf: 1,
+        depositAddress: null,
+        disabled: 0,
+        delisted: 0,
+        frozen: 0,
+        isGeofenced: 0,
+      },
+      USDT: {
+        id: 214,
+        name: 'Tether USD',
+        humanType: 'Sweep to Main Account',
+        currencyType: 'address',
+        txFee: '10.00000000',
+        minConf: 2,
+        depositAddress: null,
+        disabled: 0,
+        delisted: 0,
+        frozen: 0,
+        isGeofenced: 0,
+      },
+    };
+    nock(EXCHANGE_API_URL)
+      .get('/public?command=returnCurrencies')
+      .times(1)
+      .reply(200, currencies);
+
+    publicClient
+      .getCurrencies()
+      .then(data => {
+        assert.deepEqual(data, currencies);
+        done();
+      })
+      .catch(error => assert.fail(error));
+  });
 });
