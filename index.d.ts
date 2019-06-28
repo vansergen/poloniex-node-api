@@ -28,6 +28,19 @@ declare module 'poloniex' {
     [currency: string]: string | Volume;
   };
 
+  export type OrderBookInfo = {
+    asks: [string, number][];
+    bids: [string, number][];
+    isFrozen: string;
+    seq: number;
+  };
+
+  export type OrderBooksInfo = {
+    [currency: string]: OrderBookInfo;
+  };
+
+  export type OrderBook = OrderBookInfo | OrderBooksInfo;
+
   export type getOptions = {
     command: string;
   };
@@ -40,6 +53,14 @@ declare module 'poloniex' {
       nonce: number;
     } & getOptions;
   };
+
+  export type CurrencyFilter = {
+    currencyPair?: string;
+  };
+
+  export type BookFilter = {
+    depth?: number;
+  } & CurrencyFilter;
 
   export type PublicClientOptions = {
     currencyPair?: string;
@@ -73,7 +94,7 @@ declare module 'poloniex' {
 
     getVolume(): Promise<Volumes>;
 
-    getOrderBook(options?: any): Promise<any>;
+    getOrderBook(options?: BookFilter): Promise<OrderBook>;
 
     getTradeHistory(options?: any): Promise<any[]>;
 
