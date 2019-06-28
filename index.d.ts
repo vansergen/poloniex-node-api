@@ -63,6 +63,24 @@ declare module 'poloniex' {
     weightedAverage: number;
   };
 
+  export type CurrencyInfo = {
+    id: number;
+    name: string;
+    humanType: string;
+    currencyType: string;
+    txFee: string;
+    minConf: number;
+    depositAddress: null | string;
+    disabled: 0 | 1;
+    delisted: 0 | 1;
+    frozen: 0 | 1;
+    isGeofenced: 0 | 1;
+  };
+
+  export type Currencies = {
+    [currency: string]: CurrencyInfo;
+  };
+
   export type getOptions = {
     command: string;
   };
@@ -138,7 +156,7 @@ declare module 'poloniex' {
 
     getChartData(options: ChartFilter): Promise<Candle[]>;
 
-    getCurrencies(): Promise<any>;
+    getCurrencies(): Promise<Currencies>;
 
     getLoanOrders(options: any): Promise<any>;
   }
