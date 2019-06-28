@@ -130,6 +130,10 @@ declare module 'poloniex' {
     period: 300 | 900 | 1800 | 7200 | 14400 | 86400;
   } & TimeFilter;
 
+  export type Balances = {
+    [currency: string]: string;
+  };
+
   export type PublicClientOptions = {
     currencyPair?: string;
     api_uri?: string;
@@ -178,7 +182,7 @@ declare module 'poloniex' {
 
     post(options: getOptions): Promise<any>;
 
-    getBalances(): Promise<any>;
+    getBalances(): Promise<Balances>;
 
     getCompleteBalances(options?: any): Promise<any>;
 
