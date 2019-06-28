@@ -180,6 +180,15 @@ const addresses = await AuthenticatedClient.getDepositAddresses();
 const addresses = await AuthenticatedClient.getNewAddress({ currency: 'ZEC' });
 ```
 
+- [`getDepositsWithdrawals`](https://docs.poloniex.com/?shell#returndepositswithdrawals)
+
+```javascript
+const addresses = await AuthenticatedClient.getDepositsWithdrawals({
+  start: 1539954535,
+  end: 1540314535,
+});
+```
+
 - `post`
 
 ```javascript
