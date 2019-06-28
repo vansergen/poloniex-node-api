@@ -221,6 +221,11 @@ declare module 'poloniex' {
       }
     | Order[];
 
+  export type TradePrivate = {
+    fee: string;
+    category: 'exchange' | 'margin';
+  } & Trade;
+
   export type WsRawMessage = Array<any>;
 
   export namespace WebsocketMessage {
@@ -378,6 +383,8 @@ declare module 'poloniex' {
     getDepositsWithdrawals(options: TimeFilter): Promise<DepositsWithdrawals>;
 
     getOpenOrders(options?: CurrencyPairFilter): Promise<Orders>;
+
+    getHistoryTrades(options?: CurrencyPairFilter): Promise<TradePrivate[]>;
   }
 
   export class WebsocketClient extends EventEmitter {

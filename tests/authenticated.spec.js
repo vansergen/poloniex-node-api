@@ -244,4 +244,38 @@ suite('AuthenticatedClient', () => {
       })
       .catch(error => assert.fail(error));
   });
+
+  test('.getHistoryTrades()', done => {
+    const trades = [
+      {
+        globalTradeID: 394700861,
+        tradeID: 45210354,
+        date: '2018-10-23 18:01:58',
+        type: 'buy',
+        rate: '0.03117266',
+        amount: '0.00000652',
+        total: '0.00000020',
+        orderNumber: '104768235093',
+      },
+    ];
+    const nonce = 1560742707669;
+    authClient.nonce = () => nonce;
+
+    nock(EXCHANGE_API_URL)
+      .post('/tradingApi', {
+        command: 'returnTradeHistory',
+        currencyPair: 'all',
+        nonce: nonce,
+      })
+      .times(1)
+      .reply(200, trades);
+
+    authClient
+      .getHistoryTrades()
+      .then(data => {
+        assert.deepEqual(data, trades);
+        done();
+      })
+      .catch(error => assert.fail(error));
+  });
 });

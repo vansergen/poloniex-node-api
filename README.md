@@ -197,6 +197,14 @@ const orders = await AuthenticatedClient.getOpenOrders({
 });
 ```
 
+- [`getHistoryTrades`](https://docs.poloniex.com/?shell#returntradehistory-private)
+
+```javascript
+const trades = await AuthenticatedClient.getHistoryTrades({
+  currencyPair: 'BTC_ETC',
+});
+```
+
 - `post`
 
 ```javascript
