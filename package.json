@@ -31,7 +31,8 @@
   "homepage": "https://github.com/vansergen/poloniex-node-api#readme",
   "dependencies": {
     "request": "^2.88.0",
-    "request-promise": "^4.2.4"
+    "request-promise": "^4.2.4",
+    "ws": "^7.0.1"
   },
   "devDependencies": {
     "eslint": "^6.0.1",
