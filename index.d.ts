@@ -205,6 +205,10 @@ declare module 'poloniex' {
     adjustments: Adjustment[];
   };
 
+  export type SubscriptionOptions = {
+    channel_id: string | number;
+  };
+
   export type PublicClientOptions = {
     currencyPair?: string;
     api_uri?: string;
@@ -276,7 +280,7 @@ declare module 'poloniex' {
     connect(): void;
     disconnect(): void;
 
-    subscribe(options: any): void;
-    unsubscribe(options: any): void;
+    subscribe(options: SubscriptionOptions): void;
+    unsubscribe(options: SubscriptionOptions): void;
   }
 }
