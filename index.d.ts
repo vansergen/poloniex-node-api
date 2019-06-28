@@ -148,6 +148,9 @@ declare module 'poloniex' {
     [currency: string]: CompleteBalance;
   };
 
+  export type Adresses = {
+    [currency: string]: string;
+  };
   export type PublicClientOptions = {
     currencyPair?: string;
     api_uri?: string;
@@ -200,7 +203,7 @@ declare module 'poloniex' {
 
     getCompleteBalances(options?: AccountFilter): Promise<CompleteBalances>;
 
-    getDepositAddresses(): Promise<any>;
+    getDepositAddresses(): Promise<Adresses>;
 
     getNewAddress(options: any): Promise<any>;
 
