@@ -95,6 +95,41 @@ suite('AuthenticatedClient', () => {
       .catch(error => assert.fail(error));
   });
 
+  test('.getCompleteBalances() (with parameters)', done => {
+    const options = { account: 'all' };
+    const balances = {
+      BTC: {
+        available: '0.00000000',
+        onOrders: '0.00000000',
+        btcValue: '0.00000000',
+      },
+      USDT: {
+        available: '0.00000000',
+        onOrders: '0.00000000',
+        btcValue: '0.00000000',
+      },
+    };
+    const nonce = 1560742707669;
+    authClient.nonce = () => nonce;
+
+    nock(EXCHANGE_API_URL)
+      .post('/tradingApi', {
+        command: 'returnCompleteBalances',
+        account: 'all',
+        nonce: nonce,
+      })
+      .times(1)
+      .reply(200, balances);
+
+    authClient
+      .getCompleteBalances(options)
+      .then(data => {
+        assert.deepEqual(data, balances);
+        done();
+      })
+      .catch(error => assert.fail(error));
+  });
+
   test('.getDepositAddresses()', done => {
     const addresses = {
       BCH: '1FhCkdKeMGa621mCpAtFYzeVfUBnHbooLj',
@@ -112,6 +147,33 @@ suite('AuthenticatedClient', () => {
       .getDepositAddresses()
       .then(data => {
         assert.deepEqual(data, addresses);
+        done();
+      })
+      .catch(error => assert.fail(error));
+  });
+
+  test('.getNewAddress()', done => {
+    const options = { currency: 'ETH' };
+    const address = {
+      success: 1,
+      response: '0xa6f0dacc33c7f63e137e0106ed71cc20b4b931af',
+    };
+    const nonce = 1560742707669;
+    authClient.nonce = () => nonce;
+
+    nock(EXCHANGE_API_URL)
+      .post('/tradingApi', {
+        command: 'generateNewAddress',
+        nonce: nonce,
+        currency: 'ETH',
+      })
+      .times(1)
+      .reply(200, address);
+
+    authClient
+      .getNewAddress(options)
+      .then(data => {
+        assert.deepEqual(data, address);
         done();
       })
       .catch(error => assert.fail(error));

@@ -174,6 +174,12 @@ const balances = await AuthenticatedClient.getCompleteBalances({
 const addresses = await AuthenticatedClient.getDepositAddresses();
 ```
 
+- [`getDepositAddresses`](https://docs.poloniex.com/?shell#generatenewaddress)
+
+```javascript
+const addresses = await AuthenticatedClient.getNewAddress({ currency: 'ZEC' });
+```
+
 - `post`
 
 ```javascript
