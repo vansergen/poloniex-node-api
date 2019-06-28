@@ -134,6 +134,10 @@ declare module 'poloniex' {
     account?: string;
   };
 
+  export type CurrencyFilter = {
+    currency: string;
+  };
+
   export type Balances = {
     [currency: string]: string;
   };
@@ -151,6 +155,12 @@ declare module 'poloniex' {
   export type Adresses = {
     [currency: string]: string;
   };
+
+  export type NewAddress = {
+    success: 0 | 1;
+    response: string;
+  };
+
   export type PublicClientOptions = {
     currencyPair?: string;
     api_uri?: string;
@@ -205,7 +215,7 @@ declare module 'poloniex' {
 
     getDepositAddresses(): Promise<Adresses>;
 
-    getNewAddress(options: any): Promise<any>;
+    getNewAddress(options: CurrencyFilter): Promise<NewAddress>;
 
     getDepositsWithdrawals(options: any): Promise<any>;
   }
