@@ -81,6 +81,18 @@ declare module 'poloniex' {
     [currency: string]: CurrencyInfo;
   };
 
+  export type Loan = {
+    rate: string;
+    amount: string;
+    rangeMin: number;
+    rangeMax: number;
+  };
+
+  export type Loans = {
+    offers: Loan[];
+    demands: Loan[];
+  };
+
   export type getOptions = {
     command: string;
   };
@@ -158,7 +170,7 @@ declare module 'poloniex' {
 
     getCurrencies(): Promise<Currencies>;
 
-    getLoanOrders(options: any): Promise<any>;
+    getLoanOrders(options: CurrencyFilter): Promise<Loans>;
   }
 
   export class AuthenticatedClient {
