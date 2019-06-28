@@ -205,6 +205,8 @@ declare module 'poloniex' {
     adjustments: Adjustment[];
   };
 
+  export type WsRawMessage = Array<any>;
+
   export type SubscriptionOptions = {
     channel_id: string | number;
   };
@@ -275,7 +277,7 @@ declare module 'poloniex' {
     on(event: 'close', eventHandler: () => void): this;
     on(event: 'error', eventHandler: (error: any) => void): this;
     on(event: 'message', eventHandler: (data: any) => void): this;
-    on(event: 'raw', eventHandler: (data: any) => void): this;
+    on(event: 'raw', eventHandler: (data: WsRawMessage) => void): this;
 
     connect(): void;
     disconnect(): void;
