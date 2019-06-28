@@ -154,10 +154,91 @@ const Poloniex = require('poloniex-node-api');
 const AuthenticatedClient = new Poloniex.AuthenticatedClient({ key, secret });
 ```
 
+- [`getBalances`](https://docs.poloniex.com/?shell#returnbalances)
+
+```javascript
+const balances = await AuthenticatedClient.getBalances();
+```
+
+- [`getCompleteBalances`](https://docs.poloniex.com/?shell#returncompletebalances)
+
+```javascript
+const balances = await AuthenticatedClient.getCompleteBalances({
+  account: 'all',
+});
+```
+
+- [`getDepositAddresses`](https://docs.poloniex.com/?shell#returndepositaddresses)
+
+```javascript
+const addresses = await AuthenticatedClient.getDepositAddresses();
+```
+
+- [`getDepositAddresses`](https://docs.poloniex.com/?shell#generatenewaddress)
+
+```javascript
+const addresses = await AuthenticatedClient.getNewAddress({ currency: 'ZEC' });
+```
+
+- [`getDepositsWithdrawals`](https://docs.poloniex.com/?shell#returndepositswithdrawals)
+
+```javascript
+const addresses = await AuthenticatedClient.getDepositsWithdrawals({
+  start: 1539954535,
+  end: 1540314535,
+});
+```
+
 - `post`
 
 ```javascript
 AuthenticatedClient.post({ command: 'returnCompleteBalances' });
+```
+
+### WebsocketClient
+
+```javascript
+const key = 'poloniexapikey';
+const secret = 'poloniexapisecret';
+const channels = [1000, 'BTC_DOGE'];
+const Poloniex = require('poloniex-node-api');
+const websocket = new Poloniex.WebsocketClient({ key, secret, channels });
+websocket.on('open', () => {
+  console.log('open');
+});
+websocket.on('close', () => {
+  console.log('close');
+});
+websocket.on('error', error => {
+  console.error(error);
+});
+websocket.on('message', message => {
+  console.log(message);
+});
+```
+
+- `connect`
+
+```javascript
+websocket.connect();
+```
+
+- `disconnect`
+
+```javascript
+websocket.disconnect();
+```
+
+- `subscribe`
+
+```javascript
+websocket.subscribe(1003);
+```
+
+- `unsubscribe`
+
+```javascript
+websocket.unsubscribe('BTC_ZEC');
 ```
 
 ### SignRequest
