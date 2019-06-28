@@ -183,9 +183,17 @@ const addresses = await AuthenticatedClient.getNewAddress({ currency: 'ZEC' });
 - [`getDepositsWithdrawals`](https://docs.poloniex.com/?shell#returndepositswithdrawals)
 
 ```javascript
-const addresses = await AuthenticatedClient.getDepositsWithdrawals({
+const deposits_withdrawals = await AuthenticatedClient.getDepositsWithdrawals({
   start: 1539954535,
   end: 1540314535,
+});
+```
+
+- [`getOpenOrders`](https://docs.poloniex.com/?shell#returnopenorders)
+
+```javascript
+const orders = await AuthenticatedClient.getOpenOrders({
+  currencyPair: 'BTC_DASH',
 });
 ```
 
