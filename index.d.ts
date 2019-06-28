@@ -106,19 +106,18 @@ declare module 'poloniex' {
     } & getOptions;
   };
 
-  export type CurrencyFilter = {
+  export type CurrencyPairFilter = {
     currencyPair?: string;
   };
 
   export type BookFilter = {
     depth?: number;
-  } & CurrencyFilter;
+  } & CurrencyPairFilter;
 
   export type TradesFilter = {
-    currencyPair?: string;
     start?: number;
     end?: number;
-  };
+  } & CurrencyPairFilter;
 
   export type TimeFilter = {
     start: number;
@@ -126,9 +125,9 @@ declare module 'poloniex' {
   };
 
   export type ChartFilter = {
-    currencyPair?: string;
     period: 300 | 900 | 1800 | 7200 | 14400 | 86400;
-  } & TimeFilter;
+  } & TimeFilter &
+    CurrencyPairFilter;
 
   export type AccountFilter = {
     account?: string;
@@ -204,6 +203,23 @@ declare module 'poloniex' {
     withdrawals: Withdrawal[];
     adjustments: Adjustment[];
   };
+
+  export type Order = {
+    orderNumber: string;
+    type: 'sell' | 'buy';
+    rate: string;
+    startingAmount: string;
+    amount: string;
+    total: string;
+    date: string;
+    margin: 0 | 1;
+  };
+
+  export type Orders =
+    | {
+        [currencyPair: string]: Order[];
+      }
+    | Order[];
 
   export type WsRawMessage = Array<any>;
 
@@ -360,6 +376,8 @@ declare module 'poloniex' {
     getNewAddress(options: CurrencyFilter): Promise<NewAddress>;
 
     getDepositsWithdrawals(options: TimeFilter): Promise<DepositsWithdrawals>;
+
+    getOpenOrders(options?: CurrencyPairFilter): Promise<Orders>;
   }
 
   export class WebsocketClient extends EventEmitter {
