@@ -11,7 +11,7 @@ declare module 'poloniex' {
     percentChange: string;
     baseVolume: string;
     quoteVolume: string;
-    isFrozen: string;
+    isFrozen: string | 0 | 1;
     high24hr: string;
     low24hr: string;
   };
@@ -207,6 +207,98 @@ declare module 'poloniex' {
 
   export type WsRawMessage = Array<any>;
 
+  export namespace WebsocketMessage {
+    type Message = {
+      channel_id: string | number;
+      sequence: number | null;
+    };
+    export type Heartbeat = {
+      subject: 'heartbeat';
+    } & Message;
+
+    export type Subscribe = {
+      subject: 'subscribed' | 'unsubscribed';
+    } & Message;
+
+    export type Ticker = {
+      subject: 'ticker';
+      currencyPair: string | undefined;
+    } & TickerInfo &
+      Message;
+
+    export type WSVolume = {
+      subject: 'volume';
+      time: string;
+      users: number;
+      volume: Volume;
+    };
+
+    export type Update = {
+      subject: 'update';
+      type: 'buy' | 'sell';
+      price: string;
+      size: string;
+    } & Message;
+
+    export type Snapshot = {
+      subject: 'snapshot';
+      currencyPair: string;
+      asks: {
+        [price: string]: string;
+      };
+      bids: {
+        [price: string]: string;
+      };
+    } & Message;
+
+    export type WSTrade = {
+      subject: 'trade';
+      tradeID: string;
+      type: 'buy' | 'sell';
+      price: string;
+      size: string;
+      timestamp: number;
+    } & Message;
+
+    export type Balance = {
+      subject: 'balance';
+      id: number;
+      currencyPair: string | undefined;
+      wallet: 'e' | 'm' | 'l';
+      amount: string;
+    } & Message;
+
+    export type New = {
+      subject: 'new';
+      id: number;
+      currencyPair: string | undefined;
+      orderNumber: number;
+      type: 'buy' | 'sell';
+      rate: string;
+      amount: string;
+      date: string;
+    } & Message;
+
+    export type WSOrder = {
+      subject: 'order';
+      orderNumber: number;
+      newAmount: string;
+      orderType: 'filled' | 'canceled' | 'self-trade';
+    } & Message;
+  }
+
+  export type WebsocketMessage =
+    | WebsocketMessage.Heartbeat
+    | WebsocketMessage.Subscribe
+    | WebsocketMessage.Ticker
+    | WebsocketMessage.WSVolume
+    | WebsocketMessage.Update
+    | WebsocketMessage.Snapshot
+    | WebsocketMessage.WSTrade
+    | WebsocketMessage.Balance
+    | WebsocketMessage.New
+    | WebsocketMessage.WSOrder;
+
   export type SubscriptionOptions = {
     channel_id: string | number;
   };
@@ -273,10 +365,10 @@ declare module 'poloniex' {
   export class WebsocketClient extends EventEmitter {
     constructor(options?: WebsocketClientOptions);
 
+    on(event: 'message', eventHandler: (data: WebsocketMessage) => void): this;
     on(event: 'open', eventHandler: () => void): this;
     on(event: 'close', eventHandler: () => void): this;
     on(event: 'error', eventHandler: (error: any) => void): this;
-    on(event: 'message', eventHandler: (data: any) => void): this;
     on(event: 'raw', eventHandler: (data: WsRawMessage) => void): this;
 
     connect(): void;
