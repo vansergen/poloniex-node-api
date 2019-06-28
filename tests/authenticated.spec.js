@@ -221,4 +221,27 @@ suite('AuthenticatedClient', () => {
       })
       .catch(error => assert.fail(error));
   });
+
+  test('.getOpenOrders()', done => {
+    const orders = [];
+    const nonce = 1560742707669;
+    authClient.nonce = () => nonce;
+
+    nock(EXCHANGE_API_URL)
+      .post('/tradingApi', {
+        command: 'returnOpenOrders',
+        currencyPair: 'all',
+        nonce: nonce,
+      })
+      .times(1)
+      .reply(200, orders);
+
+    authClient
+      .getOpenOrders()
+      .then(data => {
+        assert.deepEqual(data, orders);
+        done();
+      })
+      .catch(error => assert.fail(error));
+  });
 });
