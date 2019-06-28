@@ -64,4 +64,34 @@ suite('AuthenticatedClient', () => {
       })
       .catch(error => assert.fail(error));
   });
+
+  test('.getCompleteBalances()', done => {
+    const balances = {
+      BTC: {
+        available: '0.00000000',
+        onOrders: '0.00000000',
+        btcValue: '0.00000000',
+      },
+      USDT: {
+        available: '0.00000000',
+        onOrders: '0.00000000',
+        btcValue: '0.00000000',
+      },
+    };
+    const nonce = 1560742707669;
+    authClient.nonce = () => nonce;
+
+    nock(EXCHANGE_API_URL)
+      .post('/tradingApi', { command: 'returnCompleteBalances', nonce: nonce })
+      .times(1)
+      .reply(200, balances);
+
+    authClient
+      .getCompleteBalances()
+      .then(data => {
+        assert.deepEqual(data, balances);
+        done();
+      })
+      .catch(error => assert.fail(error));
+  });
 });

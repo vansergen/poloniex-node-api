@@ -160,6 +160,14 @@ const AuthenticatedClient = new Poloniex.AuthenticatedClient({ key, secret });
 const balances = await AuthenticatedClient.getBalances();
 ```
 
+- [`getCompleteBalances`](https://docs.poloniex.com/?shell#returncompletebalances)
+
+```javascript
+const balances = await AuthenticatedClient.getCompleteBalances({
+  account: 'all',
+});
+```
+
 - `post`
 
 ```javascript
