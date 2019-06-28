@@ -20,6 +20,14 @@ declare module 'poloniex' {
     [currency: string]: TickerInfo;
   };
 
+  export type Volume = {
+    [currency: string]: string;
+  };
+
+  export type Volumes = {
+    [currency: string]: string | Volume;
+  };
+
   export type getOptions = {
     command: string;
   };
@@ -63,7 +71,7 @@ declare module 'poloniex' {
 
     getTickers(): Promise<Tickers>;
 
-    getVolume(): Promise<any>;
+    getVolume(): Promise<Volumes>;
 
     getOrderBook(options?: any): Promise<any>;
 
