@@ -7,6 +7,10 @@
     "lib": "lib",
     "test": "tests"
   },
+  "engines": {
+    "node": "^10.16.0"
+  },
+  "types": "index.d.ts",
   "scripts": {
     "lint": "eslint --ext .js ./",
     "prettier": "prettier -l *.{js,md,ts,json} **/*.{js,md,ts,json}",
