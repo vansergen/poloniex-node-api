@@ -3,6 +3,36 @@ import { EventEmitter } from 'events';
 declare module 'poloniex' {
   export type callback<T> = (error: any, data: T) => void;
 
+  export type TickerInfo = {
+    id: number;
+    last: string;
+    lowestAsk: string;
+    highestBid: string;
+    percentChange: string;
+    baseVolume: string;
+    quoteVolume: string;
+    isFrozen: string;
+    high24hr: string;
+    low24hr: string;
+  };
+
+  export type Tickers = {
+    [currency: string]: TickerInfo;
+  };
+
+  export type getOptions = {
+    command: string;
+  };
+
+  export type requestOptions = {
+    method: 'GET' | 'POST';
+    url: string;
+    qs?: getOptions;
+    form?: {
+      nonce: number;
+    } & getOptions;
+  };
+
   export type PublicClientOptions = {
     currencyPair?: string;
     api_uri?: string;
@@ -25,13 +55,13 @@ declare module 'poloniex' {
   export class PublicClient {
     constructor(options?: PublicClientOptions);
 
-    get(options: any);
+    get(options: getOptions): Promise<any>;
 
-    request(options: any);
+    request(options: requestOptions): Promise<any>;
 
     cb(method: string, callback: callback<any>, options?: any);
 
-    getTickers(): Promise<any>;
+    getTickers(): Promise<Tickers>;
 
     getVolume(): Promise<any>;
 
@@ -49,7 +79,7 @@ declare module 'poloniex' {
   export class AuthenticatedClient {
     constructor(options: AuthenticatedClientOptions);
 
-    post(options: any);
+    post(options: getOptions): Promise<any>;
 
     getBalances(): Promise<any>;
 
