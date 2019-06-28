@@ -52,6 +52,17 @@ declare module 'poloniex' {
     orderNumber: number;
   };
 
+  export type Candle = {
+    date: number;
+    high: number;
+    low: number;
+    open: number;
+    close: number;
+    volume: number;
+    quoteVolume: number;
+    weightedAverage: number;
+  };
+
   export type getOptions = {
     command: string;
   };
@@ -78,6 +89,16 @@ declare module 'poloniex' {
     start?: number;
     end?: number;
   };
+
+  export type TimeFilter = {
+    start: number;
+    end: number;
+  };
+
+  export type ChartFilter = {
+    currencyPair?: string;
+    period: 300 | 900 | 1800 | 7200 | 14400 | 86400;
+  } & TimeFilter;
 
   export type PublicClientOptions = {
     currencyPair?: string;
@@ -115,7 +136,7 @@ declare module 'poloniex' {
 
     getTradeHistory(options?: TradesFilter): Promise<Trade[]>;
 
-    getChartData(options: any): Promise<any[]>;
+    getChartData(options: ChartFilter): Promise<Candle[]>;
 
     getCurrencies(): Promise<any>;
 
