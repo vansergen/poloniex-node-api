@@ -161,6 +161,50 @@ declare module 'poloniex' {
     response: string;
   };
 
+  export type Adjustment = {
+    currency: string;
+    amount: string;
+    timestamp: number;
+    status: string;
+    category: 'adjustment';
+    adjustmentTitle: string;
+    adjustmentDesc: string;
+    adjustmentHelp: string;
+  };
+
+  export type Withdrawal = {
+    withdrawalNumber: number;
+    currency: string;
+    address: string;
+    amount: string;
+    fee: string;
+    timestamp: number;
+    status: string;
+    ipAddress: string;
+    paymentID: string;
+    canCancel: 0 | 1;
+    canResendEmail: 0 | 1;
+    paymentID: null | string;
+  };
+
+  export type Deposit = {
+    currency: string;
+    address: string;
+    amount: string;
+    confirmations: number;
+    txid: string;
+    timestamp: number;
+    status: 'PENDING' | 'COMPLETE';
+    depositNumber: number;
+    category: 'deposit';
+  };
+
+  export type DepositsWithdrawals = {
+    deposits: Deposit[];
+    withdrawals: Withdrawal[];
+    adjustments: Adjustment[];
+  };
+
   export type PublicClientOptions = {
     currencyPair?: string;
     api_uri?: string;
@@ -217,7 +261,7 @@ declare module 'poloniex' {
 
     getNewAddress(options: CurrencyFilter): Promise<NewAddress>;
 
-    getDepositsWithdrawals(options: any): Promise<any>;
+    getDepositsWithdrawals(options: TimeFilter): Promise<DepositsWithdrawals>;
   }
 
   export class WebsocketClient extends EventEmitter {
