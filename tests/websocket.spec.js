@@ -5,7 +5,7 @@ const Poloniex = require('../index.js');
 
 const { EXCHANGE_WS_URL, DEFAULT_CHANNELS } = require('../lib/utilities');
 
-const port = 56362;
+const port = 56365;
 
 suite('WebsocketClient', () => {
   test('.constructor()', () => {
@@ -150,7 +150,6 @@ suite('WebsocketClient', () => {
       client.once('error', err => {
         assert.deepEqual(err.message, 'error message');
         assert.deepEqual(err.reason, 'error reason');
-        server.close();
         done();
       });
       client.connect();
@@ -164,6 +163,9 @@ suite('WebsocketClient', () => {
           reason: 'error reason',
         })
       );
+      socket.on('message', () => {
+        server.close();
+      });
     });
   });
 });
