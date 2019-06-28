@@ -94,4 +94,26 @@ suite('AuthenticatedClient', () => {
       })
       .catch(error => assert.fail(error));
   });
+
+  test('.getDepositAddresses()', done => {
+    const addresses = {
+      BCH: '1FhCkdKeMGa621mCpAtFYzeVfUBnHbooLj',
+      BTC: '131rdg5Rzn6BFufnnQaHhVa5ZtRU1J2EZR',
+    };
+    const nonce = 1560742707669;
+    authClient.nonce = () => nonce;
+
+    nock(EXCHANGE_API_URL)
+      .post('/tradingApi', { command: 'returnDepositAddresses', nonce: nonce })
+      .times(1)
+      .reply(200, addresses);
+
+    authClient
+      .getDepositAddresses()
+      .then(data => {
+        assert.deepEqual(data, addresses);
+        done();
+      })
+      .catch(error => assert.fail(error));
+  });
 });

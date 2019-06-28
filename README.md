@@ -168,6 +168,12 @@ const balances = await AuthenticatedClient.getCompleteBalances({
 });
 ```
 
+- [`getDepositAddresses`](https://docs.poloniex.com/?shell#returndepositaddresses)
+
+```javascript
+const addresses = await AuthenticatedClient.getDepositAddresses();
+```
+
 - `post`
 
 ```javascript
