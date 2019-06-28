@@ -41,6 +41,17 @@ declare module 'poloniex' {
 
   export type OrderBook = OrderBookInfo | OrderBooksInfo;
 
+  export type Trade = {
+    globalTradeID: number;
+    tradeID: number;
+    date: string;
+    type: 'buy' | 'sell';
+    rate: string;
+    amount: string;
+    total: string;
+    orderNumber: number;
+  };
+
   export type getOptions = {
     command: string;
   };
@@ -61,6 +72,12 @@ declare module 'poloniex' {
   export type BookFilter = {
     depth?: number;
   } & CurrencyFilter;
+
+  export type TradesFilter = {
+    currencyPair?: string;
+    start?: number;
+    end?: number;
+  };
 
   export type PublicClientOptions = {
     currencyPair?: string;
@@ -96,7 +113,7 @@ declare module 'poloniex' {
 
     getOrderBook(options?: BookFilter): Promise<OrderBook>;
 
-    getTradeHistory(options?: any): Promise<any[]>;
+    getTradeHistory(options?: TradesFilter): Promise<Trade[]>;
 
     getChartData(options: any): Promise<any[]>;
 
