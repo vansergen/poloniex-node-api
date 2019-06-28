@@ -3,8 +3,27 @@ import { EventEmitter } from 'events';
 declare module 'poloniex' {
   export type callback<T> = (error: any, data: T) => void;
 
+  export type PublicClientOptions = {
+    currencyPair?: string;
+    api_uri?: string;
+    timeout?: number;
+  };
+
+  export type AuthenticatedClientOptions = {
+    key: string;
+    secret: number;
+  } & PublicClientOptions;
+
+  export type WebsocketClientOptions = {
+    api_uri?: string;
+    raw?: boolean;
+    channels?: string | number | Array<string | number>;
+    key?: string;
+    secret?: string;
+  };
+
   export class PublicClient {
-    constructor(options?: any);
+    constructor(options?: PublicClientOptions);
 
     get(options: any);
 
@@ -28,7 +47,7 @@ declare module 'poloniex' {
   }
 
   export class AuthenticatedClient {
-    constructor(options: any);
+    constructor(options: AuthenticatedClientOptions);
 
     post(options: any);
 
@@ -44,7 +63,7 @@ declare module 'poloniex' {
   }
 
   export class WebsocketClient extends EventEmitter {
-    constructor(options?: any);
+    constructor(options?: WebsocketClientOptions);
 
     on(event: 'open', eventHandler: () => void): this;
     on(event: 'close', eventHandler: () => void): this;
