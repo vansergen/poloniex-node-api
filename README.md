@@ -154,6 +154,12 @@ const Poloniex = require('poloniex-node-api');
 const AuthenticatedClient = new Poloniex.AuthenticatedClient({ key, secret });
 ```
 
+- [`getBalances`](https://docs.poloniex.com/?shell#returnbalances)
+
+```javascript
+const balances = await AuthenticatedClient.getBalances();
+```
+
 - `post`
 
 ```javascript

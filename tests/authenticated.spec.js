@@ -2,9 +2,15 @@ const assert = require('assert');
 const nock = require('nock');
 
 const Poloniex = require('../index.js');
+const { EXCHANGE_API_URL } = require('../lib/utilities');
 
 const key = 'poloniex-api-key';
 const secret = 'poloniex-api-secret';
+
+const authClient = new Poloniex.AuthenticatedClient({
+  key: key,
+  secret: secret,
+});
 
 suite('AuthenticatedClient', () => {
   teardown(() => nock.cleanAll());
@@ -35,5 +41,27 @@ suite('AuthenticatedClient', () => {
     assert.deepEqual(client.currencyPair, 'BTC_ETH');
     assert.deepEqual(client.api_uri, newApi);
     assert.deepEqual(client.timeout, newTimeout);
+  });
+
+  test('.getBalances()', done => {
+    const balances = {
+      BTC: '1.23456789',
+      DASH: '0.00000000',
+    };
+    const nonce = 1560742707669;
+    authClient.nonce = () => nonce;
+
+    nock(EXCHANGE_API_URL)
+      .post('/tradingApi', { command: 'returnBalances', nonce: nonce })
+      .times(1)
+      .reply(200, balances);
+
+    authClient
+      .getBalances()
+      .then(data => {
+        assert.deepEqual(data, balances);
+        done();
+      })
+      .catch(error => assert.fail(error));
   });
 });
