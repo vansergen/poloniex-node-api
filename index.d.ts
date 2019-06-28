@@ -130,8 +130,22 @@ declare module 'poloniex' {
     period: 300 | 900 | 1800 | 7200 | 14400 | 86400;
   } & TimeFilter;
 
+  export type AccountFilter = {
+    account?: string;
+  };
+
   export type Balances = {
     [currency: string]: string;
+  };
+
+  export type CompleteBalance = {
+    available: string;
+    onOrders: string;
+    btcValue: string;
+  };
+
+  export type CompleteBalances = {
+    [currency: string]: CompleteBalance;
   };
 
   export type PublicClientOptions = {
@@ -184,7 +198,7 @@ declare module 'poloniex' {
 
     getBalances(): Promise<Balances>;
 
-    getCompleteBalances(options?: any): Promise<any>;
+    getCompleteBalances(options?: AccountFilter): Promise<CompleteBalances>;
 
     getDepositAddresses(): Promise<any>;
 
