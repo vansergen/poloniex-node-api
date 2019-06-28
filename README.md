@@ -195,6 +195,52 @@ const addresses = await AuthenticatedClient.getDepositsWithdrawals({
 AuthenticatedClient.post({ command: 'returnCompleteBalances' });
 ```
 
+### WebsocketClient
+
+```javascript
+const key = 'poloniexapikey';
+const secret = 'poloniexapisecret';
+const channels = [1000, 'BTC_DOGE'];
+const Poloniex = require('poloniex-node-api');
+const websocket = new Poloniex.WebsocketClient({ key, secret, channels });
+websocket.on('open', () => {
+  console.log('open');
+});
+websocket.on('close', () => {
+  console.log('close');
+});
+websocket.on('error', error => {
+  console.error(error);
+});
+websocket.on('message', message => {
+  console.log(message);
+});
+```
+
+- `connect`
+
+```javascript
+websocket.connect();
+```
+
+- `disconnect`
+
+```javascript
+websocket.disconnect();
+```
+
+- `subscribe`
+
+```javascript
+websocket.subscribe(1003);
+```
+
+- `unsubscribe`
+
+```javascript
+websocket.unsubscribe('BTC_ZEC');
+```
+
 ### SignRequest
 
 ```javascript
