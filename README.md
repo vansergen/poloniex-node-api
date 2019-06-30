@@ -209,6 +209,13 @@ const orderNumber = 96238912842;
 const trades = await AuthenticatedClient.getOrderTrades({ orderNumber });
 ```
 
+- [`getOrderStatus`](https://docs.poloniex.com/?shell#returnorderstatus)
+
+```javascript
+const orderNumber = 96238912842;
+const trades = await AuthenticatedClient.getOrderStatus({ orderNumber });
+```
+
 - `post`
 
 ```javascript
