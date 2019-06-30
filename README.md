@@ -234,6 +234,13 @@ const amount = 1;
 const order = await AuthenticatedClient.sell({ currencyPair, rate, amount });
 ```
 
+- [`cancelOrder`](https://docs.poloniex.com/?shell#cancelorder)
+
+```javascript
+const orderNumber = 514845991795;
+const order = await AuthenticatedClient.cancelOrder({ orderNumber });
+```
+
 - `post`
 
 ```javascript
