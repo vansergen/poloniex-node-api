@@ -487,4 +487,28 @@ suite('AuthenticatedClient', () => {
       })
       .catch(error => assert.fail(error));
   });
+
+  test('.cancelOrder()', done => {
+    const result = {
+      success: 1,
+      amount: '50.00000000',
+      message: 'Order #514845991795 canceled.',
+    };
+    const orderNumber = 514845991795;
+    const nonce = 154264078495300;
+    authClient.nonce = () => nonce;
+
+    nock(EXCHANGE_API_URL)
+      .post('/tradingApi', { command: 'cancelOrder', orderNumber, nonce })
+      .times(1)
+      .reply(200, result);
+
+    authClient
+      .cancelOrder({ orderNumber })
+      .then(data => {
+        assert.deepEqual(data, result);
+        done();
+      })
+      .catch(error => assert.fail(error));
+  });
 });
