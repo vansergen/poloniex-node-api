@@ -163,9 +163,8 @@ const balances = await AuthenticatedClient.getBalances();
 - [`getCompleteBalances`](https://docs.poloniex.com/?shell#returncompletebalances)
 
 ```javascript
-const balances = await AuthenticatedClient.getCompleteBalances({
-  account: 'all',
-});
+const account = 'all';
+const balances = await AuthenticatedClient.getCompleteBalances({ account });
 ```
 
 - [`getDepositAddresses`](https://docs.poloniex.com/?shell#returndepositaddresses)
@@ -192,17 +191,22 @@ const deposits_withdrawals = await AuthenticatedClient.getDepositsWithdrawals({
 - [`getOpenOrders`](https://docs.poloniex.com/?shell#returnopenorders)
 
 ```javascript
-const orders = await AuthenticatedClient.getOpenOrders({
-  currencyPair: 'BTC_DASH',
-});
+const currencyPair = 'BTC_DASH';
+const orders = await AuthenticatedClient.getOpenOrders({ currencyPair });
 ```
 
 - [`getHistoryTrades`](https://docs.poloniex.com/?shell#returntradehistory-private)
 
 ```javascript
-const trades = await AuthenticatedClient.getHistoryTrades({
-  currencyPair: 'BTC_ETC',
-});
+const currencyPair = 'BTC_ETC';
+const trades = await AuthenticatedClient.getHistoryTrades({ currencyPair });
+```
+
+- [`getOrderTrades`](https://docs.poloniex.com/?shell#returntradehistory-private)
+
+```javascript
+const orderNumber = 96238912842;
+const trades = await AuthenticatedClient.getOrderTrades({ orderNumber });
 ```
 
 - `post`
