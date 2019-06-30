@@ -355,4 +355,136 @@ suite('AuthenticatedClient', () => {
       })
       .catch(error => assert.fail(error));
   });
+
+  test('.buy()', done => {
+    const currencyPair = 'BTC_ETH';
+    const rate = 0.01;
+    const amount = 1;
+    const response = {
+      orderNumber: '514845991795',
+      resultingTrades: [
+        {
+          amount: '3.0',
+          date: '2018-10-25 23:03:21',
+          rate: '0.0002',
+          total: '0.0006',
+          tradeID: '251834',
+          type: 'buy',
+        },
+      ],
+      fee: '0.01000000',
+      currencyPair: 'BTC_ETH',
+    };
+    const nonce = 154264078495300;
+    authClient.nonce = () => nonce;
+
+    nock(EXCHANGE_API_URL)
+      .post('/tradingApi', {
+        command: 'buy',
+        currencyPair,
+        rate,
+        amount,
+        nonce,
+      })
+      .times(1)
+      .reply(200, response);
+
+    authClient
+      .buy({ currencyPair, rate, amount })
+      .then(data => {
+        assert.deepEqual(data, response);
+        done();
+      })
+      .catch(error => assert.fail(error));
+  });
+
+  test('.buy(with default currencyPair)', done => {
+    const currencyPair = 'BTC_ETH';
+    const client = new Poloniex.AuthenticatedClient({
+      key,
+      secret,
+      currencyPair,
+    });
+
+    const rate = 0.01;
+    const amount = 1;
+    const response = {
+      orderNumber: '514845991795',
+      resultingTrades: [
+        {
+          amount: '3.0',
+          date: '2018-10-25 23:03:21',
+          rate: '0.0002',
+          total: '0.0006',
+          tradeID: '251834',
+          type: 'buy',
+        },
+      ],
+      fee: '0.01000000',
+      currencyPair: 'BTC_ETH',
+    };
+    const nonce = 154264078495300;
+    client.nonce = () => nonce;
+
+    nock(EXCHANGE_API_URL)
+      .post('/tradingApi', {
+        command: 'buy',
+        currencyPair,
+        rate,
+        amount,
+        nonce,
+      })
+      .times(1)
+      .reply(200, response);
+
+    client
+      .buy({ rate, amount })
+      .then(data => {
+        assert.deepEqual(data, response);
+        done();
+      })
+      .catch(error => assert.fail(error));
+  });
+
+  test('.sell()', done => {
+    const currencyPair = 'BTC_ETH';
+    const rate = 10;
+    const amount = 1;
+    const response = {
+      orderNumber: '514845991926',
+      resultingTrades: [
+        {
+          amount: '1.0',
+          date: '2018-10-25 23:03:21',
+          rate: '10.0',
+          total: '10.0',
+          tradeID: '251869',
+          type: 'sell',
+        },
+      ],
+      fee: '0.01000000',
+      currencyPair: 'BTC_ETH',
+    };
+    const nonce = 154264078495300;
+    authClient.nonce = () => nonce;
+
+    nock(EXCHANGE_API_URL)
+      .post('/tradingApi', {
+        command: 'sell',
+        currencyPair,
+        rate,
+        amount,
+        nonce,
+      })
+      .times(1)
+      .reply(200, response);
+
+    authClient
+      .sell({ currencyPair, rate, amount })
+      .then(data => {
+        assert.deepEqual(data, response);
+        done();
+      })
+      .catch(error => assert.fail(error));
+  });
 });
