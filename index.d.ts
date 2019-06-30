@@ -137,6 +137,10 @@ declare module 'poloniex' {
     currency: string;
   };
 
+  export type OrderFilter = {
+    orderNumber: number;
+  };
+
   export type Balances = {
     [currency: string]: string;
   };
@@ -225,6 +229,18 @@ declare module 'poloniex' {
     fee: string;
     category: 'exchange' | 'margin';
   } & Trade;
+
+  export type OrderTrades = {
+    globalTradeID: number;
+    tradeID: number;
+    currencyPair: string;
+    type: 'buy' | 'sell';
+    rate: string;
+    amount: string;
+    total: string;
+    fee: string;
+    date: string;
+  };
 
   export type WsRawMessage = Array<any>;
 
@@ -385,6 +401,8 @@ declare module 'poloniex' {
     getOpenOrders(options?: CurrencyPairFilter): Promise<Orders>;
 
     getHistoryTrades(options?: CurrencyPairFilter): Promise<TradePrivate[]>;
+
+    getOrderTrades(options: OrderFilter): Promise<OrderTrades[]>;
   }
 
   export class WebsocketClient extends EventEmitter {
