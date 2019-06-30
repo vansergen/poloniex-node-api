@@ -216,6 +216,24 @@ const orderNumber = 96238912842;
 const trades = await AuthenticatedClient.getOrderStatus({ orderNumber });
 ```
 
+- [`buy`](https://docs.poloniex.com/?shell#buy)
+
+```javascript
+const currencyPair = 'BTC_ETH';
+const rate = 0.01;
+const amount = 1;
+const order = await AuthenticatedClient.buy({ currencyPair, rate, amount });
+```
+
+- [`sell`](https://docs.poloniex.com/?shell#sell)
+
+```javascript
+const currencyPair = 'BTC_ETH';
+const rate = 10;
+const amount = 1;
+const order = await AuthenticatedClient.sell({ currencyPair, rate, amount });
+```
+
 - `post`
 
 ```javascript
