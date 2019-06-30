@@ -321,4 +321,38 @@ suite('AuthenticatedClient', () => {
       })
       .catch(error => assert.fail(error));
   });
+
+  test('.getOrderStatus()', done => {
+    const response = {
+      result: {
+        '6071071': {
+          status: 'Open',
+          rate: '0.40000000',
+          amount: '1.00000000',
+          currencyPair: 'BTC_ETH',
+          date: '2018-10-17 17:04:50',
+          total: '0.40000000',
+          type: 'buy',
+          startingAmount: '1.00000',
+        },
+      },
+      success: 1,
+    };
+    const orderNumber = 96238912841;
+    const nonce = 154264078495300;
+    authClient.nonce = () => nonce;
+
+    nock(EXCHANGE_API_URL)
+      .post('/tradingApi', { command: 'returnOrderStatus', orderNumber, nonce })
+      .times(1)
+      .reply(200, response);
+
+    authClient
+      .getOrderStatus({ orderNumber })
+      .then(data => {
+        assert.deepEqual(data, response);
+        done();
+      })
+      .catch(error => assert.fail(error));
+  });
 });

@@ -242,6 +242,23 @@ declare module 'poloniex' {
     date: string;
   };
 
+  export type OrderStatus = {
+    result: {
+      [order: string]: {
+        currencyPair: string;
+        rate: string;
+        amount: string;
+        total: string;
+        startingAmount: string;
+        type: 'buy' | 'sell';
+        status: 'Open' | 'Partially filled';
+        date: string;
+        fee?: string;
+      };
+    };
+    success: 0 | 1;
+  };
+
   export type WsRawMessage = Array<any>;
 
   export namespace WebsocketMessage {
@@ -403,6 +420,8 @@ declare module 'poloniex' {
     getHistoryTrades(options?: CurrencyPairFilter): Promise<TradePrivate[]>;
 
     getOrderTrades(options: OrderFilter): Promise<OrderTrades[]>;
+
+    getOrderStatus(options: OrderFilter): Promise<OrderStatus>;
   }
 
   export class WebsocketClient extends EventEmitter {
