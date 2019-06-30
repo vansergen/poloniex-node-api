@@ -41,16 +41,19 @@ declare module 'poloniex' {
 
   export type OrderBook = OrderBookInfo | OrderBooksInfo;
 
+  export type BaseTrade = {
+    amount: string;
+    date: string;
+    rate: string;
+    total: string;
+    tradeID: number;
+    type: 'buy' | 'sell';
+  };
+
   export type Trade = {
     globalTradeID: number;
-    tradeID: number;
-    date: string;
-    type: 'buy' | 'sell';
-    rate: string;
-    amount: string;
-    total: string;
     orderNumber: number;
-  };
+  } & BaseTrade;
 
   export type Candle = {
     date: number;
@@ -139,6 +142,15 @@ declare module 'poloniex' {
 
   export type OrderFilter = {
     orderNumber: number;
+  };
+
+  export type OrderOptions = {
+    currencyPair?: string;
+    rate: number;
+    amount: number;
+    fillOrKill: 0 | 1;
+    immediateOrCancel: 0 | 1;
+    postOnly: 0 | 1;
   };
 
   export type Balances = {
@@ -230,17 +242,11 @@ declare module 'poloniex' {
     category: 'exchange' | 'margin';
   } & Trade;
 
-  export type OrderTrades = {
+  export type OrderTrade = {
     globalTradeID: number;
-    tradeID: number;
     currencyPair: string;
-    type: 'buy' | 'sell';
-    rate: string;
-    amount: string;
-    total: string;
     fee: string;
-    date: string;
-  };
+  } & BaseTrade;
 
   export type OrderStatus = {
     result: {
@@ -257,6 +263,17 @@ declare module 'poloniex' {
       };
     };
     success: 0 | 1;
+  };
+
+  export type ResultingTrade = {
+    takerAdjustment?: string;
+  } & BaseTrade;
+
+  export type OrderResult = {
+    orderNumber: string;
+    resultingTrades: ResultingTrade[];
+    fee: string;
+    currencyPair: string;
   };
 
   export type WsRawMessage = Array<any>;
@@ -419,9 +436,13 @@ declare module 'poloniex' {
 
     getHistoryTrades(options?: CurrencyPairFilter): Promise<TradePrivate[]>;
 
-    getOrderTrades(options: OrderFilter): Promise<OrderTrades[]>;
+    getOrderTrades(options: OrderFilter): Promise<OrderTrade[]>;
 
     getOrderStatus(options: OrderFilter): Promise<OrderStatus>;
+
+    buy(options: OrderOptions): Promise<OrderResult>;
+
+    sell(options: OrderOptions): Promise<OrderResult>;
   }
 
   export class WebsocketClient extends EventEmitter {
