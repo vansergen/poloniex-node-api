@@ -335,6 +335,10 @@ declare module 'poloniex' {
     lending?: Balances | any[];
   };
 
+  export type TradableBalances = {
+    [currencyPair: string]: Balances;
+  };
+
   export type WsRawMessage = Array<any>;
 
   export namespace WebsocketMessage {
@@ -516,6 +520,8 @@ declare module 'poloniex' {
     getAvailableAccountBalances(
       options?: AccountFilter
     ): Promise<AvailableAccountBalances>;
+
+    getTradableBalances(): Promise<TradableBalances>;
   }
 
   export class WebsocketClient extends EventEmitter {
