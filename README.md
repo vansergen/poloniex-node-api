@@ -283,6 +283,12 @@ const fees = await AuthenticatedClient.getFeeInfo();
 const balances = AuthenticatedClient.getAvailableAccountBalances();
 ```
 
+- [`getTradableBalances`](https://docs.poloniex.com/?shell#returntradablebalances)
+
+```javascript
+const balances = AuthenticatedClient.getTradableBalances();
+```
+
 - `post`
 
 ```javascript
