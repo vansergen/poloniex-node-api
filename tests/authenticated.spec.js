@@ -674,4 +674,37 @@ suite('AuthenticatedClient', () => {
       })
       .catch(error => assert.fail(error));
   });
+
+  test('.transferBalance()', done => {
+    const result = {
+      success: 1,
+      message: 'Transferred 0.50000000 BTC from lending to exchange account.',
+    };
+    const currency = 'BTC';
+    const amount = 0.5;
+    const fromAccount = 'lending';
+    const toAccount = 'exchange';
+    const nonce = 154264078495300;
+    authClient.nonce = () => nonce;
+
+    nock(EXCHANGE_API_URL)
+      .post('/tradingApi', {
+        command: 'transferBalance',
+        currency,
+        amount,
+        fromAccount,
+        toAccount,
+        nonce,
+      })
+      .times(1)
+      .reply(200, result);
+
+    authClient
+      .transferBalance({ currency, amount, fromAccount, toAccount, nonce })
+      .then(data => {
+        assert.deepEqual(data, result);
+        done();
+      })
+      .catch(error => assert.fail(error));
+  });
 });
