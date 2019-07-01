@@ -241,6 +241,13 @@ const orderNumber = 514845991795;
 const order = await AuthenticatedClient.cancelOrder({ orderNumber });
 ```
 
+- [`cancelAllOrders`](https://docs.poloniex.com/?shell#cancelallorders)
+
+```javascript
+const currencyPair = 'BTC_ETH';
+const orders = await AuthenticatedClient.cancelAllOrders({ currencyPair });
+```
+
 - `post`
 
 ```javascript
