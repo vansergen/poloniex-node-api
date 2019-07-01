@@ -153,6 +153,14 @@ declare module 'poloniex' {
     postOnly: 0 | 1;
   };
 
+  export type MoveOrderOptions = {
+    orderNumber: number;
+    rate: number;
+    amount?: number;
+    postOnly: 0 | 1;
+    immediateOrCancel?: 0 | 1;
+  };
+
   export type Balances = {
     [currency: string]: string;
   };
@@ -288,6 +296,16 @@ declare module 'poloniex' {
     success: 0 | 1;
     message: string;
     orderNumbers: number[];
+  };
+
+  export type MoveResponse = {
+    success: 0 | 1;
+    orderNumber: string;
+    fee: string;
+    currencyPair: string;
+    resultingTrades: {
+      [currencyPair: string]: ResultingTrade[];
+    };
   };
 
   export type WsRawMessage = Array<any>;
@@ -461,6 +479,8 @@ declare module 'poloniex' {
     cancelOrder(options: OrderFilter): Promise<CancelResponse>;
 
     cancelAllOrders(options?: CurrencyPairFilter): Promise<CancelAllResponse>;
+
+    moveOrder(options: MoveOrderOptions): Promise<MoveResponse>;
   }
 
   export class WebsocketClient extends EventEmitter {
