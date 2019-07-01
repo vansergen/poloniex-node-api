@@ -277,6 +277,12 @@ const result = await AuthenticatedClient.withdraw({
 const fees = await AuthenticatedClient.getFeeInfo();
 ```
 
+- [`getAvailableAccountBalances`](https://docs.poloniex.com/?shell#returnavailableaccountbalances)
+
+```javascript
+const balances = AuthenticatedClient.getAvailableAccountBalances();
+```
+
 - `post`
 
 ```javascript

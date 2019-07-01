@@ -611,4 +611,42 @@ suite('AuthenticatedClient', () => {
       })
       .catch(error => assert.fail(error));
   });
+
+  test('.getAvailableAccountBalances()', done => {
+    const result = {
+      exchange: {
+        BTC: '0.10000000',
+        EOS: '5.18012931',
+        ETC: '3.39980734',
+        SC: '120.00000000',
+        USDC: '23.79999938',
+        ZEC: '0.02380926',
+      },
+      margin: { BTC: '0.50000000' },
+      lending: {
+        BTC: '0.14804126',
+        ETH: '2.69148073',
+        LTC: '1.75862721',
+        XMR: '5.25780982',
+      },
+    };
+    const nonce = 154264078495300;
+    authClient.nonce = () => nonce;
+
+    nock(EXCHANGE_API_URL)
+      .post('/tradingApi', {
+        command: 'returnAvailableAccountBalances',
+        nonce: nonce,
+      })
+      .times(1)
+      .reply(200, result);
+
+    authClient
+      .getAvailableAccountBalances()
+      .then(data => {
+        assert.deepEqual(data, result);
+        done();
+      })
+      .catch(error => assert.fail(error));
+  });
 });

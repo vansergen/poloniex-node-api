@@ -329,6 +329,12 @@ declare module 'poloniex' {
     nextTier: number;
   };
 
+  export type AvailableAccountBalances = {
+    exchange?: Balances | any[];
+    margin?: Balances | any[];
+    lending?: Balances | any[];
+  };
+
   export type WsRawMessage = Array<any>;
 
   export namespace WebsocketMessage {
@@ -506,6 +512,10 @@ declare module 'poloniex' {
     withdraw(options: WithdrawOptions): Promise<WithdrawResponse>;
 
     getFeeInfo(): Promise<FeesInfo>;
+
+    getAvailableAccountBalances(
+      options?: AccountFilter
+    ): Promise<AvailableAccountBalances>;
   }
 
   export class WebsocketClient extends EventEmitter {
