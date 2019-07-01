@@ -322,6 +322,13 @@ declare module 'poloniex' {
     withdrawalNumber?: number;
   };
 
+  export type FeesInfo = {
+    makerFee: string;
+    takerFee: string;
+    thirtyDayVolume: string;
+    nextTier: number;
+  };
+
   export type WsRawMessage = Array<any>;
 
   export namespace WebsocketMessage {
@@ -497,6 +504,8 @@ declare module 'poloniex' {
     moveOrder(options: MoveOrderOptions): Promise<MoveResponse>;
 
     withdraw(options: WithdrawOptions): Promise<WithdrawResponse>;
+
+    getFeeInfo(): Promise<FeesInfo>;
   }
 
   export class WebsocketClient extends EventEmitter {
