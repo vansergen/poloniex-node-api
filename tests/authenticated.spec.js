@@ -7,10 +7,7 @@ const { EXCHANGE_API_URL } = require('../lib/utilities');
 const key = 'poloniex-api-key';
 const secret = 'poloniex-api-secret';
 
-const authClient = new Poloniex.AuthenticatedClient({
-  key: key,
-  secret: secret,
-});
+const authClient = new Poloniex.AuthenticatedClient({ key, secret });
 
 suite('AuthenticatedClient', () => {
   teardown(() => nock.cleanAll());
@@ -30,9 +27,9 @@ suite('AuthenticatedClient', () => {
     const newApi = 'https://new-poloniex-api-url.com';
     const newTimeout = 9000;
     const client = new Poloniex.AuthenticatedClient({
-      key: key,
+      key,
       currencyPair: 'BTC_ETH',
-      secret: secret,
+      secret,
       timeout: newTimeout,
       api_uri: newApi,
     });
@@ -52,7 +49,7 @@ suite('AuthenticatedClient', () => {
     authClient.nonce = () => nonce;
 
     nock(EXCHANGE_API_URL)
-      .post('/tradingApi', { command: 'returnBalances', nonce: nonce })
+      .post('/tradingApi', { command: 'returnBalances', nonce })
       .times(1)
       .reply(200, balances);
 
@@ -82,7 +79,7 @@ suite('AuthenticatedClient', () => {
     authClient.nonce = () => nonce;
 
     nock(EXCHANGE_API_URL)
-      .post('/tradingApi', { command: 'returnCompleteBalances', nonce: nonce })
+      .post('/tradingApi', { command: 'returnCompleteBalances', nonce })
       .times(1)
       .reply(200, balances);
 
@@ -116,7 +113,7 @@ suite('AuthenticatedClient', () => {
       .post('/tradingApi', {
         command: 'returnCompleteBalances',
         account: 'all',
-        nonce: nonce,
+        nonce,
       })
       .times(1)
       .reply(200, balances);
@@ -139,7 +136,7 @@ suite('AuthenticatedClient', () => {
     authClient.nonce = () => nonce;
 
     nock(EXCHANGE_API_URL)
-      .post('/tradingApi', { command: 'returnDepositAddresses', nonce: nonce })
+      .post('/tradingApi', { command: 'returnDepositAddresses', nonce })
       .times(1)
       .reply(200, addresses);
 
@@ -153,7 +150,7 @@ suite('AuthenticatedClient', () => {
   });
 
   test('.getNewAddress()', done => {
-    const options = { currency: 'ETH' };
+    const currency = 'ETH';
     const address = {
       success: 1,
       response: '0xa6f0dacc33c7f63e137e0106ed71cc20b4b931af',
@@ -164,14 +161,14 @@ suite('AuthenticatedClient', () => {
     nock(EXCHANGE_API_URL)
       .post('/tradingApi', {
         command: 'generateNewAddress',
-        nonce: nonce,
-        currency: 'ETH',
+        nonce,
+        currency,
       })
       .times(1)
       .reply(200, address);
 
     authClient
-      .getNewAddress(options)
+      .getNewAddress({ currency })
       .then(data => {
         assert.deepEqual(data, address);
         done();
@@ -206,7 +203,7 @@ suite('AuthenticatedClient', () => {
     nock(EXCHANGE_API_URL)
       .post('/tradingApi', {
         command: 'returnDepositsWithdrawals',
-        nonce: nonce,
+        nonce,
         start: options.start,
         end: options.end,
       })
@@ -231,7 +228,7 @@ suite('AuthenticatedClient', () => {
       .post('/tradingApi', {
         command: 'returnOpenOrders',
         currencyPair: 'all',
-        nonce: nonce,
+        nonce,
       })
       .times(1)
       .reply(200, orders);
@@ -265,7 +262,7 @@ suite('AuthenticatedClient', () => {
       .post('/tradingApi', {
         command: 'returnTradeHistory',
         currencyPair: 'all',
-        nonce: nonce,
+        nonce,
       })
       .times(1)
       .reply(200, trades);
@@ -599,7 +596,7 @@ suite('AuthenticatedClient', () => {
     authClient.nonce = () => nonce;
 
     nock(EXCHANGE_API_URL)
-      .post('/tradingApi', { command: 'returnFeeInfo', nonce: nonce })
+      .post('/tradingApi', { command: 'returnFeeInfo', nonce })
       .times(1)
       .reply(200, result);
 
@@ -634,10 +631,7 @@ suite('AuthenticatedClient', () => {
     authClient.nonce = () => nonce;
 
     nock(EXCHANGE_API_URL)
-      .post('/tradingApi', {
-        command: 'returnAvailableAccountBalances',
-        nonce: nonce,
-      })
+      .post('/tradingApi', { command: 'returnAvailableAccountBalances', nonce })
       .times(1)
       .reply(200, result);
 
@@ -668,10 +662,7 @@ suite('AuthenticatedClient', () => {
     authClient.nonce = () => nonce;
 
     nock(EXCHANGE_API_URL)
-      .post('/tradingApi', {
-        command: 'returnTradableBalances',
-        nonce: nonce,
-      })
+      .post('/tradingApi', { command: 'returnTradableBalances', nonce })
       .times(1)
       .reply(200, result);
 
