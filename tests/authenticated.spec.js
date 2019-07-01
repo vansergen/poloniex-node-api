@@ -587,4 +587,28 @@ suite('AuthenticatedClient', () => {
       })
       .catch(error => assert.fail(error));
   });
+
+  test('.getFeeInfo()', done => {
+    const result = {
+      makerFee: '0.00100000',
+      takerFee: '0.00200000',
+      thirtyDayVolume: '106.08463302',
+      nextTier: 500000,
+    };
+    const nonce = 154264078495300;
+    authClient.nonce = () => nonce;
+
+    nock(EXCHANGE_API_URL)
+      .post('/tradingApi', { command: 'returnFeeInfo', nonce: nonce })
+      .times(1)
+      .reply(200, result);
+
+    authClient
+      .getFeeInfo()
+      .then(data => {
+        assert.deepEqual(data, result);
+        done();
+      })
+      .catch(error => assert.fail(error));
+  });
 });

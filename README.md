@@ -271,6 +271,12 @@ const result = await AuthenticatedClient.withdraw({
 });
 ```
 
+- [`getFeeInfo`](https://docs.poloniex.com/?shell#returnfeeinfo)
+
+```javascript
+const fees = await AuthenticatedClient.getFeeInfo();
+```
+
 - `post`
 
 ```javascript
