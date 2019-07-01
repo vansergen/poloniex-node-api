@@ -559,4 +559,32 @@ suite('AuthenticatedClient', () => {
       })
       .catch(error => assert.fail(error));
   });
+
+  test('.withdraw()', done => {
+    const result = { response: 'Withdrew 2.0 ETH.' };
+    const currency = 'ETH';
+    const amount = 0.000152;
+    const address = '0x84a90e21d9d02e30ddcea56d618aa75ba90331ff';
+    const nonce = 1559587794133;
+    authClient.nonce = () => nonce;
+
+    nock(EXCHANGE_API_URL)
+      .post('/tradingApi', {
+        command: 'withdraw',
+        nonce,
+        currency,
+        amount,
+        address,
+      })
+      .times(1)
+      .reply(200, result);
+
+    authClient
+      .withdraw({ currency, amount, address })
+      .then(data => {
+        assert.deepEqual(data, result);
+        done();
+      })
+      .catch(error => assert.fail(error));
+  });
 });

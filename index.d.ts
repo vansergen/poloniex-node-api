@@ -161,6 +161,14 @@ declare module 'poloniex' {
     immediateOrCancel?: 0 | 1;
   };
 
+  export type WithdrawOptions = {
+    currency: string;
+    amount: number;
+    address: string;
+    paymentId?: string | number;
+    currencyToWithdrawAs?: 'USDTTRON';
+  };
+
   export type Balances = {
     [currency: string]: string;
   };
@@ -306,6 +314,12 @@ declare module 'poloniex' {
     resultingTrades: {
       [currencyPair: string]: ResultingTrade[];
     };
+  };
+
+  export type WithdrawResponse = {
+    response: string;
+    email2FA?: boolean;
+    withdrawalNumber?: number;
   };
 
   export type WsRawMessage = Array<any>;
@@ -481,6 +495,8 @@ declare module 'poloniex' {
     cancelAllOrders(options?: CurrencyPairFilter): Promise<CancelAllResponse>;
 
     moveOrder(options: MoveOrderOptions): Promise<MoveResponse>;
+
+    withdraw(options: WithdrawOptions): Promise<WithdrawResponse>;
   }
 
   export class WebsocketClient extends EventEmitter {
