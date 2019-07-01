@@ -284,6 +284,12 @@ declare module 'poloniex' {
     currencyPair?: string;
   };
 
+  export type CancelAllResponse = {
+    success: 0 | 1;
+    message: string;
+    orderNumbers: number[];
+  };
+
   export type WsRawMessage = Array<any>;
 
   export namespace WebsocketMessage {
@@ -453,6 +459,8 @@ declare module 'poloniex' {
     sell(options: OrderOptions): Promise<OrderResult>;
 
     cancelOrder(options: OrderFilter): Promise<CancelResponse>;
+
+    cancelAllOrders(options?: CurrencyPairFilter): Promise<CancelAllResponse>;
   }
 
   export class WebsocketClient extends EventEmitter {
