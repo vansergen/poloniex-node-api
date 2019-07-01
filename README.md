@@ -248,6 +248,14 @@ const currencyPair = 'BTC_ETH';
 const orders = await AuthenticatedClient.cancelAllOrders({ currencyPair });
 ```
 
+- [`moveOrder`](https://docs.poloniex.com/?shell#moveorder)
+
+```javascript
+const orderNumber = 514851026755;
+const rate = 0.00015;
+const result = await AuthenticatedClient.moveOrder({ rate, orderNumber });
+```
+
 - `post`
 
 ```javascript
