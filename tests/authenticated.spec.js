@@ -534,4 +534,29 @@ suite('AuthenticatedClient', () => {
       })
       .catch(error => assert.fail(error));
   });
+
+  test('.moveOrder()', done => {
+    const result = {
+      success: 1,
+      orderNumber: '514851232549',
+      resultingTrades: { BTC_ETH: [] },
+    };
+    const orderNumber = 514851026755;
+    const rate = 0.00015;
+    const nonce = 1559587794133;
+    authClient.nonce = () => nonce;
+
+    nock(EXCHANGE_API_URL)
+      .post('/tradingApi', { command: 'moveOrder', nonce, rate, orderNumber })
+      .times(1)
+      .reply(200, result);
+
+    authClient
+      .moveOrder({ orderNumber, rate })
+      .then(data => {
+        assert.deepEqual(data, result);
+        done();
+      })
+      .catch(error => assert.fail(error));
+  });
 });
