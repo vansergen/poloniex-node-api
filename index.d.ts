@@ -169,6 +169,13 @@ declare module 'poloniex' {
     currencyToWithdrawAs?: 'USDTTRON';
   };
 
+  export type TransferOptions = {
+    currency: string;
+    amount: number;
+    fromAccount: 'exchange' | 'margin' | 'lending';
+    toAccount: 'exchange' | 'margin' | 'lending';
+  };
+
   export type Balances = {
     [currency: string]: string;
   };
@@ -337,6 +344,11 @@ declare module 'poloniex' {
 
   export type TradableBalances = {
     [currencyPair: string]: Balances;
+  };
+
+  export type TransferResponse = {
+    success: 0 | 1;
+    message: string;
   };
 
   export type WsRawMessage = Array<any>;
@@ -522,6 +534,8 @@ declare module 'poloniex' {
     ): Promise<AvailableAccountBalances>;
 
     getTradableBalances(): Promise<TradableBalances>;
+
+    transferBalance(options: TransferOptions): Promise<TransferResponse>;
   }
 
   export class WebsocketClient extends EventEmitter {
