@@ -256,6 +256,21 @@ const rate = 0.00015;
 const result = await AuthenticatedClient.moveOrder({ rate, orderNumber });
 ```
 
+- [`withdraw`](https://docs.poloniex.com/?shell#withdraw)
+
+```javascript
+const currency = 'EOS';
+const amount = 1000;
+const address = 'eos-address';
+const paymentId = 1234567890;
+const result = await AuthenticatedClient.withdraw({
+  currency,
+  amount,
+  address,
+  paymentId,
+});
+```
+
 - `post`
 
 ```javascript
