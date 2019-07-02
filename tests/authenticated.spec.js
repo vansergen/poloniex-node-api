@@ -876,4 +876,51 @@ suite('AuthenticatedClient', () => {
       })
       .catch(error => assert.fail(error));
   });
+
+  test('.closeMarginPosition()', done => {
+    const currencyPair = 'BTC_ETH';
+    const response = {
+      success: 1,
+      message: 'Successfully closed margin position.',
+      resultingTrades: {
+        BTC_XMR: [
+          {
+            amount: '7.09215901',
+            date: '2015-05-10 22:38:49',
+            rate: '0.00235337',
+            total: '0.01669047',
+            tradeID: '1213346',
+            type: 'sell',
+          },
+          {
+            amount: '24.00289920',
+            date: '2015-05-10 22:38:49',
+            rate: '0.00235321',
+            total: '0.05648386',
+            tradeID: '1213347',
+            type: 'sell',
+          },
+        ],
+      },
+    };
+    const nonce = 154264078495300;
+    authClient.nonce = () => nonce;
+
+    nock(EXCHANGE_API_URL)
+      .post('/tradingApi', {
+        command: 'closeMarginPosition',
+        currencyPair,
+        nonce,
+      })
+      .times(1)
+      .reply(200, response);
+
+    authClient
+      .closeMarginPosition({ currencyPair })
+      .then(data => {
+        assert.deepEqual(data, response);
+        done();
+      })
+      .catch(error => assert.fail(error));
+  });
 });
