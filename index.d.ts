@@ -360,6 +360,12 @@ declare module 'poloniex' {
     currentMargin: string;
   };
 
+  export type MarginOrderResult = {
+    orderNumber: string;
+    resultingTrades: ResultingTrade[];
+    message: string;
+  };
+
   export type WsRawMessage = Array<any>;
 
   export namespace WebsocketMessage {
@@ -547,6 +553,10 @@ declare module 'poloniex' {
     transferBalance(options: TransferOptions): Promise<TransferResponse>;
 
     getMarginAccountSummary(): Promise<MarginAccountSummary>;
+
+    marginBuy(options: MarginOrderOptions): Promise<MarginOrderResult>;
+
+    marginSell(options: MarginOrderOptions): Promise<MarginOrderResult>;
   }
 
   export class WebsocketClient extends EventEmitter {

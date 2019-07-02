@@ -310,6 +310,36 @@ const transfer = AuthenticatedClient.transferBalance({
 const summary = await AuthenticatedClient.getMarginAccountSummary();
 ```
 
+- [`marginBuy`](https://docs.poloniex.com/?shell#marginbuy)
+
+```javascript
+const currencyPair = 'BTC_ETH';
+const rate = 0.01;
+const amount = 1;
+const lendingRate = 0.01;
+const order = await AuthenticatedClient.marginBuy({
+  currencyPair,
+  rate,
+  amount,
+  lendingRate,
+});
+```
+
+- [`marginSell`](https://docs.poloniex.com/?shell#marginsell)
+
+```javascript
+const currencyPair = 'BTC_ETH';
+const rate = 10;
+const amount = 1;
+const lendingRate = 0.015;
+const order = await AuthenticatedClient.marginSell({
+  currencyPair,
+  rate,
+  amount,
+  lendingRate,
+});
+```
+
 - `post`
 
 ```javascript
