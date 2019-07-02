@@ -347,6 +347,15 @@ const currencyPair = 'BTC_ETH';
 const position = await AuthenticatedClient.getMarginPosition({ currencyPair });
 ```
 
+- [`closeMarginPosition`](https://docs.poloniex.com/?shell#closemarginposition)
+
+```javascript
+const currencyPair = 'BTC_ETH';
+const position = await AuthenticatedClient.closeMarginPosition({
+  currencyPair,
+});
+```
+
 - `post`
 
 ```javascript

@@ -136,6 +136,10 @@ declare module 'poloniex' {
     account?: string;
   };
 
+  export type HistoryTradesFilter = {
+    limit?: number;
+  } & TradesFilter;
+
   export type CurrencyFilter = {
     currency: string;
   };
@@ -174,6 +178,13 @@ declare module 'poloniex' {
     amount: number;
     fromAccount: 'exchange' | 'margin' | 'lending';
     toAccount: 'exchange' | 'margin' | 'lending';
+  };
+
+  export type MarginOrderOptions = {
+    currencyPair?: string;
+    rate: number;
+    amount: number;
+    lendingRate: number;
   };
 
   export type Balances = {
@@ -382,6 +393,12 @@ declare module 'poloniex' {
       }
     | MarginPosition;
 
+  export type ClosePositionResult = {
+    success: 0 | 1;
+    message: string;
+    resultingTrades: ResultingTrade[];
+  };
+
   export type WsRawMessage = Array<any>;
 
   export namespace WebsocketMessage {
@@ -540,7 +557,7 @@ declare module 'poloniex' {
 
     getOpenOrders(options?: CurrencyPairFilter): Promise<Orders>;
 
-    getHistoryTrades(options?: CurrencyPairFilter): Promise<TradePrivate[]>;
+    getHistoryTrades(options?: HistoryTradesFilter): Promise<TradePrivate[]>;
 
     getOrderTrades(options: OrderFilter): Promise<OrderTrade[]>;
 
@@ -577,6 +594,10 @@ declare module 'poloniex' {
     getMarginPosition(
       options?: CurrencyPairFilter
     ): Promise<MarginPositionResult>;
+
+    closeMarginPosition(
+      options?: CurrencyPairFilter
+    ): Promise<ClosePositionResult>;
   }
 
   export class WebsocketClient extends EventEmitter {
