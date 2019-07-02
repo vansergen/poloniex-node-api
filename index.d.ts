@@ -393,6 +393,12 @@ declare module 'poloniex' {
       }
     | MarginPosition;
 
+  export type ClosePositionResult = {
+    success: 0 | 1;
+    message: string;
+    resultingTrades: ResultingTrade[];
+  };
+
   export type WsRawMessage = Array<any>;
 
   export namespace WebsocketMessage {
@@ -588,6 +594,10 @@ declare module 'poloniex' {
     getMarginPosition(
       options?: CurrencyPairFilter
     ): Promise<MarginPositionResult>;
+
+    closeMarginPosition(
+      options?: CurrencyPairFilter
+    ): Promise<ClosePositionResult>;
   }
 
   export class WebsocketClient extends EventEmitter {
