@@ -356,6 +356,23 @@ const position = await AuthenticatedClient.closeMarginPosition({
 });
 ```
 
+- [`createLoanOffer`](https://docs.poloniex.com/?shell#createloanoffer)
+
+```javascript
+const currency = 'BTC';
+const amount = 0.1;
+const duration = 2;
+const autoRenew = 0;
+const lendingRate = 0.015;
+const offer = await AuthenticatedClient.createLoanOffer({
+  currency,
+  amount,
+  duration,
+  autoRenew,
+  lendingRate,
+});
+```
+
 - `post`
 
 ```javascript
