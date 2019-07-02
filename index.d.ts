@@ -366,6 +366,22 @@ declare module 'poloniex' {
     message: string;
   };
 
+  export type MarginPosition = {
+    amount: string;
+    total: string;
+    basePrice: string;
+    liquidationPrice: number;
+    pl: string;
+    lendingFees: string;
+    type: 'long' | 'short' | 'none';
+  };
+
+  export type MarginPositionResult =
+    | {
+        [currencyPair: string]: MarginPosition;
+      }
+    | MarginPosition;
+
   export type WsRawMessage = Array<any>;
 
   export namespace WebsocketMessage {
@@ -557,6 +573,10 @@ declare module 'poloniex' {
     marginBuy(options: MarginOrderOptions): Promise<MarginOrderResult>;
 
     marginSell(options: MarginOrderOptions): Promise<MarginOrderResult>;
+
+    getMarginPosition(
+      options?: CurrencyPairFilter
+    ): Promise<MarginPositionResult>;
   }
 
   export class WebsocketClient extends EventEmitter {
