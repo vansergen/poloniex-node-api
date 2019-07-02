@@ -700,7 +700,33 @@ suite('AuthenticatedClient', () => {
       .reply(200, result);
 
     authClient
-      .transferBalance({ currency, amount, fromAccount, toAccount, nonce })
+      .transferBalance({ currency, amount, fromAccount, toAccount })
+      .then(data => {
+        assert.deepEqual(data, result);
+        done();
+      })
+      .catch(error => assert.fail(error));
+  });
+
+  test('.getMarginAccountSummary()', done => {
+    const result = {
+      totalValue: '0.09999999',
+      pl: '0.00000000',
+      lendingFees: '0.00000000',
+      netValue: '0.09999999',
+      totalBorrowedValue: '0.02534580',
+      currentMargin: '3.94542646',
+    };
+    const nonce = 154264078495300;
+    authClient.nonce = () => nonce;
+
+    nock(EXCHANGE_API_URL)
+      .post('/tradingApi', { command: 'returnMarginAccountSummary', nonce })
+      .times(1)
+      .reply(200, result);
+
+    authClient
+      .getMarginAccountSummary()
       .then(data => {
         assert.deepEqual(data, result);
         done();
