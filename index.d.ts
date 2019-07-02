@@ -351,6 +351,15 @@ declare module 'poloniex' {
     message: string;
   };
 
+  export type MarginAccountSummary = {
+    totalValue: string;
+    pl: string;
+    lendingFees: string;
+    netValue: string;
+    totalBorrowedValue: string;
+    currentMargin: string;
+  };
+
   export type WsRawMessage = Array<any>;
 
   export namespace WebsocketMessage {
@@ -536,6 +545,8 @@ declare module 'poloniex' {
     getTradableBalances(): Promise<TradableBalances>;
 
     transferBalance(options: TransferOptions): Promise<TransferResponse>;
+
+    getMarginAccountSummary(): Promise<MarginAccountSummary>;
   }
 
   export class WebsocketClient extends EventEmitter {

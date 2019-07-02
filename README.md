@@ -304,6 +304,12 @@ const transfer = AuthenticatedClient.transferBalance({
 });
 ```
 
+- [`getMarginAccountSummary`](https://docs.poloniex.com/?shell#returnmarginaccountsummary)
+
+```javascript
+const summary = await AuthenticatedClient.getMarginAccountSummary();
+```
+
 - `post`
 
 ```javascript
