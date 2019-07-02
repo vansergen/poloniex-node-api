@@ -187,6 +187,14 @@ declare module 'poloniex' {
     lendingRate: number;
   };
 
+  export type OfferOptions = {
+    currency: string;
+    amount: number;
+    duration: number;
+    autoRenew: number;
+    lendingRate: number;
+  };
+
   export type Balances = {
     [currency: string]: string;
   };
@@ -399,6 +407,12 @@ declare module 'poloniex' {
     resultingTrades: ResultingTrade[];
   };
 
+  export type OfferResult = {
+    success: 0 | 1;
+    message: string;
+    orderID?: number;
+  };
+
   export type WsRawMessage = Array<any>;
 
   export namespace WebsocketMessage {
@@ -598,6 +612,8 @@ declare module 'poloniex' {
     closeMarginPosition(
       options?: CurrencyPairFilter
     ): Promise<ClosePositionResult>;
+
+    createLoanOffer(options: OfferOptions): Promise<OfferResult>;
   }
 
   export class WebsocketClient extends EventEmitter {
