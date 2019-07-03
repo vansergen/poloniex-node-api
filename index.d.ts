@@ -413,6 +413,12 @@ declare module 'poloniex' {
     orderID?: number;
   };
 
+  export type CancelLoanResponse = {
+    success: 0 | 1;
+    message: string;
+    amount?: string;
+  };
+
   export type WsRawMessage = Array<any>;
 
   export namespace WebsocketMessage {
@@ -614,6 +620,8 @@ declare module 'poloniex' {
     ): Promise<ClosePositionResult>;
 
     createLoanOffer(options: OfferOptions): Promise<OfferResult>;
+
+    cancelLoanOffer(options: OrderFilter): Promise<CancelLoanResponse>;
   }
 
   export class WebsocketClient extends EventEmitter {

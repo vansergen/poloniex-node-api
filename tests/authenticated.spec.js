@@ -959,4 +959,28 @@ suite('AuthenticatedClient', () => {
       })
       .catch(error => assert.fail(error));
   });
+
+  test('.cancelLoanOffer()', done => {
+    const orderNumber = 1002013188;
+    const response = {
+      success: 1,
+      message: 'Loan offer canceled.',
+      amount: '0.10000000',
+    };
+    const nonce = 154264078495300;
+    authClient.nonce = () => nonce;
+
+    nock(EXCHANGE_API_URL)
+      .post('/tradingApi', { command: 'cancelLoanOffer', orderNumber, nonce })
+      .times(1)
+      .reply(200, response);
+
+    authClient
+      .cancelLoanOffer({ orderNumber })
+      .then(data => {
+        assert.deepEqual(data, response);
+        done();
+      })
+      .catch(error => assert.fail(error));
+  });
 });
