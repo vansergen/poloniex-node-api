@@ -373,6 +373,13 @@ const offer = await AuthenticatedClient.createLoanOffer({
 });
 ```
 
+- [`cancelLoanOffer`](https://docs.poloniex.com/?shell#cancelloanoffer)
+
+```javascript
+const orderNumber = 1002013188;
+const offer = await AuthenticatedClient.cancelLoanOffer({ orderNumber });
+```
+
 - `post`
 
 ```javascript
