@@ -419,6 +419,21 @@ declare module 'poloniex' {
     amount?: string;
   };
 
+  export type LoanOffer = {
+    id: number;
+    rate: string;
+    amount: string;
+    duration: number;
+    autoRenew: 0 | 1;
+    date: string;
+  };
+
+  export type LoanOffers =
+    | {
+        [currency: string]: LoanOffer[];
+      }
+    | LoanOffer[];
+
   export type WsRawMessage = Array<any>;
 
   export namespace WebsocketMessage {
@@ -622,6 +637,8 @@ declare module 'poloniex' {
     createLoanOffer(options: OfferOptions): Promise<OfferResult>;
 
     cancelLoanOffer(options: OrderFilter): Promise<CancelLoanResponse>;
+
+    getOpenLoanOffers(): Promise<LoanOffers>;
   }
 
   export class WebsocketClient extends EventEmitter {
