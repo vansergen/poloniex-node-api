@@ -238,7 +238,6 @@ declare module 'poloniex' {
     timestamp: number;
     status: string;
     ipAddress: string;
-    paymentID: string;
     canCancel: 0 | 1;
     canResendEmail: 0 | 1;
     paymentID: null | string;
@@ -433,6 +432,22 @@ declare module 'poloniex' {
         [currency: string]: LoanOffer[];
       }
     | LoanOffer[];
+
+  export type ActiveLoan = {
+    id: number;
+    currency: string;
+    rate: string;
+    amount: string;
+    range: number;
+    autoRenew?: 0 | 1;
+    date: string;
+    fees: string;
+  };
+
+  export type ActiveLoans = {
+    provided: ActiveLoan[];
+    used: ActiveLoan[];
+  };
 
   export type WsRawMessage = Array<any>;
 
@@ -639,6 +654,8 @@ declare module 'poloniex' {
     cancelLoanOffer(options: OrderFilter): Promise<CancelLoanResponse>;
 
     getOpenLoanOffers(): Promise<LoanOffers>;
+
+    getActiveLoans(): Promise<ActiveLoans>;
   }
 
   export class WebsocketClient extends EventEmitter {

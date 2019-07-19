@@ -386,6 +386,12 @@ const offer = await AuthenticatedClient.cancelLoanOffer({ orderNumber });
 const offers = await AuthenticatedClient.getOpenLoanOffers();
 ```
 
+- [`getActiveLoans`](https://docs.poloniex.com/#returnactiveloans)
+
+```javascript
+const loans = await AuthenticatedClient.getActiveLoans();
+```
+
 - `post`
 
 ```javascript

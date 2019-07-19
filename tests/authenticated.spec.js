@@ -1013,4 +1013,57 @@ suite('AuthenticatedClient', () => {
       })
       .catch(error => assert.fail(error));
   });
+
+  test('.getActiveLoans()', done => {
+    const response = {
+      provided: [
+        {
+          id: 75073,
+          currency: 'LTC',
+          rate: '0.00020000',
+          amount: '0.72234880',
+          range: 2,
+          autoRenew: 0,
+          date: '2018-05-10 23:45:05',
+          fees: '0.00006000',
+        },
+        {
+          id: 74961,
+          currency: 'LTC',
+          rate: '0.00002000',
+          amount: '4.43860711',
+          range: 2,
+          autoRenew: 0,
+          date: '2018-05-10 23:45:05',
+          fees: '0.00006000',
+        },
+      ],
+      used: [
+        {
+          id: 75238,
+          currency: 'BTC',
+          rate: '0.00020000',
+          amount: '0.04843834',
+          range: 2,
+          date: '2018-05-10 23:51:12',
+          fees: '-0.00000001',
+        },
+      ],
+    };
+    const nonce = 154264078495300;
+    authClient.nonce = () => nonce;
+
+    nock(EXCHANGE_API_URL)
+      .post('/tradingApi', { command: 'returnActiveLoans', nonce })
+      .times(1)
+      .reply(200, response);
+
+    authClient
+      .getActiveLoans()
+      .then(data => {
+        assert.deepEqual(data, response);
+        done();
+      })
+      .catch(error => assert.fail(error));
+  });
 });
