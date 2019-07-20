@@ -1143,4 +1143,24 @@ suite('AuthenticatedClient', () => {
       })
       .catch(error => assert.fail(error));
   });
+
+  test('.toggleAutoRenew()', done => {
+    const response = { success: 1, message: 0 };
+    const orderNumber = 1002013188;
+    const nonce = 154264078495300;
+    authClient.nonce = () => nonce;
+
+    nock(EXCHANGE_API_URL)
+      .post('/tradingApi', { command: 'toggleAutoRenew', orderNumber, nonce })
+      .times(1)
+      .reply(200, response);
+
+    authClient
+      .toggleAutoRenew({ orderNumber })
+      .then(data => {
+        assert.deepEqual(data, response);
+        done();
+      })
+      .catch(error => assert.fail(error));
+  });
 });
