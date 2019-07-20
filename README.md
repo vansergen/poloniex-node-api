@@ -392,6 +392,19 @@ const offers = await AuthenticatedClient.getOpenLoanOffers();
 const loans = await AuthenticatedClient.getActiveLoans();
 ```
 
+- [`getLendingHistory`](https://docs.poloniex.com/#returnlendinghistory)
+
+```javascript
+const start = 1483228800;
+const end = 1483315200;
+const limits = 100;
+const history = await AuthenticatedClient.getLendingHistory({
+  start,
+  end,
+  limits,
+});
+```
+
 - `post`
 
 ```javascript

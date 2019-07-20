@@ -195,6 +195,12 @@ declare module 'poloniex' {
     lendingRate: number;
   };
 
+  export type LendingHistoryOptions = {
+    start?: number;
+    end?: number;
+    limit?: number;
+  };
+
   export type Balances = {
     [currency: string]: string;
   };
@@ -449,6 +455,21 @@ declare module 'poloniex' {
     used: ActiveLoan[];
   };
 
+  export type LendingHistoryItem = {
+    id: number;
+    currency: string;
+    rate: string;
+    amount: string;
+    duration: string;
+    interest: string;
+    fee: string;
+    earned: string;
+    open: string;
+    close: string;
+  };
+
+  export type LendingHistory = LendingHistoryItem[];
+
   export type WsRawMessage = Array<any>;
 
   export namespace WebsocketMessage {
@@ -656,6 +677,8 @@ declare module 'poloniex' {
     getOpenLoanOffers(): Promise<LoanOffers>;
 
     getActiveLoans(): Promise<ActiveLoans>;
+
+    getLendingHistory(options?: LendingHistoryOptions): Promise<LendingHistory>;
   }
 
   export class WebsocketClient extends EventEmitter {
