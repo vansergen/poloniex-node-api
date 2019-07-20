@@ -116,6 +116,8 @@ try {
 - `cb`
 
 ```javascript
+const _method = 'getLoanOrders';
+const options = { currency: 'BTC' };
 const callback = (error, data) => {
   if (error) {
     console.error(error);
@@ -123,26 +125,7 @@ const callback = (error, data) => {
     console.log(data);
   }
 };
-publicClient.cb('getLoanOrders', callback, { currency: 'BTC' });
-```
-
-- `request`
-
-```javascript
-publicClient
-  .request({
-    method: 'GET',
-    qs: {
-      command: 'return24hVolume',
-    },
-    url: 'https://poloniex.com/public',
-  })
-  .then(data => {
-    console.log(data);
-  })
-  .catch(error => {
-    console.error(error);
-  });
+publicClient.cb({ _method, ...options }, callback);
 ```
 
 ### AuthenticatedClient

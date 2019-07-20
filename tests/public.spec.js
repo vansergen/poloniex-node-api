@@ -35,9 +35,7 @@ suite('PublicClient', () => {
       .request({ method: 'GET', url: EXCHANGE_API_URL + '/public' })
       .then(() => assert.fail('Should have thrown an error'))
       .catch(error => {
-        assert.deepEqual(error.message, '400 - {"error":"some error"}');
-        assert.deepEqual(error.statusCode, 400);
-        assert.deepEqual(error.error, data);
+        assert.deepEqual(error, data);
         done();
       });
   });
