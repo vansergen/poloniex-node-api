@@ -13,8 +13,8 @@ npm install poloniex-node-api
 ### PublicClient
 
 ```javascript
-const Poloniex = require('poloniex-node-api');
-const publicClient = new Poloniex.PublicClient();
+const { PublicClient } = require('poloniex-node-api');
+const publicClient = new PublicClient();
 ```
 
 - [`getTickers`](https://docs.poloniex.com/?shell#returnticker)
@@ -133,70 +133,69 @@ publicClient.cb({ _method, ...options }, callback);
 ```javascript
 const key = 'poloniexapikey';
 const secret = 'poloniexapisecret';
-const Poloniex = require('poloniex-node-api');
-const AuthenticatedClient = new Poloniex.AuthenticatedClient({ key, secret });
+const { AuthenticatedClient } = require('poloniex-node-api');
+const authClient = new AuthenticatedClient({ key, secret });
 ```
 
 - [`getBalances`](https://docs.poloniex.com/?shell#returnbalances)
 
 ```javascript
-const balances = await AuthenticatedClient.getBalances();
+const balances = await authClient.getBalances();
 ```
 
 - [`getCompleteBalances`](https://docs.poloniex.com/?shell#returncompletebalances)
 
 ```javascript
 const account = 'all';
-const balances = await AuthenticatedClient.getCompleteBalances({ account });
+const balances = await authClient.getCompleteBalances({ account });
 ```
 
 - [`getDepositAddresses`](https://docs.poloniex.com/?shell#returndepositaddresses)
 
 ```javascript
-const addresses = await AuthenticatedClient.getDepositAddresses();
+const addresses = await authClient.getDepositAddresses();
 ```
 
 - [`getNewAddress`](https://docs.poloniex.com/?shell#generatenewaddress)
 
 ```javascript
-const addresses = await AuthenticatedClient.getNewAddress({ currency: 'ZEC' });
+const addresses = await authClient.getNewAddress({ currency: 'ZEC' });
 ```
 
 - [`getDepositsWithdrawals`](https://docs.poloniex.com/?shell#returndepositswithdrawals)
 
 ```javascript
-const deposits_withdrawals = await AuthenticatedClient.getDepositsWithdrawals({
-  start: 1539954535,
-  end: 1540314535,
-});
+const start = 1539954535;
+const end = 1540314535;
+const result = await authClient.getDepositsWithdrawals({ start, end });
 ```
 
 - [`getOpenOrders`](https://docs.poloniex.com/?shell#returnopenorders)
 
 ```javascript
 const currencyPair = 'BTC_DASH';
-const orders = await AuthenticatedClient.getOpenOrders({ currencyPair });
+const orders = await authClient.getOpenOrders({ currencyPair });
 ```
 
 - [`getHistoryTrades`](https://docs.poloniex.com/?shell#returntradehistory-private)
 
 ```javascript
 const currencyPair = 'BTC_ETC';
-const trades = await AuthenticatedClient.getHistoryTrades({ currencyPair });
+const trades = await authClient.getHistoryTrades({ currencyPair });
 ```
 
 - [`getOrderTrades`](https://docs.poloniex.com/?shell#returntradehistory-private)
 
 ```javascript
 const orderNumber = 96238912842;
-const trades = await AuthenticatedClient.getOrderTrades({ orderNumber });
+const trades = await authClient.getOrderTrades({ orderNumber });
 ```
 
 - [`getOrderStatus`](https://docs.poloniex.com/?shell#returnorderstatus)
 
 ```javascript
 const orderNumber = 96238912842;
-const trades = await AuthenticatedClient.getOrderStatus({ orderNumber });
+const trades = await authClient.getOrderStatus({ orderNumber });
 ```
 
 - [`buy`](https://docs.poloniex.com/?shell#buy)
@@ -205,7 +204,7 @@ const trades = await AuthenticatedClient.getOrderStatus({ orderNumber });
 const currencyPair = 'BTC_ETH';
 const rate = 0.01;
 const amount = 1;
-const order = await AuthenticatedClient.buy({ currencyPair, rate, amount });
+const order = await authClient.buy({ currencyPair, rate, amount });
 ```
 
 - [`sell`](https://docs.poloniex.com/?shell#sell)
@@ -214,21 +213,21 @@ const order = await AuthenticatedClient.buy({ currencyPair, rate, amount });
 const currencyPair = 'BTC_ETH';
 const rate = 10;
 const amount = 1;
-const order = await AuthenticatedClient.sell({ currencyPair, rate, amount });
+const order = await authClient.sell({ currencyPair, rate, amount });
 ```
 
 - [`cancelOrder`](https://docs.poloniex.com/?shell#cancelorder)
 
 ```javascript
 const orderNumber = 514845991795;
-const order = await AuthenticatedClient.cancelOrder({ orderNumber });
+const order = await authClient.cancelOrder({ orderNumber });
 ```
 
 - [`cancelAllOrders`](https://docs.poloniex.com/?shell#cancelallorders)
 
 ```javascript
 const currencyPair = 'BTC_ETH';
-const orders = await AuthenticatedClient.cancelAllOrders({ currencyPair });
+const orders = await authClient.cancelAllOrders({ currencyPair });
 ```
 
 - [`moveOrder`](https://docs.poloniex.com/?shell#moveorder)
@@ -236,7 +235,7 @@ const orders = await AuthenticatedClient.cancelAllOrders({ currencyPair });
 ```javascript
 const orderNumber = 514851026755;
 const rate = 0.00015;
-const result = await AuthenticatedClient.moveOrder({ rate, orderNumber });
+const result = await authClient.moveOrder({ rate, orderNumber });
 ```
 
 - [`withdraw`](https://docs.poloniex.com/?shell#withdraw)
@@ -246,7 +245,7 @@ const currency = 'EOS';
 const amount = 1000;
 const address = 'eos-address';
 const paymentId = 1234567890;
-const result = await AuthenticatedClient.withdraw({
+const result = await authClient.withdraw({
   currency,
   amount,
   address,
@@ -257,7 +256,7 @@ const result = await AuthenticatedClient.withdraw({
 - [`getFeeInfo`](https://docs.poloniex.com/?shell#returnfeeinfo)
 
 ```javascript
-const fees = await AuthenticatedClient.getFeeInfo();
+const fees = await authClient.getFeeInfo();
 ```
 
 - [`getAvailableAccountBalances`](https://docs.poloniex.com/?shell#returnavailableaccountbalances)
@@ -290,7 +289,7 @@ const transfer = AuthenticatedClient.transferBalance({
 - [`getMarginAccountSummary`](https://docs.poloniex.com/?shell#returnmarginaccountsummary)
 
 ```javascript
-const summary = await AuthenticatedClient.getMarginAccountSummary();
+const summary = await authClient.getMarginAccountSummary();
 ```
 
 - [`marginBuy`](https://docs.poloniex.com/?shell#marginbuy)
@@ -300,7 +299,7 @@ const currencyPair = 'BTC_ETH';
 const rate = 0.01;
 const amount = 1;
 const lendingRate = 0.01;
-const order = await AuthenticatedClient.marginBuy({
+const order = await authClient.marginBuy({
   currencyPair,
   rate,
   amount,
@@ -315,7 +314,7 @@ const currencyPair = 'BTC_ETH';
 const rate = 10;
 const amount = 1;
 const lendingRate = 0.015;
-const order = await AuthenticatedClient.marginSell({
+const order = await authClient.marginSell({
   currencyPair,
   rate,
   amount,
@@ -327,16 +326,14 @@ const order = await AuthenticatedClient.marginSell({
 
 ```javascript
 const currencyPair = 'BTC_ETH';
-const position = await AuthenticatedClient.getMarginPosition({ currencyPair });
+const position = await authClient.getMarginPosition({ currencyPair });
 ```
 
 - [`closeMarginPosition`](https://docs.poloniex.com/?shell#closemarginposition)
 
 ```javascript
 const currencyPair = 'BTC_ETH';
-const position = await AuthenticatedClient.closeMarginPosition({
-  currencyPair,
-});
+const position = await authClient.closeMarginPosition({ currencyPair });
 ```
 
 - [`createLoanOffer`](https://docs.poloniex.com/?shell#createloanoffer)
@@ -347,7 +344,7 @@ const amount = 0.1;
 const duration = 2;
 const autoRenew = 0;
 const lendingRate = 0.015;
-const offer = await AuthenticatedClient.createLoanOffer({
+const offer = await authClient.createLoanOffer({
   currency,
   amount,
   duration,
@@ -360,19 +357,19 @@ const offer = await AuthenticatedClient.createLoanOffer({
 
 ```javascript
 const orderNumber = 1002013188;
-const offer = await AuthenticatedClient.cancelLoanOffer({ orderNumber });
+const offer = await authClient.cancelLoanOffer({ orderNumber });
 ```
 
 - [`getOpenLoanOffers`](https://docs.poloniex.com/?shell#returnopenloanoffers)
 
 ```javascript
-const offers = await AuthenticatedClient.getOpenLoanOffers();
+const offers = await authClient.getOpenLoanOffers();
 ```
 
 - [`getActiveLoans`](https://docs.poloniex.com/#returnactiveloans)
 
 ```javascript
-const loans = await AuthenticatedClient.getActiveLoans();
+const loans = await authClient.getActiveLoans();
 ```
 
 - [`getLendingHistory`](https://docs.poloniex.com/#returnlendinghistory)
@@ -381,24 +378,14 @@ const loans = await AuthenticatedClient.getActiveLoans();
 const start = 1483228800;
 const end = 1483315200;
 const limits = 100;
-const history = await AuthenticatedClient.getLendingHistory({
-  start,
-  end,
-  limits,
-});
+const history = await authClient.getLendingHistory({ start, end, limits });
 ```
 
 - [`toggleAutoRenew`](https://docs.poloniex.com/#toggleautorenew)
 
 ```javascript
 const orderNumber = 1002013188;
-const result = await AuthenticatedClient.toggleAutoRenew({ orderNumber });
-```
-
-- `post`
-
-```javascript
-AuthenticatedClient.post({ command: 'returnCompleteBalances' });
+const result = await authClient.toggleAutoRenew({ orderNumber });
 ```
 
 ### WebsocketClient
@@ -407,8 +394,8 @@ AuthenticatedClient.post({ command: 'returnCompleteBalances' });
 const key = 'poloniexapikey';
 const secret = 'poloniexapisecret';
 const channels = [1000, 'BTC_DOGE'];
-const Poloniex = require('poloniex-node-api');
-const websocket = new Poloniex.WebsocketClient({ key, secret, channels });
+const { WebsocketClient } = require('poloniex-node-api');
+const websocket = new WebsocketClient({ key, secret, channels });
 websocket.on('open', () => {
   console.log('open');
 });
