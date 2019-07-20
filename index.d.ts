@@ -470,6 +470,11 @@ declare module 'poloniex' {
 
   export type LendingHistory = LendingHistoryItem[];
 
+  export type AutoRenewResult = {
+    success: 0 | 1;
+    message: 0 | 1;
+  };
+
   export type WsRawMessage = Array<any>;
 
   export namespace WebsocketMessage {
@@ -679,6 +684,8 @@ declare module 'poloniex' {
     getActiveLoans(): Promise<ActiveLoans>;
 
     getLendingHistory(options?: LendingHistoryOptions): Promise<LendingHistory>;
+
+    toggleAutoRenew(options: OrderFilter): Promise<AutoRenewResult>;
   }
 
   export class WebsocketClient extends EventEmitter {
