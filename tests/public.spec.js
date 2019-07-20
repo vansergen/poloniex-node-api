@@ -45,6 +45,7 @@ suite('PublicClient', () => {
   test('.cb()', () => {
     const response = { response: 1 };
     const options = { method: 'GET', url: EXCHANGE_API_URL + '/public' };
+    const _method = 'request';
     nock(EXCHANGE_API_URL)
       .get('/public')
       .times(2)
@@ -59,7 +60,7 @@ suite('PublicClient', () => {
           resolve(data);
         }
       };
-      publicClient.cb('request', callback, options);
+      publicClient.cb({ _method, ...options }, callback);
     });
 
     const preq = publicClient
