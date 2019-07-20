@@ -1,6 +1,6 @@
 import { EventEmitter } from 'events';
 
-declare module 'poloniex' {
+declare module 'poloniex-node-api' {
   export type callback<T> = (error: any, data: T) => void;
 
   export type TickerInfo = {
@@ -107,6 +107,10 @@ declare module 'poloniex' {
     form?: {
       nonce: number;
     } & getOptions;
+  };
+
+  export type CBOptions = {
+    _method: string;
   };
 
   export type CurrencyPairFilter = {
@@ -599,7 +603,7 @@ declare module 'poloniex' {
 
     request(options: requestOptions): Promise<any>;
 
-    cb(method: string, callback: callback<any>, options?: any);
+    cb(options: CBOptions, callback: callback<any>);
 
     getTickers(): Promise<Tickers>;
 
@@ -616,7 +620,7 @@ declare module 'poloniex' {
     getLoanOrders(options: CurrencyFilter): Promise<Loans>;
   }
 
-  export class AuthenticatedClient {
+  export class AuthenticatedClient extends PublicClient {
     constructor(options: AuthenticatedClientOptions);
 
     post(options: getOptions): Promise<any>;
