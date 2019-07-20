@@ -1,6 +1,6 @@
 {
   "name": "poloniex-node-api",
-  "version": "0.3.6",
+  "version": "0.4.0",
   "description": "Poloniex Node.js API",
   "main": "index.js",
   "directories": {
@@ -36,7 +36,7 @@
   "homepage": "https://github.com/vansergen/poloniex-node-api#readme",
   "dependencies": {
     "request": "^2.88.0",
-    "request-promise": "^4.2.4",
+    "request-promise-native": "^1.0.7",
     "ws": "^7.1.1"
   },
   "devDependencies": {
