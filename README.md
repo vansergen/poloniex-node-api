@@ -464,16 +464,6 @@ websocket.subscribe(1003);
 websocket.unsubscribe('BTC_ZEC');
 ```
 
-### SignRequest
-
-```javascript
-const Poloniex = require('poloniex-node-api');
-const auth = { key: 'apikey', secret: 'apisecret' };
-const data = { form: { command: 'returnBalances', nonce: 154264078495300 } };
-const { key, sign } = Poloniex.SignRequest(auth, data);
-console.log(sign);
-```
-
 ### Test
 
 ```bash

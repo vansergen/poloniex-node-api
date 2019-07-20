@@ -1,8 +1,6 @@
 const assert = require('assert');
 
-const Poloniex = require('../index.js');
-
-const signer = Poloniex.SignRequest;
+const signer = require('../lib/signer.js');
 
 suite('SignRequest', () => {
   test('correct signature', () => {
