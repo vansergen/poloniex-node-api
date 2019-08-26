@@ -13,10 +13,10 @@ suite('WebsocketClient', () => {
       raw: true,
       key: 'somekey',
     });
-    assert.deepEqual(client.websocketURI, EXCHANGE_WS_URL);
-    assert.deepEqual(client.raw, true);
-    assert.deepEqual(client.key, undefined);
-    assert.deepEqual(client.secret, undefined);
+    assert.deepStrictEqual(client.websocketURI, EXCHANGE_WS_URL);
+    assert.deepStrictEqual(client.raw, true);
+    assert.deepStrictEqual(client.key, undefined);
+    assert.deepStrictEqual(client.secret, undefined);
   });
 
   test('connects to the default channel', done => {
@@ -30,8 +30,8 @@ suite('WebsocketClient', () => {
       socket.on('message', data => {
         const msg = JSON.parse(data);
         const [channel] = DEFAULT_CHANNELS;
-        assert.deepEqual(msg.command, 'subscribe');
-        assert.deepEqual(msg.channel, channel);
+        assert.deepStrictEqual(msg.command, 'subscribe');
+        assert.deepStrictEqual(msg.channel, channel);
         server.close();
         done();
       });
@@ -52,7 +52,7 @@ suite('WebsocketClient', () => {
       let subscribed = [];
       socket.on('message', data => {
         const msg = JSON.parse(data);
-        assert.deepEqual(msg.command, 'subscribe');
+        assert.deepStrictEqual(msg.command, 'subscribe');
         assert.ok(channels.includes(msg.channel));
         subscribed.push(msg.channel);
         if (subscribed.length === channels.length) {
@@ -74,12 +74,12 @@ suite('WebsocketClient', () => {
     server.on('connection', socket => {
       socket.once('message', data => {
         const msg = JSON.parse(data);
-        assert.deepEqual(msg.command, 'subscribe');
+        assert.deepStrictEqual(msg.command, 'subscribe');
 
         socket.on('message', data => {
           const msg = JSON.parse(data);
-          assert.deepEqual(msg.command, 'unsubscribe');
-          assert.deepEqual(msg.channel, 148);
+          assert.deepStrictEqual(msg.command, 'unsubscribe');
+          assert.deepStrictEqual(msg.channel, 148);
 
           server.close();
           done();
@@ -101,12 +101,12 @@ suite('WebsocketClient', () => {
     server.on('connection', socket => {
       socket.once('message', data => {
         const msg = JSON.parse(data);
-        assert.deepEqual(msg.command, 'subscribe');
+        assert.deepStrictEqual(msg.command, 'subscribe');
 
         socket.on('message', data => {
           const msg = JSON.parse(data);
-          assert.deepEqual(msg.command, 'subscribe');
-          assert.deepEqual(msg.channel, channel);
+          assert.deepStrictEqual(msg.command, 'subscribe');
+          assert.deepStrictEqual(msg.channel, channel);
 
           server.close();
           done();
@@ -131,9 +131,9 @@ suite('WebsocketClient', () => {
     server.on('connection', socket => {
       socket.on('message', data => {
         const msg = JSON.parse(data);
-        assert.deepEqual(msg.command, 'subscribe');
-        assert.deepEqual(msg.key, key);
-        assert.deepEqual(msg.payload, 'nonce=1');
+        assert.deepStrictEqual(msg.command, 'subscribe');
+        assert.deepStrictEqual(msg.key, key);
+        assert.deepStrictEqual(msg.payload, 'nonce=1');
         assert(msg.sign);
         server.close();
         done();
@@ -148,8 +148,8 @@ suite('WebsocketClient', () => {
       });
 
       client.once('error', err => {
-        assert.deepEqual(err.message, 'error message');
-        assert.deepEqual(err.reason, 'error reason');
+        assert.deepStrictEqual(err.message, 'error message');
+        assert.deepStrictEqual(err.reason, 'error reason');
         done();
       });
       client.connect();
