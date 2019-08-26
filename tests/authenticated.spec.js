@@ -33,11 +33,11 @@ suite('AuthenticatedClient', () => {
       timeout: newTimeout,
       api_uri: newApi,
     });
-    assert.deepEqual(client.key, key);
-    assert.deepEqual(client.secret, secret);
-    assert.deepEqual(client.currencyPair, 'BTC_ETH');
-    assert.deepEqual(client.api_uri, newApi);
-    assert.deepEqual(client.timeout, newTimeout);
+    assert.deepStrictEqual(client.key, key);
+    assert.deepStrictEqual(client.secret, secret);
+    assert.deepStrictEqual(client.currencyPair, 'BTC_ETH');
+    assert.deepStrictEqual(client.api_uri, newApi);
+    assert.deepStrictEqual(client.timeout, newTimeout);
   });
 
   test('.getBalances()', done => {
@@ -56,7 +56,7 @@ suite('AuthenticatedClient', () => {
     authClient
       .getBalances()
       .then(data => {
-        assert.deepEqual(data, balances);
+        assert.deepStrictEqual(data, balances);
         done();
       })
       .catch(error => assert.fail(error));
@@ -86,7 +86,7 @@ suite('AuthenticatedClient', () => {
     authClient
       .getCompleteBalances()
       .then(data => {
-        assert.deepEqual(data, balances);
+        assert.deepStrictEqual(data, balances);
         done();
       })
       .catch(error => assert.fail(error));
@@ -121,7 +121,7 @@ suite('AuthenticatedClient', () => {
     authClient
       .getCompleteBalances(options)
       .then(data => {
-        assert.deepEqual(data, balances);
+        assert.deepStrictEqual(data, balances);
         done();
       })
       .catch(error => assert.fail(error));
@@ -143,7 +143,7 @@ suite('AuthenticatedClient', () => {
     authClient
       .getDepositAddresses()
       .then(data => {
-        assert.deepEqual(data, addresses);
+        assert.deepStrictEqual(data, addresses);
         done();
       })
       .catch(error => assert.fail(error));
@@ -170,7 +170,7 @@ suite('AuthenticatedClient', () => {
     authClient
       .getNewAddress({ currency })
       .then(data => {
-        assert.deepEqual(data, address);
+        assert.deepStrictEqual(data, address);
         done();
       })
       .catch(error => assert.fail(error));
@@ -213,7 +213,7 @@ suite('AuthenticatedClient', () => {
     authClient
       .getDepositsWithdrawals(options)
       .then(data => {
-        assert.deepEqual(data, deposits_withdrawals);
+        assert.deepStrictEqual(data, deposits_withdrawals);
         done();
       })
       .catch(error => assert.fail(error));
@@ -236,7 +236,7 @@ suite('AuthenticatedClient', () => {
     authClient
       .getOpenOrders()
       .then(data => {
-        assert.deepEqual(data, orders);
+        assert.deepStrictEqual(data, orders);
         done();
       })
       .catch(error => assert.fail(error));
@@ -270,7 +270,7 @@ suite('AuthenticatedClient', () => {
     authClient
       .getHistoryTrades()
       .then(data => {
-        assert.deepEqual(data, trades);
+        assert.deepStrictEqual(data, trades);
         done();
       })
       .catch(error => assert.fail(error));
@@ -313,7 +313,7 @@ suite('AuthenticatedClient', () => {
     authClient
       .getOrderTrades({ orderNumber })
       .then(data => {
-        assert.deepEqual(data, trades);
+        assert.deepStrictEqual(data, trades);
         done();
       })
       .catch(error => assert.fail(error));
@@ -347,7 +347,7 @@ suite('AuthenticatedClient', () => {
     authClient
       .getOrderStatus({ orderNumber })
       .then(data => {
-        assert.deepEqual(data, response);
+        assert.deepStrictEqual(data, response);
         done();
       })
       .catch(error => assert.fail(error));
@@ -389,7 +389,7 @@ suite('AuthenticatedClient', () => {
     authClient
       .buy({ currencyPair, rate, amount })
       .then(data => {
-        assert.deepEqual(data, response);
+        assert.deepStrictEqual(data, response);
         done();
       })
       .catch(error => assert.fail(error));
@@ -437,7 +437,7 @@ suite('AuthenticatedClient', () => {
     client
       .buy({ rate, amount })
       .then(data => {
-        assert.deepEqual(data, response);
+        assert.deepStrictEqual(data, response);
         done();
       })
       .catch(error => assert.fail(error));
@@ -479,7 +479,7 @@ suite('AuthenticatedClient', () => {
     authClient
       .sell({ currencyPair, rate, amount })
       .then(data => {
-        assert.deepEqual(data, response);
+        assert.deepStrictEqual(data, response);
         done();
       })
       .catch(error => assert.fail(error));
@@ -503,7 +503,7 @@ suite('AuthenticatedClient', () => {
     authClient
       .cancelOrder({ orderNumber })
       .then(data => {
-        assert.deepEqual(data, result);
+        assert.deepStrictEqual(data, result);
         done();
       })
       .catch(error => assert.fail(error));
@@ -526,7 +526,7 @@ suite('AuthenticatedClient', () => {
     authClient
       .cancelAllOrders()
       .then(data => {
-        assert.deepEqual(data, result);
+        assert.deepStrictEqual(data, result);
         done();
       })
       .catch(error => assert.fail(error));
@@ -551,7 +551,7 @@ suite('AuthenticatedClient', () => {
     authClient
       .moveOrder({ orderNumber, rate })
       .then(data => {
-        assert.deepEqual(data, result);
+        assert.deepStrictEqual(data, result);
         done();
       })
       .catch(error => assert.fail(error));
@@ -579,7 +579,7 @@ suite('AuthenticatedClient', () => {
     authClient
       .withdraw({ currency, amount, address })
       .then(data => {
-        assert.deepEqual(data, result);
+        assert.deepStrictEqual(data, result);
         done();
       })
       .catch(error => assert.fail(error));
@@ -603,7 +603,7 @@ suite('AuthenticatedClient', () => {
     authClient
       .getFeeInfo()
       .then(data => {
-        assert.deepEqual(data, result);
+        assert.deepStrictEqual(data, result);
         done();
       })
       .catch(error => assert.fail(error));
@@ -638,7 +638,7 @@ suite('AuthenticatedClient', () => {
     authClient
       .getAvailableAccountBalances()
       .then(data => {
-        assert.deepEqual(data, result);
+        assert.deepStrictEqual(data, result);
         done();
       })
       .catch(error => assert.fail(error));
@@ -669,7 +669,7 @@ suite('AuthenticatedClient', () => {
     authClient
       .getTradableBalances()
       .then(data => {
-        assert.deepEqual(data, result);
+        assert.deepStrictEqual(data, result);
         done();
       })
       .catch(error => assert.fail(error));
@@ -702,7 +702,7 @@ suite('AuthenticatedClient', () => {
     authClient
       .transferBalance({ currency, amount, fromAccount, toAccount })
       .then(data => {
-        assert.deepEqual(data, result);
+        assert.deepStrictEqual(data, result);
         done();
       })
       .catch(error => assert.fail(error));
@@ -728,7 +728,7 @@ suite('AuthenticatedClient', () => {
     authClient
       .getMarginAccountSummary()
       .then(data => {
-        assert.deepEqual(data, result);
+        assert.deepStrictEqual(data, result);
         done();
       })
       .catch(error => assert.fail(error));
@@ -760,7 +760,7 @@ suite('AuthenticatedClient', () => {
     authClient
       .marginBuy({ currencyPair, rate, amount })
       .then(data => {
-        assert.deepEqual(data, response);
+        assert.deepStrictEqual(data, response);
         done();
       })
       .catch(error => assert.fail(error));
@@ -807,7 +807,7 @@ suite('AuthenticatedClient', () => {
     client
       .marginBuy({ rate, amount })
       .then(data => {
-        assert.deepEqual(data, response);
+        assert.deepStrictEqual(data, response);
         done();
       })
       .catch(error => assert.fail(error));
@@ -839,7 +839,7 @@ suite('AuthenticatedClient', () => {
     authClient
       .marginSell({ currencyPair, rate, amount })
       .then(data => {
-        assert.deepEqual(data, response);
+        assert.deepStrictEqual(data, response);
         done();
       })
       .catch(error => assert.fail(error));
@@ -871,7 +871,7 @@ suite('AuthenticatedClient', () => {
     authClient
       .getMarginPosition({ currencyPair })
       .then(data => {
-        assert.deepEqual(data, response);
+        assert.deepStrictEqual(data, response);
         done();
       })
       .catch(error => assert.fail(error));
@@ -918,7 +918,7 @@ suite('AuthenticatedClient', () => {
     authClient
       .closeMarginPosition({ currencyPair })
       .then(data => {
-        assert.deepEqual(data, response);
+        assert.deepStrictEqual(data, response);
         done();
       })
       .catch(error => assert.fail(error));
@@ -954,7 +954,7 @@ suite('AuthenticatedClient', () => {
     authClient
       .createLoanOffer({ currency, amount, duration, autoRenew, lendingRate })
       .then(data => {
-        assert.deepEqual(data, response);
+        assert.deepStrictEqual(data, response);
         done();
       })
       .catch(error => assert.fail(error));
@@ -978,7 +978,7 @@ suite('AuthenticatedClient', () => {
     authClient
       .cancelLoanOffer({ orderNumber })
       .then(data => {
-        assert.deepEqual(data, response);
+        assert.deepStrictEqual(data, response);
         done();
       })
       .catch(error => assert.fail(error));
@@ -1008,7 +1008,7 @@ suite('AuthenticatedClient', () => {
     authClient
       .getOpenLoanOffers()
       .then(data => {
-        assert.deepEqual(data, response);
+        assert.deepStrictEqual(data, response);
         done();
       })
       .catch(error => assert.fail(error));
@@ -1061,7 +1061,7 @@ suite('AuthenticatedClient', () => {
     authClient
       .getActiveLoans()
       .then(data => {
-        assert.deepEqual(data, response);
+        assert.deepStrictEqual(data, response);
         done();
       })
       .catch(error => assert.fail(error));
@@ -1138,7 +1138,7 @@ suite('AuthenticatedClient', () => {
     authClient
       .getLendingHistory({ start, end, limit })
       .then(data => {
-        assert.deepEqual(data, response);
+        assert.deepStrictEqual(data, response);
         done();
       })
       .catch(error => assert.fail(error));
@@ -1158,7 +1158,7 @@ suite('AuthenticatedClient', () => {
     authClient
       .toggleAutoRenew({ orderNumber })
       .then(data => {
-        assert.deepEqual(data, response);
+        assert.deepStrictEqual(data, response);
         done();
       })
       .catch(error => assert.fail(error));

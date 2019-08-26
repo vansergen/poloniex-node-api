@@ -9,8 +9,8 @@ suite('PublicClient', () => {
   teardown(() => nock.cleanAll());
 
   test('.constructor()', () => {
-    assert.deepEqual(publicClient.api_uri, EXCHANGE_API_URL);
-    assert.deepEqual(publicClient.timeout, DEFAULT_TIMEOUT);
+    assert.deepStrictEqual(publicClient.api_uri, EXCHANGE_API_URL);
+    assert.deepStrictEqual(publicClient.timeout, DEFAULT_TIMEOUT);
   });
 
   test('.constructor() (with custom parameters)', () => {
@@ -20,8 +20,8 @@ suite('PublicClient', () => {
       api_uri: newApi,
       timeout: newTimeout,
     });
-    assert.deepEqual(newClient.api_uri, newApi);
-    assert.deepEqual(newClient.timeout, newTimeout);
+    assert.deepStrictEqual(newClient.api_uri, newApi);
+    assert.deepStrictEqual(newClient.timeout, newTimeout);
   });
 
   test('.request() (handles errors)', done => {
@@ -35,7 +35,7 @@ suite('PublicClient', () => {
       .request({ method: 'GET', url: EXCHANGE_API_URL + '/public' })
       .then(() => assert.fail('Should have thrown an error'))
       .catch(error => {
-        assert.deepEqual(error, data);
+        assert.deepStrictEqual(error, data);
         done();
       });
   });
@@ -54,7 +54,7 @@ suite('PublicClient', () => {
         if (error) {
           reject(error);
         } else {
-          assert.deepEqual(data, response);
+          assert.deepStrictEqual(data, response);
           resolve(data);
         }
       };
@@ -63,7 +63,7 @@ suite('PublicClient', () => {
 
     const preq = publicClient
       .request(options)
-      .then(data => assert.deepEqual(data, response))
+      .then(data => assert.deepStrictEqual(data, response))
       .catch(error => assert.fail(error));
     return Promise.all([cbreq, preq]);
   });
@@ -103,7 +103,7 @@ suite('PublicClient', () => {
     publicClient
       .getTickers()
       .then(data => {
-        assert.deepEqual(data, tickers);
+        assert.deepStrictEqual(data, tickers);
         done();
       })
       .catch(error => assert.fail(error));
@@ -125,7 +125,7 @@ suite('PublicClient', () => {
     publicClient
       .getVolume()
       .then(data => {
-        assert.deepEqual(data, volume);
+        assert.deepStrictEqual(data, volume);
         done();
       })
       .catch(error => assert.fail(error));
@@ -154,7 +154,7 @@ suite('PublicClient', () => {
     publicClient
       .getOrderBook()
       .then(data => {
-        assert.deepEqual(data, book);
+        assert.deepStrictEqual(data, book);
         done();
       })
       .catch(error => assert.fail(error));
@@ -184,7 +184,7 @@ suite('PublicClient', () => {
     publicClient
       .getOrderBook(options)
       .then(data => {
-        assert.deepEqual(data, book);
+        assert.deepStrictEqual(data, book);
         done();
       })
       .catch(error => assert.fail(error));
@@ -231,7 +231,7 @@ suite('PublicClient', () => {
     publicClient
       .getTradeHistory()
       .then(data => {
-        assert.deepEqual(data, trades);
+        assert.deepStrictEqual(data, trades);
         done();
       })
       .catch(error => assert.fail(error));
@@ -273,7 +273,7 @@ suite('PublicClient', () => {
     client
       .getTradeHistory(options)
       .then(data => {
-        assert.deepEqual(data, trades);
+        assert.deepStrictEqual(data, trades);
         done();
       })
       .catch(error => assert.fail(error));
@@ -327,7 +327,7 @@ suite('PublicClient', () => {
     publicClient
       .getChartData(options)
       .then(data => {
-        assert.deepEqual(data, candles);
+        assert.deepStrictEqual(data, candles);
         done();
       })
       .catch(error => assert.fail(error));
@@ -370,7 +370,7 @@ suite('PublicClient', () => {
     publicClient
       .getCurrencies()
       .then(data => {
-        assert.deepEqual(data, currencies);
+        assert.deepStrictEqual(data, currencies);
         done();
       })
       .catch(error => assert.fail(error));
@@ -396,7 +396,7 @@ suite('PublicClient', () => {
     publicClient
       .getLoanOrders(options)
       .then(data => {
-        assert.deepEqual(data, loans);
+        assert.deepStrictEqual(data, loans);
         done();
       })
       .catch(error => assert.fail(error));
