@@ -204,7 +204,13 @@ const trades = await authClient.getOrderStatus({ orderNumber });
 const currencyPair = 'BTC_ETH';
 const rate = 0.01;
 const amount = 1;
-const order = await authClient.buy({ currencyPair, rate, amount });
+const clientOrderId = 12345;
+const order = await authClient.buy({
+  currencyPair,
+  rate,
+  amount,
+  clientOrderId,
+});
 ```
 
 - [`sell`](https://docs.poloniex.com/?shell#sell)
@@ -235,7 +241,8 @@ const orders = await authClient.cancelAllOrders({ currencyPair });
 ```javascript
 const orderNumber = 514851026755;
 const rate = 0.00015;
-const result = await authClient.moveOrder({ rate, orderNumber });
+const clientOrderId = 12345;
+const result = await authClient.moveOrder({ rate, orderNumber, clientOrderId });
 ```
 
 - [`withdraw`](https://docs.poloniex.com/?shell#withdraw)
@@ -314,11 +321,13 @@ const currencyPair = 'BTC_ETH';
 const rate = 10;
 const amount = 1;
 const lendingRate = 0.015;
+const clientOrderId = 12345;
 const order = await authClient.marginSell({
   currencyPair,
   rate,
   amount,
   lendingRate,
+  clientOrderId,
 });
 ```
 

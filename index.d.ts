@@ -156,17 +156,19 @@ declare module 'poloniex-node-api' {
     currencyPair?: string;
     rate: number;
     amount: number;
-    fillOrKill: 0 | 1;
-    immediateOrCancel: 0 | 1;
-    postOnly: 0 | 1;
+    fillOrKill?: 0 | 1;
+    immediateOrCancel?: 0 | 1;
+    postOnly?: 0 | 1;
+    clientOrderId?: number;
   };
 
   export type MoveOrderOptions = {
     orderNumber: number;
     rate: number;
     amount?: number;
-    postOnly: 0 | 1;
+    postOnly?: 0 | 1;
     immediateOrCancel?: 0 | 1;
+    clientOrderId?: number;
   };
 
   export type WithdrawOptions = {
@@ -189,6 +191,7 @@ declare module 'poloniex-node-api' {
     rate: number;
     amount: number;
     lendingRate: number;
+    clientOrderId?: number;
   };
 
   export type OfferOptions = {
@@ -325,6 +328,7 @@ declare module 'poloniex-node-api' {
     resultingTrades: ResultingTrade[];
     fee: string;
     currencyPair: string;
+    clientOrderId?: string;
   };
 
   export type CancelResponse = {
@@ -332,6 +336,7 @@ declare module 'poloniex-node-api' {
     amount: string;
     message: string;
     fee?: string;
+    clientOrderId?: string;
     currencyPair?: string;
   };
 
@@ -349,6 +354,7 @@ declare module 'poloniex-node-api' {
     resultingTrades: {
       [currencyPair: string]: ResultingTrade[];
     };
+    clientOrderId: string;
   };
 
   export type WithdrawResponse = {
@@ -392,6 +398,7 @@ declare module 'poloniex-node-api' {
     orderNumber: string;
     resultingTrades: ResultingTrade[];
     message: string;
+    clientOrderId?: string;
   };
 
   export type MarginPosition = {
@@ -484,8 +491,9 @@ declare module 'poloniex-node-api' {
   export namespace WebsocketMessage {
     type Message = {
       channel_id: string | number;
-      sequence: number | null;
+      sequence: number | null | '';
     };
+
     export type Heartbeat = {
       subject: 'heartbeat';
     } & Message;
@@ -525,8 +533,8 @@ declare module 'poloniex-node-api' {
       };
     } & Message;
 
-    export type WSTrade = {
-      subject: 'trade';
+    export type WSPublicTrade = {
+      subject: 'publicTrade';
       tradeID: string;
       type: 'buy' | 'sell';
       price: string;
@@ -536,8 +544,8 @@ declare module 'poloniex-node-api' {
 
     export type Balance = {
       subject: 'balance';
-      id: number;
-      currencyPair: string | undefined;
+      currencyId: number;
+      currency: string | undefined;
       wallet: 'e' | 'm' | 'l';
       amount: string;
     } & Message;
@@ -551,6 +559,8 @@ declare module 'poloniex-node-api' {
       rate: string;
       amount: string;
       date: string;
+      originalAmount: string;
+      clientOrderId: string | null;
     } & Message;
 
     export type WSOrder = {
@@ -558,7 +568,37 @@ declare module 'poloniex-node-api' {
       orderNumber: number;
       newAmount: string;
       orderType: 'filled' | 'canceled' | 'self-trade';
+      clientOrderId: string | null;
     } & Message;
+
+    export type WSPending = {
+      subject: 'pending';
+      orderNumber: number;
+      currencyPair: string | undefined;
+      rate: string;
+      amount: string;
+      type: 'buy' | 'sell';
+      clientOrderId: string | null;
+    } & Message;
+
+    export type WSTrade = {
+      subject: 'trade';
+      tradeID: number;
+      rate: string;
+      amount: string;
+      feeMultiplier: string;
+      fundingType: 0 | 1 | 2 | 3;
+      orderNumber: number;
+      fee: string;
+      date: string;
+      clientOrderId: string | null;
+    } & Message;
+
+    export type WSKill = {
+      subject: 'killed';
+      orderNumber: number;
+      clientOrderId: string | null;
+    };
   }
 
   export type WebsocketMessage =
@@ -568,10 +608,13 @@ declare module 'poloniex-node-api' {
     | WebsocketMessage.WSVolume
     | WebsocketMessage.Update
     | WebsocketMessage.Snapshot
-    | WebsocketMessage.WSTrade
+    | WebsocketMessage.WSPublicTrade
     | WebsocketMessage.Balance
     | WebsocketMessage.New
-    | WebsocketMessage.WSOrder;
+    | WebsocketMessage.WSOrder
+    | WebsocketMessage.WSPending
+    | WebsocketMessage.WSTrade
+    | WebsocketMessage.WSKill;
 
   export type SubscriptionOptions = {
     channel_id: string | number;
