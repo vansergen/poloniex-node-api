@@ -147,25 +147,16 @@ suite('WebsocketClient', () => {
         api_uri: 'ws://localhost:' + port,
       });
 
-      client.once('error', err => {
-        assert.deepStrictEqual(err.message, 'error message');
-        assert.deepStrictEqual(err.reason, 'error reason');
+      client.once('error', error => {
+        assert.deepStrictEqual(error.error, 'Permission denied.');
+        server.close();
         done();
       });
       client.connect();
     });
 
     server.once('connection', socket => {
-      socket.send(
-        JSON.stringify({
-          type: 'error',
-          message: 'error message',
-          reason: 'error reason',
-        })
-      );
-      socket.on('message', () => {
-        server.close();
-      });
+      socket.send(JSON.stringify({ error: 'Permission denied.' }));
     });
   });
 });
