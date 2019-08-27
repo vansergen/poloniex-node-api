@@ -13,10 +13,11 @@ suite('AuthenticatedClient', () => {
   teardown(() => nock.cleanAll());
 
   test('.constructor() (throws error with incomplete credentials)', done => {
+    const message = '`options` is missing a required property: `secret`';
     try {
       new Poloniex.AuthenticatedClient({ key: key });
     } catch (error) {
-      if (error.message === '`options` is missing a required property`') {
+      if (error.message === message) {
         done();
       }
     }
