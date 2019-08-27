@@ -156,17 +156,19 @@ declare module 'poloniex-node-api' {
     currencyPair?: string;
     rate: number;
     amount: number;
-    fillOrKill: 0 | 1;
-    immediateOrCancel: 0 | 1;
-    postOnly: 0 | 1;
+    fillOrKill?: 0 | 1;
+    immediateOrCancel?: 0 | 1;
+    postOnly?: 0 | 1;
+    clientOrderId?: number;
   };
 
   export type MoveOrderOptions = {
     orderNumber: number;
     rate: number;
     amount?: number;
-    postOnly: 0 | 1;
+    postOnly?: 0 | 1;
     immediateOrCancel?: 0 | 1;
+    clientOrderId?: number;
   };
 
   export type WithdrawOptions = {
@@ -189,6 +191,7 @@ declare module 'poloniex-node-api' {
     rate: number;
     amount: number;
     lendingRate: number;
+    clientOrderId?: number;
   };
 
   export type OfferOptions = {
@@ -325,6 +328,7 @@ declare module 'poloniex-node-api' {
     resultingTrades: ResultingTrade[];
     fee: string;
     currencyPair: string;
+    clientOrderId?: string;
   };
 
   export type CancelResponse = {
@@ -332,6 +336,7 @@ declare module 'poloniex-node-api' {
     amount: string;
     message: string;
     fee?: string;
+    clientOrderId?: string;
     currencyPair?: string;
   };
 
@@ -349,6 +354,7 @@ declare module 'poloniex-node-api' {
     resultingTrades: {
       [currencyPair: string]: ResultingTrade[];
     };
+    clientOrderId: string;
   };
 
   export type WithdrawResponse = {
@@ -392,6 +398,7 @@ declare module 'poloniex-node-api' {
     orderNumber: string;
     resultingTrades: ResultingTrade[];
     message: string;
+    clientOrderId?: string;
   };
 
   export type MarginPosition = {

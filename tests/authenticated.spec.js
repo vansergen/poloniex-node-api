@@ -486,6 +486,51 @@ suite('AuthenticatedClient', () => {
       .catch(error => assert.fail(error));
   });
 
+  test('.sell() (with `clientOrderId`)', done => {
+    const currencyPair = 'BTC_ETH';
+    const rate = 10;
+    const amount = 1;
+    const clientOrderId = 12345;
+    const response = {
+      orderNumber: '514845991926',
+      resultingTrades: [
+        {
+          amount: '1.0',
+          date: '2018-10-25 23:03:21',
+          rate: '10.0',
+          total: '10.0',
+          tradeID: '251869',
+          type: 'sell',
+        },
+      ],
+      fee: '0.01000000',
+      clientOrderId: '12345',
+      currencyPair: 'BTC_ETH',
+    };
+    const nonce = 154264078495300;
+    authClient.nonce = () => nonce;
+
+    nock(EXCHANGE_API_URL)
+      .post('/tradingApi', {
+        command: 'sell',
+        currencyPair,
+        rate,
+        amount,
+        clientOrderId,
+        nonce,
+      })
+      .times(1)
+      .reply(200, response);
+
+    authClient
+      .sell({ currencyPair, rate, amount, clientOrderId })
+      .then(data => {
+        assert.deepStrictEqual(data, response);
+        done();
+      })
+      .catch(error => assert.fail(error));
+  });
+
   test('.cancelOrder()', done => {
     const result = {
       success: 1,
@@ -551,6 +596,41 @@ suite('AuthenticatedClient', () => {
 
     authClient
       .moveOrder({ orderNumber, rate })
+      .then(data => {
+        assert.deepStrictEqual(data, result);
+        done();
+      })
+      .catch(error => assert.fail(error));
+  });
+
+  test('.moveOrder() (with `clientOrderId`)', done => {
+    const result = {
+      success: 1,
+      orderNumber: '514851232549',
+      resultingTrades: { BTC_ETH: [] },
+      fee: '0.00150000',
+      currencyPair: 'BTC_ETH',
+      clientOrderId: '12345',
+    };
+    const orderNumber = 514851026755;
+    const rate = 0.00015;
+    const nonce = 1559587794133;
+    const clientOrderId = 12345;
+    authClient.nonce = () => nonce;
+
+    nock(EXCHANGE_API_URL)
+      .post('/tradingApi', {
+        command: 'moveOrder',
+        nonce,
+        rate,
+        orderNumber,
+        clientOrderId,
+      })
+      .times(1)
+      .reply(200, result);
+
+    authClient
+      .moveOrder({ orderNumber, rate, clientOrderId })
       .then(data => {
         assert.deepStrictEqual(data, result);
         done();
@@ -839,6 +919,41 @@ suite('AuthenticatedClient', () => {
 
     authClient
       .marginSell({ currencyPair, rate, amount })
+      .then(data => {
+        assert.deepStrictEqual(data, response);
+        done();
+      })
+      .catch(error => assert.fail(error));
+  });
+
+  test('.marginSell() (with `clientOrderId`)', done => {
+    const currencyPair = 'BTC_ETH';
+    const rate = 0.0035;
+    const amount = 20;
+    const clientOrderId = 12345;
+    const response = {
+      orderNumber: '515007818812',
+      resultingTrades: [],
+      message: 'Margin order placed.',
+      clientOrderId: '12345',
+    };
+    const nonce = 154264078495300;
+    authClient.nonce = () => nonce;
+
+    nock(EXCHANGE_API_URL)
+      .post('/tradingApi', {
+        command: 'marginSell',
+        currencyPair,
+        rate,
+        amount,
+        clientOrderId,
+        nonce,
+      })
+      .times(1)
+      .reply(200, response);
+
+    authClient
+      .marginSell({ currencyPair, rate, amount, clientOrderId })
       .then(data => {
         assert.deepStrictEqual(data, response);
         done();
