@@ -1,6 +1,6 @@
 {
   "name": "poloniex-node-api",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "Poloniex Node.js API",
   "main": "index.js",
   "directories": {
@@ -35,16 +35,16 @@
   },
   "homepage": "https://github.com/vansergen/poloniex-node-api#readme",
   "dependencies": {
-    "@types/node": "^12.7.2",
+    "@types/node": "^12.12.5",
     "request": "^2.88.0",
     "request-promise-native": "^1.0.7",
-    "ws": "^7.1.2"
+    "ws": "^7.2.0"
   },
   "devDependencies": {
-    "eslint": "^6.2.2",
+    "eslint": "^6.6.0",
     "jsdoc": "^3.6.3",
-    "mocha": "^6.2.0",
-    "nock": "^10.0.6",
+    "mocha": "^6.2.2",
+    "nock": "^11.7.0",
     "prettier": "^1.18.2"
   }
 }
