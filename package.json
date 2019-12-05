@@ -12,8 +12,9 @@
   },
   "types": "index.d.ts",
   "scripts": {
-    "lint": "eslint --ext .js ./",
-    "prettier": "prettier -l *.{js,md,ts,json} **/*.{js,md,ts,json}",
+    "lint": "eslint --ext .ts,.js ./",
+    "lint-fix": "npm run lint -- --fix",
+    "prettier": "prettier -c **/*.{js,md,ts,json}",
     "prettier-write": "npm run prettier -- --write",
     "generate-docs": "jsdoc ./ -c jsdoc.json",
     "test": "mocha --full-trace --ui tdd --bail --reporter spec tests/*.js"
@@ -46,10 +47,21 @@
     "@typescript-eslint/parser": "^2.10.0",
     "eslint": "^6.7.2",
     "jsdoc": "^3.6.3",
+    "lint-staged": "^9.5.0",
     "mocha": "^6.2.2",
     "nock": "^11.7.0",
     "prettier": "^1.19.1",
     "ts-node": "^8.5.4",
     "typescript": "^3.7.3"
+  },
+  "lint-staged": {
+    "*.{js,ts,json,md}": [
+      "prettier --write",
+      "git add"
+    ],
+    "*.{ts,js}": [
+      "eslint --fix",
+      "git add"
+    ]
   }
 }
