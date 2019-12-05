@@ -10,6 +10,7 @@
   "engines": {
     "node": ">=10.16.0"
   },
+  "type": "commonjs",
   "types": "index.d.ts",
   "scripts": {
     "lint": "eslint --ext .ts,.js ./",
@@ -46,6 +47,7 @@
     "@typescript-eslint/eslint-plugin": "^2.10.0",
     "@typescript-eslint/parser": "^2.10.0",
     "eslint": "^6.7.2",
+    "husky": "^3.1.0",
     "jsdoc": "^3.6.3",
     "lint-staged": "^9.5.0",
     "mocha": "^6.2.2",
@@ -53,6 +55,11 @@
     "prettier": "^1.19.1",
     "ts-node": "^8.5.4",
     "typescript": "^3.7.3"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   },
   "lint-staged": {
     "*.{js,ts,json,md}": [
@@ -63,5 +70,9 @@
       "eslint --fix",
       "git add"
     ]
+  },
+  "funding": {
+    "type": "Coinbase Commerce",
+    "url": "https://commerce.coinbase.com/checkout/8e527468-c00a-49e9-aa1d-a08bf49d1686"
   }
 }
