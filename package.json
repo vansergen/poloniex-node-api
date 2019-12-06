@@ -37,7 +37,6 @@
   },
   "homepage": "https://github.com/vansergen/poloniex-node-api#readme",
   "dependencies": {
-    "@types/node": "^12.12.5",
     "request": "^2.88.0",
     "request-promise-native": "^1.0.8",
     "ws": "^7.2.0"
