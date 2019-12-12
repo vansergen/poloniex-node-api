@@ -3,26 +3,10 @@ const nock = require("nock");
 
 const Poloniex = require("../index.js");
 const publicClient = new Poloniex.PublicClient();
-const { EXCHANGE_API_URL, DEFAULT_TIMEOUT } = require("../lib/utilities");
+const { EXCHANGE_API_URL } = require("../lib/utilities");
 
 suite("PublicClient", () => {
   teardown(() => nock.cleanAll());
-
-  test(".constructor()", () => {
-    assert.deepStrictEqual(publicClient.api_uri, EXCHANGE_API_URL);
-    assert.deepStrictEqual(publicClient.timeout, DEFAULT_TIMEOUT);
-  });
-
-  test(".constructor() (with custom parameters)", () => {
-    const newApi = "https://new-poloniex-api-url.com";
-    const newTimeout = 9000;
-    const newClient = new Poloniex.PublicClient({
-      api_uri: newApi,
-      timeout: newTimeout
-    });
-    assert.deepStrictEqual(newClient.api_uri, newApi);
-    assert.deepStrictEqual(newClient.timeout, newTimeout);
-  });
 
   test(".request() (handles errors)", done => {
     const data = { error: "some error" };

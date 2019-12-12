@@ -12,9 +12,9 @@ npm install poloniex-node-api
 
 ### PublicClient
 
-```javascript
-const { PublicClient } = require("poloniex-node-api");
-const publicClient = new PublicClient();
+```typescript
+import { PublicClient } from "poloniex-node-api";
+const client = new PublicClient();
 ```
 
 - [`getTickers`](https://docs.poloniex.com/?shell#returnticker)

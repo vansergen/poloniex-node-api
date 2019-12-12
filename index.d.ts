@@ -640,8 +640,6 @@ declare module "poloniex-node-api" {
   };
 
   export class PublicClient {
-    constructor(options?: PublicClientOptions);
-
     get(options: getOptions): Promise<any>;
 
     request(options: requestOptions): Promise<any>;
