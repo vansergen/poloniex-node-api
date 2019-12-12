@@ -34,10 +34,6 @@ declare module "poloniex-node-api" {
     orderNumber: number;
   } & BaseTrade;
 
-  export type getOptions = {
-    command: string;
-  };
-
   export type CBOptions = {
     _method: string;
   };
@@ -549,8 +545,6 @@ declare module "poloniex-node-api" {
   };
 
   export class AuthenticatedClient {
-    post(options: getOptions): Promise<any>;
-
     getBalances(): Promise<Balances>;
 
     getCompleteBalances(options?: AccountFilter): Promise<CompleteBalances>;
