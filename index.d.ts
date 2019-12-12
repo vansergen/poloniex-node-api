@@ -1,6 +1,6 @@
-import { EventEmitter } from 'events';
+import { EventEmitter } from "events";
 
-declare module 'poloniex-node-api' {
+declare module "poloniex-node-api" {
   export type callback<T> = (error: any, data: T) => void;
 
   export type TickerInfo = {
@@ -47,7 +47,7 @@ declare module 'poloniex-node-api' {
     rate: string;
     total: string;
     tradeID: number;
-    type: 'buy' | 'sell';
+    type: "buy" | "sell";
   };
 
   export type Trade = {
@@ -101,7 +101,7 @@ declare module 'poloniex-node-api' {
   };
 
   export type requestOptions = {
-    method: 'GET' | 'POST';
+    method: "GET" | "POST";
     url: string;
     qs?: getOptions;
     form?: {
@@ -176,14 +176,14 @@ declare module 'poloniex-node-api' {
     amount: number;
     address: string;
     paymentId?: string | number;
-    currencyToWithdrawAs?: 'USDTTRON';
+    currencyToWithdrawAs?: "USDTTRON";
   };
 
   export type TransferOptions = {
     currency: string;
     amount: number;
-    fromAccount: 'exchange' | 'margin' | 'lending';
-    toAccount: 'exchange' | 'margin' | 'lending';
+    fromAccount: "exchange" | "margin" | "lending";
+    toAccount: "exchange" | "margin" | "lending";
   };
 
   export type MarginOrderOptions = {
@@ -236,7 +236,7 @@ declare module 'poloniex-node-api' {
     amount: string;
     timestamp: number;
     status: string;
-    category: 'adjustment';
+    category: "adjustment";
     adjustmentTitle: string;
     adjustmentDesc: string;
     adjustmentHelp: string;
@@ -263,9 +263,9 @@ declare module 'poloniex-node-api' {
     confirmations: number;
     txid: string;
     timestamp: number;
-    status: 'PENDING' | 'COMPLETE';
+    status: "PENDING" | "COMPLETE";
     depositNumber: number;
-    category: 'deposit';
+    category: "deposit";
   };
 
   export type DepositsWithdrawals = {
@@ -276,7 +276,7 @@ declare module 'poloniex-node-api' {
 
   export type Order = {
     orderNumber: string;
-    type: 'sell' | 'buy';
+    type: "sell" | "buy";
     rate: string;
     startingAmount: string;
     amount: string;
@@ -293,7 +293,7 @@ declare module 'poloniex-node-api' {
 
   export type TradePrivate = {
     fee: string;
-    category: 'exchange' | 'margin';
+    category: "exchange" | "margin";
   } & Trade;
 
   export type OrderTrade = {
@@ -310,8 +310,8 @@ declare module 'poloniex-node-api' {
         amount: string;
         total: string;
         startingAmount: string;
-        type: 'buy' | 'sell';
-        status: 'Open' | 'Partially filled';
+        type: "buy" | "sell";
+        status: "Open" | "Partially filled";
         date: string;
         fee?: string;
       };
@@ -408,7 +408,7 @@ declare module 'poloniex-node-api' {
     liquidationPrice: number;
     pl: string;
     lendingFees: string;
-    type: 'long' | 'short' | 'none';
+    type: "long" | "short" | "none";
   };
 
   export type MarginPositionResult =
@@ -491,39 +491,39 @@ declare module 'poloniex-node-api' {
   export namespace WebsocketMessage {
     type Message = {
       channel_id: string | number;
-      sequence: number | null | '';
+      sequence: number | null | "";
     };
 
     export type Heartbeat = {
-      subject: 'heartbeat';
+      subject: "heartbeat";
     } & Message;
 
     export type Subscribe = {
-      subject: 'subscribed' | 'unsubscribed';
+      subject: "subscribed" | "unsubscribed";
     } & Message;
 
     export type Ticker = {
-      subject: 'ticker';
+      subject: "ticker";
       currencyPair: string | undefined;
     } & TickerInfo &
       Message;
 
     export type WSVolume = {
-      subject: 'volume';
+      subject: "volume";
       time: string;
       users: number;
       volume: Volume;
     };
 
     export type Update = {
-      subject: 'update';
-      type: 'buy' | 'sell';
+      subject: "update";
+      type: "buy" | "sell";
       price: string;
       size: string;
     } & Message;
 
     export type Snapshot = {
-      subject: 'snapshot';
+      subject: "snapshot";
       currencyPair: string;
       asks: {
         [price: string]: string;
@@ -534,28 +534,28 @@ declare module 'poloniex-node-api' {
     } & Message;
 
     export type WSPublicTrade = {
-      subject: 'publicTrade';
+      subject: "publicTrade";
       tradeID: string;
-      type: 'buy' | 'sell';
+      type: "buy" | "sell";
       price: string;
       size: string;
       timestamp: number;
     } & Message;
 
     export type Balance = {
-      subject: 'balance';
+      subject: "balance";
       currencyId: number;
       currency: string | undefined;
-      wallet: 'e' | 'm' | 'l';
+      wallet: "e" | "m" | "l";
       amount: string;
     } & Message;
 
     export type New = {
-      subject: 'new';
+      subject: "new";
       id: number;
       currencyPair: string | undefined;
       orderNumber: number;
-      type: 'buy' | 'sell';
+      type: "buy" | "sell";
       rate: string;
       amount: string;
       date: string;
@@ -564,25 +564,25 @@ declare module 'poloniex-node-api' {
     } & Message;
 
     export type WSOrder = {
-      subject: 'order';
+      subject: "order";
       orderNumber: number;
       newAmount: string;
-      orderType: 'filled' | 'canceled' | 'self-trade';
+      orderType: "filled" | "canceled" | "self-trade";
       clientOrderId: string | null;
     } & Message;
 
     export type WSPending = {
-      subject: 'pending';
+      subject: "pending";
       orderNumber: number;
       currencyPair: string | undefined;
       rate: string;
       amount: string;
-      type: 'buy' | 'sell';
+      type: "buy" | "sell";
       clientOrderId: string | null;
     } & Message;
 
     export type WSTrade = {
-      subject: 'trade';
+      subject: "trade";
       tradeID: number;
       rate: string;
       amount: string;
@@ -595,7 +595,7 @@ declare module 'poloniex-node-api' {
     } & Message;
 
     export type WSKill = {
-      subject: 'killed';
+      subject: "killed";
       orderNumber: number;
       clientOrderId: string | null;
     };
@@ -645,8 +645,6 @@ declare module 'poloniex-node-api' {
     get(options: getOptions): Promise<any>;
 
     request(options: requestOptions): Promise<any>;
-
-    cb(options: CBOptions, callback: callback<any>);
 
     getTickers(): Promise<Tickers>;
 
@@ -738,11 +736,11 @@ declare module 'poloniex-node-api' {
   export class WebsocketClient extends EventEmitter {
     constructor(options?: WebsocketClientOptions);
 
-    on(event: 'message', eventHandler: (data: WebsocketMessage) => void): this;
-    on(event: 'open', eventHandler: () => void): this;
-    on(event: 'close', eventHandler: () => void): this;
-    on(event: 'error', eventHandler: (error: any) => void): this;
-    on(event: 'raw', eventHandler: (data: WsRawMessage) => void): this;
+    on(event: "message", eventHandler: (data: WebsocketMessage) => void): this;
+    on(event: "open", eventHandler: () => void): this;
+    on(event: "close", eventHandler: () => void): this;
+    on(event: "error", eventHandler: (error: any) => void): this;
+    on(event: "raw", eventHandler: (data: WsRawMessage) => void): this;
 
     connect(): void;
     disconnect(): void;
