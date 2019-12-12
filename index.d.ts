@@ -34,29 +34,8 @@ declare module "poloniex-node-api" {
     orderNumber: number;
   } & BaseTrade;
 
-  export type Loan = {
-    rate: string;
-    amount: string;
-    rangeMin: number;
-    rangeMax: number;
-  };
-
-  export type Loans = {
-    offers: Loan[];
-    demands: Loan[];
-  };
-
   export type getOptions = {
     command: string;
-  };
-
-  export type requestOptions = {
-    method: "GET" | "POST";
-    url: string;
-    qs?: getOptions;
-    form?: {
-      nonce: number;
-    } & getOptions;
   };
 
   export type CBOptions = {
@@ -580,13 +559,7 @@ declare module "poloniex-node-api" {
     secret?: string;
   };
 
-  export class PublicClient {
-    request(options: requestOptions): Promise<any>;
-
-    getLoanOrders(options: CurrencyFilter): Promise<Loans>;
-  }
-
-  export class AuthenticatedClient extends PublicClient {
+  export class AuthenticatedClient {
     constructor(options: AuthenticatedClientOptions);
 
     post(options: getOptions): Promise<any>;

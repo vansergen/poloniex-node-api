@@ -64,13 +64,9 @@ const currencies = await client.getCurrencies();
 
 - [`getLoanOrders`](https://docs.poloniex.com/?shell#returnloanorders)
 
-```javascript
-try {
-  const loans = await publicClient.getLoanOrders({ currency: "USDT" });
-  console.log(currencies);
-} catch (error) {
-  console.error(error);
-}
+```typescript
+const currency = "USDT";
+const loans = await client.getLoanOrders({ currency });
 ```
 
 ### AuthenticatedClient

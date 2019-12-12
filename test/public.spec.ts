@@ -11,7 +11,8 @@ import {
   OrderBook,
   Trade,
   Candle,
-  Currencies
+  Currencies,
+  Loans
 } from "../index";
 
 const client = new PublicClient();
@@ -270,5 +271,27 @@ suite("PublicClient", () => {
 
     const data = await client.getCurrencies();
     assert.deepStrictEqual(data, currencies);
+  });
+
+  test(".getLoanOrders()", async () => {
+    const currency = "BTC";
+    const command = "returnLoanOrders";
+    const loans: Loans = {
+      offers: [
+        { rate: "0.00005900", amount: "0.01961918", rangeMin: 2, rangeMax: 2 },
+        { rate: "0.00006000", amount: "62.24928418", rangeMin: 2, rangeMax: 2 }
+      ],
+      demands: [
+        { rate: "0.02000000", amount: "0.00100014", rangeMin: 2, rangeMax: 2 },
+        { rate: "0.00001000", amount: "0.04190154", rangeMin: 2, rangeMax: 2 }
+      ]
+    };
+    nock(ApiUri)
+      .get("/public")
+      .query({ currency, command })
+      .reply(200, loans);
+
+    const data = await client.getLoanOrders({ currency });
+    assert.deepStrictEqual(data, loans);
   });
 });

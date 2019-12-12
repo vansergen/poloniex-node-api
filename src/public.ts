@@ -23,6 +23,8 @@ export type ChartFilter = CurrencyPair & {
   period: 300 | 900 | 1800 | 7200 | 14400 | 86400;
 } & TimeFilter;
 
+export type CurrencyFilter = { currency: string };
+
 export type TickerInfo = {
   id: number;
   last: string;
@@ -89,9 +91,16 @@ export type CurrencyInfo = {
   isGeofenced: 0 | 1;
 };
 
-export type Currencies = {
-  [currency: string]: CurrencyInfo;
+export type Currencies = { [currency: string]: CurrencyInfo };
+
+export type Loan = {
+  rate: string;
+  amount: string;
+  rangeMin: number;
+  rangeMax: number;
 };
+
+export type Loans = { offers: Loan[]; demands: Loan[] };
 
 export type PublicClientOptions = {
   currencyPair?: string;
@@ -167,5 +176,12 @@ export class PublicClient extends RPC {
    */
   getCurrencies(): Promise<Currencies> {
     return this.get({ qs: { command: "returnCurrencies" } });
+  }
+
+  /**
+   * Get the list of loan offers and demands for a given currency.
+   */
+  getLoanOrders({ currency }: CurrencyFilter): Promise<Loans> {
+    return this.get({ qs: { command: "returnLoanOrders", currency } });
   }
 }
