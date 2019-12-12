@@ -10,28 +10,6 @@ const secret = "poloniex-api-secret";
 const authClient = new Poloniex.AuthenticatedClient({ key, secret });
 
 suite("AuthenticatedClient", () => {
-  test(".getBalances()", done => {
-    const balances = {
-      BTC: "1.23456789",
-      DASH: "0.00000000"
-    };
-    const nonce = 1560742707669;
-    authClient.nonce = () => nonce;
-
-    nock(EXCHANGE_API_URL)
-      .post("/tradingApi", { command: "returnBalances", nonce })
-      .times(1)
-      .reply(200, balances);
-
-    authClient
-      .getBalances()
-      .then(data => {
-        assert.deepStrictEqual(data, balances);
-        done();
-      })
-      .catch(error => assert.fail(error));
-  });
-
   test(".getCompleteBalances()", done => {
     const balances = {
       BTC: {

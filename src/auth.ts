@@ -2,6 +2,8 @@ import { RPCOptions } from "rpc-request";
 import { PublicClient, PublicClientOptions, Headers } from "./public";
 import { SignRequest } from "./signer";
 
+export type Balances = { [currency: string]: string };
+
 export type AuthenticatedClientOptions = PublicClientOptions & {
   key: string;
   secret: string;
@@ -27,6 +29,13 @@ export class AuthenticatedClient extends PublicClient {
     const headers = SignRequest({ key: this.key, secret: this.secret, form });
     const uri = "/tradingApi";
     return super.post({ form, headers: { ...Headers, ...headers }, uri });
+  }
+
+  /**
+   * Get all of your balances available for trade after having deducted all open orders.
+   */
+  getBalances(): Promise<Balances> {
+    return this.post({ form: { command: "returnBalances" } });
   }
 
   set nonce(nonce: () => number) {

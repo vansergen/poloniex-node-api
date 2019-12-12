@@ -80,8 +80,8 @@ const client = new AuthenticatedClient({ key, secret });
 
 - [`getBalances`](https://docs.poloniex.com/?shell#returnbalances)
 
-```javascript
-const balances = await authClient.getBalances();
+```typescript
+const balances = await client.getBalances();
 ```
 
 - [`getCompleteBalances`](https://docs.poloniex.com/?shell#returncompletebalances)

@@ -545,8 +545,6 @@ declare module "poloniex-node-api" {
   };
 
   export class AuthenticatedClient {
-    getBalances(): Promise<Balances>;
-
     getCompleteBalances(options?: AccountFilter): Promise<CompleteBalances>;
 
     getDepositAddresses(): Promise<Adresses>;
