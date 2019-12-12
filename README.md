@@ -58,13 +58,8 @@ const candles = await client.getChartData({ currencyPair, period, start, end });
 
 - [`getCurrencies`](https://docs.poloniex.com/?shell#returncurrencies)
 
-```javascript
-try {
-  const currencies = await publicClient.getCurrencies();
-  console.log(currencies);
-} catch (error) {
-  console.error(error);
-}
+```typescript
+const currencies = await client.getCurrencies();
 ```
 
 - [`getLoanOrders`](https://docs.poloniex.com/?shell#returnloanorders)

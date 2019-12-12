@@ -34,24 +34,6 @@ declare module "poloniex-node-api" {
     orderNumber: number;
   } & BaseTrade;
 
-  export type CurrencyInfo = {
-    id: number;
-    name: string;
-    humanType: string;
-    currencyType: string;
-    txFee: string;
-    minConf: number;
-    depositAddress: null | string;
-    disabled: 0 | 1;
-    delisted: 0 | 1;
-    frozen: 0 | 1;
-    isGeofenced: 0 | 1;
-  };
-
-  export type Currencies = {
-    [currency: string]: CurrencyInfo;
-  };
-
   export type Loan = {
     rate: string;
     amount: string;
@@ -600,8 +582,6 @@ declare module "poloniex-node-api" {
 
   export class PublicClient {
     request(options: requestOptions): Promise<any>;
-
-    getCurrencies(): Promise<Currencies>;
 
     getLoanOrders(options: CurrencyFilter): Promise<Loans>;
   }

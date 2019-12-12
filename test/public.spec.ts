@@ -10,7 +10,8 @@ import {
   Volumes,
   OrderBook,
   Trade,
-  Candle
+  Candle,
+  Currencies
 } from "../index";
 
 const client = new PublicClient();
@@ -230,5 +231,44 @@ suite("PublicClient", () => {
       end
     });
     assert.deepStrictEqual(data, candles);
+  });
+
+  test(".getCurrencies()", async () => {
+    const currencies: Currencies = {
+      BTC: {
+        id: 28,
+        name: "Bitcoin",
+        humanType: "BTC Clone",
+        currencyType: "address",
+        txFee: "0.00050000",
+        minConf: 1,
+        depositAddress: null,
+        disabled: 0,
+        delisted: 0,
+        frozen: 0,
+        isGeofenced: 0
+      },
+      USDT: {
+        id: 214,
+        name: "Tether USD",
+        humanType: "Sweep to Main Account",
+        currencyType: "address",
+        txFee: "10.00000000",
+        minConf: 2,
+        depositAddress: null,
+        disabled: 0,
+        delisted: 0,
+        frozen: 0,
+        isGeofenced: 0
+      }
+    };
+    const command = "returnCurrencies";
+    nock(ApiUri)
+      .get("/public")
+      .query({ command })
+      .reply(200, currencies);
+
+    const data = await client.getCurrencies();
+    assert.deepStrictEqual(data, currencies);
   });
 });

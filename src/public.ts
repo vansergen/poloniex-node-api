@@ -75,6 +75,24 @@ export type Candle = {
   weightedAverage: number;
 };
 
+export type CurrencyInfo = {
+  id: number;
+  name: string;
+  humanType: string;
+  currencyType: string;
+  txFee: string;
+  minConf: number;
+  depositAddress: null | string;
+  disabled: 0 | 1;
+  delisted: 0 | 1;
+  frozen: 0 | 1;
+  isGeofenced: 0 | 1;
+};
+
+export type Currencies = {
+  [currency: string]: CurrencyInfo;
+};
+
 export type PublicClientOptions = {
   currencyPair?: string;
   apiUri?: string;
@@ -142,5 +160,12 @@ export class PublicClient extends RPC {
   }: ChartFilter): Promise<Candle[]> {
     const command = "returnChartData";
     return this.get({ qs: { command, currencyPair, ...qs } });
+  }
+
+  /**
+   * Get information about currencies.
+   */
+  getCurrencies(): Promise<Currencies> {
+    return this.get({ qs: { command: "returnCurrencies" } });
   }
 }
