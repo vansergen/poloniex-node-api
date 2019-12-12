@@ -16,10 +16,6 @@ declare module "poloniex-node-api" {
     low24hr: string;
   };
 
-  export type Tickers = {
-    [currency: string]: TickerInfo;
-  };
-
   export type Volume = {
     [currency: string]: string;
   };
@@ -640,11 +636,7 @@ declare module "poloniex-node-api" {
   };
 
   export class PublicClient {
-    get(options: getOptions): Promise<any>;
-
     request(options: requestOptions): Promise<any>;
-
-    getTickers(): Promise<Tickers>;
 
     getVolume(): Promise<Volumes>;
 

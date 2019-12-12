@@ -19,15 +19,8 @@ const client = new PublicClient();
 
 - [`getTickers`](https://docs.poloniex.com/?shell#returnticker)
 
-```javascript
-publicClient
-  .getTickers()
-  .then(data => {
-    console.log(data);
-  })
-  .catch(error => {
-    console.error(error);
-  });
+```typescript
+const tickers = await client.getTickers();
 ```
 
 - [`getVolume`](https://docs.poloniex.com/?shell#return24hvolume)
