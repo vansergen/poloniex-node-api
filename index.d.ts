@@ -34,17 +34,6 @@ declare module "poloniex-node-api" {
     orderNumber: number;
   } & BaseTrade;
 
-  export type Candle = {
-    date: number;
-    high: number;
-    low: number;
-    open: number;
-    close: number;
-    volume: number;
-    quoteVolume: number;
-    weightedAverage: number;
-  };
-
   export type CurrencyInfo = {
     id: number;
     name: string;
@@ -105,11 +94,6 @@ declare module "poloniex-node-api" {
     start: number;
     end: number;
   };
-
-  export type ChartFilter = {
-    period: 300 | 900 | 1800 | 7200 | 14400 | 86400;
-  } & TimeFilter &
-    CurrencyPairFilter;
 
   export type AccountFilter = {
     account?: string;
@@ -616,8 +600,6 @@ declare module "poloniex-node-api" {
 
   export class PublicClient {
     request(options: requestOptions): Promise<any>;
-
-    getChartData(options: ChartFilter): Promise<Candle[]>;
 
     getCurrencies(): Promise<Currencies>;
 

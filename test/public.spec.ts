@@ -9,7 +9,8 @@ import {
   Tickers,
   Volumes,
   OrderBook,
-  Trade
+  Trade,
+  Candle
 } from "../index";
 
 const client = new PublicClient();
@@ -177,5 +178,57 @@ suite("PublicClient", () => {
 
     const data = await client.getTradeHistory({ end, start, currencyPair });
     assert.deepStrictEqual(data, trades);
+  });
+
+  test(".getChartData()", async () => {
+    const candles: Candle[] = [
+      {
+        date: 1560613059,
+        high: 8809.26970927,
+        low: 8809.26970927,
+        open: 8809.26970927,
+        close: 8809.26970927,
+        volume: 0,
+        quoteVolume: 0,
+        weightedAverage: 8809.26970927
+      },
+      {
+        date: 1560643200,
+        high: 9325,
+        low: 8759.37683497,
+        open: 8809.49125799,
+        close: 8968.92286817,
+        volume: 11929575.934481,
+        quoteVolume: 1317.2708549,
+        weightedAverage: 9056.28169795
+      },
+      {
+        date: 1560729600,
+        high: 9390.83903896,
+        low: 8949.00000001,
+        open: 8963.50269782,
+        close: 9157.79085762,
+        volume: 3895287.1624447,
+        quoteVolume: 423.63287478,
+        weightedAverage: 9194.95958491
+      }
+    ];
+    const currencyPair = "BTC_XMR";
+    const command = "returnChartData";
+    const period = 14400;
+    const start = 1546300800;
+    const end = 1546646400;
+    nock(ApiUri)
+      .get("/public")
+      .query({ command, currencyPair, period, start, end })
+      .reply(200, candles);
+
+    const data = await client.getChartData({
+      period,
+      start,
+      currencyPair,
+      end
+    });
+    assert.deepStrictEqual(data, candles);
   });
 });

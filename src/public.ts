@@ -17,6 +17,12 @@ export type BookFilter = CurrencyPair & { depth?: number };
 
 export type TradesFilter = CurrencyPair & { start?: number; end?: number };
 
+export type TimeFilter = { start: number; end: number };
+
+export type ChartFilter = CurrencyPair & {
+  period: 300 | 900 | 1800 | 7200 | 14400 | 86400;
+} & TimeFilter;
+
 export type TickerInfo = {
   id: number;
   last: string;
@@ -57,6 +63,17 @@ export type BaseTrade = {
 };
 
 export type Trade = BaseTrade & { globalTradeID: number; orderNumber: number };
+
+export type Candle = {
+  date: number;
+  high: number;
+  low: number;
+  open: number;
+  close: number;
+  volume: number;
+  quoteVolume: number;
+  weightedAverage: number;
+};
 
 export type PublicClientOptions = {
   currencyPair?: string;
@@ -114,5 +131,16 @@ export class PublicClient extends RPC {
   }: TradesFilter = {}): Promise<Trade[]> {
     const qs = { command: "returnTradeHistory", currencyPair, ...rest };
     return this.get({ qs });
+  }
+
+  /**
+   * Get candlestick chart data.
+   */
+  getChartData({
+    currencyPair = this.currencyPair,
+    ...qs
+  }: ChartFilter): Promise<Candle[]> {
+    const command = "returnChartData";
+    return this.get({ qs: { command, currencyPair, ...qs } });
   }
 }
