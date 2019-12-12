@@ -20,10 +20,6 @@ declare module "poloniex-node-api" {
     [currency: string]: string;
   };
 
-  export type Volumes = {
-    [currency: string]: string | Volume;
-  };
-
   export type OrderBookInfo = {
     asks: [string, number][];
     bids: [string, number][];
@@ -637,8 +633,6 @@ declare module "poloniex-node-api" {
 
   export class PublicClient {
     request(options: requestOptions): Promise<any>;
-
-    getVolume(): Promise<Volumes>;
 
     getOrderBook(options?: BookFilter): Promise<OrderBook>;
 

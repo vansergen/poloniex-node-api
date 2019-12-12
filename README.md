@@ -25,15 +25,8 @@ const tickers = await client.getTickers();
 
 - [`getVolume`](https://docs.poloniex.com/?shell#return24hvolume)
 
-```javascript
-publicClient
-  .getVolume()
-  .then(data => {
-    console.log(data);
-  })
-  .catch(error => {
-    console.error(error);
-  });
+```typescript
+const volume = await client.getVolume();
 ```
 
 - [`getOrderBook`](https://docs.poloniex.com/?shell#returnorderbook)

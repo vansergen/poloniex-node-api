@@ -28,6 +28,14 @@ export type Tickers = {
   [currency: string]: TickerInfo;
 };
 
+export type Volume = {
+  [currency: string]: string;
+};
+
+export type Volumes = {
+  [currency: string]: string | Volume;
+};
+
 export type PublicClientOptions = {
   currencyPair?: string;
   apiUri?: string;
@@ -55,5 +63,12 @@ export class PublicClient extends RPC {
    */
   getTickers(): Promise<Tickers> {
     return this.get({ qs: { command: "returnTicker" } });
+  }
+
+  /**
+   * Retrieves the 24-hour volume for all markets as well as totals for primary currencies.
+   */
+  getVolume(): Promise<Volumes> {
+    return this.get({ qs: { command: "return24hVolume" } });
   }
 }

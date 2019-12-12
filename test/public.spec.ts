@@ -6,7 +6,8 @@ import {
   DefaultTimeout,
   DefaultPair,
   Headers,
-  Tickers
+  Tickers,
+  Volumes
 } from "../index";
 
 const client = new PublicClient();
@@ -71,5 +72,23 @@ suite("PublicClient", () => {
 
     const data = await client.getTickers();
     assert.deepStrictEqual(data, tickers);
+  });
+
+  test(".getVolume()", async () => {
+    const volume: Volumes = {
+      USDT_BTC: { USDT: "7161846.98235853", BTC: "790.32984132" },
+      USDT_ETH: { USDT: "895368.56029939", ETH: "3331.80491546" },
+      totalETH: "370.77305935",
+      totalBTC: "1845.83395826",
+      totalUSDT: "11287088.18195494"
+    };
+    const command = "return24hVolume";
+    nock(ApiUri)
+      .get("/public")
+      .query({ command })
+      .reply(200, volume);
+
+    const data = await client.getVolume();
+    assert.deepStrictEqual(data, volume);
   });
 });
