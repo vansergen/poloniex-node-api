@@ -540,17 +540,6 @@ declare module "poloniex-node-api" {
     channel_id: string | number;
   };
 
-  export type PublicClientOptions = {
-    currencyPair?: string;
-    api_uri?: string;
-    timeout?: number;
-  };
-
-  export type AuthenticatedClientOptions = {
-    key: string;
-    secret: number;
-  } & PublicClientOptions;
-
   export type WebsocketClientOptions = {
     api_uri?: string;
     raw?: boolean;
@@ -560,8 +549,6 @@ declare module "poloniex-node-api" {
   };
 
   export class AuthenticatedClient {
-    constructor(options: AuthenticatedClientOptions);
-
     post(options: getOptions): Promise<any>;
 
     getBalances(): Promise<Balances>;

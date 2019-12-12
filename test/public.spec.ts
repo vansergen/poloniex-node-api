@@ -18,7 +18,7 @@ import {
 const client = new PublicClient();
 
 suite("PublicClient", () => {
-  test(".constructor()", () => {
+  test("constructor", () => {
     assert.deepStrictEqual(client.currencyPair, DefaultPair);
     assert.deepStrictEqual(client._rpoptions, {
       baseUrl: ApiUri,

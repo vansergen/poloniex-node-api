@@ -71,11 +71,11 @@ const loans = await client.getLoanOrders({ currency });
 
 ### AuthenticatedClient
 
-```javascript
+```typescript
+import { AuthenticatedClient } from "poloniex-node-api";
 const key = "poloniexapikey";
 const secret = "poloniexapisecret";
-const { AuthenticatedClient } = require("poloniex-node-api");
-const authClient = new AuthenticatedClient({ key, secret });
+const client = new AuthenticatedClient({ key, secret });
 ```
 
 - [`getBalances`](https://docs.poloniex.com/?shell#returnbalances)
