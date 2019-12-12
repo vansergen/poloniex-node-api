@@ -39,19 +39,11 @@ const book = await client.getOrderBook({ currencyPair, depth });
 
 - [`getTradeHistory`](https://docs.poloniex.com/?shell#returntradehistory-public)
 
-```javascript
-publicClient
-  .getTradeHistory({
-    currencyPair: "USDT_BTC",
-    start: 1410158341,
-    end: 1410499372
-  })
-  .then(data => {
-    console.log(data);
-  })
-  .catch(error => {
-    console.error(error);
-  });
+```typescript
+const currencyPair = "currencyPair";
+const start = 1410158341;
+const end = 1410499372;
+const trades = await client.getTradeHistory({ currencyPair, start, end });
 ```
 
 - [`getChartData`](https://docs.poloniex.com/?shell#returnchartdata)

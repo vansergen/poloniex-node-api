@@ -15,6 +15,8 @@ export type CurrencyPair = { currencyPair?: string };
 
 export type BookFilter = CurrencyPair & { depth?: number };
 
+export type TradesFilter = CurrencyPair & { start?: number; end?: number };
+
 export type TickerInfo = {
   id: number;
   last: string;
@@ -28,17 +30,11 @@ export type TickerInfo = {
   low24hr: string;
 };
 
-export type Tickers = {
-  [currency: string]: TickerInfo;
-};
+export type Tickers = { [currency: string]: TickerInfo };
 
-export type Volume = {
-  [currency: string]: string;
-};
+export type Volume = { [currency: string]: string };
 
-export type Volumes = {
-  [currency: string]: string | Volume;
-};
+export type Volumes = { [currency: string]: string | Volume };
 
 export type OrderBookInfo = {
   asks: [string, number][];
@@ -47,11 +43,20 @@ export type OrderBookInfo = {
   seq: number;
 };
 
-export type OrderBooksInfo = {
-  [currency: string]: OrderBookInfo;
-};
+export type OrderBooksInfo = { [currency: string]: OrderBookInfo };
 
 export type OrderBook = OrderBookInfo | OrderBooksInfo;
+
+export type BaseTrade = {
+  amount: string;
+  date: string;
+  rate: string;
+  total: string;
+  tradeID: number;
+  type: "buy" | "sell";
+};
+
+export type Trade = BaseTrade & { globalTradeID: number; orderNumber: number };
 
 export type PublicClientOptions = {
   currencyPair?: string;
@@ -97,6 +102,17 @@ export class PublicClient extends RPC {
     depth = ApiLimit
   }: BookFilter = {}): Promise<OrderBook> {
     const qs = { command: "returnOrderBook", currencyPair, depth };
+    return this.get({ qs });
+  }
+
+  /**
+   * Get the past 200 trades for a given market, or up to 1,000 trades between a range `start` and `end`.
+   */
+  getTradeHistory({
+    currencyPair = this.currencyPair,
+    ...rest
+  }: TradesFilter = {}): Promise<Trade[]> {
+    const qs = { command: "returnTradeHistory", currencyPair, ...rest };
     return this.get({ qs });
   }
 }

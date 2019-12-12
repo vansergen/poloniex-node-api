@@ -8,7 +8,8 @@ import {
   Headers,
   Tickers,
   Volumes,
-  OrderBook
+  OrderBook,
+  Trade
 } from "../index";
 
 const client = new PublicClient();
@@ -130,5 +131,51 @@ suite("PublicClient", () => {
 
     const data = await client.getOrderBook({ currencyPair, depth });
     assert.deepStrictEqual(data, books);
+  });
+
+  test(".getTradeHistory()", async () => {
+    const trades: Trade[] = [
+      {
+        globalTradeID: 420170516,
+        tradeID: 27129920,
+        date: "2019-06-17 15:25:18",
+        type: "buy",
+        rate: "9257.23051444",
+        amount: "0.01394711",
+        total: "129.11161228",
+        orderNumber: 277619132092
+      },
+      {
+        globalTradeID: 420170477,
+        tradeID: 27129919,
+        date: "2019-06-17 15:24:19",
+        type: "sell",
+        rate: "9257.18336240",
+        amount: "0.07792262",
+        total: "721.34398141",
+        orderNumber: 277619040184
+      },
+      {
+        globalTradeID: 420170476,
+        tradeID: 27129918,
+        date: "2019-06-17 15:24:18",
+        type: "sell",
+        rate: "9257.18336240",
+        amount: "0.00259138",
+        total: "23.98887982",
+        orderNumber: 277619039185
+      }
+    ];
+    const command = "returnTradeHistory";
+    const currencyPair = "USDT_BTC";
+    const start = 1410158341;
+    const end = 1410499372;
+    nock(ApiUri)
+      .get("/public")
+      .query({ command, currencyPair, start, end })
+      .reply(200, trades);
+
+    const data = await client.getTradeHistory({ end, start, currencyPair });
+    assert.deepStrictEqual(data, trades);
   });
 });

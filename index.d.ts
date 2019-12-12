@@ -617,8 +617,6 @@ declare module "poloniex-node-api" {
   export class PublicClient {
     request(options: requestOptions): Promise<any>;
 
-    getTradeHistory(options?: TradesFilter): Promise<Trade[]>;
-
     getChartData(options: ChartFilter): Promise<Candle[]>;
 
     getCurrencies(): Promise<Currencies>;
