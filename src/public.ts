@@ -11,6 +11,10 @@ export const Headers = {
   "X-Requested-With": "XMLHttpRequest"
 };
 
+export type CurrencyPair = { currencyPair?: string };
+
+export type BookFilter = CurrencyPair & { depth?: number };
+
 export type TickerInfo = {
   id: number;
   last: string;
@@ -35,6 +39,19 @@ export type Volume = {
 export type Volumes = {
   [currency: string]: string | Volume;
 };
+
+export type OrderBookInfo = {
+  asks: [string, number][];
+  bids: [string, number][];
+  isFrozen: string;
+  seq: number;
+};
+
+export type OrderBooksInfo = {
+  [currency: string]: OrderBookInfo;
+};
+
+export type OrderBook = OrderBookInfo | OrderBooksInfo;
 
 export type PublicClientOptions = {
   currencyPair?: string;
@@ -70,5 +87,16 @@ export class PublicClient extends RPC {
    */
   getVolume(): Promise<Volumes> {
     return this.get({ qs: { command: "return24hVolume" } });
+  }
+
+  /**
+   * Get the order book for a given market.
+   */
+  getOrderBook({
+    currencyPair = "all",
+    depth = ApiLimit
+  }: BookFilter = {}): Promise<OrderBook> {
+    const qs = { command: "returnOrderBook", currencyPair, depth };
+    return this.get({ qs });
   }
 }

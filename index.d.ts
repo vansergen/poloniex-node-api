@@ -20,19 +20,6 @@ declare module "poloniex-node-api" {
     [currency: string]: string;
   };
 
-  export type OrderBookInfo = {
-    asks: [string, number][];
-    bids: [string, number][];
-    isFrozen: string;
-    seq: number;
-  };
-
-  export type OrderBooksInfo = {
-    [currency: string]: OrderBookInfo;
-  };
-
-  export type OrderBook = OrderBookInfo | OrderBooksInfo;
-
   export type BaseTrade = {
     amount: string;
     date: string;
@@ -108,10 +95,6 @@ declare module "poloniex-node-api" {
   export type CurrencyPairFilter = {
     currencyPair?: string;
   };
-
-  export type BookFilter = {
-    depth?: number;
-  } & CurrencyPairFilter;
 
   export type TradesFilter = {
     start?: number;
@@ -633,8 +616,6 @@ declare module "poloniex-node-api" {
 
   export class PublicClient {
     request(options: requestOptions): Promise<any>;
-
-    getOrderBook(options?: BookFilter): Promise<OrderBook>;
 
     getTradeHistory(options?: TradesFilter): Promise<Trade[]>;
 

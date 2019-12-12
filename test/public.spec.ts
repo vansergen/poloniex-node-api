@@ -7,7 +7,8 @@ import {
   DefaultPair,
   Headers,
   Tickers,
-  Volumes
+  Volumes,
+  OrderBook
 } from "../index";
 
 const client = new PublicClient();
@@ -90,5 +91,44 @@ suite("PublicClient", () => {
 
     const data = await client.getVolume();
     assert.deepStrictEqual(data, volume);
+  });
+
+  test(".getOrderBook()", async () => {
+    const books: OrderBook = {
+      USDT_BTC: {
+        asks: [
+          ["9297.44488770", 0.143181],
+          ["9298.08427869", 0.0001161]
+        ],
+        bids: [
+          ["9297.24540399", 1.46374898],
+          ["9297.24540398", 0.0443]
+        ],
+        isFrozen: "0",
+        seq: 376097564
+      },
+      BTC_ETH: {
+        asks: [
+          ["0.02930568", 0.56225405],
+          ["0.02931998", 1]
+        ],
+        bids: [
+          ["0.02930505", 0.00011779],
+          ["0.02929320", 25]
+        ],
+        isFrozen: "0",
+        seq: 711985070
+      }
+    };
+    const command = "returnOrderBook";
+    const currencyPair = "all";
+    const depth = 10;
+    nock(ApiUri)
+      .get("/public")
+      .query({ command, currencyPair, depth })
+      .reply(200, books);
+
+    const data = await client.getOrderBook({ currencyPair, depth });
+    assert.deepStrictEqual(data, books);
   });
 });

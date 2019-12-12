@@ -31,15 +31,10 @@ const volume = await client.getVolume();
 
 - [`getOrderBook`](https://docs.poloniex.com/?shell#returnorderbook)
 
-```javascript
-publicClient
-  .getOrderBook({ currencyPair: "USDT_BTC", depth: 25 })
-  .then(data => {
-    console.log(data);
-  })
-  .catch(error => {
-    console.error(error);
-  });
+```typescript
+const currencyPair = "USDT_BTC";
+const depth = 25;
+const book = await client.getOrderBook({ currencyPair, depth });
 ```
 
 - [`getTradeHistory`](https://docs.poloniex.com/?shell#returntradehistory-public)
