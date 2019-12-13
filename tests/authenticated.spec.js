@@ -10,63 +10,6 @@ const secret = "poloniex-api-secret";
 const authClient = new Poloniex.AuthenticatedClient({ key, secret });
 
 suite("AuthenticatedClient", () => {
-  test(".getCompleteBalances() (with parameters)", done => {
-    const options = { account: "all" };
-    const balances = {
-      BTC: {
-        available: "0.00000000",
-        onOrders: "0.00000000",
-        btcValue: "0.00000000"
-      },
-      USDT: {
-        available: "0.00000000",
-        onOrders: "0.00000000",
-        btcValue: "0.00000000"
-      }
-    };
-    const nonce = 1560742707669;
-    authClient.nonce = () => nonce;
-
-    nock(EXCHANGE_API_URL)
-      .post("/tradingApi", {
-        command: "returnCompleteBalances",
-        account: "all",
-        nonce
-      })
-      .times(1)
-      .reply(200, balances);
-
-    authClient
-      .getCompleteBalances(options)
-      .then(data => {
-        assert.deepStrictEqual(data, balances);
-        done();
-      })
-      .catch(error => assert.fail(error));
-  });
-
-  test(".getDepositAddresses()", done => {
-    const addresses = {
-      BCH: "1FhCkdKeMGa621mCpAtFYzeVfUBnHbooLj",
-      BTC: "131rdg5Rzn6BFufnnQaHhVa5ZtRU1J2EZR"
-    };
-    const nonce = 1560742707669;
-    authClient.nonce = () => nonce;
-
-    nock(EXCHANGE_API_URL)
-      .post("/tradingApi", { command: "returnDepositAddresses", nonce })
-      .times(1)
-      .reply(200, addresses);
-
-    authClient
-      .getDepositAddresses()
-      .then(data => {
-        assert.deepStrictEqual(data, addresses);
-        done();
-      })
-      .catch(error => assert.fail(error));
-  });
-
   test(".getNewAddress()", done => {
     const currency = "ETH";
     const address = {

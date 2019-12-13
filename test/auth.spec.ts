@@ -5,7 +5,8 @@ import {
   Headers,
   ApiUri,
   Balances,
-  CompleteBalances
+  CompleteBalances,
+  Adresses
 } from "../index";
 
 const key = "poloniex-api-key";
@@ -73,5 +74,21 @@ suite("AuthenticatedClient", () => {
 
     const data = await client.getCompleteBalances({ account });
     assert.deepStrictEqual(data, balances);
+  });
+
+  test(".getDepositAddresses()", async () => {
+    const addresses: Adresses = {
+      BTC: "12ov76RsWq5PS8mUxpzGiA7aU2NSJ4WQJV",
+      USDC: "0x2a3279534a8fc3aab174628d5df28253bde6a95e",
+      USDT: "1HDr6rDk4n8kzgbon4rXs1qtBtC9XUNAZ5"
+    };
+    const command = "returnDepositAddresses";
+
+    nock(ApiUri)
+      .post("/tradingApi", { command, nonce })
+      .reply(200, addresses);
+
+    const data = await client.getDepositAddresses();
+    assert.deepStrictEqual(data, addresses);
   });
 });

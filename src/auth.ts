@@ -14,6 +14,8 @@ export type CompleteBalance = {
 
 export type CompleteBalances = { [currency: string]: CompleteBalance };
 
+export type Adresses = { [currency: string]: string };
+
 export type AuthenticatedClientOptions = PublicClientOptions & {
   key: string;
   secret: string;
@@ -53,6 +55,13 @@ export class AuthenticatedClient extends PublicClient {
    */
   getCompleteBalances(form: AccountFilter = {}): Promise<CompleteBalances> {
     return this.post({ form: { command: "returnCompleteBalances", ...form } });
+  }
+
+  /**
+   * Get all of your deposit addresses.
+   */
+  getDepositAddresses(): Promise<Adresses> {
+    return this.post({ form: { command: "returnDepositAddresses" } });
   }
 
   set nonce(nonce: () => number) {

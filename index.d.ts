@@ -128,10 +128,6 @@ declare module "poloniex-node-api" {
     [currency: string]: string;
   };
 
-  export type Adresses = {
-    [currency: string]: string;
-  };
-
   export type NewAddress = {
     success: 0 | 1;
     response: string;
@@ -535,8 +531,6 @@ declare module "poloniex-node-api" {
   };
 
   export class AuthenticatedClient {
-    getDepositAddresses(): Promise<Adresses>;
-
     getNewAddress(options: CurrencyFilter): Promise<NewAddress>;
 
     getDepositsWithdrawals(options: TimeFilter): Promise<DepositsWithdrawals>;

@@ -93,8 +93,8 @@ const balances = await client.getCompleteBalances({ account });
 
 - [`getDepositAddresses`](https://docs.poloniex.com/?shell#returndepositaddresses)
 
-```javascript
-const addresses = await authClient.getDepositAddresses();
+```typescript
+const addresses = await client.getDepositAddresses();
 ```
 
 - [`getNewAddress`](https://docs.poloniex.com/?shell#generatenewaddress)
