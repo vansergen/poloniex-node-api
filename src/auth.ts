@@ -2,7 +2,17 @@ import { RPCOptions } from "rpc-request";
 import { PublicClient, PublicClientOptions, Headers } from "./public";
 import { SignRequest } from "./signer";
 
+export type AccountFilter = { account?: string };
+
 export type Balances = { [currency: string]: string };
+
+export type CompleteBalance = {
+  available: string;
+  onOrders: string;
+  btcValue: string;
+};
+
+export type CompleteBalances = { [currency: string]: CompleteBalance };
 
 export type AuthenticatedClientOptions = PublicClientOptions & {
   key: string;
@@ -36,6 +46,13 @@ export class AuthenticatedClient extends PublicClient {
    */
   getBalances(): Promise<Balances> {
     return this.post({ form: { command: "returnBalances" } });
+  }
+
+  /**
+   * Get all of your balances, including available balance, balance on orders, and the estimated BTC value of your balance.
+   */
+  getCompleteBalances(form: AccountFilter = {}): Promise<CompleteBalances> {
+    return this.post({ form: { command: "returnCompleteBalances", ...form } });
   }
 
   set nonce(nonce: () => number) {

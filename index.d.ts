@@ -128,16 +128,6 @@ declare module "poloniex-node-api" {
     [currency: string]: string;
   };
 
-  export type CompleteBalance = {
-    available: string;
-    onOrders: string;
-    btcValue: string;
-  };
-
-  export type CompleteBalances = {
-    [currency: string]: CompleteBalance;
-  };
-
   export type Adresses = {
     [currency: string]: string;
   };
@@ -545,8 +535,6 @@ declare module "poloniex-node-api" {
   };
 
   export class AuthenticatedClient {
-    getCompleteBalances(options?: AccountFilter): Promise<CompleteBalances>;
-
     getDepositAddresses(): Promise<Adresses>;
 
     getNewAddress(options: CurrencyFilter): Promise<NewAddress>;

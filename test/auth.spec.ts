@@ -1,6 +1,12 @@
 import * as assert from "assert";
 import * as nock from "nock";
-import { AuthenticatedClient, Headers, ApiUri, Balances } from "../index";
+import {
+  AuthenticatedClient,
+  Headers,
+  ApiUri,
+  Balances,
+  CompleteBalances
+} from "../index";
 
 const key = "poloniex-api-key";
 const secret = "poloniex-api-secret";
@@ -42,6 +48,30 @@ suite("AuthenticatedClient", () => {
       .reply(200, balances);
 
     const data = await client.getBalances();
+    assert.deepStrictEqual(data, balances);
+  });
+
+  test(".getCompleteBalances()", async () => {
+    const balances: CompleteBalances = {
+      BTC: {
+        available: "0.00000000",
+        onOrders: "0.00000000",
+        btcValue: "0.00000000"
+      },
+      USDT: {
+        available: "0.00000000",
+        onOrders: "0.00000000",
+        btcValue: "0.00000000"
+      }
+    };
+    const command = "returnCompleteBalances";
+    const account = "all";
+
+    nock(ApiUri)
+      .post("/tradingApi", { command, account, nonce })
+      .reply(200, balances);
+
+    const data = await client.getCompleteBalances({ account });
     assert.deepStrictEqual(data, balances);
   });
 });

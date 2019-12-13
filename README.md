@@ -86,9 +86,9 @@ const balances = await client.getBalances();
 
 - [`getCompleteBalances`](https://docs.poloniex.com/?shell#returncompletebalances)
 
-```javascript
+```typescript
 const account = "all";
-const balances = await authClient.getCompleteBalances({ account });
+const balances = await client.getCompleteBalances({ account });
 ```
 
 - [`getDepositAddresses`](https://docs.poloniex.com/?shell#returndepositaddresses)
