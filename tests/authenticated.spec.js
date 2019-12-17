@@ -10,40 +10,6 @@ const secret = "poloniex-api-secret";
 const authClient = new Poloniex.AuthenticatedClient({ key, secret });
 
 suite("AuthenticatedClient", () => {
-  test(".getOrderStatus()", done => {
-    const response = {
-      result: {
-        "6071071": {
-          status: "Open",
-          rate: "0.40000000",
-          amount: "1.00000000",
-          currencyPair: "BTC_ETH",
-          date: "2018-10-17 17:04:50",
-          total: "0.40000000",
-          type: "buy",
-          startingAmount: "1.00000"
-        }
-      },
-      success: 1
-    };
-    const orderNumber = 96238912841;
-    const nonce = 154264078495300;
-    authClient.nonce = () => nonce;
-
-    nock(EXCHANGE_API_URL)
-      .post("/tradingApi", { command: "returnOrderStatus", orderNumber, nonce })
-      .times(1)
-      .reply(200, response);
-
-    authClient
-      .getOrderStatus({ orderNumber })
-      .then(data => {
-        assert.deepStrictEqual(data, response);
-        done();
-      })
-      .catch(error => assert.fail(error));
-  });
-
   test(".buy()", done => {
     const currencyPair = "BTC_ETH";
     const rate = 0.01;

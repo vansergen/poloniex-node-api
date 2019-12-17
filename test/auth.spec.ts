@@ -11,7 +11,8 @@ import {
   DepositsWithdrawals,
   Orders,
   TradesPrivate,
-  OrderTrade
+  OrderTrade,
+  OrderStatus
 } from "../index";
 
 const key = "poloniex-api-key";
@@ -314,6 +315,33 @@ suite("AuthenticatedClient", () => {
       .reply(200, response);
 
     const data = await client.getOrderTrades({ orderNumber });
+    assert.deepStrictEqual(data, response);
+  });
+
+  test(".getOrderStatus()", async () => {
+    const orderNumber = 96238912841;
+    const command = "returnOrderStatus";
+    const response: OrderStatus = {
+      result: {
+        "6071071": {
+          status: "Open",
+          rate: "0.40000000",
+          amount: "1.00000000",
+          currencyPair: "BTC_ETH",
+          date: "2018-10-17 17:04:50",
+          total: "0.40000000",
+          type: "buy",
+          startingAmount: "1.00000"
+        }
+      },
+      success: 1
+    };
+
+    nock(ApiUri)
+      .post("/tradingApi", { command, nonce, orderNumber })
+      .reply(200, response);
+
+    const data = await client.getOrderStatus({ orderNumber });
     assert.deepStrictEqual(data, response);
   });
 });

@@ -113,6 +113,23 @@ export type OrderTrade = BaseTrade & {
   fee: string;
 };
 
+export type OrderStatus = {
+  result: {
+    [order: string]: {
+      currencyPair: string;
+      rate: string;
+      amount: string;
+      total: string;
+      startingAmount: string;
+      type: "buy" | "sell";
+      status: "Open" | "Partially filled";
+      date: string;
+      fee?: string;
+    };
+  };
+  success: 0 | 1;
+};
+
 export type AuthenticatedClientOptions = PublicClientOptions & {
   key: string;
   secret: string;
@@ -208,6 +225,13 @@ export class AuthenticatedClient extends PublicClient {
    */
   getOrderTrades(form: OrderFilter): Promise<OrderTrade[]> {
     return this.post({ form: { command: "returnOrderTrades", ...form } });
+  }
+
+  /**
+   * Get the status of a given order.
+   */
+  getOrderStatus(form: OrderFilter): Promise<OrderStatus> {
+    return this.post({ form: { command: "returnOrderStatus", ...form } });
   }
 
   set nonce(nonce: () => number) {

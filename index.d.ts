@@ -27,26 +27,13 @@ declare module "poloniex-node-api" {
     type: "buy" | "sell";
   };
 
-  export type CBOptions = {
-    _method: string;
-  };
-
   export type CurrencyPairFilter = {
     currencyPair?: string;
   };
 
-  export type TradesFilter = {
-    start?: number;
-    end?: number;
-  } & CurrencyPairFilter;
-
   export type AccountFilter = {
     account?: string;
   };
-
-  export type HistoryTradesFilter = {
-    limit?: number;
-  } & TradesFilter;
 
   export type OrderFilter = {
     orderNumber: number;
@@ -110,23 +97,6 @@ declare module "poloniex-node-api" {
 
   export type Balances = {
     [currency: string]: string;
-  };
-
-  export type OrderStatus = {
-    result: {
-      [order: string]: {
-        currencyPair: string;
-        rate: string;
-        amount: string;
-        total: string;
-        startingAmount: string;
-        type: "buy" | "sell";
-        status: "Open" | "Partially filled";
-        date: string;
-        fee?: string;
-      };
-    };
-    success: 0 | 1;
   };
 
   export type ResultingTrade = {
@@ -439,8 +409,6 @@ declare module "poloniex-node-api" {
   };
 
   export class AuthenticatedClient {
-    getOrderStatus(options: OrderFilter): Promise<OrderStatus>;
-
     buy(options: OrderOptions): Promise<OrderResult>;
 
     sell(options: OrderOptions): Promise<OrderResult>;
