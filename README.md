@@ -10,7 +10,7 @@ npm install poloniex-node-api
 
 ## Usage
 
-### PublicClient
+### [PublicClient](https://docs.poloniex.com/#public-http-api-methods)
 
 ```typescript
 import { PublicClient } from "poloniex-node-api";
@@ -69,7 +69,7 @@ const currency = "USDT";
 const loans = await client.getLoanOrders({ currency });
 ```
 
-### AuthenticatedClient
+### [AuthenticatedClient](https://docs.poloniex.com/#private-http-api-methods)
 
 ```typescript
 import { AuthenticatedClient } from "poloniex-node-api";
@@ -99,8 +99,9 @@ const addresses = await client.getDepositAddresses();
 
 - [`getNewAddress`](https://docs.poloniex.com/?shell#generatenewaddress)
 
-```javascript
-const addresses = await authClient.getNewAddress({ currency: "ZEC" });
+```typescript
+const currency = "ZEC";
+const addresses = await client.getNewAddress({ currency });
 ```
 
 - [`getDepositsWithdrawals`](https://docs.poloniex.com/?shell#returndepositswithdrawals)

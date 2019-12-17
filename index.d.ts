@@ -1,8 +1,6 @@
 import { EventEmitter } from "events";
 
 declare module "poloniex-node-api" {
-  export type callback<T> = (error: any, data: T) => void;
-
   export type TickerInfo = {
     id: number;
     last: string;
@@ -59,10 +57,6 @@ declare module "poloniex-node-api" {
   export type HistoryTradesFilter = {
     limit?: number;
   } & TradesFilter;
-
-  export type CurrencyFilter = {
-    currency: string;
-  };
 
   export type OrderFilter = {
     orderNumber: number;
@@ -126,11 +120,6 @@ declare module "poloniex-node-api" {
 
   export type Balances = {
     [currency: string]: string;
-  };
-
-  export type NewAddress = {
-    success: 0 | 1;
-    response: string;
   };
 
   export type Adjustment = {
@@ -531,8 +520,6 @@ declare module "poloniex-node-api" {
   };
 
   export class AuthenticatedClient {
-    getNewAddress(options: CurrencyFilter): Promise<NewAddress>;
-
     getDepositsWithdrawals(options: TimeFilter): Promise<DepositsWithdrawals>;
 
     getOpenOrders(options?: CurrencyPairFilter): Promise<Orders>;

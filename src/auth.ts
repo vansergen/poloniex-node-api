@@ -1,5 +1,10 @@
 import { RPCOptions } from "rpc-request";
-import { PublicClient, PublicClientOptions, Headers } from "./public";
+import {
+  PublicClient,
+  PublicClientOptions,
+  Headers,
+  CurrencyFilter
+} from "./public";
 import { SignRequest } from "./signer";
 
 export type AccountFilter = { account?: string };
@@ -15,6 +20,8 @@ export type CompleteBalance = {
 export type CompleteBalances = { [currency: string]: CompleteBalance };
 
 export type Adresses = { [currency: string]: string };
+
+export type NewAddress = { success: 0 | 1; response: string };
 
 export type AuthenticatedClientOptions = PublicClientOptions & {
   key: string;
@@ -62,6 +69,13 @@ export class AuthenticatedClient extends PublicClient {
    */
   getDepositAddresses(): Promise<Adresses> {
     return this.post({ form: { command: "returnDepositAddresses" } });
+  }
+
+  /**
+   * Generate a new deposit address.
+   */
+  getNewAddress(form: CurrencyFilter): Promise<NewAddress> {
+    return this.post({ form: { command: "generateNewAddress", ...form } });
   }
 
   set nonce(nonce: () => number) {

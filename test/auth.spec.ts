@@ -6,7 +6,8 @@ import {
   ApiUri,
   Balances,
   CompleteBalances,
-  Adresses
+  Adresses,
+  NewAddress
 } from "../index";
 
 const key = "poloniex-api-key";
@@ -90,5 +91,21 @@ suite("AuthenticatedClient", () => {
 
     const data = await client.getDepositAddresses();
     assert.deepStrictEqual(data, addresses);
+  });
+
+  test(".getNewAddress()", async () => {
+    const currency = "ETH";
+    const address: NewAddress = {
+      success: 1,
+      response: "0x2a3279534a8fc3aab174628d5df28253bde6a95e"
+    };
+    const command = "generateNewAddress";
+
+    nock(ApiUri)
+      .post("/tradingApi", { command, nonce, currency })
+      .reply(200, address);
+
+    const data = await client.getNewAddress({ currency });
+    assert.deepStrictEqual(data, address);
   });
 });

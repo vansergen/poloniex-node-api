@@ -10,33 +10,6 @@ const secret = "poloniex-api-secret";
 const authClient = new Poloniex.AuthenticatedClient({ key, secret });
 
 suite("AuthenticatedClient", () => {
-  test(".getNewAddress()", done => {
-    const currency = "ETH";
-    const address = {
-      success: 1,
-      response: "0xa6f0dacc33c7f63e137e0106ed71cc20b4b931af"
-    };
-    const nonce = 1560742707669;
-    authClient.nonce = () => nonce;
-
-    nock(EXCHANGE_API_URL)
-      .post("/tradingApi", {
-        command: "generateNewAddress",
-        nonce,
-        currency
-      })
-      .times(1)
-      .reply(200, address);
-
-    authClient
-      .getNewAddress({ currency })
-      .then(data => {
-        assert.deepStrictEqual(data, address);
-        done();
-      })
-      .catch(error => assert.fail(error));
-  });
-
   test(".getDepositsWithdrawals()", done => {
     const options = { start: 1529425667, end: 1560961667 };
     const deposits_withdrawals = {
