@@ -129,15 +129,22 @@ export class AuthenticatedClient extends PublicClient {
     this.secret = secret;
   }
 
-  post({ form }: RPCOptions): Promise<any> {
+  async post({ form }: RPCOptions): Promise<any> {
     if (!form || typeof form === "string") {
       throw new Error("Incorrect form");
     }
 
     form.nonce = this.nonce();
-    const headers = SignRequest({ key: this.key, secret: this.secret, form });
+    const sHeaders = SignRequest({ key: this.key, secret: this.secret, form });
     const uri = "/tradingApi";
-    return super.post({ form, headers: { ...Headers, ...headers }, uri });
+    const headers = { ...Headers, ...sHeaders };
+    const data = await super.post({ form, headers, uri });
+    if (data.error) {
+      throw new Error(data.error);
+    } else if ("success" in data && data.success === 0) {
+      throw new Error(data.message || data.result.error);
+    }
+    return data;
   }
 
   /**
