@@ -60,10 +60,13 @@ export type BaseTrade = Type & {
   date: string;
   rate: string;
   total: string;
-  tradeID: number;
+  tradeID: number | string;
 };
 
-export type Trade = BaseTrade & { globalTradeID: number; orderNumber: number };
+export type Trade = BaseTrade & {
+  globalTradeID: number;
+  orderNumber: number | string;
+};
 
 export type Candle = {
   date: number;

@@ -27,11 +27,6 @@ declare module "poloniex-node-api" {
     type: "buy" | "sell";
   };
 
-  export type Trade = {
-    globalTradeID: number;
-    orderNumber: number;
-  } & BaseTrade;
-
   export type CBOptions = {
     _method: string;
   };
@@ -116,11 +111,6 @@ declare module "poloniex-node-api" {
   export type Balances = {
     [currency: string]: string;
   };
-
-  export type TradePrivate = {
-    fee: string;
-    category: "exchange" | "margin";
-  } & Trade;
 
   export type OrderTrade = {
     globalTradeID: number;
@@ -455,8 +445,6 @@ declare module "poloniex-node-api" {
   };
 
   export class AuthenticatedClient {
-    getHistoryTrades(options?: HistoryTradesFilter): Promise<TradePrivate[]>;
-
     getOrderTrades(options: OrderFilter): Promise<OrderTrade[]>;
 
     getOrderStatus(options: OrderFilter): Promise<OrderStatus>;

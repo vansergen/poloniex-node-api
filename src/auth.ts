@@ -6,11 +6,15 @@ import {
   CurrencyFilter,
   TimeFilter,
   CurrencyPair,
-  Type
+  Type,
+  TradesFilter,
+  Trade
 } from "./public";
 import { SignRequest } from "./signer";
 
 export type AccountFilter = { account?: string };
+
+export type HistoryTradesFilter = TradesFilter & { limit?: number };
 
 export type Balances = { [currency: string]: string };
 
@@ -89,6 +93,17 @@ export type Orders =
     }
   | Order[];
 
+export type TradePrivate = Trade & {
+  fee: string;
+  category: "exchange" | "margin";
+};
+
+export type TradesPrivate =
+  | {
+      [currencyPair: string]: TradePrivate[];
+    }
+  | TradePrivate[];
+
 export type AuthenticatedClientOptions = PublicClientOptions & {
   key: string;
   secret: string;
@@ -97,7 +112,7 @@ export type AuthenticatedClientOptions = PublicClientOptions & {
 export class AuthenticatedClient extends PublicClient {
   readonly key: string;
   readonly secret: string;
-  _nonce?: () => number;
+  private _nonce?: () => number;
 
   constructor({ key, secret, ...rest }: AuthenticatedClientOptions) {
     super(rest);
@@ -159,6 +174,17 @@ export class AuthenticatedClient extends PublicClient {
     currencyPair = this.currencyPair
   }: CurrencyPair = {}): Promise<Orders> {
     return this.post({ form: { command: "returnOpenOrders", currencyPair } });
+  }
+
+  /**
+   * Get your trade history for a given market.
+   */
+  getHistoryTrades({
+    currencyPair = this.currencyPair,
+    ...form
+  }: HistoryTradesFilter = {}): Promise<TradesPrivate> {
+    const command = "returnTradeHistory";
+    return this.post({ form: { command, currencyPair, ...form } });
   }
 
   set nonce(nonce: () => number) {

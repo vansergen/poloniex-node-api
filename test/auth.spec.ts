@@ -9,7 +9,8 @@ import {
   Adresses,
   NewAddress,
   DepositsWithdrawals,
-  Orders
+  Orders,
+  TradesPrivate
 } from "../index";
 
 const key = "poloniex-api-key";
@@ -202,6 +203,80 @@ suite("AuthenticatedClient", () => {
       .reply(200, response);
 
     const data = await client.getOpenOrders({ currencyPair });
+    assert.deepStrictEqual(data, response);
+  });
+
+  test(".getHistoryTrades()", async () => {
+    const currencyPair = "all";
+    const start = 1410158341;
+    const end = 1410499372;
+    const limit = 10;
+    const command = "returnTradeHistory";
+    const response: TradesPrivate = {
+      BTC_BCH: [
+        {
+          globalTradeID: 394131412,
+          tradeID: "5455033",
+          date: "2018-10-16 18:05:17",
+          rate: "0.06935244",
+          amount: "1.40308443",
+          total: "0.09730732",
+          fee: "0.00100000",
+          orderNumber: "104768235081",
+          type: "sell",
+          category: "exchange"
+        },
+        {
+          globalTradeID: 394126818,
+          tradeID: "5455007",
+          date: "2018-10-16 16:55:34",
+          rate: "0.06935244",
+          amount: "0.00155709",
+          total: "0.00010798",
+          fee: "0.00200000",
+          orderNumber: "104768179137",
+          type: "sell",
+          category: "exchange"
+        }
+      ],
+      BTC_STR: [
+        {
+          globalTradeID: 394127362,
+          tradeID: "13536351",
+          date: "2018-10-16 17:03:43",
+          rate: "0.00003432",
+          amount: "3696.05342780",
+          total: "0.12684855",
+          fee: "0.00200000",
+          orderNumber: "96238912841",
+          type: "buy",
+          category: "exchange"
+        },
+        {
+          globalTradeID: 394127361,
+          tradeID: "13536350",
+          date: "2018-10-16 17:03:43",
+          rate: "0.00003432",
+          amount: "3600.53748129",
+          total: "0.12357044",
+          fee: "0.00200000",
+          orderNumber: "96238912841",
+          type: "buy",
+          category: "exchange"
+        }
+      ]
+    };
+
+    nock(ApiUri)
+      .post("/tradingApi", { command, nonce, currencyPair, start, end, limit })
+      .reply(200, response);
+
+    const data = await client.getHistoryTrades({
+      currencyPair,
+      start,
+      end,
+      limit
+    });
     assert.deepStrictEqual(data, response);
   });
 });

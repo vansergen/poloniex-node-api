@@ -121,9 +121,17 @@ const orders = await client.getOpenOrders({ currencyPair });
 
 - [`getHistoryTrades`](https://docs.poloniex.com/?shell#returntradehistory-private)
 
-```javascript
+```typescript
 const currencyPair = "BTC_ETC";
-const trades = await authClient.getHistoryTrades({ currencyPair });
+const start = 1573953463;
+const end = 1576588663;
+const limit = 5000;
+const trades = await client.getHistoryTrades({
+  currencyPair,
+  start,
+  end,
+  limit
+});
 ```
 
 - [`getOrderTrades`](https://docs.poloniex.com/?shell#returntradehistory-private)
