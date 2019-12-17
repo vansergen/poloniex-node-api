@@ -136,9 +136,9 @@ const trades = await client.getHistoryTrades({
 
 - [`getOrderTrades`](https://docs.poloniex.com/?shell#returntradehistory-private)
 
-```javascript
+```typescript
 const orderNumber = 96238912842;
-const trades = await authClient.getOrderTrades({ orderNumber });
+const trades = await client.getOrderTrades({ orderNumber });
 ```
 
 - [`getOrderStatus`](https://docs.poloniex.com/?shell#returnorderstatus)

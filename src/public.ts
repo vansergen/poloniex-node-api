@@ -186,7 +186,7 @@ export class PublicClient extends RPC {
   /**
    * Get the list of loan offers and demands for a given currency.
    */
-  getLoanOrders({ currency }: CurrencyFilter): Promise<Loans> {
-    return this.get({ qs: { command: "returnLoanOrders", currency } });
+  getLoanOrders(qs: CurrencyFilter): Promise<Loans> {
+    return this.get({ qs: { command: "returnLoanOrders", ...qs } });
   }
 }

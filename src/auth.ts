@@ -8,13 +8,16 @@ import {
   CurrencyPair,
   Type,
   TradesFilter,
-  Trade
+  Trade,
+  BaseTrade
 } from "./public";
 import { SignRequest } from "./signer";
 
 export type AccountFilter = { account?: string };
 
 export type HistoryTradesFilter = TradesFilter & { limit?: number };
+
+export type OrderFilter = { orderNumber: number };
 
 export type Balances = { [currency: string]: string };
 
@@ -104,6 +107,12 @@ export type TradesPrivate =
     }
   | TradePrivate[];
 
+export type OrderTrade = BaseTrade & {
+  globalTradeID: number;
+  currencyPair: string;
+  fee: string;
+};
+
 export type AuthenticatedClientOptions = PublicClientOptions & {
   key: string;
   secret: string;
@@ -185,6 +194,13 @@ export class AuthenticatedClient extends PublicClient {
   }: HistoryTradesFilter = {}): Promise<TradesPrivate> {
     const command = "returnTradeHistory";
     return this.post({ form: { command, currencyPair, ...form } });
+  }
+
+  /**
+   * Get all trades involving a given order.
+   */
+  getOrderTrades(form: OrderFilter): Promise<OrderTrade[]> {
+    return this.post({ form: { command: "returnOrderTrades", ...form } });
   }
 
   set nonce(nonce: () => number) {

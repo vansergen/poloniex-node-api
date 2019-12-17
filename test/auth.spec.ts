@@ -10,7 +10,8 @@ import {
   NewAddress,
   DepositsWithdrawals,
   Orders,
-  TradesPrivate
+  TradesPrivate,
+  OrderTrade
 } from "../index";
 
 const key = "poloniex-api-key";
@@ -277,6 +278,42 @@ suite("AuthenticatedClient", () => {
       end,
       limit
     });
+    assert.deepStrictEqual(data, response);
+  });
+
+  test(".getOrderTrades()", async () => {
+    const orderNumber = 9623891284;
+    const command = "returnOrderTrades";
+    const response: OrderTrade[] = [
+      {
+        globalTradeID: 394127362,
+        tradeID: 13536351,
+        currencyPair: "BTC_STR",
+        type: "buy",
+        rate: "0.00003432",
+        amount: "3696.05342780",
+        total: "0.12684855",
+        fee: "0.00200000",
+        date: "2018-10-16 17:03:43"
+      },
+      {
+        globalTradeID: 394127361,
+        tradeID: 13536350,
+        currencyPair: "BTC_STR",
+        type: "buy",
+        rate: "0.00003432",
+        amount: "3600.53748129",
+        total: "0.12357044",
+        fee: "0.00200000",
+        date: "2018-10-16 17:03:43"
+      }
+    ];
+
+    nock(ApiUri)
+      .post("/tradingApi", { command, nonce, orderNumber })
+      .reply(200, response);
+
+    const data = await client.getOrderTrades({ orderNumber });
     assert.deepStrictEqual(data, response);
   });
 });

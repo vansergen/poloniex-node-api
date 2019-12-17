@@ -112,12 +112,6 @@ declare module "poloniex-node-api" {
     [currency: string]: string;
   };
 
-  export type OrderTrade = {
-    globalTradeID: number;
-    currencyPair: string;
-    fee: string;
-  } & BaseTrade;
-
   export type OrderStatus = {
     result: {
       [order: string]: {
@@ -445,8 +439,6 @@ declare module "poloniex-node-api" {
   };
 
   export class AuthenticatedClient {
-    getOrderTrades(options: OrderFilter): Promise<OrderTrade[]>;
-
     getOrderStatus(options: OrderFilter): Promise<OrderStatus>;
 
     buy(options: OrderOptions): Promise<OrderResult>;
