@@ -121,8 +121,12 @@ export class PublicClient extends RPC {
     this.currencyPair = currencyPair || DefaultPair;
   }
 
-  get({ qs }: RPCOptions): Promise<any> {
-    return super.get({ uri: "/public", qs });
+  async get({ qs }: RPCOptions): Promise<any> {
+    const response = await super.get({ uri: "/public", qs });
+    if (response.error) {
+      throw new Error(response.error);
+    }
+    return response;
   }
 
   /**
