@@ -3,7 +3,8 @@ import {
   PublicClient,
   PublicClientOptions,
   Headers,
-  CurrencyFilter
+  CurrencyFilter,
+  TimeFilter
 } from "./public";
 import { SignRequest } from "./signer";
 
@@ -22,6 +23,53 @@ export type CompleteBalances = { [currency: string]: CompleteBalance };
 export type Adresses = { [currency: string]: string };
 
 export type NewAddress = { success: 0 | 1; response: string };
+
+export type Adjustment = {
+  currency: string;
+  amount: string;
+  timestamp: number;
+  status: string;
+  category: "adjustment";
+  adjustmentTitle: string;
+  adjustmentDesc: string;
+  adjustmentHelp: string;
+};
+
+export type Withdrawal = {
+  withdrawalNumber: number;
+  currency: string;
+  address: string;
+  amount: string;
+  fee: string;
+  timestamp: number;
+  status: string;
+  ipAddress: string;
+  canCancel: 0 | 1;
+  canResendEmail: 0 | 1;
+  paymentID: null | string;
+  fiatAccountId?: null | string;
+  scope?: null | string;
+};
+
+export type Deposit = {
+  currency: string;
+  address: string;
+  amount: string;
+  confirmations: number;
+  txid: string;
+  timestamp: number;
+  status: "PENDING" | "COMPLETE";
+  depositNumber: number;
+  category: "deposit";
+  fiatAccountId?: null | string;
+  scope?: null | string;
+};
+
+export type DepositsWithdrawals = {
+  deposits: Deposit[];
+  withdrawals: Withdrawal[];
+  adjustments: Adjustment[];
+};
 
 export type AuthenticatedClientOptions = PublicClientOptions & {
   key: string;
@@ -76,6 +124,14 @@ export class AuthenticatedClient extends PublicClient {
    */
   getNewAddress(form: CurrencyFilter): Promise<NewAddress> {
     return this.post({ form: { command: "generateNewAddress", ...form } });
+  }
+
+  /**
+   * Get your adjustment, deposit, and withdrawal history within a range window.
+   */
+  getDepositsWithdrawals(form: TimeFilter): Promise<DepositsWithdrawals> {
+    const command = "returnDepositsWithdrawals";
+    return this.post({ form: { command, ...form } });
   }
 
   set nonce(nonce: () => number) {

@@ -106,10 +106,10 @@ const addresses = await client.getNewAddress({ currency });
 
 - [`getDepositsWithdrawals`](https://docs.poloniex.com/?shell#returndepositswithdrawals)
 
-```javascript
+```typescript
 const start = 1539954535;
 const end = 1540314535;
-const result = await authClient.getDepositsWithdrawals({ start, end });
+const result = await client.getDepositsWithdrawals({ start, end });
 ```
 
 - [`getOpenOrders`](https://docs.poloniex.com/?shell#returnopenorders)

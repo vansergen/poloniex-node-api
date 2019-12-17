@@ -10,49 +10,6 @@ const secret = "poloniex-api-secret";
 const authClient = new Poloniex.AuthenticatedClient({ key, secret });
 
 suite("AuthenticatedClient", () => {
-  test(".getDepositsWithdrawals()", done => {
-    const options = { start: 1529425667, end: 1560961667 };
-    const deposits_withdrawals = {
-      adjustments: [],
-      deposits: [],
-      withdrawals: [
-        {
-          withdrawalNumber: 64529364,
-          currency: "DASH",
-          address: "DASH-address",
-          amount: "43.00000001",
-          fee: "0.00100000",
-          timestamp: 1542658352,
-          status: "COMPLETE: tx-id",
-          ipAddress: "192.168.0.1",
-          canCancel: 0,
-          canResendEmail: 0,
-          paymentID: null
-        }
-      ]
-    };
-    const nonce = 1560742707669;
-    authClient.nonce = () => nonce;
-
-    nock(EXCHANGE_API_URL)
-      .post("/tradingApi", {
-        command: "returnDepositsWithdrawals",
-        nonce,
-        start: options.start,
-        end: options.end
-      })
-      .times(1)
-      .reply(200, deposits_withdrawals);
-
-    authClient
-      .getDepositsWithdrawals(options)
-      .then(data => {
-        assert.deepStrictEqual(data, deposits_withdrawals);
-        done();
-      })
-      .catch(error => assert.fail(error));
-  });
-
   test(".getOpenOrders()", done => {
     const orders = [];
     const nonce = 1560742707669;

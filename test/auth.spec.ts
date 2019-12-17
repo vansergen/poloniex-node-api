@@ -7,7 +7,8 @@ import {
   Balances,
   CompleteBalances,
   Adresses,
-  NewAddress
+  NewAddress,
+  DepositsWithdrawals
 } from "../index";
 
 const key = "poloniex-api-key";
@@ -107,5 +108,65 @@ suite("AuthenticatedClient", () => {
 
     const data = await client.getNewAddress({ currency });
     assert.deepStrictEqual(data, address);
+  });
+
+  test(".getDepositsWithdrawals()", async () => {
+    const start = 1529425667;
+    const end = 1560961667;
+    const command = "returnDepositsWithdrawals";
+    const response: DepositsWithdrawals = {
+      adjustments: [
+        {
+          currency: "STR",
+          amount: "2.38291827",
+          timestamp: 1538419390,
+          status: "COMPLETE",
+          category: "adjustment",
+          adjustmentTitle: "Stellar Inflation",
+          adjustmentDesc:
+            "Your Stellar inflation reward for the week of Jun 11, 2019.",
+          adjustmentHelp:
+            "https://poloniex.freshdesk.com/support/solutions/articles/1000278072-stellar-inflation-what-is-it-and-other-frequently-asked-questions"
+        }
+      ],
+      deposits: [
+        {
+          currency: "BTC",
+          amount: "1.49998357",
+          confirmations: 1,
+          timestamp: 1537304458,
+          status: "COMPLETE",
+          depositNumber: 7397519,
+          category: "deposit",
+          fiatAccountId: null,
+          scope: null,
+          address: "131rdg5Rzn6BFufnnQaHhVa5ZtRU1J2EZR",
+          txid:
+            "b05bdec7430a56b5a5ed34af4a31a54859dda9b7c88a5586bc5d6540cdfbfc7a"
+        }
+      ],
+      withdrawals: [
+        {
+          withdrawalNumber: 64529364,
+          currency: "DASH",
+          address: "DASH-address",
+          amount: "43.00000001",
+          fee: "0.00100000",
+          timestamp: 1542658352,
+          status: "COMPLETE: tx-id",
+          ipAddress: "192.168.0.1",
+          canCancel: 0,
+          canResendEmail: 0,
+          paymentID: null
+        }
+      ]
+    };
+
+    nock(ApiUri)
+      .post("/tradingApi", { command, nonce, start, end })
+      .reply(200, response);
+
+    const data = await client.getDepositsWithdrawals({ start, end });
+    assert.deepStrictEqual(data, response);
   });
 });

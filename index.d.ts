@@ -45,11 +45,6 @@ declare module "poloniex-node-api" {
     end?: number;
   } & CurrencyPairFilter;
 
-  export type TimeFilter = {
-    start: number;
-    end: number;
-  };
-
   export type AccountFilter = {
     account?: string;
   };
@@ -120,49 +115,6 @@ declare module "poloniex-node-api" {
 
   export type Balances = {
     [currency: string]: string;
-  };
-
-  export type Adjustment = {
-    currency: string;
-    amount: string;
-    timestamp: number;
-    status: string;
-    category: "adjustment";
-    adjustmentTitle: string;
-    adjustmentDesc: string;
-    adjustmentHelp: string;
-  };
-
-  export type Withdrawal = {
-    withdrawalNumber: number;
-    currency: string;
-    address: string;
-    amount: string;
-    fee: string;
-    timestamp: number;
-    status: string;
-    ipAddress: string;
-    canCancel: 0 | 1;
-    canResendEmail: 0 | 1;
-    paymentID: null | string;
-  };
-
-  export type Deposit = {
-    currency: string;
-    address: string;
-    amount: string;
-    confirmations: number;
-    txid: string;
-    timestamp: number;
-    status: "PENDING" | "COMPLETE";
-    depositNumber: number;
-    category: "deposit";
-  };
-
-  export type DepositsWithdrawals = {
-    deposits: Deposit[];
-    withdrawals: Withdrawal[];
-    adjustments: Adjustment[];
   };
 
   export type Order = {
@@ -520,8 +472,6 @@ declare module "poloniex-node-api" {
   };
 
   export class AuthenticatedClient {
-    getDepositsWithdrawals(options: TimeFilter): Promise<DepositsWithdrawals>;
-
     getOpenOrders(options?: CurrencyPairFilter): Promise<Orders>;
 
     getHistoryTrades(options?: HistoryTradesFilter): Promise<TradePrivate[]>;
