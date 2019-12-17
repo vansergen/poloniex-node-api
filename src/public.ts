@@ -142,7 +142,7 @@ export class PublicClient extends RPC {
    * Get the order book for a given market.
    */
   getOrderBook({
-    currencyPair = "all",
+    currencyPair = this.currencyPair,
     depth = ApiLimit
   }: BookFilter = {}): Promise<OrderBook> {
     const qs = { command: "returnOrderBook", currencyPair, depth };
