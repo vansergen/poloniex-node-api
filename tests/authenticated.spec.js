@@ -11,7 +11,28 @@ const authClient = new Poloniex.AuthenticatedClient({ key, secret });
 
 suite("AuthenticatedClient", () => {
   test(".getOpenOrders()", done => {
-    const orders = [];
+    const orders = [
+      {
+        orderNumber: "514514894224",
+        type: "buy",
+        rate: "0.00001000",
+        startingAmount: "100.00000000",
+        amount: "100.00000000",
+        total: "0.00100000",
+        date: "2018-10-23 17:38:53",
+        margin: 0
+      },
+      {
+        orderNumber: "514515104014",
+        type: "buy",
+        rate: "0.00002000",
+        startingAmount: "100.00000000",
+        amount: "100.00000000",
+        total: "0.00200000",
+        date: "2018-10-23 17:39:46",
+        margin: 1
+      }
+    ];
     const nonce = 1560742707669;
     authClient.nonce = () => nonce;
 

@@ -8,7 +8,8 @@ import {
   CompleteBalances,
   Adresses,
   NewAddress,
-  DepositsWithdrawals
+  DepositsWithdrawals,
+  Orders
 } from "../index";
 
 const key = "poloniex-api-key";
@@ -167,6 +168,40 @@ suite("AuthenticatedClient", () => {
       .reply(200, response);
 
     const data = await client.getDepositsWithdrawals({ start, end });
+    assert.deepStrictEqual(data, response);
+  });
+
+  test(".getOpenOrders()", async () => {
+    const currencyPair = "BTC_USDC";
+    const command = "returnOpenOrders";
+    const response: Orders = [
+      {
+        orderNumber: "514514894224",
+        type: "sell",
+        rate: "0.00001000",
+        startingAmount: "100.00000000",
+        amount: "100.00000000",
+        total: "0.00100000",
+        date: "2018-10-23 17:38:53",
+        margin: 1
+      },
+      {
+        orderNumber: "514515104014",
+        type: "buy",
+        rate: "0.00002000",
+        startingAmount: "100.00000000",
+        amount: "100.00000000",
+        total: "0.00200000",
+        date: "2018-10-23 17:39:46",
+        margin: 1
+      }
+    ];
+
+    nock(ApiUri)
+      .post("/tradingApi", { command, nonce, currencyPair })
+      .reply(200, response);
+
+    const data = await client.getOpenOrders({ currencyPair });
     assert.deepStrictEqual(data, response);
   });
 });

@@ -114,9 +114,9 @@ const result = await client.getDepositsWithdrawals({ start, end });
 
 - [`getOpenOrders`](https://docs.poloniex.com/?shell#returnopenorders)
 
-```javascript
+```typescript
 const currencyPair = "BTC_DASH";
-const orders = await authClient.getOpenOrders({ currencyPair });
+const orders = await client.getOpenOrders({ currencyPair });
 ```
 
 - [`getHistoryTrades`](https://docs.poloniex.com/?shell#returntradehistory-private)

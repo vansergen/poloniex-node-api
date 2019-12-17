@@ -6,8 +6,6 @@ export const DefaultPair = "USDT_BTC";
 export const ApiLimit = 100;
 export const Headers = {
   "User-Agent": "poloniex-node-api-client",
-  "Content-Type": "application/json",
-  Accept: "application/json",
   "X-Requested-With": "XMLHttpRequest"
 };
 
@@ -55,13 +53,14 @@ export type OrderBooksInfo = { [currency: string]: OrderBookInfo };
 
 export type OrderBook = OrderBookInfo | OrderBooksInfo;
 
-export type BaseTrade = {
+export type Type = { type: "sell" | "buy" };
+
+export type BaseTrade = Type & {
   amount: string;
   date: string;
   rate: string;
   total: string;
   tradeID: number;
-  type: "buy" | "sell";
 };
 
 export type Trade = BaseTrade & { globalTradeID: number; orderNumber: number };
@@ -102,8 +101,7 @@ export type Loan = {
 
 export type Loans = { offers: Loan[]; demands: Loan[] };
 
-export type PublicClientOptions = {
-  currencyPair?: string;
+export type PublicClientOptions = CurrencyPair & {
   apiUri?: string;
   timeout?: number;
 };

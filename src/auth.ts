@@ -4,7 +4,9 @@ import {
   PublicClientOptions,
   Headers,
   CurrencyFilter,
-  TimeFilter
+  TimeFilter,
+  CurrencyPair,
+  Type
 } from "./public";
 import { SignRequest } from "./signer";
 
@@ -71,6 +73,22 @@ export type DepositsWithdrawals = {
   adjustments: Adjustment[];
 };
 
+export type Order = Type & {
+  orderNumber: string;
+  rate: string;
+  startingAmount: string;
+  amount: string;
+  total: string;
+  date: string;
+  margin: 0 | 1;
+};
+
+export type Orders =
+  | {
+      [currencyPair: string]: Order[];
+    }
+  | Order[];
+
 export type AuthenticatedClientOptions = PublicClientOptions & {
   key: string;
   secret: string;
@@ -132,6 +150,15 @@ export class AuthenticatedClient extends PublicClient {
   getDepositsWithdrawals(form: TimeFilter): Promise<DepositsWithdrawals> {
     const command = "returnDepositsWithdrawals";
     return this.post({ form: { command, ...form } });
+  }
+
+  /**
+   * Get your open orders for a given market.
+   */
+  getOpenOrders({
+    currencyPair = this.currencyPair
+  }: CurrencyPair = {}): Promise<Orders> {
+    return this.post({ form: { command: "returnOpenOrders", currencyPair } });
   }
 
   set nonce(nonce: () => number) {

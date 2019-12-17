@@ -117,23 +117,6 @@ declare module "poloniex-node-api" {
     [currency: string]: string;
   };
 
-  export type Order = {
-    orderNumber: string;
-    type: "sell" | "buy";
-    rate: string;
-    startingAmount: string;
-    amount: string;
-    total: string;
-    date: string;
-    margin: 0 | 1;
-  };
-
-  export type Orders =
-    | {
-        [currencyPair: string]: Order[];
-      }
-    | Order[];
-
   export type TradePrivate = {
     fee: string;
     category: "exchange" | "margin";
@@ -472,8 +455,6 @@ declare module "poloniex-node-api" {
   };
 
   export class AuthenticatedClient {
-    getOpenOrders(options?: CurrencyPairFilter): Promise<Orders>;
-
     getHistoryTrades(options?: HistoryTradesFilter): Promise<TradePrivate[]>;
 
     getOrderTrades(options: OrderFilter): Promise<OrderTrade[]>;
