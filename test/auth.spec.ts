@@ -14,7 +14,8 @@ import {
   OrderTrade,
   OrderStatus,
   OrderResult,
-  CancelResponse
+  CancelResponse,
+  CancelAllResponse
 } from "../index";
 
 const key = "poloniex-api-key";
@@ -458,6 +459,23 @@ suite("AuthenticatedClient", () => {
       .reply(200, response);
 
     const data = await client.cancelOrder({ clientOrderId });
+    assert.deepStrictEqual(data, response);
+  });
+
+  test(".cancelAllOrders()", async () => {
+    const currencyPair = "BTC_USDC";
+    const command = "cancelAllOrders";
+    const response: CancelAllResponse = {
+      success: 1,
+      message: "Orders canceled",
+      orderNumbers: [503749, 888321, 7315825, 7316824]
+    };
+
+    nock(ApiUri)
+      .post("/tradingApi", { command, nonce, currencyPair })
+      .reply(200, response);
+
+    const data = await client.cancelAllOrders({ currencyPair });
     assert.deepStrictEqual(data, response);
   });
 });

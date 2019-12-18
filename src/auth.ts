@@ -156,6 +156,12 @@ export type CancelResponse = {
   currencyPair?: string;
 };
 
+export type CancelAllResponse = {
+  success: 0 | 1;
+  message: string;
+  orderNumbers: number[];
+};
+
 export type AuthenticatedClientOptions = PublicClientOptions & {
   key: string;
   secret: string;
@@ -292,6 +298,13 @@ export class AuthenticatedClient extends PublicClient {
       return this.post({ form: { command: "cancelOrder", orderNumber } });
     }
     throw new Error("`orderNumber` or `clientOrderId` is missing");
+  }
+
+  /**
+   * Cancel all open orders in a given market or, if no market is provided, all open orders in all markets.
+   */
+  cancelAllOrders(form: CurrencyPair = {}): Promise<CancelAllResponse> {
+    return this.post({ form: { command: "cancelAllOrders", ...form } });
   }
 
   set nonce(nonce: () => number) {

@@ -10,29 +10,6 @@ const secret = "poloniex-api-secret";
 const authClient = new Poloniex.AuthenticatedClient({ key, secret });
 
 suite("AuthenticatedClient", () => {
-  test(".cancelAllOrders()", done => {
-    const result = {
-      success: 1,
-      message: "Orders canceled",
-      orderNumbers: [503749, 888321, 7315825, 7316824]
-    };
-    const nonce = 1559587794133;
-    authClient.nonce = () => nonce;
-
-    nock(EXCHANGE_API_URL)
-      .post("/tradingApi", { command: "cancelAllOrders", nonce })
-      .times(1)
-      .reply(200, result);
-
-    authClient
-      .cancelAllOrders()
-      .then(data => {
-        assert.deepStrictEqual(data, result);
-        done();
-      })
-      .catch(error => assert.fail(error));
-  });
-
   test(".moveOrder()", done => {
     const result = {
       success: 1,

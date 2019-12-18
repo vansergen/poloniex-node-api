@@ -186,9 +186,9 @@ result = await client.cancelOrder({ clientOrderId });
 
 - [`cancelAllOrders`](https://docs.poloniex.com/?shell#cancelallorders)
 
-```javascript
+```typescript
 const currencyPair = "BTC_ETH";
-const orders = await authClient.cancelAllOrders({ currencyPair });
+const orders = await client.cancelAllOrders({ currencyPair });
 ```
 
 - [`moveOrder`](https://docs.poloniex.com/?shell#moveorder)
