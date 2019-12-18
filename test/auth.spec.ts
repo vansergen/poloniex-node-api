@@ -12,7 +12,8 @@ import {
   Orders,
   TradesPrivate,
   OrderTrade,
-  OrderStatus
+  OrderStatus,
+  OrderResult
 } from "../index";
 
 const key = "poloniex-api-key";
@@ -342,6 +343,81 @@ suite("AuthenticatedClient", () => {
       .reply(200, response);
 
     const data = await client.getOrderStatus({ orderNumber });
+    assert.deepStrictEqual(data, response);
+  });
+
+  test(".buy()", async () => {
+    const currencyPair = "BTC_ETH";
+    const rate = 0.01;
+    const amount = 1;
+    const response: OrderResult = {
+      orderNumber: "514845991795",
+      resultingTrades: [
+        {
+          amount: "0.1",
+          date: "2018-10-25 23:03:21",
+          rate: "0.01",
+          total: "0.001",
+          tradeID: "251834",
+          type: "buy"
+        }
+      ],
+      fee: "0.01000000",
+      currencyPair: "BTC_ETH"
+    };
+    const command = "buy";
+
+    nock(ApiUri)
+      .post("/tradingApi", { command, nonce, amount, rate, currencyPair })
+      .reply(200, response);
+
+    const data = await client.buy({ currencyPair, rate, amount });
+    assert.deepStrictEqual(data, response);
+  });
+
+  test(".sell()", async () => {
+    const currencyPair = "BTC_ETH";
+    const rate = 0.01;
+    const amount = 1;
+    const clientOrderId = 12345;
+    const postOnly = 1;
+    const response: OrderResult = {
+      orderNumber: "514845991795",
+      resultingTrades: [
+        {
+          amount: "1.0",
+          date: "2018-10-25 23:03:21",
+          rate: "0.01",
+          total: "0.0006",
+          tradeID: "251834",
+          type: "sell"
+        }
+      ],
+      fee: "0.01000000",
+      currencyPair: "BTC_ETH",
+      clientOrderId: "12345"
+    };
+    const command = "sell";
+
+    nock(ApiUri)
+      .post("/tradingApi", {
+        command,
+        nonce,
+        amount,
+        rate,
+        currencyPair,
+        clientOrderId,
+        postOnly
+      })
+      .reply(200, response);
+
+    const data = await client.sell({
+      currencyPair,
+      rate,
+      amount,
+      clientOrderId,
+      postOnly
+    });
     assert.deepStrictEqual(data, response);
   });
 });

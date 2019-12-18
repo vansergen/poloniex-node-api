@@ -150,26 +150,28 @@ const trades = await client.getOrderStatus({ orderNumber });
 
 - [`buy`](https://docs.poloniex.com/?shell#buy)
 
-```javascript
+```typescript
 const currencyPair = "BTC_ETH";
 const rate = 0.01;
 const amount = 1;
 const clientOrderId = 12345;
-const order = await authClient.buy({
+const postOnly = 1;
+const order = await client.buy({
   currencyPair,
   rate,
   amount,
+  postOnly,
   clientOrderId
 });
 ```
 
 - [`sell`](https://docs.poloniex.com/?shell#sell)
 
-```javascript
+```typescript
 const currencyPair = "BTC_ETH";
 const rate = 10;
 const amount = 1;
-const order = await authClient.sell({ currencyPair, rate, amount });
+const order = await client.sell({ currencyPair, rate, amount });
 ```
 
 - [`cancelOrder`](https://docs.poloniex.com/?shell#cancelorder)

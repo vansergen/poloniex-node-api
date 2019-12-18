@@ -39,16 +39,6 @@ declare module "poloniex-node-api" {
     orderNumber: number;
   };
 
-  export type OrderOptions = {
-    currencyPair?: string;
-    rate: number;
-    amount: number;
-    fillOrKill?: 0 | 1;
-    immediateOrCancel?: 0 | 1;
-    postOnly?: 0 | 1;
-    clientOrderId?: number;
-  };
-
   export type MoveOrderOptions = {
     orderNumber: number;
     rate: number;
@@ -102,14 +92,6 @@ declare module "poloniex-node-api" {
   export type ResultingTrade = {
     takerAdjustment?: string;
   } & BaseTrade;
-
-  export type OrderResult = {
-    orderNumber: string;
-    resultingTrades: ResultingTrade[];
-    fee: string;
-    currencyPair: string;
-    clientOrderId?: string;
-  };
 
   export type CancelResponse = {
     success: 0 | 1;
@@ -409,10 +391,6 @@ declare module "poloniex-node-api" {
   };
 
   export class AuthenticatedClient {
-    buy(options: OrderOptions): Promise<OrderResult>;
-
-    sell(options: OrderOptions): Promise<OrderResult>;
-
     cancelOrder(options: OrderFilter): Promise<CancelResponse>;
 
     cancelAllOrders(options?: CurrencyPairFilter): Promise<CancelAllResponse>;

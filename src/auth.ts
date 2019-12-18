@@ -19,6 +19,15 @@ export type HistoryTradesFilter = TradesFilter & { limit?: number };
 
 export type OrderFilter = { orderNumber: number };
 
+export type OrderOptions = CurrencyPair & {
+  rate: number;
+  amount: number;
+  fillOrKill?: 0 | 1;
+  immediateOrCancel?: 0 | 1;
+  postOnly?: 0 | 1;
+  clientOrderId?: number;
+};
+
 export type Balances = { [currency: string]: string };
 
 export type CompleteBalance = {
@@ -90,11 +99,7 @@ export type Order = Type & {
   margin: 0 | 1;
 };
 
-export type Orders =
-  | {
-      [currencyPair: string]: Order[];
-    }
-  | Order[];
+export type Orders = { [currencyPair: string]: Order[] } | Order[];
 
 export type TradePrivate = Trade & {
   fee: string;
@@ -102,9 +107,7 @@ export type TradePrivate = Trade & {
 };
 
 export type TradesPrivate =
-  | {
-      [currencyPair: string]: TradePrivate[];
-    }
+  | { [currencyPair: string]: TradePrivate[] }
   | TradePrivate[];
 
 export type OrderTrade = BaseTrade & {
@@ -128,6 +131,18 @@ export type OrderStatus = {
     };
   };
   success: 0 | 1;
+};
+
+export type ResultingTrade = BaseTrade & {
+  takerAdjustment?: string;
+};
+
+export type OrderResult = {
+  orderNumber: string;
+  resultingTrades: ResultingTrade[];
+  fee: string;
+  currencyPair: string;
+  clientOrderId?: string;
 };
 
 export type AuthenticatedClientOptions = PublicClientOptions & {
@@ -232,6 +247,26 @@ export class AuthenticatedClient extends PublicClient {
    */
   getOrderStatus(form: OrderFilter): Promise<OrderStatus> {
     return this.post({ form: { command: "returnOrderStatus", ...form } });
+  }
+
+  /**
+   * Places a limit buy order.
+   */
+  buy({
+    currencyPair = this.currencyPair,
+    ...form
+  }: OrderOptions): Promise<OrderResult> {
+    return this.post({ form: { command: "buy", currencyPair, ...form } });
+  }
+
+  /**
+   * Places a limit sell order.
+   */
+  sell({
+    currencyPair = this.currencyPair,
+    ...form
+  }: OrderOptions): Promise<OrderResult> {
+    return this.post({ form: { command: "sell", currencyPair, ...form } });
   }
 
   set nonce(nonce: () => number) {
