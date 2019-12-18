@@ -10,66 +10,6 @@ const secret = "poloniex-api-secret";
 const authClient = new Poloniex.AuthenticatedClient({ key, secret });
 
 suite("AuthenticatedClient", () => {
-  test(".moveOrder()", done => {
-    const result = {
-      success: 1,
-      orderNumber: "514851232549",
-      resultingTrades: { BTC_ETH: [] }
-    };
-    const orderNumber = 514851026755;
-    const rate = 0.00015;
-    const nonce = 1559587794133;
-    authClient.nonce = () => nonce;
-
-    nock(EXCHANGE_API_URL)
-      .post("/tradingApi", { command: "moveOrder", nonce, rate, orderNumber })
-      .times(1)
-      .reply(200, result);
-
-    authClient
-      .moveOrder({ orderNumber, rate })
-      .then(data => {
-        assert.deepStrictEqual(data, result);
-        done();
-      })
-      .catch(error => assert.fail(error));
-  });
-
-  test(".moveOrder() (with `clientOrderId`)", done => {
-    const result = {
-      success: 1,
-      orderNumber: "514851232549",
-      resultingTrades: { BTC_ETH: [] },
-      fee: "0.00150000",
-      currencyPair: "BTC_ETH",
-      clientOrderId: "12345"
-    };
-    const orderNumber = 514851026755;
-    const rate = 0.00015;
-    const nonce = 1559587794133;
-    const clientOrderId = 12345;
-    authClient.nonce = () => nonce;
-
-    nock(EXCHANGE_API_URL)
-      .post("/tradingApi", {
-        command: "moveOrder",
-        nonce,
-        rate,
-        orderNumber,
-        clientOrderId
-      })
-      .times(1)
-      .reply(200, result);
-
-    authClient
-      .moveOrder({ orderNumber, rate, clientOrderId })
-      .then(data => {
-        assert.deepStrictEqual(data, result);
-        done();
-      })
-      .catch(error => assert.fail(error));
-  });
-
   test(".withdraw()", done => {
     const result = { response: "Withdrew 2.0 ETH." };
     const currency = "ETH";

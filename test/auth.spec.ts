@@ -15,7 +15,8 @@ import {
   OrderStatus,
   OrderResult,
   CancelResponse,
-  CancelAllResponse
+  CancelAllResponse,
+  MoveResponse
 } from "../index";
 
 const key = "poloniex-api-key";
@@ -476,6 +477,28 @@ suite("AuthenticatedClient", () => {
       .reply(200, response);
 
     const data = await client.cancelAllOrders({ currencyPair });
+    assert.deepStrictEqual(data, response);
+  });
+
+  test(".moveOrder()", async () => {
+    const orderNumber = 514851026755;
+    const rate = 0.00015;
+    const clientOrderId = 12345;
+    const response: MoveResponse = {
+      success: 1,
+      orderNumber: "514851232549",
+      resultingTrades: { BTC_ETH: [] },
+      fee: "0.00150000",
+      currencyPair: "BTC_ETH",
+      clientOrderId: "12345"
+    };
+    const command = "moveOrder";
+
+    nock(ApiUri)
+      .post("/tradingApi", { command, nonce, orderNumber, rate, clientOrderId })
+      .reply(200, response);
+
+    const data = await client.moveOrder({ orderNumber, rate, clientOrderId });
     assert.deepStrictEqual(data, response);
   });
 });

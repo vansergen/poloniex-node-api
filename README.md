@@ -193,11 +193,11 @@ const orders = await client.cancelAllOrders({ currencyPair });
 
 - [`moveOrder`](https://docs.poloniex.com/?shell#moveorder)
 
-```javascript
+```typescript
 const orderNumber = 514851026755;
 const rate = 0.00015;
 const clientOrderId = 12345;
-const result = await authClient.moveOrder({ rate, orderNumber, clientOrderId });
+const result = await client.moveOrder({ rate, orderNumber, clientOrderId });
 ```
 
 - [`withdraw`](https://docs.poloniex.com/?shell#withdraw)

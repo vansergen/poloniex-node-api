@@ -30,6 +30,14 @@ export type OrderOptions = CurrencyPair & {
 
 export type ClientOrderFilter = OrderFilter | { clientOrderId: number };
 
+export type MoveOrderOptions = OrderFilter & {
+  rate: number;
+  amount?: number;
+  postOnly?: 0 | 1;
+  immediateOrCancel?: 0 | 1;
+  clientOrderId?: number;
+};
+
 export type Balances = { [currency: string]: string };
 
 export type CompleteBalance = {
@@ -135,9 +143,7 @@ export type OrderStatus = {
   success: 0 | 1;
 };
 
-export type ResultingTrade = BaseTrade & {
-  takerAdjustment?: string;
-};
+export type ResultingTrade = BaseTrade & { takerAdjustment?: string };
 
 export type OrderResult = {
   orderNumber: string;
@@ -160,6 +166,15 @@ export type CancelAllResponse = {
   success: 0 | 1;
   message: string;
   orderNumbers: number[];
+};
+
+export type MoveResponse = {
+  success: 0 | 1;
+  orderNumber: string;
+  fee: string;
+  currencyPair: string;
+  resultingTrades: { [currencyPair: string]: ResultingTrade[] };
+  clientOrderId?: string;
 };
 
 export type AuthenticatedClientOptions = PublicClientOptions & {
@@ -305,6 +320,13 @@ export class AuthenticatedClient extends PublicClient {
    */
   cancelAllOrders(form: CurrencyPair = {}): Promise<CancelAllResponse> {
     return this.post({ form: { command: "cancelAllOrders", ...form } });
+  }
+
+  /**
+   * Cancels an order and places a new one of the same type in a single atomic transaction.
+   */
+  moveOrder(form: MoveOrderOptions): Promise<MoveResponse> {
+    return this.post({ form: { command: "moveOrder", ...form } });
   }
 
   set nonce(nonce: () => number) {
