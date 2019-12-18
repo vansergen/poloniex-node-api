@@ -93,15 +93,6 @@ declare module "poloniex-node-api" {
     takerAdjustment?: string;
   } & BaseTrade;
 
-  export type CancelResponse = {
-    success: 0 | 1;
-    amount: string;
-    message: string;
-    fee?: string;
-    clientOrderId?: string;
-    currencyPair?: string;
-  };
-
   export type CancelAllResponse = {
     success: 0 | 1;
     message: string;
@@ -391,8 +382,6 @@ declare module "poloniex-node-api" {
   };
 
   export class AuthenticatedClient {
-    cancelOrder(options: OrderFilter): Promise<CancelResponse>;
-
     cancelAllOrders(options?: CurrencyPairFilter): Promise<CancelAllResponse>;
 
     moveOrder(options: MoveOrderOptions): Promise<MoveResponse>;

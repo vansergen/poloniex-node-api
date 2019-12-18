@@ -28,6 +28,8 @@ export type OrderOptions = CurrencyPair & {
   clientOrderId?: number;
 };
 
+export type ClientOrderFilter = OrderFilter | { clientOrderId: number };
+
 export type Balances = { [currency: string]: string };
 
 export type CompleteBalance = {
@@ -143,6 +145,15 @@ export type OrderResult = {
   fee: string;
   currencyPair: string;
   clientOrderId?: string;
+};
+
+export type CancelResponse = {
+  success: 0 | 1;
+  amount: string;
+  message: string;
+  fee?: string;
+  clientOrderId?: string;
+  currencyPair?: string;
 };
 
 export type AuthenticatedClientOptions = PublicClientOptions & {
@@ -267,6 +278,20 @@ export class AuthenticatedClient extends PublicClient {
     ...form
   }: OrderOptions): Promise<OrderResult> {
     return this.post({ form: { command: "sell", currencyPair, ...form } });
+  }
+
+  /**
+   * Cancel an order you have placed in a given market.
+   */
+  cancelOrder(form: ClientOrderFilter): Promise<CancelResponse> {
+    if ("clientOrderId" in form) {
+      const { clientOrderId } = form;
+      return this.post({ form: { command: "cancelOrder", clientOrderId } });
+    } else if ("orderNumber" in form) {
+      const { orderNumber } = form;
+      return this.post({ form: { command: "cancelOrder", orderNumber } });
+    }
+    throw new Error("`orderNumber` or `clientOrderId` is missing");
   }
 
   set nonce(nonce: () => number) {

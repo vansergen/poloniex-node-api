@@ -13,7 +13,8 @@ import {
   TradesPrivate,
   OrderTrade,
   OrderStatus,
-  OrderResult
+  OrderResult,
+  CancelResponse
 } from "../index";
 
 const key = "poloniex-api-key";
@@ -418,6 +419,45 @@ suite("AuthenticatedClient", () => {
       clientOrderId,
       postOnly
     });
+    assert.deepStrictEqual(data, response);
+  });
+
+  test(".cancelOrder()", async () => {
+    const orderNumber = 96238912841;
+    const command = "cancelOrder";
+    const response: CancelResponse = {
+      success: 1,
+      amount: "1.00000000",
+      message: "Order #96238912841 canceled.",
+      fee: "0.00000000",
+      currencyPair: "USDT_EOS"
+    };
+
+    nock(ApiUri)
+      .post("/tradingApi", { command, nonce, orderNumber })
+      .reply(200, response);
+
+    const data = await client.cancelOrder({ orderNumber });
+    assert.deepStrictEqual(data, response);
+  });
+
+  test(".cancelOrder() (by `clientOrderId`)", async () => {
+    const clientOrderId = 12345;
+    const command = "cancelOrder";
+    const response: CancelResponse = {
+      success: 1,
+      amount: "1.00000000",
+      message: "Order #96238912841 canceled.",
+      fee: "0.00000000",
+      currencyPair: "USDT_EOS",
+      clientOrderId: "123456"
+    };
+
+    nock(ApiUri)
+      .post("/tradingApi", { command, nonce, clientOrderId })
+      .reply(200, response);
+
+    const data = await client.cancelOrder({ clientOrderId });
     assert.deepStrictEqual(data, response);
   });
 });
