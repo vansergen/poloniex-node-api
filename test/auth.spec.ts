@@ -16,7 +16,8 @@ import {
   OrderResult,
   CancelResponse,
   CancelAllResponse,
-  MoveResponse
+  MoveResponse,
+  WithdrawResponse
 } from "../index";
 
 const key = "poloniex-api-key";
@@ -499,6 +500,21 @@ suite("AuthenticatedClient", () => {
       .reply(200, response);
 
     const data = await client.moveOrder({ orderNumber, rate, clientOrderId });
+    assert.deepStrictEqual(data, response);
+  });
+
+  test(".withdraw()", async () => {
+    const response: WithdrawResponse = { response: "Withdrew 0.000152 ETH." };
+    const currency = "ETH";
+    const amount = 0.000152;
+    const address = "0x84a90e21d9d02e30ddcea56d618aa75ba90331ff";
+    const command = "withdraw";
+
+    nock(ApiUri)
+      .post("/tradingApi", { command, nonce, currency, amount, address })
+      .reply(200, response);
+
+    const data = await client.withdraw({ currency, amount, address });
     assert.deepStrictEqual(data, response);
   });
 });

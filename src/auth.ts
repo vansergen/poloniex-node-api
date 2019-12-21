@@ -38,6 +38,14 @@ export type MoveOrderOptions = OrderFilter & {
   clientOrderId?: number;
 };
 
+export type WithdrawOptions = {
+  currency: string;
+  amount: number;
+  address: string;
+  paymentId?: string | number;
+  currencyToWithdrawAs?: string;
+};
+
 export type Balances = { [currency: string]: string };
 
 export type CompleteBalance = {
@@ -175,6 +183,12 @@ export type MoveResponse = {
   currencyPair: string;
   resultingTrades: { [currencyPair: string]: ResultingTrade[] };
   clientOrderId?: string;
+};
+
+export type WithdrawResponse = {
+  response: string;
+  email2FA?: boolean;
+  withdrawalNumber?: number;
 };
 
 export type AuthenticatedClientOptions = PublicClientOptions & {
@@ -327,6 +341,13 @@ export class AuthenticatedClient extends PublicClient {
    */
   moveOrder(form: MoveOrderOptions): Promise<MoveResponse> {
     return this.post({ form: { command: "moveOrder", ...form } });
+  }
+
+  /**
+   * Immediately place a withdrawal for a given currency.
+   */
+  withdraw(form: WithdrawOptions): Promise<WithdrawResponse> {
+    return this.post({ form: { command: "withdraw", ...form } });
   }
 
   set nonce(nonce: () => number) {

@@ -202,12 +202,12 @@ const result = await client.moveOrder({ rate, orderNumber, clientOrderId });
 
 - [`withdraw`](https://docs.poloniex.com/?shell#withdraw)
 
-```javascript
+```typescript
 const currency = "EOS";
 const amount = 1000;
 const address = "eos-address";
 const paymentId = 1234567890;
-const result = await authClient.withdraw({
+const result = await client.withdraw({
   currency,
   amount,
   address,

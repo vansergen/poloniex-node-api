@@ -39,14 +39,6 @@ declare module "poloniex-node-api" {
     orderNumber: number;
   };
 
-  export type WithdrawOptions = {
-    currency: string;
-    amount: number;
-    address: string;
-    paymentId?: string | number;
-    currencyToWithdrawAs?: "USDTTRON";
-  };
-
   export type TransferOptions = {
     currency: string;
     amount: number;
@@ -83,12 +75,6 @@ declare module "poloniex-node-api" {
   export type ResultingTrade = {
     takerAdjustment?: string;
   } & BaseTrade;
-
-  export type WithdrawResponse = {
-    response: string;
-    email2FA?: boolean;
-    withdrawalNumber?: number;
-  };
 
   export type FeesInfo = {
     makerFee: string;
@@ -356,8 +342,6 @@ declare module "poloniex-node-api" {
   };
 
   export class AuthenticatedClient {
-    withdraw(options: WithdrawOptions): Promise<WithdrawResponse>;
-
     getFeeInfo(): Promise<FeesInfo>;
 
     getAvailableAccountBalances(
