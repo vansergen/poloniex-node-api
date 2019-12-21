@@ -191,6 +191,15 @@ export type WithdrawResponse = {
   withdrawalNumber?: number;
 };
 
+export type FeesInfo = {
+  makerFee: string;
+  takerFee: string;
+  marginMakerFee?: string;
+  marginTakerFee?: string;
+  thirtyDayVolume: string;
+  nextTier: number;
+};
+
 export type AuthenticatedClientOptions = PublicClientOptions & {
   key: string;
   secret: string;
@@ -348,6 +357,13 @@ export class AuthenticatedClient extends PublicClient {
    */
   withdraw(form: WithdrawOptions): Promise<WithdrawResponse> {
     return this.post({ form: { command: "withdraw", ...form } });
+  }
+
+  /**
+   * Get your current trading fees and trailing 30-day volume in BTC.
+   */
+  getFeeInfo(): Promise<FeesInfo> {
+    return this.post({ form: { command: "returnFeeInfo" } });
   }
 
   set nonce(nonce: () => number) {

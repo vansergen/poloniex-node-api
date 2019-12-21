@@ -217,8 +217,8 @@ const result = await client.withdraw({
 
 - [`getFeeInfo`](https://docs.poloniex.com/?shell#returnfeeinfo)
 
-```javascript
-const fees = await authClient.getFeeInfo();
+```typescript
+const fees = await client.getFeeInfo();
 ```
 
 - [`getAvailableAccountBalances`](https://docs.poloniex.com/?shell#returnavailableaccountbalances)

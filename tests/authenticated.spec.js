@@ -10,30 +10,6 @@ const secret = "poloniex-api-secret";
 const authClient = new Poloniex.AuthenticatedClient({ key, secret });
 
 suite("AuthenticatedClient", () => {
-  test(".getFeeInfo()", done => {
-    const result = {
-      makerFee: "0.00100000",
-      takerFee: "0.00200000",
-      thirtyDayVolume: "106.08463302",
-      nextTier: 500000
-    };
-    const nonce = 154264078495300;
-    authClient.nonce = () => nonce;
-
-    nock(EXCHANGE_API_URL)
-      .post("/tradingApi", { command: "returnFeeInfo", nonce })
-      .times(1)
-      .reply(200, result);
-
-    authClient
-      .getFeeInfo()
-      .then(data => {
-        assert.deepStrictEqual(data, result);
-        done();
-      })
-      .catch(error => assert.fail(error));
-  });
-
   test(".getAvailableAccountBalances()", done => {
     const result = {
       exchange: {

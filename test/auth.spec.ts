@@ -17,7 +17,8 @@ import {
   CancelResponse,
   CancelAllResponse,
   MoveResponse,
-  WithdrawResponse
+  WithdrawResponse,
+  FeesInfo
 } from "../index";
 
 const key = "poloniex-api-key";
@@ -384,7 +385,8 @@ suite("AuthenticatedClient", () => {
     const rate = 0.01;
     const amount = 1;
     const clientOrderId = 12345;
-    const postOnly = 1;
+    const postOnly: 0 | 1 = 1;
+    const params = { currencyPair, rate, amount, clientOrderId, postOnly };
     const response: OrderResult = {
       orderNumber: "514845991795",
       resultingTrades: [
@@ -404,24 +406,10 @@ suite("AuthenticatedClient", () => {
     const command = "sell";
 
     nock(ApiUri)
-      .post("/tradingApi", {
-        command,
-        nonce,
-        amount,
-        rate,
-        currencyPair,
-        clientOrderId,
-        postOnly
-      })
+      .post("/tradingApi", { command, nonce, ...params })
       .reply(200, response);
 
-    const data = await client.sell({
-      currencyPair,
-      rate,
-      amount,
-      clientOrderId,
-      postOnly
-    });
+    const data = await client.sell(params);
     assert.deepStrictEqual(data, response);
   });
 
@@ -515,6 +503,24 @@ suite("AuthenticatedClient", () => {
       .reply(200, response);
 
     const data = await client.withdraw({ currency, amount, address });
+    assert.deepStrictEqual(data, response);
+  });
+
+  test(".getFeeInfo()", async () => {
+    const response: FeesInfo = {
+      makerFee: "0.00000000",
+      takerFee: "0.00000000",
+      marginMakerFee: "0.00150000",
+      marginTakerFee: "0.00250000",
+      thirtyDayVolume: "0.00000000",
+      nextTier: 25000
+    };
+    const command = "returnFeeInfo";
+    nock(ApiUri)
+      .post("/tradingApi", { command, nonce })
+      .reply(200, response);
+
+    const data = await client.getFeeInfo();
     assert.deepStrictEqual(data, response);
   });
 });

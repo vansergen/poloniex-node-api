@@ -76,13 +76,6 @@ declare module "poloniex-node-api" {
     takerAdjustment?: string;
   } & BaseTrade;
 
-  export type FeesInfo = {
-    makerFee: string;
-    takerFee: string;
-    thirtyDayVolume: string;
-    nextTier: number;
-  };
-
   export type AvailableAccountBalances = {
     exchange?: Balances | any[];
     margin?: Balances | any[];
@@ -342,8 +335,6 @@ declare module "poloniex-node-api" {
   };
 
   export class AuthenticatedClient {
-    getFeeInfo(): Promise<FeesInfo>;
-
     getAvailableAccountBalances(
       options?: AccountFilter
     ): Promise<AvailableAccountBalances>;
