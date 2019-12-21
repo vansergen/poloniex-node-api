@@ -31,10 +31,6 @@ declare module "poloniex-node-api" {
     currencyPair?: string;
   };
 
-  export type AccountFilter = {
-    account?: string;
-  };
-
   export type OrderFilter = {
     orderNumber: number;
   };
@@ -68,28 +64,13 @@ declare module "poloniex-node-api" {
     limit?: number;
   };
 
-  export type Balances = {
-    [currency: string]: string;
-  };
+  export type Balances = { [currency: string]: string };
 
-  export type ResultingTrade = {
-    takerAdjustment?: string;
-  } & BaseTrade;
+  export type ResultingTrade = BaseTrade & { takerAdjustment?: string };
 
-  export type AvailableAccountBalances = {
-    exchange?: Balances | any[];
-    margin?: Balances | any[];
-    lending?: Balances | any[];
-  };
+  export type TradableBalances = { [currencyPair: string]: Balances };
 
-  export type TradableBalances = {
-    [currencyPair: string]: Balances;
-  };
-
-  export type TransferResponse = {
-    success: 0 | 1;
-    message: string;
-  };
+  export type TransferResponse = { success: 0 | 1; message: string };
 
   export type MarginAccountSummary = {
     totalValue: string;
@@ -118,9 +99,7 @@ declare module "poloniex-node-api" {
   };
 
   export type MarginPositionResult =
-    | {
-        [currencyPair: string]: MarginPosition;
-      }
+    | { [currencyPair: string]: MarginPosition }
     | MarginPosition;
 
   export type ClosePositionResult = {
@@ -150,11 +129,7 @@ declare module "poloniex-node-api" {
     date: string;
   };
 
-  export type LoanOffers =
-    | {
-        [currency: string]: LoanOffer[];
-      }
-    | LoanOffer[];
+  export type LoanOffers = { [currency: string]: LoanOffer[] } | LoanOffer[];
 
   export type ActiveLoan = {
     id: number;
@@ -335,10 +310,6 @@ declare module "poloniex-node-api" {
   };
 
   export class AuthenticatedClient {
-    getAvailableAccountBalances(
-      options?: AccountFilter
-    ): Promise<AvailableAccountBalances>;
-
     getTradableBalances(): Promise<TradableBalances>;
 
     transferBalance(options: TransferOptions): Promise<TransferResponse>;

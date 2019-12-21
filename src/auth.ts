@@ -200,6 +200,12 @@ export type FeesInfo = {
   nextTier: number;
 };
 
+export type AccountBalances = {
+  exchange?: Balances | [];
+  margin?: Balances | [];
+  lending?: Balances | [];
+};
+
 export type AuthenticatedClientOptions = PublicClientOptions & {
   key: string;
   secret: string;
@@ -364,6 +370,14 @@ export class AuthenticatedClient extends PublicClient {
    */
   getFeeInfo(): Promise<FeesInfo> {
     return this.post({ form: { command: "returnFeeInfo" } });
+  }
+
+  /**
+   * Get your balances sorted by account.
+   */
+  getAccountBalances(form: AccountFilter = {}): Promise<AccountBalances> {
+    const command = "returnAvailableAccountBalances";
+    return this.post({ form: { command, ...form } });
   }
 
   set nonce(nonce: () => number) {

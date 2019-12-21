@@ -221,10 +221,11 @@ const result = await client.withdraw({
 const fees = await client.getFeeInfo();
 ```
 
-- [`getAvailableAccountBalances`](https://docs.poloniex.com/?shell#returnavailableaccountbalances)
+- [`getAccountBalances`](https://docs.poloniex.com/?shell#returnavailableaccountbalances)
 
-```javascript
-const balances = AuthenticatedClient.getAvailableAccountBalances();
+```typescript
+const account = "lending";
+const balances = client.getAccountBalances({ account });
 ```
 
 - [`getTradableBalances`](https://docs.poloniex.com/?shell#returntradablebalances)

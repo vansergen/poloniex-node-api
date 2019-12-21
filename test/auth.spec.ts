@@ -18,7 +18,8 @@ import {
   CancelAllResponse,
   MoveResponse,
   WithdrawResponse,
-  FeesInfo
+  FeesInfo,
+  AccountBalances
 } from "../index";
 
 const key = "poloniex-api-key";
@@ -522,5 +523,33 @@ suite("AuthenticatedClient", () => {
 
     const data = await client.getFeeInfo();
     assert.deepStrictEqual(data, response);
+  });
+
+  test(".getAccountBalances()", async () => {
+    const balances: AccountBalances = {
+      exchange: {
+        BTC: "0.10000000",
+        EOS: "5.18012931",
+        ETC: "3.39980734",
+        SC: "120.00000000",
+        USDC: "23.79999938",
+        ZEC: "0.02380926"
+      },
+      margin: { BTC: "0.50000000" },
+      lending: {
+        BTC: "0.14804126",
+        ETH: "2.69148073",
+        LTC: "1.75862721",
+        XMR: "5.25780982"
+      }
+    };
+    const command = "returnCompleteBalances";
+
+    nock(ApiUri)
+      .post("/tradingApi", { command, nonce })
+      .reply(200, balances);
+
+    const data = await client.getAccountBalances();
+    assert.deepStrictEqual(data, balances);
   });
 });
