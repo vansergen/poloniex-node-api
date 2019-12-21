@@ -236,12 +236,12 @@ const balances = client.getTradableBalances();
 
 - [`transferBalance`](https://docs.poloniex.com/?shell#transferbalance)
 
-```javascript
+```typescript
 const currency = "BTC";
 const amount = 0.5;
 const fromAccount = "lending";
 const toAccount = "exchange";
-const transfer = AuthenticatedClient.transferBalance({
+const transfer = client.transferBalance({
   currency,
   amount,
   fromAccount,

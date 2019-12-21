@@ -20,7 +20,8 @@ import {
   WithdrawResponse,
   FeesInfo,
   AccountBalances,
-  TradableBalances
+  TradableBalances,
+  TransferResponse
 } from "../index";
 
 const key = "poloniex-api-key";
@@ -576,5 +577,25 @@ suite("AuthenticatedClient", () => {
 
     const data = await client.getTradableBalances();
     assert.deepStrictEqual(data, balances);
+  });
+
+  test(".transferBalance()", async () => {
+    const response: TransferResponse = {
+      success: 1,
+      message: "Transferred 0.50000000 BTC from lending to exchange account."
+    };
+    const command = "transferBalance";
+    const currency = "BTC";
+    const amount = 0.5;
+    const fromAccount: "lending" = "lending";
+    const toAccount: "exchange" = "exchange";
+    const params = { currency, amount, fromAccount, toAccount };
+
+    nock(ApiUri)
+      .post("/tradingApi", { command, nonce, ...params })
+      .reply(200, response);
+
+    const data = await client.transferBalance(params);
+    assert.deepStrictEqual(data, response);
   });
 });

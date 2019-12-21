@@ -46,6 +46,13 @@ export type WithdrawOptions = {
   currencyToWithdrawAs?: string;
 };
 
+export type TransferOptions = {
+  currency: string;
+  amount: number;
+  fromAccount: "exchange" | "margin" | "lending";
+  toAccount: "exchange" | "margin" | "lending";
+};
+
 export type Balances = { [currency: string]: string };
 
 export type CompleteBalance = {
@@ -207,6 +214,8 @@ export type AccountBalances = {
 };
 
 export type TradableBalances = { [currencyPair: string]: Balances };
+
+export type TransferResponse = { success: 0 | 1; message: string };
 
 export type AuthenticatedClientOptions = PublicClientOptions & {
   key: string;
@@ -387,6 +396,13 @@ export class AuthenticatedClient extends PublicClient {
    */
   getTradableBalances(): Promise<TradableBalances> {
     return this.post({ form: { command: "returnTradableBalances" } });
+  }
+
+  /**
+   * Transfer funds from one account to another.
+   */
+  transferBalance(form: TransferOptions): Promise<TransferResponse> {
+    return this.post({ form: { command: "transferBalance", ...form } });
   }
 
   set nonce(nonce: () => number) {

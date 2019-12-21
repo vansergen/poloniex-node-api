@@ -35,13 +35,6 @@ declare module "poloniex-node-api" {
     orderNumber: number;
   };
 
-  export type TransferOptions = {
-    currency: string;
-    amount: number;
-    fromAccount: "exchange" | "margin" | "lending";
-    toAccount: "exchange" | "margin" | "lending";
-  };
-
   export type MarginOrderOptions = {
     currencyPair?: string;
     rate: number;
@@ -67,8 +60,6 @@ declare module "poloniex-node-api" {
   export type Balances = { [currency: string]: string };
 
   export type ResultingTrade = BaseTrade & { takerAdjustment?: string };
-
-  export type TransferResponse = { success: 0 | 1; message: string };
 
   export type MarginAccountSummary = {
     totalValue: string;
@@ -308,8 +299,6 @@ declare module "poloniex-node-api" {
   };
 
   export class AuthenticatedClient {
-    transferBalance(options: TransferOptions): Promise<TransferResponse>;
-
     getMarginAccountSummary(): Promise<MarginAccountSummary>;
 
     marginBuy(options: MarginOrderOptions): Promise<MarginOrderResult>;
