@@ -217,6 +217,15 @@ export type TradableBalances = { [currencyPair: string]: Balances };
 
 export type TransferResponse = { success: 0 | 1; message: string };
 
+export type MarginSummary = {
+  totalValue: string;
+  pl: string;
+  lendingFees: string;
+  netValue: string;
+  totalBorrowedValue: string;
+  currentMargin: string;
+};
+
 export type AuthenticatedClientOptions = PublicClientOptions & {
   key: string;
   secret: string;
@@ -403,6 +412,13 @@ export class AuthenticatedClient extends PublicClient {
    */
   transferBalance(form: TransferOptions): Promise<TransferResponse> {
     return this.post({ form: { command: "transferBalance", ...form } });
+  }
+
+  /**
+   * Get a summary of your entire margin account.
+   */
+  getMarginSummary(): Promise<MarginSummary> {
+    return this.post({ form: { command: "returnMarginAccountSummary" } });
   }
 
   set nonce(nonce: () => number) {

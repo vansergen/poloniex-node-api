@@ -61,15 +61,6 @@ declare module "poloniex-node-api" {
 
   export type ResultingTrade = BaseTrade & { takerAdjustment?: string };
 
-  export type MarginAccountSummary = {
-    totalValue: string;
-    pl: string;
-    lendingFees: string;
-    netValue: string;
-    totalBorrowedValue: string;
-    currentMargin: string;
-  };
-
   export type MarginOrderResult = {
     orderNumber: string;
     resultingTrades: ResultingTrade[];
@@ -299,8 +290,6 @@ declare module "poloniex-node-api" {
   };
 
   export class AuthenticatedClient {
-    getMarginAccountSummary(): Promise<MarginAccountSummary>;
-
     marginBuy(options: MarginOrderOptions): Promise<MarginOrderResult>;
 
     marginSell(options: MarginOrderOptions): Promise<MarginOrderResult>;

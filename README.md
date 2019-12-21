@@ -249,10 +249,10 @@ const transfer = client.transferBalance({
 });
 ```
 
-- [`getMarginAccountSummary`](https://docs.poloniex.com/?shell#returnmarginaccountsummary)
+- [`getMarginSummary`](https://docs.poloniex.com/?shell#returnmarginaccountsummary)
 
-```javascript
-const summary = await authClient.getMarginAccountSummary();
+```typescript
+const summary = await client.getMarginSummary();
 ```
 
 - [`marginBuy`](https://docs.poloniex.com/?shell#marginbuy)

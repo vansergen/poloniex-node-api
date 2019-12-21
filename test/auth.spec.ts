@@ -21,7 +21,8 @@ import {
   FeesInfo,
   AccountBalances,
   TradableBalances,
-  TransferResponse
+  TransferResponse,
+  MarginSummary
 } from "../index";
 
 const key = "poloniex-api-key";
@@ -596,6 +597,25 @@ suite("AuthenticatedClient", () => {
       .reply(200, response);
 
     const data = await client.transferBalance(params);
+    assert.deepStrictEqual(data, response);
+  });
+
+  test(".getMarginSummary()", async () => {
+    const response: MarginSummary = {
+      totalValue: "0.09999999",
+      pl: "0.00000000",
+      lendingFees: "0.00000000",
+      netValue: "0.09999999",
+      totalBorrowedValue: "0.02534580",
+      currentMargin: "3.94542646"
+    };
+    const command = "returnMarginAccountSummary";
+
+    nock(ApiUri)
+      .post("/tradingApi", { command, nonce })
+      .reply(200, response);
+
+    const data = await client.getMarginSummary();
     assert.deepStrictEqual(data, response);
   });
 });
