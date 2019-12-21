@@ -10,37 +10,6 @@ const secret = "poloniex-api-secret";
 const authClient = new Poloniex.AuthenticatedClient({ key, secret });
 
 suite("AuthenticatedClient", () => {
-  test(".getTradableBalances()", done => {
-    const result = {
-      BTC_BTS: { BTC: "1.25000000", BTS: "81930.25407233" },
-      BTC_CLAM: { BTC: "1.25000000", CLAM: "4266.69596390" },
-      BTC_DASH: { BTC: "1.25000000", DASH: "51.93926104" },
-      BTC_DOGE: { BTC: "1.25000000", DOGE: "2155172.41379310" },
-      BTC_LTC: { BTC: "1.25000000", LTC: "154.46087826" },
-      BTC_MAID: { BTC: "1.25000000", MAID: "38236.28007965" },
-      BTC_STR: { BTC: "1.25000000", STR: "34014.47559076" },
-      BTC_XMR: { BTC: "1.25000000", XMR: "76.27023112" },
-      BTC_XRP: { BTC: "1.25000000", XRP: "17385.96302541" },
-      BTC_ETH: { BTC: "1.25000000", ETH: "39.96803109" },
-      BTC_FCT: { BTC: "1.25000000", FCT: "1720.79314097" }
-    };
-    const nonce = 154264078495300;
-    authClient.nonce = () => nonce;
-
-    nock(EXCHANGE_API_URL)
-      .post("/tradingApi", { command: "returnTradableBalances", nonce })
-      .times(1)
-      .reply(200, result);
-
-    authClient
-      .getTradableBalances()
-      .then(data => {
-        assert.deepStrictEqual(data, result);
-        done();
-      })
-      .catch(error => assert.fail(error));
-  });
-
   test(".transferBalance()", done => {
     const result = {
       success: 1,

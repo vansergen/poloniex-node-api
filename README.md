@@ -230,8 +230,8 @@ const balances = client.getAccountBalances({ account });
 
 - [`getTradableBalances`](https://docs.poloniex.com/?shell#returntradablebalances)
 
-```javascript
-const balances = AuthenticatedClient.getTradableBalances();
+```typescript
+const balances = client.getTradableBalances();
 ```
 
 - [`transferBalance`](https://docs.poloniex.com/?shell#transferbalance)

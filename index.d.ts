@@ -68,8 +68,6 @@ declare module "poloniex-node-api" {
 
   export type ResultingTrade = BaseTrade & { takerAdjustment?: string };
 
-  export type TradableBalances = { [currencyPair: string]: Balances };
-
   export type TransferResponse = { success: 0 | 1; message: string };
 
   export type MarginAccountSummary = {
@@ -310,8 +308,6 @@ declare module "poloniex-node-api" {
   };
 
   export class AuthenticatedClient {
-    getTradableBalances(): Promise<TradableBalances>;
-
     transferBalance(options: TransferOptions): Promise<TransferResponse>;
 
     getMarginAccountSummary(): Promise<MarginAccountSummary>;

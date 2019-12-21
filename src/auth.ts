@@ -206,6 +206,8 @@ export type AccountBalances = {
   lending?: Balances | [];
 };
 
+export type TradableBalances = { [currencyPair: string]: Balances };
+
 export type AuthenticatedClientOptions = PublicClientOptions & {
   key: string;
   secret: string;
@@ -378,6 +380,13 @@ export class AuthenticatedClient extends PublicClient {
   getAccountBalances(form: AccountFilter = {}): Promise<AccountBalances> {
     const command = "returnAvailableAccountBalances";
     return this.post({ form: { command, ...form } });
+  }
+
+  /**
+   * Get your current tradable balances for each currency in each market for which margin trading is enabled.
+   */
+  getTradableBalances(): Promise<TradableBalances> {
+    return this.post({ form: { command: "returnTradableBalances" } });
   }
 
   set nonce(nonce: () => number) {
