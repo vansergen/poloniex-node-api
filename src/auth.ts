@@ -60,6 +60,14 @@ export type MarginOrderOptions = CurrencyPair & {
   clientOrderId?: number;
 };
 
+export type OfferOptions = {
+  currency: string;
+  amount: number;
+  duration: number;
+  autoRenew: 0 | 1;
+  lendingRate: number;
+};
+
 export type Balances = { [currency: string]: string };
 
 export type CompleteBalance = {
@@ -254,6 +262,8 @@ export type ClosePositionResult = {
   message: string;
   resultingTrades: { [currencyPair: string]: ResultingTrade[] };
 };
+
+export type OfferResult = { success: 0 | 1; message: string; orderID?: number };
 
 export type AuthenticatedClientOptions = PublicClientOptions & {
   key: string;
@@ -489,6 +499,13 @@ export class AuthenticatedClient extends PublicClient {
   }: CurrencyPair = {}): Promise<ClosePositionResult> {
     const command = "closeMarginPosition";
     return this.post({ form: { command, currencyPair } });
+  }
+
+  /**
+   * Create a loan offer for a given currency.
+   */
+  createLoanOffer(form: OfferOptions): Promise<OfferResult> {
+    return this.post({ form: { command: "createLoanOffer", ...form } });
   }
 
   set nonce(nonce: () => number) {

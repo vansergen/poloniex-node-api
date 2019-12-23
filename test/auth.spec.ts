@@ -25,7 +25,8 @@ import {
   MarginSummary,
   MarginOrderResult,
   MarginPositionResult,
-  ClosePositionResult
+  ClosePositionResult,
+  OfferResult
 } from "../index";
 
 const key = "poloniex-api-key";
@@ -725,6 +726,28 @@ suite("AuthenticatedClient", () => {
       .reply(200, response);
 
     const data = await client.closeMarginPosition({ currencyPair });
+    assert.deepStrictEqual(data, response);
+  });
+
+  test(".createLoanOffer()", async () => {
+    const currency = "BTC";
+    const amount = 0.1;
+    const duration = 2;
+    const autoRenew: 0 = 0;
+    const lendingRate = 0.015;
+    const response: OfferResult = {
+      success: 1,
+      message: "Loan order placed.",
+      orderID: 1002013188
+    };
+    const command = "createLoanOffer";
+    const params = { amount, currency, duration, autoRenew, lendingRate };
+
+    nock(ApiUri)
+      .post("/tradingApi", { command, nonce, ...params })
+      .reply(200, response);
+
+    const data = await client.createLoanOffer(params);
     assert.deepStrictEqual(data, response);
   });
 });

@@ -303,13 +303,13 @@ const position = await client.closeMarginPosition({ currencyPair });
 
 - [`createLoanOffer`](https://docs.poloniex.com/?shell#createloanoffer)
 
-```javascript
+```typescript
 const currency = "BTC";
 const amount = 0.1;
 const duration = 2;
 const autoRenew = 0;
 const lendingRate = 0.015;
-const offer = await authClient.createLoanOffer({
+const offer = await client.createLoanOffer({
   currency,
   amount,
   duration,
