@@ -23,7 +23,8 @@ import {
   TradableBalances,
   TransferResponse,
   MarginSummary,
-  MarginOrderResult
+  MarginOrderResult,
+  MarginPositionResult
 } from "../index";
 
 const key = "poloniex-api-key";
@@ -666,6 +667,27 @@ suite("AuthenticatedClient", () => {
       .reply(200, response);
 
     const data = await client.marginSell(params);
+    assert.deepStrictEqual(data, response);
+  });
+
+  test(".getMarginPosition()", async () => {
+    const currencyPair = "USDT_BTC";
+    const response: MarginPositionResult = {
+      amount: "40.94717831",
+      total: "-0.09671314",
+      basePrice: "0.00236190",
+      liquidationPrice: -1,
+      pl: "-0.00058655",
+      lendingFees: "-0.00000038",
+      type: "long"
+    };
+    const command = "getMarginPosition";
+
+    nock(ApiUri)
+      .post("/tradingApi", { command, nonce, currencyPair })
+      .reply(200, response);
+
+    const data = await client.getMarginPosition({ currencyPair });
     assert.deepStrictEqual(data, response);
   });
 });

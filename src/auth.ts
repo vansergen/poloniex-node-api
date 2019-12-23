@@ -235,6 +235,20 @@ export type MarginSummary = {
 
 export type MarginOrderResult = OrderResult & { message: string };
 
+export type MarginPosition = {
+  amount: string;
+  total: string;
+  basePrice: string;
+  liquidationPrice: number;
+  pl: string;
+  lendingFees: string;
+  type: "long" | "short" | "none";
+};
+
+export type MarginPositionResult =
+  | { [currencyPair: string]: MarginPosition }
+  | MarginPosition;
+
 export type AuthenticatedClientOptions = PublicClientOptions & {
   key: string;
   secret: string;
@@ -450,6 +464,15 @@ export class AuthenticatedClient extends PublicClient {
   }: MarginOrderOptions): Promise<MarginOrderResult> {
     const command = "marginSell";
     return this.post({ form: { command, currencyPair, ...form } });
+  }
+
+  /**
+   * Get information about your margin position in a given market.
+   */
+  getMarginPosition({
+    currencyPair = this.currencyPair
+  }: CurrencyPair = {}): Promise<MarginPositionResult> {
+    return this.post({ form: { command: "getMarginPosition", currencyPair } });
   }
 
   set nonce(nonce: () => number) {

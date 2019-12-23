@@ -289,9 +289,9 @@ const order = await client.marginSell({
 
 - [`getMarginPosition`](https://docs.poloniex.com/?shell#getmarginposition)
 
-```javascript
+```typescript
 const currencyPair = "BTC_ETH";
-const position = await authClient.getMarginPosition({ currencyPair });
+const position = await client.getMarginPosition({ currencyPair });
 ```
 
 - [`closeMarginPosition`](https://docs.poloniex.com/?shell#closemarginposition)

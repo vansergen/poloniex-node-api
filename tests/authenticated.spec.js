@@ -10,38 +10,6 @@ const secret = "poloniex-api-secret";
 const authClient = new Poloniex.AuthenticatedClient({ key, secret });
 
 suite("AuthenticatedClient", () => {
-  test(".getMarginPosition()", done => {
-    const currencyPair = "BTC_ETH";
-    const response = {
-      amount: "40.94717831",
-      total: "-0.09671314",
-      basePrice: "0.00236190",
-      liquidationPrice: -1,
-      pl: "-0.00058655",
-      lendingFees: "-0.00000038",
-      type: "long"
-    };
-    const nonce = 1560742707669;
-    authClient.nonce = () => nonce;
-
-    nock(EXCHANGE_API_URL)
-      .post("/tradingApi", {
-        command: "getMarginPosition",
-        currencyPair,
-        nonce
-      })
-      .times(1)
-      .reply(200, response);
-
-    authClient
-      .getMarginPosition({ currencyPair })
-      .then(data => {
-        assert.deepStrictEqual(data, response);
-        done();
-      })
-      .catch(error => assert.fail(error));
-  });
-
   test(".closeMarginPosition()", done => {
     const currencyPair = "BTC_ETH";
     const response = {

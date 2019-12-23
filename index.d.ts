@@ -47,20 +47,6 @@ declare module "poloniex-node-api" {
 
   export type ResultingTrade = BaseTrade & { takerAdjustment?: string };
 
-  export type MarginPosition = {
-    amount: string;
-    total: string;
-    basePrice: string;
-    liquidationPrice: number;
-    pl: string;
-    lendingFees: string;
-    type: "long" | "short" | "none";
-  };
-
-  export type MarginPositionResult =
-    | { [currencyPair: string]: MarginPosition }
-    | MarginPosition;
-
   export type ClosePositionResult = {
     success: 0 | 1;
     message: string;
@@ -269,10 +255,6 @@ declare module "poloniex-node-api" {
   };
 
   export class AuthenticatedClient {
-    getMarginPosition(
-      options?: CurrencyPairFilter
-    ): Promise<MarginPositionResult>;
-
     closeMarginPosition(
       options?: CurrencyPairFilter
     ): Promise<ClosePositionResult>;
