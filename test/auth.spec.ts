@@ -24,7 +24,8 @@ import {
   TransferResponse,
   MarginSummary,
   MarginOrderResult,
-  MarginPositionResult
+  MarginPositionResult,
+  ClosePositionResult
 } from "../index";
 
 const key = "poloniex-api-key";
@@ -688,6 +689,42 @@ suite("AuthenticatedClient", () => {
       .reply(200, response);
 
     const data = await client.getMarginPosition({ currencyPair });
+    assert.deepStrictEqual(data, response);
+  });
+
+  test(".closeMarginPosition()", async () => {
+    const currencyPair = "USDT_BTC";
+    const response: ClosePositionResult = {
+      success: 1,
+      message: "Successfully closed margin position.",
+      resultingTrades: {
+        BTC_XMR: [
+          {
+            amount: "7.09215901",
+            date: "2015-05-10 22:38:49",
+            rate: "0.00235337",
+            total: "0.01669047",
+            tradeID: "1213346",
+            type: "sell"
+          },
+          {
+            amount: "24.00289920",
+            date: "2015-05-10 22:38:49",
+            rate: "0.00235321",
+            total: "0.05648386",
+            tradeID: "1213347",
+            type: "sell"
+          }
+        ]
+      }
+    };
+    const command = "closeMarginPosition";
+
+    nock(ApiUri)
+      .post("/tradingApi", { command, nonce, currencyPair })
+      .reply(200, response);
+
+    const data = await client.closeMarginPosition({ currencyPair });
     assert.deepStrictEqual(data, response);
   });
 });

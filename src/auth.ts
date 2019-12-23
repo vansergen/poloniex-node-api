@@ -249,6 +249,12 @@ export type MarginPositionResult =
   | { [currencyPair: string]: MarginPosition }
   | MarginPosition;
 
+export type ClosePositionResult = {
+  success: 0 | 1;
+  message: string;
+  resultingTrades: { [currencyPair: string]: ResultingTrade[] };
+};
+
 export type AuthenticatedClientOptions = PublicClientOptions & {
   key: string;
   secret: string;
@@ -473,6 +479,16 @@ export class AuthenticatedClient extends PublicClient {
     currencyPair = this.currencyPair
   }: CurrencyPair = {}): Promise<MarginPositionResult> {
     return this.post({ form: { command: "getMarginPosition", currencyPair } });
+  }
+
+  /**
+   * Close your margin position in a given market using a market order.
+   */
+  closeMarginPosition({
+    currencyPair = this.currencyPair
+  }: CurrencyPair = {}): Promise<ClosePositionResult> {
+    const command = "closeMarginPosition";
+    return this.post({ form: { command, currencyPair } });
   }
 
   set nonce(nonce: () => number) {

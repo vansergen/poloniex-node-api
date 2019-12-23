@@ -296,9 +296,9 @@ const position = await client.getMarginPosition({ currencyPair });
 
 - [`closeMarginPosition`](https://docs.poloniex.com/?shell#closemarginposition)
 
-```javascript
+```typescript
 const currencyPair = "BTC_ETH";
-const position = await authClient.closeMarginPosition({ currencyPair });
+const position = await client.closeMarginPosition({ currencyPair });
 ```
 
 - [`createLoanOffer`](https://docs.poloniex.com/?shell#createloanoffer)

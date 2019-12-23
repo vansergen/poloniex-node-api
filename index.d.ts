@@ -47,12 +47,6 @@ declare module "poloniex-node-api" {
 
   export type ResultingTrade = BaseTrade & { takerAdjustment?: string };
 
-  export type ClosePositionResult = {
-    success: 0 | 1;
-    message: string;
-    resultingTrades: ResultingTrade[];
-  };
-
   export type OfferResult = {
     success: 0 | 1;
     message: string;
@@ -255,10 +249,6 @@ declare module "poloniex-node-api" {
   };
 
   export class AuthenticatedClient {
-    closeMarginPosition(
-      options?: CurrencyPairFilter
-    ): Promise<ClosePositionResult>;
-
     createLoanOffer(options: OfferOptions): Promise<OfferResult>;
 
     cancelLoanOffer(options: OrderFilter): Promise<CancelLoanResponse>;
