@@ -14,9 +14,7 @@ declare module "poloniex-node-api" {
     low24hr: string;
   };
 
-  export type Volume = {
-    [currency: string]: string;
-  };
+  export type Volume = { [currency: string]: string };
 
   export type BaseTrade = {
     amount: string;
@@ -27,21 +25,9 @@ declare module "poloniex-node-api" {
     type: "buy" | "sell";
   };
 
-  export type CurrencyPairFilter = {
-    currencyPair?: string;
-  };
+  export type CurrencyPairFilter = { currencyPair?: string };
 
-  export type OrderFilter = {
-    orderNumber: number;
-  };
-
-  export type MarginOrderOptions = {
-    currencyPair?: string;
-    rate: number;
-    amount: number;
-    lendingRate: number;
-    clientOrderId?: number;
-  };
+  export type OrderFilter = { orderNumber: number };
 
   export type OfferOptions = {
     currency: string;
@@ -60,13 +46,6 @@ declare module "poloniex-node-api" {
   export type Balances = { [currency: string]: string };
 
   export type ResultingTrade = BaseTrade & { takerAdjustment?: string };
-
-  export type MarginOrderResult = {
-    orderNumber: string;
-    resultingTrades: ResultingTrade[];
-    message: string;
-    clientOrderId?: string;
-  };
 
   export type MarginPosition = {
     amount: string;
@@ -290,10 +269,6 @@ declare module "poloniex-node-api" {
   };
 
   export class AuthenticatedClient {
-    marginBuy(options: MarginOrderOptions): Promise<MarginOrderResult>;
-
-    marginSell(options: MarginOrderOptions): Promise<MarginOrderResult>;
-
     getMarginPosition(
       options?: CurrencyPairFilter
     ): Promise<MarginPositionResult>;

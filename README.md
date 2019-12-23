@@ -257,12 +257,12 @@ const summary = await client.getMarginSummary();
 
 - [`marginBuy`](https://docs.poloniex.com/?shell#marginbuy)
 
-```javascript
+```typescript
 const currencyPair = "BTC_ETH";
 const rate = 0.01;
 const amount = 1;
 const lendingRate = 0.01;
-const order = await authClient.marginBuy({
+const order = await client.marginBuy({
   currencyPair,
   rate,
   amount,
@@ -272,13 +272,13 @@ const order = await authClient.marginBuy({
 
 - [`marginSell`](https://docs.poloniex.com/?shell#marginsell)
 
-```javascript
+```typescript
 const currencyPair = "BTC_ETH";
 const rate = 10;
 const amount = 1;
 const lendingRate = 0.015;
 const clientOrderId = 12345;
-const order = await authClient.marginSell({
+const order = await client.marginSell({
   currencyPair,
   rate,
   amount,

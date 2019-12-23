@@ -22,7 +22,8 @@ import {
   AccountBalances,
   TradableBalances,
   TransferResponse,
-  MarginSummary
+  MarginSummary,
+  MarginOrderResult
 } from "../index";
 
 const key = "poloniex-api-key";
@@ -616,6 +617,55 @@ suite("AuthenticatedClient", () => {
       .reply(200, response);
 
     const data = await client.getMarginSummary();
+    assert.deepStrictEqual(data, response);
+  });
+
+  test(".marginBuy()", async () => {
+    const currencyPair = "BTC_EOS";
+    const clientOrderId = 123;
+    const rate = 0.0035;
+    const amount = 20;
+    const response: MarginOrderResult = {
+      orderNumber: "123321",
+      resultingTrades: [],
+      clientOrderId: "123",
+      message: "Margin order placed.",
+      fee: "0.00150000",
+      currencyPair: "BTC_EOS"
+    };
+    const command = "marginBuy";
+    const params = { currencyPair, rate, amount, clientOrderId };
+
+    nock(ApiUri)
+      .post("/tradingApi", { command, nonce, ...params })
+      .reply(200, response);
+
+    const data = await client.marginBuy(params);
+    assert.deepStrictEqual(data, response);
+  });
+
+  test(".marginSell()", async () => {
+    const currencyPair = "BTC_EOS";
+    const clientOrderId = 123;
+    const rate = 0.0035;
+    const amount = 20;
+    const lendingRate = 0.001;
+    const response: MarginOrderResult = {
+      orderNumber: "123321",
+      resultingTrades: [],
+      clientOrderId: "123",
+      message: "Margin order placed.",
+      fee: "0.00150000",
+      currencyPair: "BTC_EOS"
+    };
+    const command = "marginSell";
+    const params = { currencyPair, rate, amount, clientOrderId, lendingRate };
+
+    nock(ApiUri)
+      .post("/tradingApi", { command, nonce, ...params })
+      .reply(200, response);
+
+    const data = await client.marginSell(params);
     assert.deepStrictEqual(data, response);
   });
 });

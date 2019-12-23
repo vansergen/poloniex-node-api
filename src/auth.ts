@@ -53,6 +53,13 @@ export type TransferOptions = {
   toAccount: "exchange" | "margin" | "lending";
 };
 
+export type MarginOrderOptions = CurrencyPair & {
+  rate: number;
+  amount: number;
+  lendingRate?: number;
+  clientOrderId?: number;
+};
+
 export type Balances = { [currency: string]: string };
 
 export type CompleteBalance = {
@@ -225,6 +232,8 @@ export type MarginSummary = {
   totalBorrowedValue: string;
   currentMargin: string;
 };
+
+export type MarginOrderResult = OrderResult & { message: string };
 
 export type AuthenticatedClientOptions = PublicClientOptions & {
   key: string;
@@ -419,6 +428,28 @@ export class AuthenticatedClient extends PublicClient {
    */
   getMarginSummary(): Promise<MarginSummary> {
     return this.post({ form: { command: "returnMarginAccountSummary" } });
+  }
+
+  /**
+   * Place a margin buy order in a given market.
+   */
+  marginBuy({
+    currencyPair = this.currencyPair,
+    ...form
+  }: MarginOrderOptions): Promise<MarginOrderResult> {
+    const command = "marginBuy";
+    return this.post({ form: { command, currencyPair, ...form } });
+  }
+
+  /**
+   * Place a margin sell order in a given market.
+   */
+  marginSell({
+    currencyPair = this.currencyPair,
+    ...form
+  }: MarginOrderOptions): Promise<MarginOrderResult> {
+    const command = "marginSell";
+    return this.post({ form: { command, currencyPair, ...form } });
   }
 
   set nonce(nonce: () => number) {
