@@ -16,33 +16,12 @@ declare module "poloniex-node-api" {
 
   export type Volume = { [currency: string]: string };
 
-  export type BaseTrade = {
-    amount: string;
-    date: string;
-    rate: string;
-    total: string;
-    tradeID: number;
-    type: "buy" | "sell";
-  };
-
-  export type CurrencyPairFilter = { currencyPair?: string };
-
   export type OrderFilter = { orderNumber: number };
 
   export type LendingHistoryOptions = {
     start?: number;
     end?: number;
     limit?: number;
-  };
-
-  export type Balances = { [currency: string]: string };
-
-  export type ResultingTrade = BaseTrade & { takerAdjustment?: string };
-
-  export type CancelLoanResponse = {
-    success: 0 | 1;
-    message: string;
-    amount?: string;
   };
 
   export type LoanOffer = {
@@ -235,8 +214,6 @@ declare module "poloniex-node-api" {
   };
 
   export class AuthenticatedClient {
-    cancelLoanOffer(options: OrderFilter): Promise<CancelLoanResponse>;
-
     getOpenLoanOffers(): Promise<LoanOffers>;
 
     getActiveLoans(): Promise<ActiveLoans>;

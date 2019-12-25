@@ -265,6 +265,12 @@ export type ClosePositionResult = {
 
 export type OfferResult = { success: 0 | 1; message: string; orderID?: number };
 
+export type CancelLoanResponse = {
+  success: 0 | 1;
+  message: string;
+  amount?: string;
+};
+
 export type AuthenticatedClientOptions = PublicClientOptions & {
   key: string;
   secret: string;
@@ -506,6 +512,13 @@ export class AuthenticatedClient extends PublicClient {
    */
   createLoanOffer(form: OfferOptions): Promise<OfferResult> {
     return this.post({ form: { command: "createLoanOffer", ...form } });
+  }
+
+  /**
+   * Cancel a loan offer.
+   */
+  cancelLoanOffer(form: OrderFilter): Promise<CancelLoanResponse> {
+    return this.post({ form: { command: "cancelLoanOffer", ...form } });
   }
 
   set nonce(nonce: () => number) {

@@ -320,9 +320,9 @@ const offer = await client.createLoanOffer({
 
 - [`cancelLoanOffer`](https://docs.poloniex.com/?shell#cancelloanoffer)
 
-```javascript
+```typescript
 const orderNumber = 1002013188;
-const offer = await authClient.cancelLoanOffer({ orderNumber });
+const offer = await client.cancelLoanOffer({ orderNumber });
 ```
 
 - [`getOpenLoanOffers`](https://docs.poloniex.com/?shell#returnopenloanoffers)

@@ -26,7 +26,8 @@ import {
   MarginOrderResult,
   MarginPositionResult,
   ClosePositionResult,
-  OfferResult
+  OfferResult,
+  CancelLoanResponse
 } from "../index";
 
 const key = "poloniex-api-key";
@@ -748,6 +749,23 @@ suite("AuthenticatedClient", () => {
       .reply(200, response);
 
     const data = await client.createLoanOffer(params);
+    assert.deepStrictEqual(data, response);
+  });
+
+  test(".cancelLoanOffer()", async () => {
+    const orderNumber = 1002013188;
+    const command = "cancelLoanOffer";
+    const response: CancelLoanResponse = {
+      success: 1,
+      message: "Loan offer canceled.",
+      amount: "0.10000000"
+    };
+
+    nock(ApiUri)
+      .post("/tradingApi", { command, nonce, orderNumber })
+      .reply(200, response);
+
+    const data = await client.cancelLoanOffer({ orderNumber });
     assert.deepStrictEqual(data, response);
   });
 });
