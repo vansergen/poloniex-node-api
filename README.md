@@ -339,11 +339,11 @@ const loans = await client.getActiveLoans();
 
 - [`getLendingHistory`](https://docs.poloniex.com/#returnlendinghistory)
 
-```javascript
+```typescript
 const start = 1483228800;
 const end = 1483315200;
-const limits = 100;
-const history = await authClient.getLendingHistory({ start, end, limits });
+const limit = 100;
+const history = await client.getLendingHistory({ start, end, limit });
 ```
 
 - [`toggleAutoRenew`](https://docs.poloniex.com/#toggleautorenew)

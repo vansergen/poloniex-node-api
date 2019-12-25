@@ -18,27 +18,6 @@ declare module "poloniex-node-api" {
 
   export type OrderFilter = { orderNumber: number };
 
-  export type LendingHistoryOptions = {
-    start?: number;
-    end?: number;
-    limit?: number;
-  };
-
-  export type LendingHistoryItem = {
-    id: number;
-    currency: string;
-    rate: string;
-    amount: string;
-    duration: string;
-    interest: string;
-    fee: string;
-    earned: string;
-    open: string;
-    close: string;
-  };
-
-  export type LendingHistory = LendingHistoryItem[];
-
   export type AutoRenewResult = {
     success: 0 | 1;
     message: 0 | 1;
@@ -187,8 +166,6 @@ declare module "poloniex-node-api" {
   };
 
   export class AuthenticatedClient {
-    getLendingHistory(options?: LendingHistoryOptions): Promise<LendingHistory>;
-
     toggleAutoRenew(options: OrderFilter): Promise<AutoRenewResult>;
   }
 

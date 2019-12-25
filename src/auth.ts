@@ -68,6 +68,12 @@ export type OfferOptions = {
   lendingRate: number;
 };
 
+export type LendingHistoryOptions = {
+  start?: number;
+  end?: number;
+  limit?: number;
+};
+
 export type Balances = { [currency: string]: string };
 
 export type CompleteBalance = {
@@ -294,6 +300,21 @@ export type ActiveLoan = {
 };
 
 export type ActiveLoans = { provided: ActiveLoan[]; used: ActiveLoan[] };
+
+export type LendingHistoryItem = {
+  id: number;
+  currency: string;
+  rate: string;
+  amount: string;
+  duration: string;
+  interest: string;
+  fee: string;
+  earned: string;
+  open: string;
+  close: string;
+};
+
+export type LendingHistory = LendingHistoryItem[];
 
 export type AuthenticatedClientOptions = PublicClientOptions & {
   key: string;
@@ -557,6 +578,13 @@ export class AuthenticatedClient extends PublicClient {
    */
   getActiveLoans(): Promise<ActiveLoans> {
     return this.post({ form: { command: "returnActiveLoans" } });
+  }
+
+  /**
+   * Get your lending history.
+   */
+  getLendingHistory(form: LendingHistoryOptions = {}): Promise<LendingHistory> {
+    return this.post({ form: { command: "returnLendingHistory", ...form } });
   }
 
   set nonce(nonce: () => number) {

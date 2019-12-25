@@ -29,7 +29,8 @@ import {
   OfferResult,
   CancelLoanResponse,
   LoanOffers,
-  ActiveLoans
+  ActiveLoans,
+  LendingHistory
 } from "../index";
 
 const key = "poloniex-api-key";
@@ -837,6 +838,46 @@ suite("AuthenticatedClient", () => {
       .reply(200, response);
 
     const data = await client.getActiveLoans();
+    assert.deepStrictEqual(data, response);
+  });
+
+  test(".getLendingHistory()", async () => {
+    const start = 1483228800;
+    const end = 1483315200;
+    const limit = 100;
+    const response: LendingHistory = [
+      {
+        id: 246300115,
+        currency: "BTC",
+        rate: "0.00013890",
+        amount: "0.33714830",
+        duration: "0.00090000",
+        interest: "0.00000005",
+        fee: "0.00000000",
+        earned: "0.00000005",
+        open: "2017-01-01 23:41:37",
+        close: "2017-01-01 23:42:51"
+      },
+      {
+        id: 246294775,
+        currency: "BTC",
+        rate: "0.00013890",
+        amount: "0.03764586",
+        duration: "0.00150000",
+        interest: "0.00000001",
+        fee: "0.00000000",
+        earned: "0.00000001",
+        open: "2017-01-01 23:36:32",
+        close: "2017-01-01 23:38:45"
+      }
+    ];
+    const command = "returnLendingHistory";
+
+    nock(ApiUri)
+      .post("/tradingApi", { command, nonce, start, end, limit })
+      .reply(200, response);
+
+    const data = await client.getLendingHistory({ start, end, limit });
     assert.deepStrictEqual(data, response);
   });
 });
