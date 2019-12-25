@@ -1,4 +1,4 @@
-{
+export const Currencies = {
   "1": "1CR",
   "2": "ABY",
   "3": "AC",
@@ -306,5 +306,6 @@
   "311": "POLY",
   "312": "LPT",
   "313": "ATOM",
-  "314": "GRIN"
-}
+  "314": "GRIN",
+  "315": "TRX"
+};
