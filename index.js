@@ -1,4 +1,1 @@
-module.exports = {
-  AuthenticatedClient: require("./lib/authenticated.js"),
-  WebsocketClient: require("./lib/websocket.js")
-};
+module.exports = { WebsocketClient: require("./lib/websocket.js") };

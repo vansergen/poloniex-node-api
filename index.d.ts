@@ -16,13 +16,6 @@ declare module "poloniex-node-api" {
 
   export type Volume = { [currency: string]: string };
 
-  export type OrderFilter = { orderNumber: number };
-
-  export type AutoRenewResult = {
-    success: 0 | 1;
-    message: 0 | 1;
-  };
-
   export type WsRawMessage = Array<any>;
 
   export namespace WebsocketMessage {
@@ -164,10 +157,6 @@ declare module "poloniex-node-api" {
     key?: string;
     secret?: string;
   };
-
-  export class AuthenticatedClient {
-    toggleAutoRenew(options: OrderFilter): Promise<AutoRenewResult>;
-  }
 
   export class WebsocketClient extends EventEmitter {
     constructor(options?: WebsocketClientOptions);

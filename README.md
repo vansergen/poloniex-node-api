@@ -348,9 +348,9 @@ const history = await client.getLendingHistory({ start, end, limit });
 
 - [`toggleAutoRenew`](https://docs.poloniex.com/#toggleautorenew)
 
-```javascript
+```typescript
 const orderNumber = 1002013188;
-const result = await authClient.toggleAutoRenew({ orderNumber });
+const result = await client.toggleAutoRenew({ orderNumber });
 ```
 
 ### WebsocketClient

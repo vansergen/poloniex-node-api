@@ -30,7 +30,8 @@ import {
   CancelLoanResponse,
   LoanOffers,
   ActiveLoans,
-  LendingHistory
+  LendingHistory,
+  AutoRenewResult
 } from "../index";
 
 const key = "poloniex-api-key";
@@ -878,6 +879,19 @@ suite("AuthenticatedClient", () => {
       .reply(200, response);
 
     const data = await client.getLendingHistory({ start, end, limit });
+    assert.deepStrictEqual(data, response);
+  });
+
+  test(".toggleAutoRenew()", async () => {
+    const orderNumber = 1002013188;
+    const command = "toggleAutoRenew";
+    const response: AutoRenewResult = { success: 1, message: 0 };
+
+    nock(ApiUri)
+      .post("/tradingApi", { command, nonce, orderNumber })
+      .reply(200, response);
+
+    const data = await client.toggleAutoRenew({ orderNumber });
     assert.deepStrictEqual(data, response);
   });
 });

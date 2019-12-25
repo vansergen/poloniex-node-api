@@ -316,6 +316,8 @@ export type LendingHistoryItem = {
 
 export type LendingHistory = LendingHistoryItem[];
 
+export type AutoRenewResult = { success: 0 | 1; message: string | 0 | 1 };
+
 export type AuthenticatedClientOptions = PublicClientOptions & {
   key: string;
   secret: string;
@@ -585,6 +587,13 @@ export class AuthenticatedClient extends PublicClient {
    */
   getLendingHistory(form: LendingHistoryOptions = {}): Promise<LendingHistory> {
     return this.post({ form: { command: "returnLendingHistory", ...form } });
+  }
+
+  /**
+   * Toggle the autoRenew setting on an active loan.
+   */
+  toggleAutoRenew(form: OrderFilter): Promise<AutoRenewResult> {
+    return this.post({ form: { command: "toggleAutoRenew", ...form } });
   }
 
   set nonce(nonce: () => number) {

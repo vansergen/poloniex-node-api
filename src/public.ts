@@ -118,7 +118,7 @@ export class PublicClient extends RPC {
     timeout = DefaultTimeout
   }: PublicClientOptions = {}) {
     super({ baseUrl: apiUri, json: true, headers: Headers, timeout });
-    this.currencyPair = currencyPair || DefaultPair;
+    this.currencyPair = currencyPair;
   }
 
   async get({ qs }: RPCOptions): Promise<any> {
