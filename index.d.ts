@@ -24,20 +24,6 @@ declare module "poloniex-node-api" {
       sequence: number | null | "";
     };
 
-    export type Heartbeat = {
-      subject: "heartbeat";
-    } & Message;
-
-    export type Subscribe = {
-      subject: "subscribed" | "unsubscribed";
-    } & Message;
-
-    export type Ticker = {
-      subject: "ticker";
-      currencyPair: string | undefined;
-    } & TickerInfo &
-      Message;
-
     export type WSVolume = {
       subject: "volume";
       time: string;
@@ -132,9 +118,6 @@ declare module "poloniex-node-api" {
   }
 
   export type WebsocketMessage =
-    | WebsocketMessage.Heartbeat
-    | WebsocketMessage.Subscribe
-    | WebsocketMessage.Ticker
     | WebsocketMessage.WSVolume
     | WebsocketMessage.Update
     | WebsocketMessage.Snapshot
@@ -145,9 +128,4 @@ declare module "poloniex-node-api" {
     | WebsocketMessage.WSPending
     | WebsocketMessage.WSTrade
     | WebsocketMessage.WSKill;
-
-  export class WebsocketClient extends EventEmitter {
-    on(event: "message", eventHandler: (data: WebsocketMessage) => void): this;
-    on(event: "raw", eventHandler: (data: WsRawMessage) => void): this;
-  }
 }
