@@ -333,8 +333,8 @@ const offers = await client.getOpenLoanOffers();
 
 - [`getActiveLoans`](https://docs.poloniex.com/#returnactiveloans)
 
-```javascript
-const loans = await authClient.getActiveLoans();
+```typescript
+const loans = await client.getActiveLoans();
 ```
 
 - [`getLendingHistory`](https://docs.poloniex.com/#returnlendinghistory)

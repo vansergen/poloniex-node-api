@@ -282,6 +282,19 @@ export type LoanOffer = {
 
 export type LoanOffers = { [currency: string]: LoanOffer[] } | LoanOffer[];
 
+export type ActiveLoan = {
+  id: number;
+  currency: string;
+  rate: string;
+  amount: string;
+  range: number;
+  autoRenew?: 0 | 1;
+  date: string;
+  fees: string;
+};
+
+export type ActiveLoans = { provided: ActiveLoan[]; used: ActiveLoan[] };
+
 export type AuthenticatedClientOptions = PublicClientOptions & {
   key: string;
   secret: string;
@@ -539,14 +552,18 @@ export class AuthenticatedClient extends PublicClient {
     return this.post({ form: { command: "returnOpenLoanOffers" } });
   }
 
+  /**
+   * Get your active loans for each currency.
+   */
+  getActiveLoans(): Promise<ActiveLoans> {
+    return this.post({ form: { command: "returnActiveLoans" } });
+  }
+
   set nonce(nonce: () => number) {
     this._nonce = nonce;
   }
 
   get nonce(): () => number {
-    if (this._nonce) {
-      return this._nonce;
-    }
-    return () => Date.now();
+    return this._nonce ? this._nonce : () => Date.now();
   }
 }
