@@ -1,4 +1,4 @@
-export const Currencies = {
+export const Currencies: { [id: string]: string } = {
   "1": "1CR",
   "2": "ABY",
   "3": "AC",

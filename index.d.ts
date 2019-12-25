@@ -146,31 +146,8 @@ declare module "poloniex-node-api" {
     | WebsocketMessage.WSTrade
     | WebsocketMessage.WSKill;
 
-  export type SubscriptionOptions = {
-    channel_id: string | number;
-  };
-
-  export type WebsocketClientOptions = {
-    api_uri?: string;
-    raw?: boolean;
-    channels?: string | number | Array<string | number>;
-    key?: string;
-    secret?: string;
-  };
-
   export class WebsocketClient extends EventEmitter {
-    constructor(options?: WebsocketClientOptions);
-
     on(event: "message", eventHandler: (data: WebsocketMessage) => void): this;
-    on(event: "open", eventHandler: () => void): this;
-    on(event: "close", eventHandler: () => void): this;
-    on(event: "error", eventHandler: (error: any) => void): this;
     on(event: "raw", eventHandler: (data: WsRawMessage) => void): this;
-
-    connect(): void;
-    disconnect(): void;
-
-    subscribe(options: SubscriptionOptions): void;
-    unsubscribe(options: SubscriptionOptions): void;
   }
 }
