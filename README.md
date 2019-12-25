@@ -327,8 +327,8 @@ const offer = await client.cancelLoanOffer({ orderNumber });
 
 - [`getOpenLoanOffers`](https://docs.poloniex.com/?shell#returnopenloanoffers)
 
-```javascript
-const offers = await authClient.getOpenLoanOffers();
+```typescript
+const offers = await client.getOpenLoanOffers();
 ```
 
 - [`getActiveLoans`](https://docs.poloniex.com/#returnactiveloans)

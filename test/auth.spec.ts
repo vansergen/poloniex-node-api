@@ -27,7 +27,8 @@ import {
   MarginPositionResult,
   ClosePositionResult,
   OfferResult,
-  CancelLoanResponse
+  CancelLoanResponse,
+  LoanOffers
 } from "../index";
 
 const key = "poloniex-api-key";
@@ -766,6 +767,29 @@ suite("AuthenticatedClient", () => {
       .reply(200, response);
 
     const data = await client.cancelLoanOffer({ orderNumber });
+    assert.deepStrictEqual(data, response);
+  });
+
+  test(".getOpenLoanOffers()", async () => {
+    const response: LoanOffers = {
+      BTC: [
+        {
+          id: 1002015083,
+          rate: "0.01500000",
+          amount: "0.10000000",
+          duration: 2,
+          autoRenew: 0,
+          date: "2018-10-26 20:26:46"
+        }
+      ]
+    };
+    const command = "returnOpenLoanOffers";
+
+    nock(ApiUri)
+      .post("/tradingApi", { command, nonce })
+      .reply(200, response);
+
+    const data = await client.getOpenLoanOffers();
     assert.deepStrictEqual(data, response);
   });
 });

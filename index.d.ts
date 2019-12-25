@@ -24,17 +24,6 @@ declare module "poloniex-node-api" {
     limit?: number;
   };
 
-  export type LoanOffer = {
-    id: number;
-    rate: string;
-    amount: string;
-    duration: number;
-    autoRenew: 0 | 1;
-    date: string;
-  };
-
-  export type LoanOffers = { [currency: string]: LoanOffer[] } | LoanOffer[];
-
   export type ActiveLoan = {
     id: number;
     currency: string;
@@ -214,8 +203,6 @@ declare module "poloniex-node-api" {
   };
 
   export class AuthenticatedClient {
-    getOpenLoanOffers(): Promise<LoanOffers>;
-
     getActiveLoans(): Promise<ActiveLoans>;
 
     getLendingHistory(options?: LendingHistoryOptions): Promise<LendingHistory>;

@@ -271,6 +271,17 @@ export type CancelLoanResponse = {
   amount?: string;
 };
 
+export type LoanOffer = {
+  id: number;
+  rate: string;
+  amount: string;
+  duration: number;
+  autoRenew: 0 | 1;
+  date: string;
+};
+
+export type LoanOffers = { [currency: string]: LoanOffer[] } | LoanOffer[];
+
 export type AuthenticatedClientOptions = PublicClientOptions & {
   key: string;
   secret: string;
@@ -519,6 +530,13 @@ export class AuthenticatedClient extends PublicClient {
    */
   cancelLoanOffer(form: OrderFilter): Promise<CancelLoanResponse> {
     return this.post({ form: { command: "cancelLoanOffer", ...form } });
+  }
+
+  /**
+   * Get your open loan offers for each currency.
+   */
+  getOpenLoanOffers(): Promise<LoanOffers> {
+    return this.post({ form: { command: "returnOpenLoanOffers" } });
   }
 
   set nonce(nonce: () => number) {

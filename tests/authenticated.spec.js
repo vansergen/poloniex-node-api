@@ -10,36 +10,6 @@ const secret = "poloniex-api-secret";
 const authClient = new Poloniex.AuthenticatedClient({ key, secret });
 
 suite("AuthenticatedClient", () => {
-  test(".getOpenLoanOffers()", done => {
-    const response = {
-      BTC: [
-        {
-          id: 1002015083,
-          rate: "0.01500000",
-          amount: "0.10000000",
-          duration: 2,
-          autoRenew: 0,
-          date: "2018-10-26 20:26:46"
-        }
-      ]
-    };
-    const nonce = 154264078495300;
-    authClient.nonce = () => nonce;
-
-    nock(EXCHANGE_API_URL)
-      .post("/tradingApi", { command: "returnOpenLoanOffers", nonce })
-      .times(1)
-      .reply(200, response);
-
-    authClient
-      .getOpenLoanOffers()
-      .then(data => {
-        assert.deepStrictEqual(data, response);
-        done();
-      })
-      .catch(error => assert.fail(error));
-  });
-
   test(".getActiveLoans()", done => {
     const response = {
       provided: [
