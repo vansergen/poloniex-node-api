@@ -1,34 +1,12 @@
 import { EventEmitter } from "events";
 
 declare module "poloniex-node-api" {
-  export type TickerInfo = {
-    id: number;
-    last: string;
-    lowestAsk: string;
-    highestBid: string;
-    percentChange: string;
-    baseVolume: string;
-    quoteVolume: string;
-    isFrozen: string | 0 | 1;
-    high24hr: string;
-    low24hr: string;
-  };
-
-  export type Volume = { [currency: string]: string };
-
   export type WsRawMessage = Array<any>;
 
   export namespace WebsocketMessage {
     type Message = {
       channel_id: string | number;
       sequence: number | null | "";
-    };
-
-    export type WSVolume = {
-      subject: "volume";
-      time: string;
-      users: number;
-      volume: Volume;
     };
 
     export type Update = {
@@ -118,7 +96,6 @@ declare module "poloniex-node-api" {
   }
 
   export type WebsocketMessage =
-    | WebsocketMessage.WSVolume
     | WebsocketMessage.Update
     | WebsocketMessage.Snapshot
     | WebsocketMessage.WSPublicTrade

@@ -34,7 +34,17 @@ export type RawTickerMessage = [
   ]
 ];
 
-export type RawMessage = RawWsHeartbeat | RawAcknowledgement | RawTickerMessage;
+export type RawVolumeMessage = [
+  1003,
+  null,
+  [string, number, { [currency: string]: string }]
+];
+
+export type RawMessage =
+  | RawWsHeartbeat
+  | RawAcknowledgement
+  | RawTickerMessage
+  | RawVolumeMessage;
 
 export type BaseMessage = {
   channel_id: Channel;
@@ -67,7 +77,15 @@ export type WsTicker = BaseMessage & {
   low24hr: string;
 };
 
-export type WsMessage = WsHeartbeat | WsAcknowledgement | WsTicker;
+export type WsVolume = BaseMessage & {
+  subject: "volume";
+  channel_id: 1003;
+  time: string;
+  users: number;
+  volume: { [currency: string]: string };
+};
+
+export type WsMessage = WsHeartbeat | WsAcknowledgement | WsTicker | WsVolume;
 
 export type WebsocketClientOptions = {
   wsUri?: string;
@@ -238,6 +256,14 @@ export class WebsocketClient extends EventEmitter {
       high24hr,
       low24hr
     };
+  }
+
+  static formatVolume([
+    channel_id,
+    sequence,
+    [time, users, volume]
+  ]: RawVolumeMessage): WsVolume {
+    return { subject: "volume", channel_id, sequence, time, users, volume };
   }
 
   set nonce(nonce: () => number) {
