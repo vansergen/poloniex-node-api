@@ -1,17 +1,14 @@
-{
+export const CurrencyPairs = {
   "7": "BTC_BCN",
   "14": "BTC_BTS",
   "15": "BTC_BURST",
-  "20": "BTC_CLAM",
   "24": "BTC_DASH",
   "25": "BTC_DGB",
   "27": "BTC_DOGE",
-  "38": "BTC_GAME",
   "43": "BTC_HUC",
   "50": "BTC_LTC",
   "51": "BTC_MAID",
   "58": "BTC_OMNI",
-  "61": "BTC_NAV",
   "64": "BTC_NMC",
   "69": "BTC_NXT",
   "75": "BTC_PPC",
@@ -37,8 +34,6 @@
   "155": "BTC_FCT",
   "162": "BTC_DCR",
   "163": "BTC_LSK",
-  "167": "BTC_LBC",
-  "168": "BTC_STEEM",
   "170": "BTC_SBD",
   "171": "BTC_ETC",
   "172": "ETH_ETC",
@@ -51,7 +46,6 @@
   "179": "ETH_ZEC",
   "180": "USDT_ZEC",
   "182": "BTC_STRAT",
-  "184": "BTC_PASC",
   "185": "BTC_GNT",
   "189": "BTC_BCH",
   "190": "ETH_BCH",
@@ -110,5 +104,8 @@
   "259": "USDT_BCHSV",
   "260": "USDT_BCHABC",
   "261": "USDT_GRIN",
-  "262": "USDT_DGB"
-}
+  "262": "USDT_DGB",
+  "263": "BTC_TRX",
+  "264": "USDC_TRX",
+  "265": "USDT_TRX"
+};
