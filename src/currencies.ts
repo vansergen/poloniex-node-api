@@ -1,4 +1,4 @@
-export const Currencies: { [id: string]: string } = {
+export const Currencies: { [id: string]: string | undefined } = {
   "1": "1CR",
   "2": "ABY",
   "3": "AC",

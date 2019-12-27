@@ -1,4 +1,4 @@
-export const CurrencyPairs: { [id: string]: string } = {
+export const CurrencyPairs: { [id: string]: string | undefined } = {
   "7": "BTC_BCN",
   "14": "BTC_BTS",
   "15": "BTC_BURST",

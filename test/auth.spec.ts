@@ -38,7 +38,7 @@ const key = "poloniex-api-key";
 const secret = "poloniex-api-secret";
 const client = new AuthenticatedClient({ key, secret });
 const nonce = 1;
-client.nonce = () => nonce;
+client.nonce = (): number => nonce;
 
 suite("AuthenticatedClient", () => {
   test("constructor", () => {

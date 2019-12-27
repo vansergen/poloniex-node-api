@@ -601,6 +601,6 @@ export class AuthenticatedClient extends PublicClient {
   }
 
   get nonce(): () => number {
-    return this._nonce ? this._nonce : () => Date.now();
+    return this._nonce ? this._nonce : (): number => Date.now();
   }
 }
