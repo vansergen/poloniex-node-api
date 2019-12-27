@@ -268,12 +268,14 @@ export declare interface WebsocketClient {
   on(event: "close", eventListener: () => void): this;
   on(event: "message", eventListener: (data: WsMessage) => void): this;
   on(event: "rawMessage", eventListener: (data: RawMessage) => void): this;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   on(event: "error", eventListener: (error: any) => void): this;
 
   once(event: "open", eventListener: () => void): this;
   once(event: "close", eventListener: () => void): this;
   once(event: "message", eventListener: (data: WsMessage) => void): this;
   once(event: "rawMessage", eventListener: (data: RawMessage) => void): this;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   once(event: "error", eventListener: (error: any) => void): this;
 }
 
@@ -422,6 +424,7 @@ export class WebsocketClient extends EventEmitter {
     }
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private onError(error: any): void {
     if (!error) {
       return;

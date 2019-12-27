@@ -334,6 +334,7 @@ export class AuthenticatedClient extends PublicClient {
     this.secret = secret;
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   async post({ form }: RPCOptions): Promise<any> {
     if (!form || typeof form === "string") {
       throw new Error("Incorrect form");

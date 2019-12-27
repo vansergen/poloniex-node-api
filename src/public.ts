@@ -121,6 +121,7 @@ export class PublicClient extends RPC {
     this.currencyPair = currencyPair;
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   async get({ qs }: RPCOptions): Promise<any> {
     const response = await super.get({ uri: "/public", qs });
     if (response.error) {

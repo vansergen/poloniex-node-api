@@ -4,6 +4,7 @@ import { stringify } from "querystring";
 export type SignRequestOptions = {
   key: string;
   secret: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   form: { [prop: string]: any };
 };
 
