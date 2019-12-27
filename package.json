@@ -45,7 +45,7 @@
     "@types/mocha": "^5.2.7",
     "@typescript-eslint/eslint-plugin": "^2.13.0",
     "@typescript-eslint/parser": "^2.13.0",
-    "eslint": "^6.7.2",
+    "eslint": "^6.8.0",
     "husky": "^3.1.0",
     "jsdoc": "^3.6.3",
     "lint-staged": "^9.5.0",
