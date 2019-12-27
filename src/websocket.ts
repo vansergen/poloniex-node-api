@@ -323,6 +323,7 @@ export class WebsocketClient extends EventEmitter {
     this.socket = new Websocket(this.wsUri);
     this.socket.on("open", this.onOpen.bind(this));
     this.socket.on("close", this.onClose.bind(this));
+    this.socket.on("message", this.onMessage.bind(this));
     this.socket.on("error", this.onError.bind(this));
   }
 
@@ -383,6 +384,42 @@ export class WebsocketClient extends EventEmitter {
 
   private onClose(): void {
     this.emit("close");
+  }
+
+  private onMessage(data: string): void {
+    const jsondata: RawMessage = JSON.parse(data);
+    if ("error" in jsondata) {
+      return this.onError(jsondata);
+    } else if (this.raw) {
+      this.emit("rawMessage", jsondata);
+    }
+
+    if (jsondata.length === 1) {
+      const message = WebsocketClient.formatHeartbeat(jsondata);
+      this.emit("message", message);
+    } else if (jsondata.length === 2) {
+      const message = WebsocketClient.formatAcknowledge(jsondata);
+      this.emit("message", message);
+    } else if (jsondata[1] === null && jsondata[0] === 1002) {
+      const message = WebsocketClient.formatTicker(jsondata);
+      this.emit("message", message);
+    } else if (jsondata[1] === null && jsondata[0] === 1003) {
+      const message = WebsocketClient.formatVolume(jsondata);
+      this.emit("message", message);
+    } else if (
+      (jsondata[1] === "" || jsondata[1] === null) &&
+      jsondata[0] === 1000
+    ) {
+      const messages = WebsocketClient.formatAccount(jsondata);
+      for (const message of messages) {
+        this.emit("message", message);
+      }
+    } else {
+      const messages = WebsocketClient.formatUpdate(jsondata);
+      for (const message of messages) {
+        this.emit("message", message);
+      }
+    }
   }
 
   private onError(error: any): void {
@@ -456,6 +493,18 @@ export class WebsocketClient extends EventEmitter {
   static formatBookUpdate([, side, price, size]: RawBookUpdate): WsBookUpdate {
     const type = side === 1 ? "buy" : "sell";
     return { subject: "update", type, price, size };
+  }
+
+  static formatHeartbeat([channel_id]: RawWsHeartbeat): WsHeartbeat {
+    return { subject: "heartbeat", channel_id };
+  }
+
+  static formatAcknowledge([
+    channel_id,
+    sequence
+  ]: RawAcknowledgement): WsAcknowledgement {
+    const subject = sequence ? "subscribed" : "unsubscribed";
+    return { subject, channel_id };
   }
 
   static formatUpdate([
