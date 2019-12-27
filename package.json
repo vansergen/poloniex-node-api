@@ -1,22 +1,27 @@
 {
   "name": "poloniex-node-api",
-  "version": "0.5.2",
+  "version": "1.0.0",
   "description": "Poloniex Node.js API",
-  "main": "index.js",
+  "main": "build/index.js",
   "directories": {
-    "lib": "lib",
-    "test": "tests"
+    "lib": "build/src",
+    "test": "test"
   },
   "engines": {
-    "node": ">=10.16.0"
+    "node": ">=8.16.2"
   },
-  "types": "index.d.ts",
+  "type": "commonjs",
+  "types": "build/index.d.ts",
   "scripts": {
-    "lint": "eslint --ext .js ./",
-    "prettier": "prettier -l *.{js,md,ts,json} **/*.{js,md,ts,json}",
+    "build": "tsc",
+    "prepublishOnly": "npm run prettier && npm run lint && npm run build && npm run prettier-write && npm run lint-fix",
+    "postpublish": "rm -fr build",
+    "lint": "eslint --ext .ts,.js ./",
+    "lint-fix": "npm run lint -- --fix",
+    "prettier": "prettier -c '**/*.{js,md,ts,json}'",
     "prettier-write": "npm run prettier -- --write",
-    "generate-docs": "jsdoc ./ -c jsdoc.json",
-    "test": "mocha --full-trace --ui tdd --bail --reporter spec tests/*.js"
+    "generate-docs": "typedoc",
+    "test": "mocha -r ts-node/register --full-trace --ui tdd --bail --extension ts"
   },
   "repository": {
     "type": "git",
@@ -35,16 +40,41 @@
   },
   "homepage": "https://github.com/vansergen/poloniex-node-api#readme",
   "dependencies": {
-    "@types/node": "^12.12.5",
-    "request": "^2.88.0",
-    "request-promise-native": "^1.0.8",
-    "ws": "^7.2.0"
+    "@types/ws": "^6.0.4",
+    "rpc-request": "^3.1.4",
+    "ws": "^7.2.1"
   },
   "devDependencies": {
-    "eslint": "^6.6.0",
-    "jsdoc": "^3.6.3",
+    "@types/mocha": "^5.2.7",
+    "@typescript-eslint/eslint-plugin": "^2.13.0",
+    "@typescript-eslint/parser": "^2.13.0",
+    "eslint": "^6.8.0",
+    "husky": "^3.1.0",
+    "lint-staged": "^9.5.0",
     "mocha": "^6.2.2",
     "nock": "^11.7.0",
-    "prettier": "^1.18.2"
+    "prettier": "^1.19.1",
+    "ts-node": "^8.5.4",
+    "typedoc": "^0.15.6",
+    "typescript": "^3.7.4"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,ts,json,md}": [
+      "prettier --write",
+      "git add"
+    ],
+    "*.{ts,js}": [
+      "eslint --fix",
+      "git add"
+    ]
+  },
+  "funding": {
+    "type": "Coinbase Commerce",
+    "url": "https://commerce.coinbase.com/checkout/8e527468-c00a-49e9-aa1d-a08bf49d1686"
   }
 }
