@@ -47,7 +47,6 @@
     "@typescript-eslint/parser": "^2.13.0",
     "eslint": "^6.8.0",
     "husky": "^3.1.0",
-    "jsdoc": "^3.6.3",
     "lint-staged": "^9.5.0",
     "mocha": "^6.2.2",
     "nock": "^11.7.0",
