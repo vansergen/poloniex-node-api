@@ -1,6 +1,7 @@
 import * as Websocket from "ws";
 import { EventEmitter } from "events";
 import { SignRequest } from "./signer";
+import { Currencies } from "./currencies";
 import { CurrencyPairs } from "./currencypairs";
 
 export const WsUri = "wss://api2.poloniex.com";
@@ -12,6 +13,8 @@ export type Subscription = {
   command: "subscribe" | "unsubscribe";
   channel: Channel;
 };
+
+export type RawError = { error: string };
 
 export type RawWsHeartbeat = [1010];
 
@@ -58,12 +61,61 @@ export type RawPriceAggregatedBook = [
   (RawSnapshot | RawPublicTrade | RawBookUpdate)[]
 ];
 
+export type RawPendingOrder = [
+  "p",
+  number,
+  number,
+  string,
+  string,
+  string,
+  string | null
+];
+
+export type RawNewOrder = [
+  "n",
+  number,
+  number,
+  string,
+  string,
+  string,
+  string,
+  string,
+  string | null
+];
+
+export type RawBalance = ["b", number, "e" | "m" | "l", string];
+
+export type RawOrder = ["o", number, string, "f" | "s" | "c", string | null];
+
+export type RawTrade = [
+  "t",
+  number,
+  string,
+  string,
+  string,
+  0 | 1 | 2 | 3,
+  number,
+  string,
+  string,
+  string | null
+];
+
+export type RawKill = ["k", number, string | null];
+
+export type RawAccountMessage = [
+  1000,
+  "",
+  (RawPendingOrder | RawNewOrder | RawBalance | RawOrder | RawTrade | RawKill)[]
+];
+
 export type RawMessage =
   | RawWsHeartbeat
   | RawAcknowledgement
   | RawTickerMessage
   | RawVolumeMessage
-  | RawPriceAggregatedBook;
+  | RawPriceAggregatedBook
+  | RawAccountMessage
+  | RawError;
 
 export type BaseMessage = {
   channel_id: Channel;
@@ -133,12 +185,75 @@ export type WsBookMessage = BaseMessage & { sequence: number } & (
     | WsBookUpdate
   );
 
+export type WsPendingOrder = {
+  subject: "pending";
+  orderNumber: number;
+  id: number;
+  currencyPair: string | undefined;
+  rate: string;
+  amount: string;
+  type: "buy" | "sell";
+  clientOrderId: string | null;
+};
+
+export type WsNewOrder = {
+  subject: "new";
+  id: number;
+  currencyPair: string | undefined;
+  orderNumber: number;
+  type: "buy" | "sell";
+  rate: string;
+  amount: string;
+  date: string;
+  originalAmount: string;
+  clientOrderId: string | null;
+};
+
+export type WsBalance = {
+  subject: "balance";
+  currencyId: number;
+  currency: string | undefined;
+  wallet: "exchange" | "margin" | "lending";
+  amount: string;
+};
+
+export type WsOrder = {
+  subject: "order";
+  orderNumber: number;
+  newAmount: string;
+  orderType: "filled" | "canceled" | "self-trade";
+  clientOrderId: string | null;
+};
+
+export type WsTrade = {
+  subject: "trade";
+  tradeID: number;
+  rate: string;
+  amount: string;
+  feeMultiplier: string;
+  fundingType: 0 | 1 | 2 | 3;
+  orderNumber: number;
+  fee: string;
+  date: string;
+  clientOrderId: string | null;
+};
+
+export type WsKill = {
+  subject: "killed";
+  orderNumber: number;
+  clientOrderId: string | null;
+};
+
+export type WsAccountMessage = BaseMessage &
+  (WsPendingOrder | WsNewOrder | WsBalance | WsOrder | WsTrade | WsKill);
+
 export type WsMessage =
   | WsHeartbeat
   | WsAcknowledgement
   | WsTicker
   | WsVolume
-  | WsBookMessage;
+  | WsBookMessage
+  | WsAccountMessage;
 
 export type WebsocketClientOptions = {
   wsUri?: string;
@@ -359,6 +474,131 @@ export class WebsocketClient extends EventEmitter {
       } else if (message[0] === "o") {
         const msg = WebsocketClient.formatBookUpdate(message);
         output.push({ channel_id, sequence, ...msg });
+      }
+    }
+    return output;
+  }
+
+  static formatPending([
+    ,
+    orderNumber,
+    id,
+    rate,
+    amount,
+    type,
+    clientOrderId
+  ]: RawPendingOrder): WsPendingOrder {
+    return {
+      subject: "pending",
+      orderNumber,
+      id,
+      currencyPair: CurrencyPairs[id],
+      rate,
+      amount,
+      type: type === "0" ? "sell" : "buy",
+      clientOrderId
+    };
+  }
+
+  static formatNew([
+    ,
+    id,
+    orderNumber,
+    type,
+    rate,
+    amount,
+    date,
+    originalAmount,
+    clientOrderId
+  ]: RawNewOrder): WsNewOrder {
+    return {
+      subject: "new",
+      id,
+      currencyPair: CurrencyPairs[id],
+      orderNumber,
+      type: type === "0" ? "sell" : "buy",
+      rate,
+      amount,
+      date,
+      originalAmount,
+      clientOrderId
+    };
+  }
+
+  static formatBalance([, currencyId, w, amount]: RawBalance): WsBalance {
+    const wallet = w === "e" ? "exchange" : w === "m" ? "margin" : "lending";
+    const currency = Currencies[currencyId];
+    return { subject: "balance", currencyId, currency, wallet, amount };
+  }
+
+  static formatOrder([
+    ,
+    orderNumber,
+    newAmount,
+    t,
+    clientOrderId
+  ]: RawOrder): WsOrder {
+    const subject = "order";
+    const orderType =
+      t === "f" ? "filled" : t === "c" ? "canceled" : "self-trade";
+    return { subject, orderNumber, newAmount, orderType, clientOrderId };
+  }
+
+  static formatTrade([
+    ,
+    tradeID,
+    rate,
+    amount,
+    feeMultiplier,
+    fundingType,
+    orderNumber,
+    fee,
+    date,
+    clientOrderId
+  ]: RawTrade): WsTrade {
+    return {
+      subject: "trade",
+      tradeID,
+      rate,
+      amount,
+      feeMultiplier,
+      fundingType,
+      orderNumber,
+      fee,
+      date,
+      clientOrderId
+    };
+  }
+
+  static formatKill([, orderNumber, clientOrderId]: RawKill): WsKill {
+    return { subject: "killed", orderNumber, clientOrderId };
+  }
+
+  static formatAccount([
+    channel_id,
+    ,
+    messages
+  ]: RawAccountMessage): WsAccountMessage[] {
+    const output: WsAccountMessage[] = [];
+    for (const message of messages) {
+      if (message[0] === "p") {
+        const msg = WebsocketClient.formatPending(message);
+        output.push({ channel_id, ...msg });
+      } else if (message[0] === "n") {
+        const msg = WebsocketClient.formatNew(message);
+        output.push({ channel_id, ...msg });
+      } else if (message[0] === "b") {
+        const msg = WebsocketClient.formatBalance(message);
+        output.push({ channel_id, ...msg });
+      } else if (message[0] === "o") {
+        const msg = WebsocketClient.formatOrder(message);
+        output.push({ channel_id, ...msg });
+      } else if (message[0] === "t") {
+        const msg = WebsocketClient.formatTrade(message);
+        output.push({ channel_id, ...msg });
+      } else if (message[0] === "k") {
+        const msg = WebsocketClient.formatKill(message);
+        output.push({ channel_id, ...msg });
       }
     }
     return output;
