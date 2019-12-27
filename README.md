@@ -353,49 +353,41 @@ const orderNumber = 1002013188;
 const result = await client.toggleAutoRenew({ orderNumber });
 ```
 
-### WebsocketClient
+### [WebsocketClient](https://docs.poloniex.com/#websocket-api)
 
-```javascript
+```typescript
+import { WebsocketClient } from "poloniex-node-api";
 const key = "poloniexapikey";
 const secret = "poloniexapisecret";
 const channels = [1000, "BTC_DOGE"];
-const { WebsocketClient } = require("poloniex-node-api");
 const websocket = new WebsocketClient({ key, secret, channels });
-websocket.on("open", () => {
-  console.log("open");
-});
-websocket.on("close", () => {
-  console.log("close");
-});
-websocket.on("error", error => {
-  console.error(error);
-});
-websocket.on("message", message => {
-  console.log(message);
-});
+websocket.on("open", () => console.log("open"));
+websocket.on("close", () => console.log("close"));
+websocket.on("error", error => console.error(error));
+websocket.on("message", message => console.info(message));
 ```
 
 - `connect`
 
-```javascript
+```typescript
 websocket.connect();
 ```
 
 - `disconnect`
 
-```javascript
+```typescript
 websocket.disconnect();
 ```
 
-- `subscribe`
+- [`subscribe`](https://docs.poloniex.com/#subscribing-and-unsubscribing)
 
-```javascript
+```typescript
 websocket.subscribe(1003);
 ```
 
-- `unsubscribe`
+- [`unsubscribe`](https://docs.poloniex.com/#subscribing-and-unsubscribing)
 
-```javascript
+```typescript
 websocket.unsubscribe("BTC_ZEC");
 ```
 
