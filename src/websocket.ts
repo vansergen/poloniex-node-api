@@ -40,11 +40,30 @@ export type RawVolumeMessage = [
   [string, number, { [currency: string]: string }]
 ];
 
+export type RawSnapshot = [
+  "i",
+  {
+    currencyPair: string;
+    orderBook: [{ [asks: string]: string }, { [bids: string]: string }];
+  }
+];
+
+export type RawPublicTrade = ["t", string, 0 | 1, string, string, number];
+
+export type RawBookUpdate = ["o", 0 | 1, string, string];
+
+export type RawPriceAggregatedBook = [
+  Channel,
+  number,
+  (RawSnapshot | RawPublicTrade | RawBookUpdate)[]
+];
+
 export type RawMessage =
   | RawWsHeartbeat
   | RawAcknowledgement
   | RawTickerMessage
-  | RawVolumeMessage;
+  | RawVolumeMessage
+  | RawPriceAggregatedBook;
 
 export type BaseMessage = {
   channel_id: Channel;
@@ -65,14 +84,14 @@ export type WsTicker = BaseMessage & {
   subject: "ticker";
   channel_id: 1002;
   id: number;
-  currencyPair: string;
+  currencyPair: string | undefined;
   last: string;
   lowestAsk: string;
   highestBid: string;
   percentChange: string;
   baseVolume: string;
   quoteVolume: string;
-  isFrozen: 0 | 1;
+  isFrozen: boolean;
   high24hr: string;
   low24hr: string;
 };
@@ -85,7 +104,41 @@ export type WsVolume = BaseMessage & {
   volume: { [currency: string]: string };
 };
 
-export type WsMessage = WsHeartbeat | WsAcknowledgement | WsTicker | WsVolume;
+export type WsSnapshot = {
+  subject: "snapshot";
+  currencyPair: string;
+  asks: { [price: string]: string };
+  bids: { [price: string]: string };
+};
+
+export type WsPublicTrade = {
+  subject: "publicTrade";
+  tradeID: string;
+  type: "buy" | "sell";
+  price: string;
+  size: string;
+  timestamp: number;
+};
+
+export type WsBookUpdate = {
+  subject: "update";
+  type: "buy" | "sell";
+  price: string;
+  size: string;
+};
+
+export type WsBookMessage = BaseMessage & { sequence: number } & (
+    | WsSnapshot
+    | WsPublicTrade
+    | WsBookUpdate
+  );
+
+export type WsMessage =
+  | WsHeartbeat
+  | WsAcknowledgement
+  | WsTicker
+  | WsVolume
+  | WsBookMessage;
 
 export type WebsocketClientOptions = {
   wsUri?: string;
@@ -226,7 +279,7 @@ export class WebsocketClient extends EventEmitter {
 
   static formatTicker([
     channel_id,
-    sequence,
+    ,
     [
       id,
       last,
@@ -243,7 +296,6 @@ export class WebsocketClient extends EventEmitter {
     return {
       subject: "ticker",
       channel_id,
-      sequence,
       id,
       currencyPair: CurrencyPairs[id],
       last,
@@ -252,7 +304,7 @@ export class WebsocketClient extends EventEmitter {
       percentChange,
       baseVolume,
       quoteVolume,
-      isFrozen,
+      isFrozen: isFrozen ? true : false,
       high24hr,
       low24hr
     };
@@ -260,10 +312,56 @@ export class WebsocketClient extends EventEmitter {
 
   static formatVolume([
     channel_id,
-    sequence,
+    ,
     [time, users, volume]
   ]: RawVolumeMessage): WsVolume {
-    return { subject: "volume", channel_id, sequence, time, users, volume };
+    return { subject: "volume", channel_id, time, users, volume };
+  }
+
+  static formatSnapshot([
+    ,
+    { currencyPair, orderBook }
+  ]: RawSnapshot): WsSnapshot {
+    const [asks, bids] = orderBook;
+    return { subject: "snapshot", currencyPair, asks, bids };
+  }
+
+  static formatPublicTrade([
+    ,
+    tradeID,
+    side,
+    price,
+    size,
+    timestamp
+  ]: RawPublicTrade): WsPublicTrade {
+    const type = side === 1 ? "buy" : "sell";
+    return { subject: "publicTrade", tradeID, type, price, size, timestamp };
+  }
+
+  static formatBookUpdate([, side, price, size]: RawBookUpdate): WsBookUpdate {
+    const type = side === 1 ? "buy" : "sell";
+    return { subject: "update", type, price, size };
+  }
+
+  static formatUpdate([
+    channel_id,
+    sequence,
+    messages
+  ]: RawPriceAggregatedBook): WsBookMessage[] {
+    const output: WsBookMessage[] = [];
+    for (const message of messages) {
+      if (message[0] === "i") {
+        const msg = WebsocketClient.formatSnapshot(message);
+        output.push({ channel_id, sequence, ...msg });
+      } else if (message[0] === "t") {
+        const msg = WebsocketClient.formatPublicTrade(message);
+        output.push({ channel_id, sequence, ...msg });
+      } else if (message[0] === "o") {
+        const msg = WebsocketClient.formatBookUpdate(message);
+        output.push({ channel_id, sequence, ...msg });
+      }
+    }
+    return output;
   }
 
   set nonce(nonce: () => number) {
