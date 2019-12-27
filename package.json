@@ -2,23 +2,26 @@
   "name": "poloniex-node-api",
   "version": "0.5.2",
   "description": "Poloniex Node.js API",
-  "main": "index.js",
+  "main": "build/index.js",
   "directories": {
-    "lib": "lib",
-    "test": "tests"
+    "lib": "build/src",
+    "test": "test"
   },
   "engines": {
-    "node": ">=10.16.0"
+    "node": ">=8.16.2"
   },
   "type": "commonjs",
-  "types": "index.d.ts",
+  "types": "build/index.d.ts",
   "scripts": {
+    "build": "tsc",
+    "prepublishOnly": "npm run prettier && npm run lint && npm run build && npm run prettier-write && npm run lint-fix",
+    "postpublish": "rm -fr build",
     "lint": "eslint --ext .ts,.js ./",
     "lint-fix": "npm run lint -- --fix",
-    "prettier": "prettier -c **/*.{js,md,ts,json}",
+    "prettier": "prettier -c '**/*.{js,md,ts,json}'",
     "prettier-write": "npm run prettier -- --write",
-    "generate-docs": "jsdoc ./ -c jsdoc.json",
-    "test": "mocha --full-trace --ui tdd --bail --reporter spec tests/*.js"
+    "generate-docs": "typedoc",
+    "test": "mocha -r ts-node/register --full-trace --ui tdd --bail --extension ts"
   },
   "repository": {
     "type": "git",
