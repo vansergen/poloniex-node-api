@@ -40,8 +40,8 @@
   },
   "homepage": "https://github.com/vansergen/poloniex-node-api#readme",
   "dependencies": {
-    "@types/ws": "^6.0.4",
-    "rpc-request": "^3.1.4",
+    "@types/ws": "^7.2.0",
+    "rpc-request": "^4.0.7",
     "ws": "^7.2.1"
   },
   "devDependencies": {
@@ -49,13 +49,13 @@
     "@typescript-eslint/eslint-plugin": "^2.13.0",
     "@typescript-eslint/parser": "^2.13.0",
     "eslint": "^6.8.0",
-    "husky": "^3.1.0",
-    "lint-staged": "^9.5.0",
-    "mocha": "^6.2.2",
+    "husky": "^4.2.0",
+    "lint-staged": "^10.0.2",
+    "mocha": "^7.0.0",
     "nock": "^11.7.0",
     "prettier": "^1.19.1",
     "ts-node": "^8.5.4",
-    "typedoc": "^0.15.6",
+    "typedoc": "^0.16.8",
     "typescript": "^3.7.4"
   },
   "husky": {
