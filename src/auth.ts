@@ -342,9 +342,8 @@ export class AuthenticatedClient extends PublicClient {
 
     form.nonce = this.nonce();
     const sHeaders = SignRequest({ key: this.key, secret: this.secret, form });
-    const uri = "/tradingApi";
     const headers = { ...Headers, ...sHeaders };
-    const data = await super.post({ form, headers, uri });
+    const data = await super.post({ form, headers, uri: "/tradingApi" });
     if (data.error) {
       throw new Error(data.error);
     } else if ("success" in data && data.success === 0) {
@@ -450,11 +449,10 @@ export class AuthenticatedClient extends PublicClient {
     if ("clientOrderId" in form) {
       const { clientOrderId } = form;
       return this.post({ form: { command: "cancelOrder", clientOrderId } });
-    } else if ("orderNumber" in form) {
+    } else {
       const { orderNumber } = form;
       return this.post({ form: { command: "cancelOrder", orderNumber } });
     }
-    throw new Error("`orderNumber` or `clientOrderId` is missing");
   }
 
   /**
