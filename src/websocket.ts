@@ -317,7 +317,9 @@ export class WebsocketClient extends EventEmitter {
           return;
         case Websocket.CLOSING:
         case Websocket.CONNECTING:
-          throw new Error("Could not connect. State:" + this.socket.readyState);
+          throw new Error(
+            "Could not connect. State: " + this.socket.readyState
+          );
       }
     }
 
@@ -341,7 +343,9 @@ export class WebsocketClient extends EventEmitter {
         return;
       case Websocket.CLOSING:
       case Websocket.CONNECTING:
-        throw new Error("Could not connect. State: " + this.socket.readyState);
+        throw new Error(
+          "Could not disconnect. State: " + this.socket.readyState
+        );
     }
 
     this.socket.close();
