@@ -437,7 +437,7 @@ export class WebsocketClient extends EventEmitter {
     this.emit("error", error);
   }
 
-  private static formatTicker([
+  static formatTicker([
     channel_id,
     ,
     [
@@ -470,7 +470,7 @@ export class WebsocketClient extends EventEmitter {
     };
   }
 
-  private static formatVolume([
+  static formatVolume([
     channel_id,
     ,
     [time, users, volume]
@@ -478,7 +478,7 @@ export class WebsocketClient extends EventEmitter {
     return { subject: "volume", channel_id, time, users, volume };
   }
 
-  private static formatSnapshot([
+  static formatSnapshot([
     ,
     { currencyPair, orderBook }
   ]: RawSnapshot): WsSnapshot {
@@ -486,7 +486,7 @@ export class WebsocketClient extends EventEmitter {
     return { subject: "snapshot", currencyPair, asks, bids };
   }
 
-  private static formatPublicTrade([
+  static formatPublicTrade([
     ,
     tradeID,
     side,
@@ -498,21 +498,16 @@ export class WebsocketClient extends EventEmitter {
     return { subject: "publicTrade", tradeID, type, price, size, timestamp };
   }
 
-  private static formatBookUpdate([
-    ,
-    side,
-    price,
-    size
-  ]: RawBookUpdate): WsBookUpdate {
+  static formatBookUpdate([, side, price, size]: RawBookUpdate): WsBookUpdate {
     const type = side === 1 ? "buy" : "sell";
     return { subject: "update", type, price, size };
   }
 
-  private static formatHeartbeat([channel_id]: RawWsHeartbeat): WsHeartbeat {
+  static formatHeartbeat([channel_id]: RawWsHeartbeat): WsHeartbeat {
     return { subject: "heartbeat", channel_id };
   }
 
-  private static formatAcknowledge([
+  static formatAcknowledge([
     channel_id,
     sequence
   ]: RawAcknowledgement): WsAcknowledgement {
@@ -520,7 +515,7 @@ export class WebsocketClient extends EventEmitter {
     return { subject, channel_id };
   }
 
-  private static formatUpdate([
+  static formatUpdate([
     channel_id,
     sequence,
     messages
@@ -547,7 +542,7 @@ export class WebsocketClient extends EventEmitter {
     return output;
   }
 
-  private static formatPending([
+  static formatPending([
     ,
     orderNumber,
     currencyPairId,
@@ -568,7 +563,7 @@ export class WebsocketClient extends EventEmitter {
     };
   }
 
-  private static formatNew([
+  static formatNew([
     ,
     currencyPairId,
     orderNumber,
@@ -593,18 +588,13 @@ export class WebsocketClient extends EventEmitter {
     };
   }
 
-  private static formatBalance([
-    ,
-    currencyId,
-    w,
-    amount
-  ]: RawBalance): WsBalance {
+  static formatBalance([, currencyId, w, amount]: RawBalance): WsBalance {
     const wallet = w === "e" ? "exchange" : w === "m" ? "margin" : "lending";
     const currency = Currencies[currencyId];
     return { subject: "balance", currencyId, currency, wallet, amount };
   }
 
-  private static formatOrder([
+  static formatOrder([
     ,
     orderNumber,
     newAmount,
@@ -617,7 +607,7 @@ export class WebsocketClient extends EventEmitter {
     return { subject, orderNumber, newAmount, orderType, clientOrderId };
   }
 
-  private static formatTrade([
+  static formatTrade([
     ,
     tradeID,
     rate,
@@ -643,11 +633,11 @@ export class WebsocketClient extends EventEmitter {
     };
   }
 
-  private static formatKill([, orderNumber, clientOrderId]: RawKill): WsKill {
+  static formatKill([, orderNumber, clientOrderId]: RawKill): WsKill {
     return { subject: "killed", orderNumber, clientOrderId };
   }
 
-  private static formatAccount([
+  static formatAccount([
     channel_id,
     ,
     messages
