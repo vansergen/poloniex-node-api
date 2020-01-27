@@ -174,7 +174,7 @@ export type WsPublicTrade = {
 
 export type WsBookUpdate = {
   subject: "update";
-  type: "buy" | "sell";
+  type: "bid" | "ask";
   price: string;
   size: string;
 };
@@ -499,7 +499,7 @@ export class WebsocketClient extends EventEmitter {
   }
 
   static formatBookUpdate([, side, price, size]: RawBookUpdate): WsBookUpdate {
-    const type = side === 1 ? "buy" : "sell";
+    const type = side === 1 ? "bid" : "ask";
     return { subject: "update", type, price, size };
   }
 
