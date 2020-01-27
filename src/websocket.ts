@@ -284,7 +284,7 @@ export class WebsocketClient extends EventEmitter {
   readonly channels: Channel[];
   readonly key?: string;
   readonly secret?: string;
-  private socket?: Websocket;
+  public socket?: Websocket;
   private _nonce?: () => number;
 
   /**
