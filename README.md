@@ -225,13 +225,13 @@ const fees = await client.getFeeInfo();
 
 ```typescript
 const account = "lending";
-const balances = client.getAccountBalances({ account });
+const balances = await client.getAccountBalances({ account });
 ```
 
 - [`getTradableBalances`](https://docs.poloniex.com/?shell#returntradablebalances)
 
 ```typescript
-const balances = client.getTradableBalances();
+const balances = await client.getTradableBalances();
 ```
 
 - [`transferBalance`](https://docs.poloniex.com/?shell#transferbalance)
@@ -241,7 +241,7 @@ const currency = "BTC";
 const amount = 0.5;
 const fromAccount = "lending";
 const toAccount = "exchange";
-const transfer = client.transferBalance({
+const transfer = await client.transferBalance({
   currency,
   amount,
   fromAccount,
