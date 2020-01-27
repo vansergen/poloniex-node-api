@@ -3,6 +3,7 @@ import * as nock from "nock";
 import {
   PublicClient,
   ApiUri,
+  ApiLimit,
   DefaultTimeout,
   DefaultPair,
   Headers,
@@ -40,6 +41,22 @@ suite("PublicClient", () => {
       timeout,
       headers: Headers
     });
+  });
+
+  test(".get() (throws an error)", async () => {
+    const error = "Some error message";
+    const command = "returnTicker";
+    nock(ApiUri)
+      .get("/public")
+      .query({ command })
+      .reply(200, { error });
+
+    try {
+      await client.get({ qs: { command } });
+      assert.fail("Should throw an error");
+    } catch (err) {
+      assert.deepStrictEqual(err, new Error(error));
+    }
   });
 
   test(".getTickers()", async () => {
@@ -136,6 +153,81 @@ suite("PublicClient", () => {
     assert.deepStrictEqual(data, books);
   });
 
+  test(".getOrderBook() (with no `currencyPair`)", async () => {
+    const book: OrderBook = {
+      asks: [
+        ["9297.44488770", 0.143181],
+        ["9298.08427869", 0.0001161]
+      ],
+      bids: [
+        ["9297.24540399", 1.46374898],
+        ["9297.24540398", 0.0443]
+      ],
+      isFrozen: "0",
+      seq: 376097564
+    };
+    const command = "returnOrderBook";
+    const currencyPair = DefaultPair;
+    const depth = 10;
+    nock(ApiUri)
+      .get("/public")
+      .query({ command, currencyPair, depth })
+      .reply(200, book);
+
+    const data = await client.getOrderBook({ depth });
+    assert.deepStrictEqual(data, book);
+  });
+
+  test(".getOrderBook() (with no `depth`)", async () => {
+    const book: OrderBook = {
+      asks: [
+        ["9297.44488770", 0.143181],
+        ["9298.08427869", 0.0001161]
+      ],
+      bids: [
+        ["9297.24540399", 1.46374898],
+        ["9297.24540398", 0.0443]
+      ],
+      isFrozen: "0",
+      seq: 376097564
+    };
+    const command = "returnOrderBook";
+    const currencyPair = "USDT_BTC";
+    const depth = ApiLimit;
+    nock(ApiUri)
+      .get("/public")
+      .query({ command, currencyPair, depth })
+      .reply(200, book);
+
+    const data = await client.getOrderBook({ currencyPair });
+    assert.deepStrictEqual(data, book);
+  });
+
+  test(".getOrderBook() (with no arguments)", async () => {
+    const book: OrderBook = {
+      asks: [
+        ["9297.44488770", 0.143181],
+        ["9298.08427869", 0.0001161]
+      ],
+      bids: [
+        ["9297.24540399", 1.46374898],
+        ["9297.24540398", 0.0443]
+      ],
+      isFrozen: "0",
+      seq: 376097564
+    };
+    const command = "returnOrderBook";
+    const currencyPair = DefaultPair;
+    const depth = ApiLimit;
+    nock(ApiUri)
+      .get("/public")
+      .query({ command, currencyPair, depth })
+      .reply(200, book);
+
+    const data = await client.getOrderBook();
+    assert.deepStrictEqual(data, book);
+  });
+
   test(".getTradeHistory()", async () => {
     const trades: Trade[] = [
       {
@@ -179,6 +271,96 @@ suite("PublicClient", () => {
       .reply(200, trades);
 
     const data = await client.getTradeHistory({ end, start, currencyPair });
+    assert.deepStrictEqual(data, trades);
+  });
+
+  test(".getTradeHistory() (with no `currencyPair`)", async () => {
+    const trades: Trade[] = [
+      {
+        globalTradeID: 420170516,
+        tradeID: 27129920,
+        date: "2019-06-17 15:25:18",
+        type: "buy",
+        rate: "9257.23051444",
+        amount: "0.01394711",
+        total: "129.11161228",
+        orderNumber: 277619132092
+      },
+      {
+        globalTradeID: 420170477,
+        tradeID: 27129919,
+        date: "2019-06-17 15:24:19",
+        type: "sell",
+        rate: "9257.18336240",
+        amount: "0.07792262",
+        total: "721.34398141",
+        orderNumber: 277619040184
+      },
+      {
+        globalTradeID: 420170476,
+        tradeID: 27129918,
+        date: "2019-06-17 15:24:18",
+        type: "sell",
+        rate: "9257.18336240",
+        amount: "0.00259138",
+        total: "23.98887982",
+        orderNumber: 277619039185
+      }
+    ];
+    const command = "returnTradeHistory";
+    const currencyPair = DefaultPair;
+    const start = 1410158341;
+    const end = 1410499372;
+    nock(ApiUri)
+      .get("/public")
+      .query({ command, currencyPair, start, end })
+      .reply(200, trades);
+
+    const data = await client.getTradeHistory({ end, start });
+    assert.deepStrictEqual(data, trades);
+  });
+
+  test(".getTradeHistory() (with no arguments)", async () => {
+    const trades: Trade[] = [
+      {
+        globalTradeID: 420170516,
+        tradeID: 27129920,
+        date: "2019-06-17 15:25:18",
+        type: "buy",
+        rate: "9257.23051444",
+        amount: "0.01394711",
+        total: "129.11161228",
+        orderNumber: 277619132092
+      },
+      {
+        globalTradeID: 420170477,
+        tradeID: 27129919,
+        date: "2019-06-17 15:24:19",
+        type: "sell",
+        rate: "9257.18336240",
+        amount: "0.07792262",
+        total: "721.34398141",
+        orderNumber: 277619040184
+      },
+      {
+        globalTradeID: 420170476,
+        tradeID: 27129918,
+        date: "2019-06-17 15:24:18",
+        type: "sell",
+        rate: "9257.18336240",
+        amount: "0.00259138",
+        total: "23.98887982",
+        orderNumber: 277619039185
+      }
+    ];
+    const command = "returnTradeHistory";
+    const currencyPair = DefaultPair;
+    nock(ApiUri)
+      .get("/public")
+      .query({ command, currencyPair })
+      .reply(200, trades);
+
+    const data = await client.getTradeHistory();
     assert.deepStrictEqual(data, trades);
   });
 
@@ -231,6 +413,53 @@ suite("PublicClient", () => {
       currencyPair,
       end
     });
+    assert.deepStrictEqual(data, candles);
+  });
+
+  test(".getChartData() (with no `currencyPair`)", async () => {
+    const candles: Candle[] = [
+      {
+        date: 1560613059,
+        high: 8809.26970927,
+        low: 8809.26970927,
+        open: 8809.26970927,
+        close: 8809.26970927,
+        volume: 0,
+        quoteVolume: 0,
+        weightedAverage: 8809.26970927
+      },
+      {
+        date: 1560643200,
+        high: 9325,
+        low: 8759.37683497,
+        open: 8809.49125799,
+        close: 8968.92286817,
+        volume: 11929575.934481,
+        quoteVolume: 1317.2708549,
+        weightedAverage: 9056.28169795
+      },
+      {
+        date: 1560729600,
+        high: 9390.83903896,
+        low: 8949.00000001,
+        open: 8963.50269782,
+        close: 9157.79085762,
+        volume: 3895287.1624447,
+        quoteVolume: 423.63287478,
+        weightedAverage: 9194.95958491
+      }
+    ];
+    const currencyPair = DefaultPair;
+    const command = "returnChartData";
+    const period = 14400;
+    const start = 1546300800;
+    const end = 1546646400;
+    nock(ApiUri)
+      .get("/public")
+      .query({ command, currencyPair, period, start, end })
+      .reply(200, candles);
+
+    const data = await client.getChartData({ period, start, end });
     assert.deepStrictEqual(data, candles);
   });
 
