@@ -135,8 +135,8 @@ export type WsAcknowledgement = BaseMessage & {
 export type WsTicker = BaseMessage & {
   subject: "ticker";
   channel_id: 1002;
-  id: number;
-  currencyPair: string | undefined;
+  currencyPairId: number;
+  currencyPair?: string;
   last: string;
   lowestAsk: string;
   highestBid: string;
@@ -179,17 +179,16 @@ export type WsBookUpdate = {
   size: string;
 };
 
-export type WsBookMessage = BaseMessage & { sequence: number } & (
-    | WsSnapshot
-    | WsPublicTrade
-    | WsBookUpdate
-  );
+export type WsBookMessage = BaseMessage & {
+  sequence: number;
+  currencyPair?: string;
+} & (WsSnapshot | WsPublicTrade | WsBookUpdate);
 
 export type WsPendingOrder = {
   subject: "pending";
   orderNumber: number;
-  id: number;
-  currencyPair: string | undefined;
+  currencyPairId: number;
+  currencyPair?: string;
   rate: string;
   amount: string;
   type: "buy" | "sell";
@@ -198,8 +197,8 @@ export type WsPendingOrder = {
 
 export type WsNewOrder = {
   subject: "new";
-  id: number;
-  currencyPair: string | undefined;
+  currencyPairId: number;
+  currencyPair?: string;
   orderNumber: number;
   type: "buy" | "sell";
   rate: string;
@@ -212,7 +211,7 @@ export type WsNewOrder = {
 export type WsBalance = {
   subject: "balance";
   currencyId: number;
-  currency: string | undefined;
+  currency?: string;
   wallet: "exchange" | "margin" | "lending";
   amount: string;
 };
@@ -392,7 +391,9 @@ export class WebsocketClient extends EventEmitter {
     const jsondata: RawMessage = JSON.parse(data);
     if ("error" in jsondata) {
       return this.onError(jsondata);
-    } else if (this.raw) {
+    }
+
+    if (this.raw) {
       this.emit("rawMessage", jsondata);
     }
 
@@ -436,7 +437,7 @@ export class WebsocketClient extends EventEmitter {
     channel_id,
     ,
     [
-      id,
+      currencyPairId,
       last,
       lowestAsk,
       highestBid,
@@ -451,8 +452,8 @@ export class WebsocketClient extends EventEmitter {
     return {
       subject: "ticker",
       channel_id,
-      id,
-      currencyPair: CurrencyPairs[id],
+      currencyPairId,
+      currencyPair: CurrencyPairs[currencyPairId],
       last,
       lowestAsk,
       highestBid,
@@ -521,16 +522,22 @@ export class WebsocketClient extends EventEmitter {
     messages
   ]: RawPriceAggregatedBook): WsBookMessage[] {
     const output: WsBookMessage[] = [];
+    const currencyPair = CurrencyPairs[channel_id];
     for (const message of messages) {
       if (message[0] === "i") {
         const msg = WebsocketClient.formatSnapshot(message);
         output.push({ channel_id, sequence, ...msg });
       } else if (message[0] === "t") {
         const msg = WebsocketClient.formatPublicTrade(message);
-        output.push({ channel_id, sequence, ...msg });
-      } else if (message[0] === "o") {
+        output.push({
+          currencyPair,
+          channel_id,
+          sequence,
+          ...msg
+        });
+      } else {
         const msg = WebsocketClient.formatBookUpdate(message);
-        output.push({ channel_id, sequence, ...msg });
+        output.push({ currencyPair, channel_id, sequence, ...msg });
       }
     }
     return output;
@@ -539,7 +546,7 @@ export class WebsocketClient extends EventEmitter {
   private static formatPending([
     ,
     orderNumber,
-    id,
+    currencyPairId,
     rate,
     amount,
     type,
@@ -548,8 +555,8 @@ export class WebsocketClient extends EventEmitter {
     return {
       subject: "pending",
       orderNumber,
-      id,
-      currencyPair: CurrencyPairs[id],
+      currencyPairId,
+      currencyPair: CurrencyPairs[currencyPairId],
       rate,
       amount,
       type: type === "0" ? "sell" : "buy",
@@ -559,7 +566,7 @@ export class WebsocketClient extends EventEmitter {
 
   private static formatNew([
     ,
-    id,
+    currencyPairId,
     orderNumber,
     type,
     rate,
@@ -570,8 +577,8 @@ export class WebsocketClient extends EventEmitter {
   ]: RawNewOrder): WsNewOrder {
     return {
       subject: "new",
-      id,
-      currencyPair: CurrencyPairs[id],
+      currencyPairId,
+      currencyPair: CurrencyPairs[currencyPairId],
       orderNumber,
       type: type === "0" ? "sell" : "buy",
       rate,
@@ -658,7 +665,7 @@ export class WebsocketClient extends EventEmitter {
       } else if (message[0] === "t") {
         const msg = WebsocketClient.formatTrade(message);
         output.push({ channel_id, ...msg });
-      } else if (message[0] === "k") {
+      } else {
         const msg = WebsocketClient.formatKill(message);
         output.push({ channel_id, ...msg });
       }
