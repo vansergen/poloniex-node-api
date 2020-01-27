@@ -2,6 +2,7 @@ import * as assert from "assert";
 import * as nock from "nock";
 import {
   AuthenticatedClient,
+  DefaultPair,
   Headers,
   ApiUri,
   Balances,
@@ -63,6 +64,46 @@ suite("AuthenticatedClient", () => {
     });
   });
 
+  test(".post() (with invalid form)", async () => {
+    try {
+      await client.post({ form: "String" });
+      assert.fail("Should throw an error");
+    } catch (error) {
+      assert.deepStrictEqual(error, new Error("Incorrect form"));
+    }
+  });
+
+  test(".post() (with error in the response)", async () => {
+    const error = "Some error message";
+    const form = { command: "returnBalances" };
+    nock(ApiUri)
+      .post("/tradingApi", { ...form, nonce })
+      .reply(200, { error });
+
+    try {
+      await client.post({ form });
+      assert.fail("Should throw an error");
+    } catch (err) {
+      assert.deepStrictEqual(err, new Error(error));
+    }
+  });
+
+  test(".post() (with no success in the response)", async () => {
+    const success = 0;
+    const result = { error: "Some error message" };
+    const form = { command: "returnBalances" };
+    nock(ApiUri)
+      .post("/tradingApi", { ...form, nonce })
+      .reply(200, { success, result });
+
+    try {
+      await client.post({ form });
+      assert.fail("Should throw an error");
+    } catch (err) {
+      assert.deepStrictEqual(err, new Error(result.error));
+    }
+  });
+
   test(".getBalances()", async () => {
     const balances: Balances = {
       BTC: "1.23456789",
@@ -98,6 +139,29 @@ suite("AuthenticatedClient", () => {
       .reply(200, balances);
 
     const data = await client.getCompleteBalances({ account });
+    assert.deepStrictEqual(data, balances);
+  });
+
+  test(".getCompleteBalances() (with no arguments)", async () => {
+    const balances: CompleteBalances = {
+      BTC: {
+        available: "0.00000000",
+        onOrders: "0.00000000",
+        btcValue: "0.00000000"
+      },
+      USDT: {
+        available: "0.00000000",
+        onOrders: "0.00000000",
+        btcValue: "0.00000000"
+      }
+    };
+    const command = "returnCompleteBalances";
+
+    nock(ApiUri)
+      .post("/tradingApi", { command, nonce })
+      .reply(200, balances);
+
+    const data = await client.getCompleteBalances();
     assert.deepStrictEqual(data, balances);
   });
 
@@ -227,6 +291,74 @@ suite("AuthenticatedClient", () => {
     assert.deepStrictEqual(data, response);
   });
 
+  test(".getOpenOrders() (with no `currencyPair`)", async () => {
+    const currencyPair = DefaultPair;
+    const command = "returnOpenOrders";
+    const response: Orders = [
+      {
+        orderNumber: "514514894224",
+        type: "sell",
+        rate: "0.00001000",
+        startingAmount: "100.00000000",
+        amount: "100.00000000",
+        total: "0.00100000",
+        date: "2018-10-23 17:38:53",
+        margin: 1
+      },
+      {
+        orderNumber: "514515104014",
+        type: "buy",
+        rate: "0.00002000",
+        startingAmount: "100.00000000",
+        amount: "100.00000000",
+        total: "0.00200000",
+        date: "2018-10-23 17:39:46",
+        margin: 1
+      }
+    ];
+
+    nock(ApiUri)
+      .post("/tradingApi", { command, nonce, currencyPair })
+      .reply(200, response);
+
+    const data = await client.getOpenOrders({});
+    assert.deepStrictEqual(data, response);
+  });
+
+  test(".getOpenOrders() (with no arguments)", async () => {
+    const currencyPair = DefaultPair;
+    const command = "returnOpenOrders";
+    const response: Orders = [
+      {
+        orderNumber: "514514894224",
+        type: "sell",
+        rate: "0.00001000",
+        startingAmount: "100.00000000",
+        amount: "100.00000000",
+        total: "0.00100000",
+        date: "2018-10-23 17:38:53",
+        margin: 1
+      },
+      {
+        orderNumber: "514515104014",
+        type: "buy",
+        rate: "0.00002000",
+        startingAmount: "100.00000000",
+        amount: "100.00000000",
+        total: "0.00200000",
+        date: "2018-10-23 17:39:46",
+        margin: 1
+      }
+    ];
+
+    nock(ApiUri)
+      .post("/tradingApi", { command, nonce, currencyPair })
+      .reply(200, response);
+
+    const data = await client.getOpenOrders();
+    assert.deepStrictEqual(data, response);
+  });
+
   test(".getHistoryTrades()", async () => {
     const currencyPair = "all";
     const start = 1410158341;
@@ -298,6 +430,85 @@ suite("AuthenticatedClient", () => {
       end,
       limit
     });
+    assert.deepStrictEqual(data, response);
+  });
+
+  test(".getHistoryTrades() (with no `currencyPair`)", async () => {
+    const currencyPair = DefaultPair;
+    const start = 1410158341;
+    const end = 1410499372;
+    const limit = 10;
+    const command = "returnTradeHistory";
+    const response: TradesPrivate = [
+      {
+        globalTradeID: 394131412,
+        tradeID: "5455033",
+        date: "2018-10-16 18:05:17",
+        rate: "0.06935244",
+        amount: "1.40308443",
+        total: "0.09730732",
+        fee: "0.00100000",
+        orderNumber: "104768235081",
+        type: "sell",
+        category: "exchange"
+      },
+      {
+        globalTradeID: 394126818,
+        tradeID: "5455007",
+        date: "2018-10-16 16:55:34",
+        rate: "0.06935244",
+        amount: "0.00155709",
+        total: "0.00010798",
+        fee: "0.00200000",
+        orderNumber: "104768179137",
+        type: "sell",
+        category: "exchange"
+      }
+    ];
+
+    nock(ApiUri)
+      .post("/tradingApi", { command, nonce, currencyPair, start, end, limit })
+      .reply(200, response);
+
+    const data = await client.getHistoryTrades({ start, end, limit });
+    assert.deepStrictEqual(data, response);
+  });
+
+  test(".getHistoryTrades() (with no arguments)", async () => {
+    const currencyPair = DefaultPair;
+    const command = "returnTradeHistory";
+    const response: TradesPrivate = [
+      {
+        globalTradeID: 394131412,
+        tradeID: "5455033",
+        date: "2018-10-16 18:05:17",
+        rate: "0.06935244",
+        amount: "1.40308443",
+        total: "0.09730732",
+        fee: "0.00100000",
+        orderNumber: "104768235081",
+        type: "sell",
+        category: "exchange"
+      },
+      {
+        globalTradeID: 394126818,
+        tradeID: "5455007",
+        date: "2018-10-16 16:55:34",
+        rate: "0.06935244",
+        amount: "0.00155709",
+        total: "0.00010798",
+        fee: "0.00200000",
+        orderNumber: "104768179137",
+        type: "sell",
+        category: "exchange"
+      }
+    ];
+
+    nock(ApiUri)
+      .post("/tradingApi", { command, nonce, currencyPair })
+      .reply(200, response);
+
+    const data = await client.getHistoryTrades();
     assert.deepStrictEqual(data, response);
   });
 
@@ -393,6 +604,35 @@ suite("AuthenticatedClient", () => {
     assert.deepStrictEqual(data, response);
   });
 
+  test(".buy() (with no `currencyPair`)", async () => {
+    const currencyPair = DefaultPair;
+    const rate = 0.01;
+    const amount = 1;
+    const response: OrderResult = {
+      orderNumber: "514845991795",
+      resultingTrades: [
+        {
+          amount: "0.1",
+          date: "2018-10-25 23:03:21",
+          rate: "0.01",
+          total: "0.001",
+          tradeID: "251834",
+          type: "buy"
+        }
+      ],
+      fee: "0.01000000",
+      currencyPair
+    };
+    const command = "buy";
+
+    nock(ApiUri)
+      .post("/tradingApi", { command, nonce, amount, rate, currencyPair })
+      .reply(200, response);
+
+    const data = await client.buy({ rate, amount });
+    assert.deepStrictEqual(data, response);
+  });
+
   test(".sell()", async () => {
     const currencyPair = "BTC_ETH";
     const rate = 0.01;
@@ -420,6 +660,39 @@ suite("AuthenticatedClient", () => {
 
     nock(ApiUri)
       .post("/tradingApi", { command, nonce, ...params })
+      .reply(200, response);
+
+    const data = await client.sell(params);
+    assert.deepStrictEqual(data, response);
+  });
+
+  test(".sell() (with no `currencyPair`)", async () => {
+    const currencyPair = DefaultPair;
+    const rate = 0.01;
+    const amount = 1;
+    const clientOrderId = 12345;
+    const postOnly: 0 | 1 = 1;
+    const params = { rate, amount, clientOrderId, postOnly };
+    const response: OrderResult = {
+      orderNumber: "514845991795",
+      resultingTrades: [
+        {
+          amount: "1.0",
+          date: "2018-10-25 23:03:21",
+          rate: "0.01",
+          total: "0.0006",
+          tradeID: "251834",
+          type: "sell"
+        }
+      ],
+      fee: "0.01000000",
+      currencyPair,
+      clientOrderId: "12345"
+    };
+    const command = "sell";
+
+    nock(ApiUri)
+      .post("/tradingApi", { command, nonce, currencyPair, ...params })
       .reply(200, response);
 
     const data = await client.sell(params);
@@ -479,6 +752,22 @@ suite("AuthenticatedClient", () => {
       .reply(200, response);
 
     const data = await client.cancelAllOrders({ currencyPair });
+    assert.deepStrictEqual(data, response);
+  });
+
+  test(".cancelAllOrders() (with no arguments)", async () => {
+    const command = "cancelAllOrders";
+    const response: CancelAllResponse = {
+      success: 1,
+      message: "Orders canceled",
+      orderNumbers: [503749, 888321, 7315825, 7316824]
+    };
+
+    nock(ApiUri)
+      .post("/tradingApi", { command, nonce })
+      .reply(200, response);
+
+    const data = await client.cancelAllOrders();
     assert.deepStrictEqual(data, response);
   });
 
@@ -652,6 +941,30 @@ suite("AuthenticatedClient", () => {
     assert.deepStrictEqual(data, response);
   });
 
+  test(".marginBuy() (with no `currencyPair`)", async () => {
+    const currencyPair = DefaultPair;
+    const clientOrderId = 123;
+    const rate = 0.0035;
+    const amount = 20;
+    const response: MarginOrderResult = {
+      orderNumber: "123321",
+      resultingTrades: [],
+      clientOrderId: "123",
+      message: "Margin order placed.",
+      fee: "0.00150000",
+      currencyPair
+    };
+    const command = "marginBuy";
+    const params = { rate, amount, clientOrderId };
+
+    nock(ApiUri)
+      .post("/tradingApi", { command, nonce, currencyPair, ...params })
+      .reply(200, response);
+
+    const data = await client.marginBuy(params);
+    assert.deepStrictEqual(data, response);
+  });
+
   test(".marginSell()", async () => {
     const currencyPair = "BTC_EOS";
     const clientOrderId = 123;
@@ -677,6 +990,31 @@ suite("AuthenticatedClient", () => {
     assert.deepStrictEqual(data, response);
   });
 
+  test(".marginSell() (with no `currencyPair`)", async () => {
+    const currencyPair = DefaultPair;
+    const clientOrderId = 123;
+    const rate = 0.0035;
+    const amount = 20;
+    const lendingRate = 0.001;
+    const response: MarginOrderResult = {
+      orderNumber: "123321",
+      resultingTrades: [],
+      clientOrderId: "123",
+      message: "Margin order placed.",
+      fee: "0.00150000",
+      currencyPair
+    };
+    const command = "marginSell";
+    const params = { rate, amount, clientOrderId, lendingRate };
+
+    nock(ApiUri)
+      .post("/tradingApi", { command, nonce, currencyPair, ...params })
+      .reply(200, response);
+
+    const data = await client.marginSell(params);
+    assert.deepStrictEqual(data, response);
+  });
+
   test(".getMarginPosition()", async () => {
     const currencyPair = "USDT_BTC";
     const response: MarginPositionResult = {
@@ -695,6 +1033,48 @@ suite("AuthenticatedClient", () => {
       .reply(200, response);
 
     const data = await client.getMarginPosition({ currencyPair });
+    assert.deepStrictEqual(data, response);
+  });
+
+  test(".getMarginPosition() (with no `currencyPair`)", async () => {
+    const currencyPair = DefaultPair;
+    const response: MarginPositionResult = {
+      amount: "40.94717831",
+      total: "-0.09671314",
+      basePrice: "0.00236190",
+      liquidationPrice: -1,
+      pl: "-0.00058655",
+      lendingFees: "-0.00000038",
+      type: "long"
+    };
+    const command = "getMarginPosition";
+
+    nock(ApiUri)
+      .post("/tradingApi", { command, nonce, currencyPair })
+      .reply(200, response);
+
+    const data = await client.getMarginPosition({});
+    assert.deepStrictEqual(data, response);
+  });
+
+  test(".getMarginPosition() (with no arguments)", async () => {
+    const currencyPair = DefaultPair;
+    const response: MarginPositionResult = {
+      amount: "40.94717831",
+      total: "-0.09671314",
+      basePrice: "0.00236190",
+      liquidationPrice: -1,
+      pl: "-0.00058655",
+      lendingFees: "-0.00000038",
+      type: "long"
+    };
+    const command = "getMarginPosition";
+
+    nock(ApiUri)
+      .post("/tradingApi", { command, nonce, currencyPair })
+      .reply(200, response);
+
+    const data = await client.getMarginPosition();
     assert.deepStrictEqual(data, response);
   });
 
@@ -731,6 +1111,78 @@ suite("AuthenticatedClient", () => {
       .reply(200, response);
 
     const data = await client.closeMarginPosition({ currencyPair });
+    assert.deepStrictEqual(data, response);
+  });
+
+  test(".closeMarginPosition() (with no `currencyPair`)", async () => {
+    const currencyPair = DefaultPair;
+    const response: ClosePositionResult = {
+      success: 1,
+      message: "Successfully closed margin position.",
+      resultingTrades: {
+        BTC_XMR: [
+          {
+            amount: "7.09215901",
+            date: "2015-05-10 22:38:49",
+            rate: "0.00235337",
+            total: "0.01669047",
+            tradeID: "1213346",
+            type: "sell"
+          },
+          {
+            amount: "24.00289920",
+            date: "2015-05-10 22:38:49",
+            rate: "0.00235321",
+            total: "0.05648386",
+            tradeID: "1213347",
+            type: "sell"
+          }
+        ]
+      }
+    };
+    const command = "closeMarginPosition";
+
+    nock(ApiUri)
+      .post("/tradingApi", { command, nonce, currencyPair })
+      .reply(200, response);
+
+    const data = await client.closeMarginPosition({});
+    assert.deepStrictEqual(data, response);
+  });
+
+  test(".closeMarginPosition() (with no arguments)", async () => {
+    const currencyPair = DefaultPair;
+    const response: ClosePositionResult = {
+      success: 1,
+      message: "Successfully closed margin position.",
+      resultingTrades: {
+        BTC_XMR: [
+          {
+            amount: "7.09215901",
+            date: "2015-05-10 22:38:49",
+            rate: "0.00235337",
+            total: "0.01669047",
+            tradeID: "1213346",
+            type: "sell"
+          },
+          {
+            amount: "24.00289920",
+            date: "2015-05-10 22:38:49",
+            rate: "0.00235321",
+            total: "0.05648386",
+            tradeID: "1213347",
+            type: "sell"
+          }
+        ]
+      }
+    };
+    const command = "closeMarginPosition";
+
+    nock(ApiUri)
+      .post("/tradingApi", { command, nonce, currencyPair })
+      .reply(200, response);
+
+    const data = await client.closeMarginPosition();
     assert.deepStrictEqual(data, response);
   });
 
@@ -882,6 +1334,43 @@ suite("AuthenticatedClient", () => {
     assert.deepStrictEqual(data, response);
   });
 
+  test(".getLendingHistory() (with no arguments)", async () => {
+    const response: LendingHistory = [
+      {
+        id: 246300115,
+        currency: "BTC",
+        rate: "0.00013890",
+        amount: "0.33714830",
+        duration: "0.00090000",
+        interest: "0.00000005",
+        fee: "0.00000000",
+        earned: "0.00000005",
+        open: "2017-01-01 23:41:37",
+        close: "2017-01-01 23:42:51"
+      },
+      {
+        id: 246294775,
+        currency: "BTC",
+        rate: "0.00013890",
+        amount: "0.03764586",
+        duration: "0.00150000",
+        interest: "0.00000001",
+        fee: "0.00000000",
+        earned: "0.00000001",
+        open: "2017-01-01 23:36:32",
+        close: "2017-01-01 23:38:45"
+      }
+    ];
+    const command = "returnLendingHistory";
+
+    nock(ApiUri)
+      .post("/tradingApi", { command, nonce })
+      .reply(200, response);
+
+    const data = await client.getLendingHistory();
+    assert.deepStrictEqual(data, response);
+  });
+
   test(".toggleAutoRenew()", async () => {
     const orderNumber = 1002013188;
     const command = "toggleAutoRenew";
@@ -893,5 +1382,11 @@ suite("AuthenticatedClient", () => {
 
     const data = await client.toggleAutoRenew({ orderNumber });
     assert.deepStrictEqual(data, response);
+  });
+
+  test(".nonce()", () => {
+    const client = new AuthenticatedClient({ key, secret });
+    const nonce = client.nonce();
+    assert.deepStrictEqual(typeof nonce, "number");
   });
 });

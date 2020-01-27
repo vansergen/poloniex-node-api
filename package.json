@@ -1,6 +1,6 @@
 {
   "name": "poloniex-node-api",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Poloniex Node.js API",
   "main": "build/index.js",
   "directories": {
@@ -8,7 +8,7 @@
     "test": "test"
   },
   "engines": {
-    "node": ">=8.16.2"
+    "node": ">=10.18.1"
   },
   "type": "commonjs",
   "types": "build/index.d.ts",
@@ -16,9 +16,12 @@
     "build": "tsc",
     "prepublishOnly": "npm run prettier && npm run lint && npm run build && npm run prettier-write && npm run lint-fix",
     "postpublish": "rm -fr build",
+    "coverage": "nyc npm test && nyc report --reporter=lcov",
+    "coverage-ci": "nyc npm test && nyc report --reporter=text-lcov | coveralls",
+    "fresh-install": "rm -fr node_modules && rm -f package-lock.json && npm install",
     "lint": "eslint --ext .ts,.js ./",
     "lint-fix": "npm run lint -- --fix",
-    "prettier": "prettier -c '**/*.{js,md,ts,json}'",
+    "prettier": "prettier -c \"**/*.{js,md,ts,json}\"",
     "prettier-write": "npm run prettier -- --write",
     "generate-docs": "typedoc",
     "test": "mocha -r ts-node/register --full-trace --ui tdd --bail --extension ts"
@@ -46,17 +49,19 @@
   },
   "devDependencies": {
     "@types/mocha": "^5.2.7",
-    "@typescript-eslint/eslint-plugin": "^2.13.0",
-    "@typescript-eslint/parser": "^2.13.0",
+    "@typescript-eslint/eslint-plugin": "^2.18.0",
+    "@typescript-eslint/parser": "^2.18.0",
+    "coveralls": "^3.0.9",
     "eslint": "^6.8.0",
-    "husky": "^4.2.0",
-    "lint-staged": "^10.0.2",
-    "mocha": "^7.0.0",
-    "nock": "^11.7.0",
+    "husky": "^4.2.1",
+    "lint-staged": "^10.0.3",
+    "mocha": "^7.0.1",
+    "nock": "^11.7.2",
+    "nyc": "^15.0.0",
     "prettier": "^1.19.1",
-    "ts-node": "^8.5.4",
-    "typedoc": "^0.16.8",
-    "typescript": "^3.7.4"
+    "ts-node": "^8.6.2",
+    "typedoc": "^0.16.9",
+    "typescript": "^3.7.5"
   },
   "husky": {
     "hooks": {

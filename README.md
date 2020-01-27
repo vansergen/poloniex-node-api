@@ -1,4 +1,4 @@
-# Poloniex Node.js API [![CircleCI](https://circleci.com/gh/vansergen/poloniex-node-api.svg?style=svg)](https://circleci.com/gh/vansergen/poloniex-node-api) [![GitHub version](https://badge.fury.io/gh/vansergen%2Fpoloniex-node-api.svg)](https://badge.fury.io/gh/vansergen%2Fpoloniex-node-api) [![npm version](https://badge.fury.io/js/poloniex-node-api.svg)](https://badge.fury.io/js/poloniex-node-api) [![languages](https://img.shields.io/github/languages/top/vansergen/poloniex-node-api.svg)](https://github.com/vansergen/poloniex-node-api) [![dependency status](https://img.shields.io/librariesio/github/vansergen/poloniex-node-api.svg)](https://github.com/vansergen/poloniex-node-api) [![repo size](https://img.shields.io/github/repo-size/vansergen/poloniex-node-api.svg)](https://github.com/vansergen/poloniex-node-api) [![npm downloads](https://img.shields.io/npm/dt/poloniex-node-api.svg)](https://www.npmjs.com/package/poloniex-node-api) [![license](https://img.shields.io/github/license/vansergen/poloniex-node-api.svg)](https://github.com/vansergen/poloniex-node-api/blob/master/LICENSE) [![Greenkeeper badge](https://badges.greenkeeper.io/vansergen/poloniex-node-api.svg)](https://greenkeeper.io/)
+# Poloniex Node.js API [![CircleCI](https://circleci.com/gh/vansergen/poloniex-node-api.svg?style=svg)](https://circleci.com/gh/vansergen/poloniex-node-api) [![GitHub version](https://badge.fury.io/gh/vansergen%2Fpoloniex-node-api.svg)](https://badge.fury.io/gh/vansergen%2Fpoloniex-node-api) [![Known Vulnerabilities](https://snyk.io/test/github/vansergen/poloniex-node-api/badge.svg)](https://snyk.io/test/github/vansergen/poloniex-node-api) [![Coverage Status](https://coveralls.io/repos/github/vansergen/poloniex-node-api/badge.svg?branch=master)](https://coveralls.io/github/vansergen/poloniex-node-api?branch=master) [![languages](https://img.shields.io/github/languages/top/vansergen/poloniex-node-api.svg)](https://github.com/vansergen/poloniex-node-api) ![node](https://img.shields.io/node/v/poloniex-node-api) [![npm downloads](https://img.shields.io/npm/dt/poloniex-node-api.svg)](https://www.npmjs.com/package/poloniex-node-api) [![license](https://img.shields.io/github/license/vansergen/poloniex-node-api.svg)](https://github.com/vansergen/poloniex-node-api/blob/master/LICENSE) [![Greenkeeper badge](https://badges.greenkeeper.io/vansergen/poloniex-node-api.svg)](https://greenkeeper.io/)
 
 Node.js library for [Poloniex](https://docs.poloniex.com/).
 
@@ -225,13 +225,13 @@ const fees = await client.getFeeInfo();
 
 ```typescript
 const account = "lending";
-const balances = client.getAccountBalances({ account });
+const balances = await client.getAccountBalances({ account });
 ```
 
 - [`getTradableBalances`](https://docs.poloniex.com/?shell#returntradablebalances)
 
 ```typescript
-const balances = client.getTradableBalances();
+const balances = await client.getTradableBalances();
 ```
 
 - [`transferBalance`](https://docs.poloniex.com/?shell#transferbalance)
@@ -241,7 +241,7 @@ const currency = "BTC";
 const amount = 0.5;
 const fromAccount = "lending";
 const toAccount = "exchange";
-const transfer = client.transferBalance({
+const transfer = await client.transferBalance({
   currency,
   amount,
   fromAccount,
