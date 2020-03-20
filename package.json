@@ -45,7 +45,7 @@
   "dependencies": {
     "@types/ws": "^7.2.1",
     "rpc-request": "^4.0.7",
-    "ws": "^7.2.1"
+    "ws": "^7.2.3"
   },
   "devDependencies": {
     "@types/mocha": "^7.0.2",
