@@ -24,7 +24,9 @@
     "prettier": "prettier -c \"**/*.{js,md,ts,json}\"",
     "prettier-write": "npm run prettier -- --write",
     "generate-docs": "typedoc",
-    "test": "mocha -r ts-node/register --full-trace --ui tdd --bail --extension ts"
+    "test": "mocha -r ts-node/register --full-trace --ui tdd --bail --extension ts",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "repository": {
     "type": "git",
@@ -45,7 +47,8 @@
   "dependencies": {
     "@types/ws": "^7.2.3",
     "rpc-request": "^4.0.9",
-    "ws": "^7.2.5"
+    "ws": "^7.2.5",
+    "snyk": "^1.316.1"
   },
   "devDependencies": {
     "@types/mocha": "^7.0.2",
@@ -81,5 +84,6 @@
   "funding": {
     "type": "Coinbase Commerce",
     "url": "https://commerce.coinbase.com/checkout/8e527468-c00a-49e9-aa1d-a08bf49d1686"
-  }
+  },
+  "snyk": true
 }
