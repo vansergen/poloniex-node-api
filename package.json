@@ -47,7 +47,7 @@
   "dependencies": {
     "@types/ws": "^7.2.3",
     "rpc-request": "^4.0.9",
-    "ws": "^7.2.5",
+    "ws": "^7.3.0",
     "snyk": "^1.316.2"
   },
   "devDependencies": {
