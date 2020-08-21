@@ -33,12 +33,20 @@ import {
   RawKill,
   WsKill,
   RawAccountMessage,
-  WsAccountMessage
+  WsAccountMessage,
 } from "../index";
 import { Server, OPEN, CONNECTING, CLOSING, CLOSED } from "ws";
 
 const port = 10009;
 const wsUri = "ws://localhost:" + port;
+
+function verifyClient(info: unknown, cb: (result: boolean) => void): void {
+  setTimeout(() => {
+    if (info) {
+      cb(true);
+    }
+  }, 1);
+}
 
 suite("WebsocketClient", () => {
   test("constructor", () => {
@@ -68,11 +76,11 @@ suite("WebsocketClient", () => {
     assert.deepStrictEqual(websocket.secret, undefined);
   });
 
-  test(".connect() (subscribes to the default channel)", done => {
+  test(".connect() (subscribes to the default channel)", (done) => {
     const server = new Server({ port });
     const client = new WebsocketClient({ wsUri });
-    server.on("connection", ws => {
-      ws.once("message", data => {
+    server.on("connection", (ws) => {
+      ws.once("message", (data) => {
         const [channel] = DefaultChannels;
         const command = "subscribe";
         assert.deepStrictEqual(JSON.parse(data), { command, channel });
@@ -82,7 +90,7 @@ suite("WebsocketClient", () => {
     client.connect();
   });
 
-  test(".connect() (when `readyState` is `OPEN`)", done => {
+  test(".connect() (when `readyState` is `OPEN`)", (done) => {
     const server = new Server({ port });
     const client = new WebsocketClient({ wsUri });
     client.connect();
@@ -96,10 +104,7 @@ suite("WebsocketClient", () => {
     });
   });
 
-  test(".connect() (when `readyState` is `CONNECTING`)", done => {
-    function verifyClient(info: object, cb: Function): void {
-      setTimeout(() => cb(true) && info, 0);
-    }
+  test(".connect() (when `readyState` is `CONNECTING`)", (done) => {
     const server = new Server({ port, verifyClient });
     const client = new WebsocketClient({ wsUri });
     client.connect();
@@ -112,7 +117,7 @@ suite("WebsocketClient", () => {
     client.on("open", () => server.close(done));
   });
 
-  test(".connect() (when `readyState` is `CLOSING`)", done => {
+  test(".connect() (when `readyState` is `CLOSING`)", (done) => {
     const server = new Server({ port });
     const client = new WebsocketClient({ wsUri });
     client.on("open", () => {
@@ -128,7 +133,7 @@ suite("WebsocketClient", () => {
     client.connect();
   });
 
-  test(".disconnect()", done => {
+  test(".disconnect()", (done) => {
     const server = new Server({ port });
     const client = new WebsocketClient({ wsUri });
     client.once("open", client.disconnect);
@@ -140,7 +145,7 @@ suite("WebsocketClient", () => {
     new WebsocketClient({ wsUri }).disconnect();
   });
 
-  test(".disconnect() (when `readyState` is `CLOSED`)", done => {
+  test(".disconnect() (when `readyState` is `CLOSED`)", (done) => {
     const server = new Server({ port });
     const client = new WebsocketClient({ wsUri });
     client.on("open", () => client.disconnect());
@@ -155,10 +160,7 @@ suite("WebsocketClient", () => {
     client.connect();
   });
 
-  test(".disconnect() (when `readyState` is `CONNECTING`)", done => {
-    function verifyClient(info: object, cb: Function): void {
-      setTimeout(() => cb(true) && info, 0);
-    }
+  test(".disconnect() (when `readyState` is `CONNECTING`)", (done) => {
     const server = new Server({ port, verifyClient });
     const client = new WebsocketClient({ wsUri });
     client.connect();
@@ -171,7 +173,7 @@ suite("WebsocketClient", () => {
     client.on("open", () => server.close(done));
   });
 
-  test(".disconnect() (when `readyState` is `CLOSING`)", done => {
+  test(".disconnect() (when `readyState` is `CLOSING`)", (done) => {
     const server = new Server({ port });
     const client = new WebsocketClient({ wsUri });
     client.on("open", () => {
@@ -187,14 +189,14 @@ suite("WebsocketClient", () => {
     client.connect();
   });
 
-  test(".subscribe()", done => {
+  test(".subscribe()", (done) => {
     const server = new Server({ port });
     const client = new WebsocketClient({ wsUri });
     const channelToSubscribe = 1003;
-    server.on("connection", ws => {
+    server.on("connection", (ws) => {
       ws.once("message", () => {
         const command = "subscribe";
-        ws.once("message", data => {
+        ws.once("message", (data) => {
           const channel = channelToSubscribe;
           assert.deepStrictEqual(JSON.parse(data), { command, channel });
           server.close(done);
@@ -205,20 +207,20 @@ suite("WebsocketClient", () => {
     client.connect();
   });
 
-  test(".subscribe() (when `socket` is not initialized)", done => {
+  test(".subscribe() (when `socket` is not initialized)", (done) => {
     const client = new WebsocketClient({ wsUri });
     const error = new Error("Websocket is not initialized");
     assert.throws(() => client.subscribe(1002), error);
     done();
   });
 
-  test(".unsubscribe()", done => {
+  test(".unsubscribe()", (done) => {
     const server = new Server({ port });
     const client = new WebsocketClient({ wsUri });
     const channel = 1003;
-    server.on("connection", ws => {
+    server.on("connection", (ws) => {
       ws.once("message", () => {
-        ws.once("message", data => {
+        ws.once("message", (data) => {
           const command = "unsubscribe";
           assert.deepStrictEqual(JSON.parse(data), { command, channel });
           server.close(done);
@@ -244,8 +246,8 @@ suite("WebsocketClient", () => {
           "23685243.40788439",
           0,
           "0.00000100",
-          "0.00000096"
-        ]
+          "0.00000096",
+        ],
       ];
       const expectedTicker: WsTicker = {
         subject: "ticker",
@@ -260,7 +262,7 @@ suite("WebsocketClient", () => {
         quoteVolume: "23685243.40788439",
         isFrozen: false,
         high24hr: "0.00000100",
-        low24hr: "0.00000096"
+        low24hr: "0.00000096",
       };
       const ticker = WebsocketClient.formatTicker(rawTicker);
       assert.deepStrictEqual(ticker, expectedTicker);
@@ -280,8 +282,8 @@ suite("WebsocketClient", () => {
           "23685243.40788439",
           1,
           "0.00000100",
-          "0.00000096"
-        ]
+          "0.00000096",
+        ],
       ];
       const expectedTicker: WsTicker = {
         subject: "ticker",
@@ -296,7 +298,7 @@ suite("WebsocketClient", () => {
         quoteVolume: "23685243.40788439",
         isFrozen: true,
         high24hr: "0.00000100",
-        low24hr: "0.00000096"
+        low24hr: "0.00000096",
       };
       const ticker = WebsocketClient.formatTicker(rawTicker);
       assert.deepStrictEqual(ticker, expectedTicker);
@@ -313,9 +315,9 @@ suite("WebsocketClient", () => {
             BTC: "3418.409",
             ETH: "2645.921",
             USDT: "10832502.689",
-            USDC: "1578020.908"
-          }
-        ]
+            USDC: "1578020.908",
+          },
+        ],
       ];
       const expectedVolume: WsVolume = {
         subject: "volume",
@@ -326,8 +328,8 @@ suite("WebsocketClient", () => {
           BTC: "3418.409",
           ETH: "2645.921",
           USDT: "10832502.689",
-          USDC: "1578020.908"
-        }
+          USDC: "1578020.908",
+        },
       };
       const volume = WebsocketClient.formatVolume(rawVolume);
       assert.deepStrictEqual(volume, expectedVolume);
@@ -345,7 +347,7 @@ suite("WebsocketClient", () => {
               "0.03120500": "50.78890000",
               "3777.70000000": "0.00100000",
               "4999.00000000": "0.05000000",
-              "5000.00000000": "0.20000000"
+              "5000.00000000": "0.20000000",
             },
             {
               "0.03118500": "50.78940000",
@@ -353,10 +355,10 @@ suite("WebsocketClient", () => {
               "0.03117841": "6.20027213",
               "0.00000003": "20000.00000000",
               "0.00000002": "670207.00000000",
-              "0.00000001": "1462262.00000000"
-            }
-          ]
-        }
+              "0.00000001": "1462262.00000000",
+            },
+          ],
+        },
       ];
       const expectedSnapshot: WsSnapshot = {
         subject: "snapshot",
@@ -367,7 +369,7 @@ suite("WebsocketClient", () => {
           "0.03120500": "50.78890000",
           "3777.70000000": "0.00100000",
           "4999.00000000": "0.05000000",
-          "5000.00000000": "0.20000000"
+          "5000.00000000": "0.20000000",
         },
         bids: {
           "0.03118500": "50.78940000",
@@ -375,8 +377,8 @@ suite("WebsocketClient", () => {
           "0.03117841": "6.20027213",
           "0.00000003": "20000.00000000",
           "0.00000002": "670207.00000000",
-          "0.00000001": "1462262.00000000"
-        }
+          "0.00000001": "1462262.00000000",
+        },
       };
       const snapshot = WebsocketClient.formatSnapshot(rawSnapshot);
       assert.deepStrictEqual(snapshot, expectedSnapshot);
@@ -389,7 +391,7 @@ suite("WebsocketClient", () => {
         1,
         "0.01924381",
         "0.60000000",
-        1580123594
+        1580123594,
       ];
       const expectedTrade: WsPublicTrade = {
         subject: "publicTrade",
@@ -397,7 +399,7 @@ suite("WebsocketClient", () => {
         type: "buy",
         price: "0.01924381",
         size: "0.60000000",
-        timestamp: 1580123594
+        timestamp: 1580123594,
       };
       const trade = WebsocketClient.formatPublicTrade(rawTrade);
       assert.deepStrictEqual(trade, expectedTrade);
@@ -410,7 +412,7 @@ suite("WebsocketClient", () => {
         0,
         "0.01924381",
         "0.60000000",
-        1580123594
+        1580123594,
       ];
       const expectedTrade: WsPublicTrade = {
         subject: "publicTrade",
@@ -418,7 +420,7 @@ suite("WebsocketClient", () => {
         type: "sell",
         price: "0.01924381",
         size: "0.60000000",
-        timestamp: 1580123594
+        timestamp: 1580123594,
       };
       const trade = WebsocketClient.formatPublicTrade(rawTrade);
       assert.deepStrictEqual(trade, expectedTrade);
@@ -430,7 +432,7 @@ suite("WebsocketClient", () => {
         subject: "update",
         type: "bid",
         price: "0.01924381",
-        size: "0.00000000"
+        size: "0.00000000",
       };
       const update = WebsocketClient.formatBookUpdate(rawUpdate);
       assert.deepStrictEqual(update, expectedUpdate);
@@ -442,7 +444,7 @@ suite("WebsocketClient", () => {
         subject: "update",
         type: "ask",
         price: "0.01924381",
-        size: "0.00000000"
+        size: "0.00000000",
       };
       const update = WebsocketClient.formatBookUpdate(rawUpdate);
       assert.deepStrictEqual(update, expectedUpdate);
@@ -452,7 +454,7 @@ suite("WebsocketClient", () => {
       const rawHeartbeat: RawWsHeartbeat = [1010];
       const expectedHeartbeat: WsHeartbeat = {
         subject: "heartbeat",
-        channel_id: 1010
+        channel_id: 1010,
       };
       const heartbeat = WebsocketClient.formatHeartbeat(rawHeartbeat);
       assert.deepStrictEqual(heartbeat, expectedHeartbeat);
@@ -462,7 +464,7 @@ suite("WebsocketClient", () => {
       const rawAcknowledge: RawAcknowledgement = [1002, 1];
       const expectedAcknowledge: WsAcknowledgement = {
         subject: "subscribed",
-        channel_id: 1002
+        channel_id: 1002,
       };
       const acknowledge = WebsocketClient.formatAcknowledge(rawAcknowledge);
       assert.deepStrictEqual(acknowledge, expectedAcknowledge);
@@ -472,7 +474,7 @@ suite("WebsocketClient", () => {
       const rawAcknowledge: RawAcknowledgement = [1002, 0];
       const expectedAcknowledge: WsAcknowledgement = {
         subject: "unsubscribed",
-        channel_id: 1002
+        channel_id: 1002,
       };
       const acknowledge = WebsocketClient.formatAcknowledge(rawAcknowledge);
       assert.deepStrictEqual(acknowledge, expectedAcknowledge);
@@ -494,7 +496,7 @@ suite("WebsocketClient", () => {
                   "0.03120500": "50.78890000",
                   "3777.70000000": "0.00100000",
                   "4999.00000000": "0.05000000",
-                  "5000.00000000": "0.20000000"
+                  "5000.00000000": "0.20000000",
                 },
                 {
                   "0.03118500": "50.78940000",
@@ -502,14 +504,14 @@ suite("WebsocketClient", () => {
                   "0.03117841": "6.20027213",
                   "0.00000003": "20000.00000000",
                   "0.00000002": "670207.00000000",
-                  "0.00000001": "1462262.00000000"
-                }
-              ]
-            }
+                  "0.00000001": "1462262.00000000",
+                },
+              ],
+            },
           ],
           ["o", 1, "0.01924381", "0.00000000"],
-          ["t", "48555788", 0, "0.01924381", "0.60000000", 1580123594]
-        ]
+          ["t", "48555788", 0, "0.01924381", "0.60000000", 1580123594],
+        ],
       ];
       const expectedMessages: WsBookMessage[] = [
         {
@@ -523,7 +525,7 @@ suite("WebsocketClient", () => {
             "0.03120500": "50.78890000",
             "3777.70000000": "0.00100000",
             "4999.00000000": "0.05000000",
-            "5000.00000000": "0.20000000"
+            "5000.00000000": "0.20000000",
           },
           bids: {
             "0.03118500": "50.78940000",
@@ -531,8 +533,8 @@ suite("WebsocketClient", () => {
             "0.03117841": "6.20027213",
             "0.00000003": "20000.00000000",
             "0.00000002": "670207.00000000",
-            "0.00000001": "1462262.00000000"
-          }
+            "0.00000001": "1462262.00000000",
+          },
         },
         {
           channel_id: 148,
@@ -541,7 +543,7 @@ suite("WebsocketClient", () => {
           subject: "update",
           type: "bid",
           price: "0.01924381",
-          size: "0.00000000"
+          size: "0.00000000",
         },
         {
           channel_id: 148,
@@ -552,8 +554,8 @@ suite("WebsocketClient", () => {
           type: "sell",
           price: "0.01924381",
           size: "0.60000000",
-          timestamp: 1580123594
-        }
+          timestamp: 1580123594,
+        },
       ];
       const messages = WebsocketClient.formatUpdate(rawPriceAggregatedBook);
       assert.deepStrictEqual(messages, expectedMessages);
@@ -567,7 +569,7 @@ suite("WebsocketClient", () => {
         "1000.00000000",
         "1.00000000",
         "1",
-        null
+        null,
       ];
       const expectedPending: WsPendingOrder = {
         subject: "pending",
@@ -577,7 +579,7 @@ suite("WebsocketClient", () => {
         rate: "1000.00000000",
         amount: "1.00000000",
         type: "buy",
-        clientOrderId: null
+        clientOrderId: null,
       };
       const pending = WebsocketClient.formatPending(rawPending);
       assert.deepStrictEqual(pending, expectedPending);
@@ -591,7 +593,7 @@ suite("WebsocketClient", () => {
         "1000.00000000",
         "1.00000000",
         "0",
-        null
+        null,
       ];
       const expectedPending: WsPendingOrder = {
         subject: "pending",
@@ -601,7 +603,7 @@ suite("WebsocketClient", () => {
         rate: "1000.00000000",
         amount: "1.00000000",
         type: "sell",
-        clientOrderId: null
+        clientOrderId: null,
       };
       const pending = WebsocketClient.formatPending(rawPending);
       assert.deepStrictEqual(pending, expectedPending);
@@ -617,7 +619,7 @@ suite("WebsocketClient", () => {
         "1.00000000",
         "2020-01-27 11:33:21",
         "1.00000000",
-        null
+        null,
       ];
       const expectedNew: WsNewOrder = {
         subject: "new",
@@ -629,7 +631,7 @@ suite("WebsocketClient", () => {
         amount: "1.00000000",
         date: "2020-01-27 11:33:21",
         originalAmount: "1.00000000",
-        clientOrderId: null
+        clientOrderId: null,
       };
       const newOrder = WebsocketClient.formatNew(rawNew);
       assert.deepStrictEqual(newOrder, expectedNew);
@@ -645,7 +647,7 @@ suite("WebsocketClient", () => {
         "1.00000000",
         "2020-01-27 11:33:21",
         "1.00000000",
-        null
+        null,
       ];
       const expectedNew: WsNewOrder = {
         subject: "new",
@@ -657,7 +659,7 @@ suite("WebsocketClient", () => {
         amount: "1.00000000",
         date: "2020-01-27 11:33:21",
         originalAmount: "1.00000000",
-        clientOrderId: null
+        clientOrderId: null,
       };
       const newOrder = WebsocketClient.formatNew(rawNew);
       assert.deepStrictEqual(newOrder, expectedNew);
@@ -670,7 +672,7 @@ suite("WebsocketClient", () => {
         currencyId: 298,
         currency: "EOS",
         wallet: "exchange",
-        amount: "-1.00000000"
+        amount: "-1.00000000",
       };
       const balance = WebsocketClient.formatBalance(rawBalance);
       assert.deepStrictEqual(balance, expectedBalance);
@@ -683,7 +685,7 @@ suite("WebsocketClient", () => {
         currencyId: 298,
         currency: "EOS",
         wallet: "margin",
-        amount: "-1.00000000"
+        amount: "-1.00000000",
       };
       const balance = WebsocketClient.formatBalance(rawBalance);
       assert.deepStrictEqual(balance, expectedBalance);
@@ -696,7 +698,7 @@ suite("WebsocketClient", () => {
         currencyId: 298,
         currency: "EOS",
         wallet: "lending",
-        amount: "-1.00000000"
+        amount: "-1.00000000",
       };
       const balance = WebsocketClient.formatBalance(rawBalance);
       assert.deepStrictEqual(balance, expectedBalance);
@@ -709,7 +711,7 @@ suite("WebsocketClient", () => {
         orderNumber: 123321123,
         newAmount: "0.00000000",
         orderType: "canceled",
-        clientOrderId: null
+        clientOrderId: null,
       };
       const order = WebsocketClient.formatOrder(rawOrder);
       assert.deepStrictEqual(order, expectedOrder);
@@ -722,7 +724,7 @@ suite("WebsocketClient", () => {
         orderNumber: 123321123,
         newAmount: "0.00000000",
         orderType: "filled",
-        clientOrderId: null
+        clientOrderId: null,
       };
       const order = WebsocketClient.formatOrder(rawOrder);
       assert.deepStrictEqual(order, expectedOrder);
@@ -735,7 +737,7 @@ suite("WebsocketClient", () => {
         orderNumber: 123321123,
         newAmount: "0.00000000",
         orderType: "self-trade",
-        clientOrderId: "123"
+        clientOrderId: "123",
       };
       const order = WebsocketClient.formatOrder(rawOrder);
       assert.deepStrictEqual(order, expectedOrder);
@@ -752,7 +754,7 @@ suite("WebsocketClient", () => {
         6083059,
         "0.00000375",
         "2018-09-08 05:54:09",
-        "12345"
+        "12345",
       ];
       const expectedTrade: WsTrade = {
         subject: "trade",
@@ -764,7 +766,7 @@ suite("WebsocketClient", () => {
         orderNumber: 6083059,
         fee: "0.00000375",
         date: "2018-09-08 05:54:09",
-        clientOrderId: "12345"
+        clientOrderId: "12345",
       };
       const trade = WebsocketClient.formatTrade(rawTrade);
       assert.deepStrictEqual(trade, expectedTrade);
@@ -775,7 +777,7 @@ suite("WebsocketClient", () => {
       const expectedKill: WsKill = {
         subject: "killed",
         orderNumber: 12345,
-        clientOrderId: null
+        clientOrderId: null,
       };
       const kill = WebsocketClient.formatKill(rawKill);
       assert.deepStrictEqual(kill, expectedKill);
@@ -796,7 +798,7 @@ suite("WebsocketClient", () => {
             "1.00000000",
             "2020-01-27 11:33:21",
             "1.00000000",
-            null
+            null,
           ],
           ["b", 298, "m", "-1.00000000"],
           ["o", 123321123, "0.00000000", "c", null],
@@ -810,10 +812,10 @@ suite("WebsocketClient", () => {
             6083059,
             "0.00000375",
             "2018-09-08 05:54:09",
-            "12345"
+            "12345",
           ],
-          ["k", 12345, null]
-        ]
+          ["k", 12345, null],
+        ],
       ];
       const expectedMessages: WsAccountMessage[] = [
         {
@@ -825,7 +827,7 @@ suite("WebsocketClient", () => {
           rate: "1000.00000000",
           amount: "1.00000000",
           type: "buy",
-          clientOrderId: null
+          clientOrderId: null,
         },
         {
           channel_id: 1000,
@@ -838,7 +840,7 @@ suite("WebsocketClient", () => {
           amount: "1.00000000",
           date: "2020-01-27 11:33:21",
           originalAmount: "1.00000000",
-          clientOrderId: null
+          clientOrderId: null,
         },
         {
           channel_id: 1000,
@@ -846,7 +848,7 @@ suite("WebsocketClient", () => {
           currencyId: 298,
           currency: "EOS",
           wallet: "margin",
-          amount: "-1.00000000"
+          amount: "-1.00000000",
         },
         {
           channel_id: 1000,
@@ -854,7 +856,7 @@ suite("WebsocketClient", () => {
           orderNumber: 123321123,
           newAmount: "0.00000000",
           orderType: "canceled",
-          clientOrderId: null
+          clientOrderId: null,
         },
         {
           channel_id: 1000,
@@ -867,14 +869,14 @@ suite("WebsocketClient", () => {
           orderNumber: 6083059,
           fee: "0.00000375",
           date: "2018-09-08 05:54:09",
-          clientOrderId: "12345"
+          clientOrderId: "12345",
         },
         {
           channel_id: 1000,
           subject: "killed",
           orderNumber: 12345,
-          clientOrderId: null
-        }
+          clientOrderId: null,
+        },
       ];
       const messages = WebsocketClient.formatAccount(rawAccountMessage);
       assert.deepStrictEqual(messages, expectedMessages);
@@ -883,21 +885,21 @@ suite("WebsocketClient", () => {
 
   suite(".socket listeners", () => {
     suite(".onOpen()", () => {
-      test("emits `open`", done => {
+      test("emits `open`", (done) => {
         const server = new Server({ port });
         const client = new WebsocketClient({ wsUri });
         client.on("open", () => server.close(done));
         client.connect();
       });
 
-      test("subscribes to the channels", done => {
+      test("subscribes to the channels", (done) => {
         const server = new Server({ port });
         const channels = [1000, 1003];
         const client = new WebsocketClient({ wsUri, channels });
-        server.on("connection", ws => {
+        server.on("connection", (ws) => {
           const command = "subscribe";
-          ws.once("message", data => {
-            ws.once("message", data => {
+          ws.once("message", (data) => {
+            ws.once("message", (data) => {
               const channel = 1003;
               assert.deepStrictEqual(JSON.parse(data), { command, channel });
               server.close(done);
@@ -911,7 +913,7 @@ suite("WebsocketClient", () => {
     });
 
     suite(".onClose()", () => {
-      test("emits `close`", done => {
+      test("emits `close`", (done) => {
         const server = new Server({ port });
         const client = new WebsocketClient({ wsUri });
         client.once("open", () => {
@@ -927,70 +929,72 @@ suite("WebsocketClient", () => {
     });
 
     suite(".onMessage()", () => {
-      test("emits `error` when receiving an error message", done => {
+      test("emits `error` when receiving an error message", (done) => {
         const server = new Server({ port });
         const client = new WebsocketClient({ wsUri });
         const error = "Permission denied.";
-        server.once("connection", ws => ws.send(JSON.stringify({ error })));
-        client.once("error", data => {
+        server.once("connection", (ws) => ws.send(JSON.stringify({ error })));
+        client.once("error", (data) => {
           assert.deepStrictEqual(data, { error });
           server.close(done);
         });
         client.connect();
       });
 
-      test("emits `rawMessage`", done => {
+      test("emits `rawMessage`", (done) => {
         const server = new Server({ port });
         const client = new WebsocketClient({ wsUri });
         const rawMessage: [number] = [1010];
         client.once("rawMessage", () => server.close(done));
-        server.on("connection", ws => ws.send(JSON.stringify(rawMessage)));
+        server.on("connection", (ws) => ws.send(JSON.stringify(rawMessage)));
         client.connect();
       });
 
-      test("emits `rawMessage`", done => {
+      test("emits `rawMessage`", (done) => {
         const server = new Server({ port });
         const client = new WebsocketClient({ wsUri, raw: false });
         const rawMessage: [number] = [1010];
         client.once("rawMessage", () => assert.fail("rawMessage was emitted"));
         client.once("open", () => setTimeout(() => server.close(done), 50));
-        server.on("connection", ws => ws.send(JSON.stringify(rawMessage)));
+        server.on("connection", (ws) => ws.send(JSON.stringify(rawMessage)));
         client.connect();
       });
 
-      test("Heartbeat", done => {
+      test("Heartbeat", (done) => {
         const server = new Server({ port });
         const client = new WebsocketClient({ wsUri });
         const rawHeartbeat: RawWsHeartbeat = [1010];
         const heartbeat: WsHeartbeat = {
           subject: "heartbeat",
-          channel_id: 1010
+          channel_id: 1010,
         };
-        server.on("connection", ws => ws.send(JSON.stringify(rawHeartbeat)));
-        client.on("message", message => {
+        server.on("connection", (ws) => ws.send(JSON.stringify(rawHeartbeat)));
+        client.on("message", (message) => {
           assert.deepStrictEqual(message, heartbeat);
           server.close(done);
         });
         client.connect();
       });
 
-      test("Subscription acknowledgement", done => {
+      test("Subscription acknowledgement", (done) => {
         const server = new Server({ port });
         const client = new WebsocketClient({ wsUri });
         const rawAcknowledge: RawAcknowledgement = [1002, 1];
         const acknowledge: WsAcknowledgement = {
           subject: "subscribed",
-          channel_id: 1002
+          channel_id: 1002,
         };
-        server.on("connection", ws => ws.send(JSON.stringify(rawAcknowledge)));
-        client.on("message", message => {
+        server.on("connection", (ws) =>
+          ws.send(JSON.stringify(rawAcknowledge))
+        );
+        client.on("message", (message) => {
           assert.deepStrictEqual(message, acknowledge);
           server.close(done);
         });
         client.connect();
       });
 
-      test("Ticker", done => {
+      test("Ticker", (done) => {
         const server = new Server({ port });
         const client = new WebsocketClient({ wsUri });
         const rawTicker: RawTickerMessage = [
@@ -1006,8 +1010,8 @@ suite("WebsocketClient", () => {
             "23685243.40788439",
             0,
             "0.00000100",
-            "0.00000096"
-          ]
+            "0.00000096",
+          ],
         ];
         const ticker: WsTicker = {
           subject: "ticker",
@@ -1022,17 +1026,17 @@ suite("WebsocketClient", () => {
           quoteVolume: "23685243.40788439",
           isFrozen: false,
           high24hr: "0.00000100",
-          low24hr: "0.00000096"
+          low24hr: "0.00000096",
         };
-        server.on("connection", ws => ws.send(JSON.stringify(rawTicker)));
-        client.on("message", message => {
+        server.on("connection", (ws) => ws.send(JSON.stringify(rawTicker)));
+        client.on("message", (message) => {
           assert.deepStrictEqual(message, ticker);
           server.close(done);
         });
         client.connect();
       });
 
-      test("Volume", done => {
+      test("Volume", (done) => {
         const server = new Server({ port });
         const client = new WebsocketClient({ wsUri });
         const rawVolume: RawVolumeMessage = [
@@ -1045,9 +1049,9 @@ suite("WebsocketClient", () => {
               BTC: "3418.409",
               ETH: "2645.921",
               USDT: "10832502.689",
-              USDC: "1578020.908"
-            }
-          ]
+              USDC: "1578020.908",
+            },
+          ],
         ];
         const volume: WsVolume = {
           subject: "volume",
@@ -1058,18 +1062,18 @@ suite("WebsocketClient", () => {
             BTC: "3418.409",
             ETH: "2645.921",
             USDT: "10832502.689",
-            USDC: "1578020.908"
-          }
+            USDC: "1578020.908",
+          },
         };
-        server.on("connection", ws => ws.send(JSON.stringify(rawVolume)));
-        client.on("message", message => {
+        server.on("connection", (ws) => ws.send(JSON.stringify(rawVolume)));
+        client.on("message", (message) => {
           assert.deepStrictEqual(message, volume);
           server.close(done);
         });
         client.connect();
       });
 
-      test("Account notifications", done => {
+      test("Account notifications", (done) => {
         const server = new Server({ port });
         const client = new WebsocketClient({ wsUri });
         const rawAccountMessage: RawAccountMessage = [
@@ -1086,7 +1090,7 @@ suite("WebsocketClient", () => {
               "1.00000000",
               "2020-01-27 11:33:21",
               "1.00000000",
-              null
+              null,
             ],
             ["b", 298, "m", "-1.00000000"],
             ["o", 123321123, "0.00000000", "c", null],
@@ -1100,10 +1104,10 @@ suite("WebsocketClient", () => {
               6083059,
               "0.00000375",
               "2018-09-08 05:54:09",
-              "12345"
+              "12345",
             ],
-            ["k", 12345, null]
-          ]
+            ["k", 12345, null],
+          ],
         ];
         const messages: WsAccountMessage[] = [
           {
@@ -1115,7 +1119,7 @@ suite("WebsocketClient", () => {
             rate: "1000.00000000",
             amount: "1.00000000",
             type: "buy",
-            clientOrderId: null
+            clientOrderId: null,
           },
           {
             channel_id: 1000,
@@ -1128,7 +1132,7 @@ suite("WebsocketClient", () => {
             amount: "1.00000000",
             date: "2020-01-27 11:33:21",
             originalAmount: "1.00000000",
-            clientOrderId: null
+            clientOrderId: null,
           },
           {
             channel_id: 1000,
@@ -1136,7 +1140,7 @@ suite("WebsocketClient", () => {
             currencyId: 298,
             currency: "EOS",
             wallet: "margin",
-            amount: "-1.00000000"
+            amount: "-1.00000000",
           },
           {
             channel_id: 1000,
@@ -1144,7 +1148,7 @@ suite("WebsocketClient", () => {
             orderNumber: 123321123,
             newAmount: "0.00000000",
             orderType: "canceled",
-            clientOrderId: null
+            clientOrderId: null,
           },
           {
             channel_id: 1000,
@@ -1157,20 +1161,20 @@ suite("WebsocketClient", () => {
             orderNumber: 6083059,
             fee: "0.00000375",
             date: "2018-09-08 05:54:09",
-            clientOrderId: "12345"
+            clientOrderId: "12345",
           },
           {
             channel_id: 1000,
             subject: "killed",
             orderNumber: 12345,
-            clientOrderId: null
-          }
+            clientOrderId: null,
+          },
         ];
         let i = 0;
-        server.on("connection", ws =>
+        server.on("connection", (ws) =>
           ws.send(JSON.stringify(rawAccountMessage))
         );
-        client.on("message", message => {
+        client.on("message", (message) => {
           assert.deepStrictEqual(message, messages[i++]);
           if (i === messages.length) {
             server.close(done);
@@ -1179,7 +1183,7 @@ suite("WebsocketClient", () => {
         client.connect();
       });
 
-      test("Price aggregated book", done => {
+      test("Price aggregated book", (done) => {
         const server = new Server({ port });
         const client = new WebsocketClient({ wsUri });
         const rawPriceAggregatedBook: RawPriceAggregatedBook = [
@@ -1197,7 +1201,7 @@ suite("WebsocketClient", () => {
                     "0.03120500": "50.78890000",
                     "3777.70000000": "0.00100000",
                     "4999.00000000": "0.05000000",
-                    "5000.00000000": "0.20000000"
+                    "5000.00000000": "0.20000000",
                   },
                   {
                     "0.03118500": "50.78940000",
@@ -1205,14 +1209,14 @@ suite("WebsocketClient", () => {
                     "0.03117841": "6.20027213",
                     "0.00000003": "20000.00000000",
                     "0.00000002": "670207.00000000",
-                    "0.00000001": "1462262.00000000"
-                  }
-                ]
-              }
+                    "0.00000001": "1462262.00000000",
+                  },
+                ],
+              },
             ],
             ["o", 1, "0.01924381", "0.00000000"],
-            ["t", "48555788", 0, "0.01924381", "0.60000000", 1580123594]
-          ]
+            ["t", "48555788", 0, "0.01924381", "0.60000000", 1580123594],
+          ],
         ];
         const messages: WsBookMessage[] = [
           {
@@ -1226,7 +1230,7 @@ suite("WebsocketClient", () => {
               "0.03120500": "50.78890000",
               "3777.70000000": "0.00100000",
               "4999.00000000": "0.05000000",
-              "5000.00000000": "0.20000000"
+              "5000.00000000": "0.20000000",
             },
             bids: {
               "0.03118500": "50.78940000",
@@ -1234,8 +1238,8 @@ suite("WebsocketClient", () => {
               "0.03117841": "6.20027213",
               "0.00000003": "20000.00000000",
               "0.00000002": "670207.00000000",
-              "0.00000001": "1462262.00000000"
-            }
+              "0.00000001": "1462262.00000000",
+            },
           },
           {
             channel_id: 148,
@@ -1244,7 +1248,7 @@ suite("WebsocketClient", () => {
             subject: "update",
             type: "bid",
             price: "0.01924381",
-            size: "0.00000000"
+            size: "0.00000000",
           },
           {
             channel_id: 148,
@@ -1255,14 +1259,14 @@ suite("WebsocketClient", () => {
             type: "sell",
             price: "0.01924381",
             size: "0.60000000",
-            timestamp: 1580123594
-          }
+            timestamp: 1580123594,
+          },
         ];
         let i = 0;
-        server.on("connection", ws =>
+        server.on("connection", (ws) =>
           ws.send(JSON.stringify(rawPriceAggregatedBook))
         );
-        client.on("message", message => {
+        client.on("message", (message) => {
           assert.deepStrictEqual(message, messages[i++]);
           if (i === messages.length) {
             server.close(done);
@@ -1273,7 +1277,7 @@ suite("WebsocketClient", () => {
     });
 
     suite(".onError()", () => {
-      test("emits `error`", done => {
+      test("emits `error`", (done) => {
         const server = new Server({ port });
         const client = new WebsocketClient({ wsUri });
         const error = new Error("Some error");
@@ -1284,14 +1288,14 @@ suite("WebsocketClient", () => {
             client.socket.emit("error", error);
           }
         });
-        client.once("error", err => {
+        client.once("error", (err) => {
           assert.deepStrictEqual(err, error);
           server.close(done);
         });
         client.connect();
       });
 
-      test("with no error", done => {
+      test("with no error", (done) => {
         const server = new Server({ port });
         const client = new WebsocketClient({ wsUri });
         client.once("open", () => {
@@ -1310,15 +1314,15 @@ suite("WebsocketClient", () => {
     });
   });
 
-  test("passes authentication details through", done => {
+  test("passes authentication details through", (done) => {
     const key = "poloniex-api-key";
     const secret = "poloniex-api-secret";
     const server = new Server({ port });
     const client = new WebsocketClient({ wsUri, key, secret });
     const nonce = 1;
     client.nonce = (): number => nonce;
-    server.on("connection", ws => {
-      ws.once("message", data => {
+    server.on("connection", (ws) => {
+      ws.once("message", (data) => {
         const [channel] = DefaultChannels;
         const { sign } = SignRequest({ key, secret, form: { nonce } });
         assert.deepStrictEqual(JSON.parse(data), {
@@ -1326,7 +1330,7 @@ suite("WebsocketClient", () => {
           channel,
           payload: "nonce=" + nonce.toString(),
           key,
-          sign
+          sign,
         });
         server.close(done);
       });
