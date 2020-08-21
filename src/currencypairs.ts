@@ -112,5 +112,5 @@ export const CurrencyPairs: { [id: string]: string | undefined } = {
   "273": "TRX_WIN",
   "274": "TRX_STEEM",
   "275": "BTC_LINK",
-  "276": "TRX_LINK"
+  "276": "TRX_LINK",
 };
