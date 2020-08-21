@@ -308,5 +308,8 @@ export const Currencies: { [id: string]: string | undefined } = {
   "313": "ATOM",
   "314": "GRIN",
   "315": "TRX",
-  "319": "ETHBNT"
+  "319": "ETHBNT",
+  "320": "BTT",
+  "321": "WIN",
+  "327": "LINK"
 };

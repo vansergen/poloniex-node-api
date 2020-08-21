@@ -27,6 +27,7 @@ export const CurrencyPairs: { [id: string]: string | undefined } = {
   "150": "BTC_SC",
   "162": "BTC_DCR",
   "163": "BTC_LSK",
+  "168": "BTC_STEEM",
   "170": "BTC_SBD",
   "171": "BTC_ETC",
   "172": "ETH_ETC",
@@ -101,5 +102,15 @@ export const CurrencyPairs: { [id: string]: string | undefined } = {
   "263": "BTC_TRX",
   "264": "USDC_TRX",
   "265": "USDT_TRX",
-  "266": "BTC_ETHBNT"
+  "266": "BTC_ETHBNT",
+  "267": "TRX_ETH",
+  "268": "TRX_XRP",
+  "269": "BTC_BTT",
+  "270": "USDT_BTT",
+  "271": "TRX_BTT",
+  "272": "USDT_WIN",
+  "273": "TRX_WIN",
+  "274": "TRX_STEEM",
+  "275": "BTC_LINK",
+  "276": "TRX_LINK"
 };
