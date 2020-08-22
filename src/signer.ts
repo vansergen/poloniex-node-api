@@ -13,13 +13,13 @@ export type SignedRequest = { key: string; sign: string };
 export function SignRequest({
   key,
   secret,
-  form
+  form,
 }: SignRequestOptions): SignedRequest {
   return {
     key: key,
     sign: crypto
       .createHmac("sha512", secret)
       .update(stringify(form))
-      .digest("hex")
+      .digest("hex"),
   };
 }

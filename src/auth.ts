@@ -9,7 +9,7 @@ import {
   Type,
   TradesFilter,
   Trade,
-  BaseTrade
+  BaseTrade,
 } from "./public";
 import { SignRequest } from "./signer";
 
@@ -392,7 +392,7 @@ export class AuthenticatedClient extends PublicClient {
    * Get your open orders for a given market.
    */
   getOpenOrders({
-    currencyPair = this.currencyPair
+    currencyPair = this.currencyPair,
   }: CurrencyPair = {}): Promise<Orders> {
     return this.post({ form: { command: "returnOpenOrders", currencyPair } });
   }
@@ -538,7 +538,7 @@ export class AuthenticatedClient extends PublicClient {
    * Get information about your margin position in a given market.
    */
   getMarginPosition({
-    currencyPair = this.currencyPair
+    currencyPair = this.currencyPair,
   }: CurrencyPair = {}): Promise<MarginPositionResult> {
     return this.post({ form: { command: "getMarginPosition", currencyPair } });
   }
@@ -547,7 +547,7 @@ export class AuthenticatedClient extends PublicClient {
    * Close your margin position in a given market using a market order.
    */
   closeMarginPosition({
-    currencyPair = this.currencyPair
+    currencyPair = this.currencyPair,
   }: CurrencyPair = {}): Promise<ClosePositionResult> {
     const command = "closeMarginPosition";
     return this.post({ form: { command, currencyPair } });

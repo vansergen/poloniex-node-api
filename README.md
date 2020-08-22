@@ -1,4 +1,4 @@
-# Poloniex Node.js API [![CircleCI](https://circleci.com/gh/vansergen/poloniex-node-api.svg?style=svg)](https://circleci.com/gh/vansergen/poloniex-node-api) [![GitHub version](https://badge.fury.io/gh/vansergen%2Fpoloniex-node-api.svg)](https://badge.fury.io/gh/vansergen%2Fpoloniex-node-api) [![Known Vulnerabilities](https://snyk.io/test/github/vansergen/poloniex-node-api/badge.svg)](https://snyk.io/test/github/vansergen/poloniex-node-api) [![Coverage Status](https://coveralls.io/repos/github/vansergen/poloniex-node-api/badge.svg?branch=master)](https://coveralls.io/github/vansergen/poloniex-node-api?branch=master) [![languages](https://img.shields.io/github/languages/top/vansergen/poloniex-node-api.svg)](https://github.com/vansergen/poloniex-node-api) ![node](https://img.shields.io/node/v/poloniex-node-api) [![npm downloads](https://img.shields.io/npm/dt/poloniex-node-api.svg)](https://www.npmjs.com/package/poloniex-node-api) [![license](https://img.shields.io/github/license/vansergen/poloniex-node-api.svg)](https://github.com/vansergen/poloniex-node-api/blob/master/LICENSE) [![Greenkeeper badge](https://badges.greenkeeper.io/vansergen/poloniex-node-api.svg)](https://greenkeeper.io/)
+# Poloniex Node.js API [![CircleCI](https://circleci.com/gh/vansergen/poloniex-node-api.svg?style=svg)](https://circleci.com/gh/vansergen/poloniex-node-api) [![GitHub version](https://badge.fury.io/gh/vansergen%2Fpoloniex-node-api.svg)](https://badge.fury.io/gh/vansergen%2Fpoloniex-node-api) [![Known Vulnerabilities](https://snyk.io/test/github/vansergen/poloniex-node-api/badge.svg)](https://snyk.io/test/github/vansergen/poloniex-node-api) [![Coverage Status](https://coveralls.io/repos/github/vansergen/poloniex-node-api/badge.svg?branch=master)](https://coveralls.io/github/vansergen/poloniex-node-api?branch=master) [![languages](https://img.shields.io/github/languages/top/vansergen/poloniex-node-api.svg)](https://github.com/vansergen/poloniex-node-api) ![node](https://img.shields.io/node/v/poloniex-node-api) [![npm downloads](https://img.shields.io/npm/dt/poloniex-node-api.svg)](https://www.npmjs.com/package/poloniex-node-api) [![license](https://img.shields.io/github/license/vansergen/poloniex-node-api.svg)](https://github.com/vansergen/poloniex-node-api/blob/master/LICENSE)
 
 Node.js library for [Poloniex](https://docs.poloniex.com/).
 
@@ -130,7 +130,7 @@ const trades = await client.getHistoryTrades({
   currencyPair,
   start,
   end,
-  limit
+  limit,
 });
 ```
 
@@ -161,7 +161,7 @@ const order = await client.buy({
   rate,
   amount,
   postOnly,
-  clientOrderId
+  clientOrderId,
 });
 ```
 
@@ -211,7 +211,7 @@ const result = await client.withdraw({
   currency,
   amount,
   address,
-  paymentId
+  paymentId,
 });
 ```
 
@@ -245,7 +245,7 @@ const transfer = await client.transferBalance({
   currency,
   amount,
   fromAccount,
-  toAccount
+  toAccount,
 });
 ```
 
@@ -266,7 +266,7 @@ const order = await client.marginBuy({
   currencyPair,
   rate,
   amount,
-  lendingRate
+  lendingRate,
 });
 ```
 
@@ -283,7 +283,7 @@ const order = await client.marginSell({
   rate,
   amount,
   lendingRate,
-  clientOrderId
+  clientOrderId,
 });
 ```
 
@@ -314,7 +314,7 @@ const offer = await client.createLoanOffer({
   amount,
   duration,
   autoRenew,
-  lendingRate
+  lendingRate,
 });
 ```
 
@@ -363,8 +363,8 @@ const channels = [1000, "BTC_DOGE"];
 const websocket = new WebsocketClient({ key, secret, channels });
 websocket.on("open", () => console.log("open"));
 websocket.on("close", () => console.log("close"));
-websocket.on("error", error => console.error(error));
-websocket.on("message", message => console.info(message));
+websocket.on("error", (error) => console.error(error));
+websocket.on("message", (message) => console.info(message));
 ```
 
 - `connect`

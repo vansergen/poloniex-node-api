@@ -32,7 +32,7 @@ import {
   LoanOffers,
   ActiveLoans,
   LendingHistory,
-  AutoRenewResult
+  AutoRenewResult,
 } from "../index";
 
 const key = "poloniex-api-key";
@@ -51,7 +51,7 @@ suite("AuthenticatedClient", () => {
       timeout,
       currencyPair,
       key,
-      secret
+      secret,
     });
     assert.deepStrictEqual(client.currencyPair, currencyPair);
     assert.deepStrictEqual(client.key, key);
@@ -60,7 +60,7 @@ suite("AuthenticatedClient", () => {
       baseUrl: apiUri,
       json: true,
       timeout,
-      headers: Headers
+      headers: Headers,
     });
   });
 
@@ -107,12 +107,10 @@ suite("AuthenticatedClient", () => {
   test(".getBalances()", async () => {
     const balances: Balances = {
       BTC: "1.23456789",
-      DASH: "0.00000000"
+      DASH: "0.00000000",
     };
     const command = "returnBalances";
-    nock(ApiUri)
-      .post("/tradingApi", { command, nonce })
-      .reply(200, balances);
+    nock(ApiUri).post("/tradingApi", { command, nonce }).reply(200, balances);
 
     const data = await client.getBalances();
     assert.deepStrictEqual(data, balances);
@@ -123,13 +121,13 @@ suite("AuthenticatedClient", () => {
       BTC: {
         available: "0.00000000",
         onOrders: "0.00000000",
-        btcValue: "0.00000000"
+        btcValue: "0.00000000",
       },
       USDT: {
         available: "0.00000000",
         onOrders: "0.00000000",
-        btcValue: "0.00000000"
-      }
+        btcValue: "0.00000000",
+      },
     };
     const command = "returnCompleteBalances";
     const account = "all";
@@ -147,19 +145,17 @@ suite("AuthenticatedClient", () => {
       BTC: {
         available: "0.00000000",
         onOrders: "0.00000000",
-        btcValue: "0.00000000"
+        btcValue: "0.00000000",
       },
       USDT: {
         available: "0.00000000",
         onOrders: "0.00000000",
-        btcValue: "0.00000000"
-      }
+        btcValue: "0.00000000",
+      },
     };
     const command = "returnCompleteBalances";
 
-    nock(ApiUri)
-      .post("/tradingApi", { command, nonce })
-      .reply(200, balances);
+    nock(ApiUri).post("/tradingApi", { command, nonce }).reply(200, balances);
 
     const data = await client.getCompleteBalances();
     assert.deepStrictEqual(data, balances);
@@ -169,13 +165,11 @@ suite("AuthenticatedClient", () => {
     const addresses: Adresses = {
       BTC: "12ov76RsWq5PS8mUxpzGiA7aU2NSJ4WQJV",
       USDC: "0x2a3279534a8fc3aab174628d5df28253bde6a95e",
-      USDT: "1HDr6rDk4n8kzgbon4rXs1qtBtC9XUNAZ5"
+      USDT: "1HDr6rDk4n8kzgbon4rXs1qtBtC9XUNAZ5",
     };
     const command = "returnDepositAddresses";
 
-    nock(ApiUri)
-      .post("/tradingApi", { command, nonce })
-      .reply(200, addresses);
+    nock(ApiUri).post("/tradingApi", { command, nonce }).reply(200, addresses);
 
     const data = await client.getDepositAddresses();
     assert.deepStrictEqual(data, addresses);
@@ -185,7 +179,7 @@ suite("AuthenticatedClient", () => {
     const currency = "ETH";
     const address: NewAddress = {
       success: 1,
-      response: "0x2a3279534a8fc3aab174628d5df28253bde6a95e"
+      response: "0x2a3279534a8fc3aab174628d5df28253bde6a95e",
     };
     const command = "generateNewAddress";
 
@@ -213,8 +207,8 @@ suite("AuthenticatedClient", () => {
           adjustmentDesc:
             "Your Stellar inflation reward for the week of Jun 11, 2019.",
           adjustmentHelp:
-            "https://poloniex.freshdesk.com/support/solutions/articles/1000278072-stellar-inflation-what-is-it-and-other-frequently-asked-questions"
-        }
+            "https://poloniex.freshdesk.com/support/solutions/articles/1000278072-stellar-inflation-what-is-it-and-other-frequently-asked-questions",
+        },
       ],
       deposits: [
         {
@@ -229,8 +223,8 @@ suite("AuthenticatedClient", () => {
           scope: null,
           address: "131rdg5Rzn6BFufnnQaHhVa5ZtRU1J2EZR",
           txid:
-            "b05bdec7430a56b5a5ed34af4a31a54859dda9b7c88a5586bc5d6540cdfbfc7a"
-        }
+            "b05bdec7430a56b5a5ed34af4a31a54859dda9b7c88a5586bc5d6540cdfbfc7a",
+        },
       ],
       withdrawals: [
         {
@@ -244,9 +238,9 @@ suite("AuthenticatedClient", () => {
           ipAddress: "192.168.0.1",
           canCancel: 0,
           canResendEmail: 0,
-          paymentID: null
-        }
-      ]
+          paymentID: null,
+        },
+      ],
     };
 
     nock(ApiUri)
@@ -269,7 +263,7 @@ suite("AuthenticatedClient", () => {
         amount: "100.00000000",
         total: "0.00100000",
         date: "2018-10-23 17:38:53",
-        margin: 1
+        margin: 1,
       },
       {
         orderNumber: "514515104014",
@@ -279,8 +273,8 @@ suite("AuthenticatedClient", () => {
         amount: "100.00000000",
         total: "0.00200000",
         date: "2018-10-23 17:39:46",
-        margin: 1
-      }
+        margin: 1,
+      },
     ];
 
     nock(ApiUri)
@@ -303,7 +297,7 @@ suite("AuthenticatedClient", () => {
         amount: "100.00000000",
         total: "0.00100000",
         date: "2018-10-23 17:38:53",
-        margin: 1
+        margin: 1,
       },
       {
         orderNumber: "514515104014",
@@ -313,8 +307,8 @@ suite("AuthenticatedClient", () => {
         amount: "100.00000000",
         total: "0.00200000",
         date: "2018-10-23 17:39:46",
-        margin: 1
-      }
+        margin: 1,
+      },
     ];
 
     nock(ApiUri)
@@ -337,7 +331,7 @@ suite("AuthenticatedClient", () => {
         amount: "100.00000000",
         total: "0.00100000",
         date: "2018-10-23 17:38:53",
-        margin: 1
+        margin: 1,
       },
       {
         orderNumber: "514515104014",
@@ -347,8 +341,8 @@ suite("AuthenticatedClient", () => {
         amount: "100.00000000",
         total: "0.00200000",
         date: "2018-10-23 17:39:46",
-        margin: 1
-      }
+        margin: 1,
+      },
     ];
 
     nock(ApiUri)
@@ -377,7 +371,7 @@ suite("AuthenticatedClient", () => {
           fee: "0.00100000",
           orderNumber: "104768235081",
           type: "sell",
-          category: "exchange"
+          category: "exchange",
         },
         {
           globalTradeID: 394126818,
@@ -389,8 +383,8 @@ suite("AuthenticatedClient", () => {
           fee: "0.00200000",
           orderNumber: "104768179137",
           type: "sell",
-          category: "exchange"
-        }
+          category: "exchange",
+        },
       ],
       BTC_STR: [
         {
@@ -403,7 +397,7 @@ suite("AuthenticatedClient", () => {
           fee: "0.00200000",
           orderNumber: "96238912841",
           type: "buy",
-          category: "exchange"
+          category: "exchange",
         },
         {
           globalTradeID: 394127361,
@@ -415,9 +409,9 @@ suite("AuthenticatedClient", () => {
           fee: "0.00200000",
           orderNumber: "96238912841",
           type: "buy",
-          category: "exchange"
-        }
-      ]
+          category: "exchange",
+        },
+      ],
     };
 
     nock(ApiUri)
@@ -428,7 +422,7 @@ suite("AuthenticatedClient", () => {
       currencyPair,
       start,
       end,
-      limit
+      limit,
     });
     assert.deepStrictEqual(data, response);
   });
@@ -450,7 +444,7 @@ suite("AuthenticatedClient", () => {
         fee: "0.00100000",
         orderNumber: "104768235081",
         type: "sell",
-        category: "exchange"
+        category: "exchange",
       },
       {
         globalTradeID: 394126818,
@@ -462,8 +456,8 @@ suite("AuthenticatedClient", () => {
         fee: "0.00200000",
         orderNumber: "104768179137",
         type: "sell",
-        category: "exchange"
-      }
+        category: "exchange",
+      },
     ];
 
     nock(ApiUri)
@@ -488,7 +482,7 @@ suite("AuthenticatedClient", () => {
         fee: "0.00100000",
         orderNumber: "104768235081",
         type: "sell",
-        category: "exchange"
+        category: "exchange",
       },
       {
         globalTradeID: 394126818,
@@ -500,8 +494,8 @@ suite("AuthenticatedClient", () => {
         fee: "0.00200000",
         orderNumber: "104768179137",
         type: "sell",
-        category: "exchange"
-      }
+        category: "exchange",
+      },
     ];
 
     nock(ApiUri)
@@ -525,7 +519,7 @@ suite("AuthenticatedClient", () => {
         amount: "3696.05342780",
         total: "0.12684855",
         fee: "0.00200000",
-        date: "2018-10-16 17:03:43"
+        date: "2018-10-16 17:03:43",
       },
       {
         globalTradeID: 394127361,
@@ -536,8 +530,8 @@ suite("AuthenticatedClient", () => {
         amount: "3600.53748129",
         total: "0.12357044",
         fee: "0.00200000",
-        date: "2018-10-16 17:03:43"
-      }
+        date: "2018-10-16 17:03:43",
+      },
     ];
 
     nock(ApiUri)
@@ -561,10 +555,10 @@ suite("AuthenticatedClient", () => {
           date: "2018-10-17 17:04:50",
           total: "0.40000000",
           type: "buy",
-          startingAmount: "1.00000"
-        }
+          startingAmount: "1.00000",
+        },
       },
-      success: 1
+      success: 1,
     };
 
     nock(ApiUri)
@@ -588,11 +582,11 @@ suite("AuthenticatedClient", () => {
           rate: "0.01",
           total: "0.001",
           tradeID: "251834",
-          type: "buy"
-        }
+          type: "buy",
+        },
       ],
       fee: "0.01000000",
-      currencyPair: "BTC_ETH"
+      currencyPair: "BTC_ETH",
     };
     const command = "buy";
 
@@ -617,11 +611,11 @@ suite("AuthenticatedClient", () => {
           rate: "0.01",
           total: "0.001",
           tradeID: "251834",
-          type: "buy"
-        }
+          type: "buy",
+        },
       ],
       fee: "0.01000000",
-      currencyPair
+      currencyPair,
     };
     const command = "buy";
 
@@ -649,12 +643,12 @@ suite("AuthenticatedClient", () => {
           rate: "0.01",
           total: "0.0006",
           tradeID: "251834",
-          type: "sell"
-        }
+          type: "sell",
+        },
       ],
       fee: "0.01000000",
       currencyPair: "BTC_ETH",
-      clientOrderId: "12345"
+      clientOrderId: "12345",
     };
     const command = "sell";
 
@@ -682,12 +676,12 @@ suite("AuthenticatedClient", () => {
           rate: "0.01",
           total: "0.0006",
           tradeID: "251834",
-          type: "sell"
-        }
+          type: "sell",
+        },
       ],
       fee: "0.01000000",
       currencyPair,
-      clientOrderId: "12345"
+      clientOrderId: "12345",
     };
     const command = "sell";
 
@@ -707,7 +701,7 @@ suite("AuthenticatedClient", () => {
       amount: "1.00000000",
       message: "Order #96238912841 canceled.",
       fee: "0.00000000",
-      currencyPair: "USDT_EOS"
+      currencyPair: "USDT_EOS",
     };
 
     nock(ApiUri)
@@ -727,7 +721,7 @@ suite("AuthenticatedClient", () => {
       message: "Order #96238912841 canceled.",
       fee: "0.00000000",
       currencyPair: "USDT_EOS",
-      clientOrderId: "123456"
+      clientOrderId: "123456",
     };
 
     nock(ApiUri)
@@ -744,7 +738,7 @@ suite("AuthenticatedClient", () => {
     const response: CancelAllResponse = {
       success: 1,
       message: "Orders canceled",
-      orderNumbers: [503749, 888321, 7315825, 7316824]
+      orderNumbers: [503749, 888321, 7315825, 7316824],
     };
 
     nock(ApiUri)
@@ -760,12 +754,10 @@ suite("AuthenticatedClient", () => {
     const response: CancelAllResponse = {
       success: 1,
       message: "Orders canceled",
-      orderNumbers: [503749, 888321, 7315825, 7316824]
+      orderNumbers: [503749, 888321, 7315825, 7316824],
     };
 
-    nock(ApiUri)
-      .post("/tradingApi", { command, nonce })
-      .reply(200, response);
+    nock(ApiUri).post("/tradingApi", { command, nonce }).reply(200, response);
 
     const data = await client.cancelAllOrders();
     assert.deepStrictEqual(data, response);
@@ -781,7 +773,7 @@ suite("AuthenticatedClient", () => {
       resultingTrades: { BTC_ETH: [] },
       fee: "0.00150000",
       currencyPair: "BTC_ETH",
-      clientOrderId: "12345"
+      clientOrderId: "12345",
     };
     const command = "moveOrder";
 
@@ -815,12 +807,10 @@ suite("AuthenticatedClient", () => {
       marginMakerFee: "0.00150000",
       marginTakerFee: "0.00250000",
       thirtyDayVolume: "0.00000000",
-      nextTier: 25000
+      nextTier: 25000,
     };
     const command = "returnFeeInfo";
-    nock(ApiUri)
-      .post("/tradingApi", { command, nonce })
-      .reply(200, response);
+    nock(ApiUri).post("/tradingApi", { command, nonce }).reply(200, response);
 
     const data = await client.getFeeInfo();
     assert.deepStrictEqual(data, response);
@@ -834,21 +824,19 @@ suite("AuthenticatedClient", () => {
         ETC: "3.39980734",
         SC: "120.00000000",
         USDC: "23.79999938",
-        ZEC: "0.02380926"
+        ZEC: "0.02380926",
       },
       margin: { BTC: "0.50000000" },
       lending: {
         BTC: "0.14804126",
         ETH: "2.69148073",
         LTC: "1.75862721",
-        XMR: "5.25780982"
-      }
+        XMR: "5.25780982",
+      },
     };
     const command = "returnAvailableAccountBalances";
 
-    nock(ApiUri)
-      .post("/tradingApi", { command, nonce })
-      .reply(200, balances);
+    nock(ApiUri).post("/tradingApi", { command, nonce }).reply(200, balances);
 
     const data = await client.getAccountBalances();
     assert.deepStrictEqual(data, balances);
@@ -866,13 +854,11 @@ suite("AuthenticatedClient", () => {
       BTC_XMR: { BTC: "1.25000000", XMR: "76.27023112" },
       BTC_XRP: { BTC: "1.25000000", XRP: "17385.96302541" },
       BTC_ETH: { BTC: "1.25000000", ETH: "39.96803109" },
-      BTC_FCT: { BTC: "1.25000000", FCT: "1720.79314097" }
+      BTC_FCT: { BTC: "1.25000000", FCT: "1720.79314097" },
     };
     const command = "returnTradableBalances";
 
-    nock(ApiUri)
-      .post("/tradingApi", { command, nonce })
-      .reply(200, balances);
+    nock(ApiUri).post("/tradingApi", { command, nonce }).reply(200, balances);
 
     const data = await client.getTradableBalances();
     assert.deepStrictEqual(data, balances);
@@ -881,13 +867,13 @@ suite("AuthenticatedClient", () => {
   test(".transferBalance()", async () => {
     const response: TransferResponse = {
       success: 1,
-      message: "Transferred 0.50000000 BTC from lending to exchange account."
+      message: "Transferred 0.50000000 BTC from lending to exchange account.",
     };
     const command = "transferBalance";
     const currency = "BTC";
     const amount = 0.5;
-    const fromAccount: "lending" = "lending";
-    const toAccount: "exchange" = "exchange";
+    const fromAccount = "lending" as const;
+    const toAccount = "exchange" as const;
     const params = { currency, amount, fromAccount, toAccount };
 
     nock(ApiUri)
@@ -905,13 +891,11 @@ suite("AuthenticatedClient", () => {
       lendingFees: "0.00000000",
       netValue: "0.09999999",
       totalBorrowedValue: "0.02534580",
-      currentMargin: "3.94542646"
+      currentMargin: "3.94542646",
     };
     const command = "returnMarginAccountSummary";
 
-    nock(ApiUri)
-      .post("/tradingApi", { command, nonce })
-      .reply(200, response);
+    nock(ApiUri).post("/tradingApi", { command, nonce }).reply(200, response);
 
     const data = await client.getMarginSummary();
     assert.deepStrictEqual(data, response);
@@ -928,7 +912,7 @@ suite("AuthenticatedClient", () => {
       clientOrderId: "123",
       message: "Margin order placed.",
       fee: "0.00150000",
-      currencyPair: "BTC_EOS"
+      currencyPair: "BTC_EOS",
     };
     const command = "marginBuy";
     const params = { currencyPair, rate, amount, clientOrderId };
@@ -952,7 +936,7 @@ suite("AuthenticatedClient", () => {
       clientOrderId: "123",
       message: "Margin order placed.",
       fee: "0.00150000",
-      currencyPair
+      currencyPair,
     };
     const command = "marginBuy";
     const params = { rate, amount, clientOrderId };
@@ -977,7 +961,7 @@ suite("AuthenticatedClient", () => {
       clientOrderId: "123",
       message: "Margin order placed.",
       fee: "0.00150000",
-      currencyPair: "BTC_EOS"
+      currencyPair: "BTC_EOS",
     };
     const command = "marginSell";
     const params = { currencyPair, rate, amount, clientOrderId, lendingRate };
@@ -1002,7 +986,7 @@ suite("AuthenticatedClient", () => {
       clientOrderId: "123",
       message: "Margin order placed.",
       fee: "0.00150000",
-      currencyPair
+      currencyPair,
     };
     const command = "marginSell";
     const params = { rate, amount, clientOrderId, lendingRate };
@@ -1024,7 +1008,7 @@ suite("AuthenticatedClient", () => {
       liquidationPrice: -1,
       pl: "-0.00058655",
       lendingFees: "-0.00000038",
-      type: "long"
+      type: "long",
     };
     const command = "getMarginPosition";
 
@@ -1045,7 +1029,7 @@ suite("AuthenticatedClient", () => {
       liquidationPrice: -1,
       pl: "-0.00058655",
       lendingFees: "-0.00000038",
-      type: "long"
+      type: "long",
     };
     const command = "getMarginPosition";
 
@@ -1066,7 +1050,7 @@ suite("AuthenticatedClient", () => {
       liquidationPrice: -1,
       pl: "-0.00058655",
       lendingFees: "-0.00000038",
-      type: "long"
+      type: "long",
     };
     const command = "getMarginPosition";
 
@@ -1091,7 +1075,7 @@ suite("AuthenticatedClient", () => {
             rate: "0.00235337",
             total: "0.01669047",
             tradeID: "1213346",
-            type: "sell"
+            type: "sell",
           },
           {
             amount: "24.00289920",
@@ -1099,10 +1083,10 @@ suite("AuthenticatedClient", () => {
             rate: "0.00235321",
             total: "0.05648386",
             tradeID: "1213347",
-            type: "sell"
-          }
-        ]
-      }
+            type: "sell",
+          },
+        ],
+      },
     };
     const command = "closeMarginPosition";
 
@@ -1127,7 +1111,7 @@ suite("AuthenticatedClient", () => {
             rate: "0.00235337",
             total: "0.01669047",
             tradeID: "1213346",
-            type: "sell"
+            type: "sell",
           },
           {
             amount: "24.00289920",
@@ -1135,10 +1119,10 @@ suite("AuthenticatedClient", () => {
             rate: "0.00235321",
             total: "0.05648386",
             tradeID: "1213347",
-            type: "sell"
-          }
-        ]
-      }
+            type: "sell",
+          },
+        ],
+      },
     };
     const command = "closeMarginPosition";
 
@@ -1163,7 +1147,7 @@ suite("AuthenticatedClient", () => {
             rate: "0.00235337",
             total: "0.01669047",
             tradeID: "1213346",
-            type: "sell"
+            type: "sell",
           },
           {
             amount: "24.00289920",
@@ -1171,10 +1155,10 @@ suite("AuthenticatedClient", () => {
             rate: "0.00235321",
             total: "0.05648386",
             tradeID: "1213347",
-            type: "sell"
-          }
-        ]
-      }
+            type: "sell",
+          },
+        ],
+      },
     };
     const command = "closeMarginPosition";
 
@@ -1190,12 +1174,12 @@ suite("AuthenticatedClient", () => {
     const currency = "BTC";
     const amount = 0.1;
     const duration = 2;
-    const autoRenew: 0 = 0;
+    const autoRenew = 0 as const;
     const lendingRate = 0.015;
     const response: OfferResult = {
       success: 1,
       message: "Loan order placed.",
-      orderID: 1002013188
+      orderID: 1002013188,
     };
     const command = "createLoanOffer";
     const params = { amount, currency, duration, autoRenew, lendingRate };
@@ -1214,7 +1198,7 @@ suite("AuthenticatedClient", () => {
     const response: CancelLoanResponse = {
       success: 1,
       message: "Loan offer canceled.",
-      amount: "0.10000000"
+      amount: "0.10000000",
     };
 
     nock(ApiUri)
@@ -1234,15 +1218,13 @@ suite("AuthenticatedClient", () => {
           amount: "0.10000000",
           duration: 2,
           autoRenew: 0,
-          date: "2018-10-26 20:26:46"
-        }
-      ]
+          date: "2018-10-26 20:26:46",
+        },
+      ],
     };
     const command = "returnOpenLoanOffers";
 
-    nock(ApiUri)
-      .post("/tradingApi", { command, nonce })
-      .reply(200, response);
+    nock(ApiUri).post("/tradingApi", { command, nonce }).reply(200, response);
 
     const data = await client.getOpenLoanOffers();
     assert.deepStrictEqual(data, response);
@@ -1259,7 +1241,7 @@ suite("AuthenticatedClient", () => {
           range: 2,
           autoRenew: 0,
           date: "2018-05-10 23:45:05",
-          fees: "0.00006000"
+          fees: "0.00006000",
         },
         {
           id: 74961,
@@ -1269,8 +1251,8 @@ suite("AuthenticatedClient", () => {
           range: 2,
           autoRenew: 0,
           date: "2018-05-10 23:45:05",
-          fees: "0.00006000"
-        }
+          fees: "0.00006000",
+        },
       ],
       used: [
         {
@@ -1280,15 +1262,13 @@ suite("AuthenticatedClient", () => {
           amount: "0.04843834",
           range: 2,
           date: "2018-05-10 23:51:12",
-          fees: "-0.00000001"
-        }
-      ]
+          fees: "-0.00000001",
+        },
+      ],
     };
     const command = "returnActiveLoans";
 
-    nock(ApiUri)
-      .post("/tradingApi", { command, nonce })
-      .reply(200, response);
+    nock(ApiUri).post("/tradingApi", { command, nonce }).reply(200, response);
 
     const data = await client.getActiveLoans();
     assert.deepStrictEqual(data, response);
@@ -1309,7 +1289,7 @@ suite("AuthenticatedClient", () => {
         fee: "0.00000000",
         earned: "0.00000005",
         open: "2017-01-01 23:41:37",
-        close: "2017-01-01 23:42:51"
+        close: "2017-01-01 23:42:51",
       },
       {
         id: 246294775,
@@ -1321,8 +1301,8 @@ suite("AuthenticatedClient", () => {
         fee: "0.00000000",
         earned: "0.00000001",
         open: "2017-01-01 23:36:32",
-        close: "2017-01-01 23:38:45"
-      }
+        close: "2017-01-01 23:38:45",
+      },
     ];
     const command = "returnLendingHistory";
 
@@ -1346,7 +1326,7 @@ suite("AuthenticatedClient", () => {
         fee: "0.00000000",
         earned: "0.00000005",
         open: "2017-01-01 23:41:37",
-        close: "2017-01-01 23:42:51"
+        close: "2017-01-01 23:42:51",
       },
       {
         id: 246294775,
@@ -1358,14 +1338,12 @@ suite("AuthenticatedClient", () => {
         fee: "0.00000000",
         earned: "0.00000001",
         open: "2017-01-01 23:36:32",
-        close: "2017-01-01 23:38:45"
-      }
+        close: "2017-01-01 23:38:45",
+      },
     ];
     const command = "returnLendingHistory";
 
-    nock(ApiUri)
-      .post("/tradingApi", { command, nonce })
-      .reply(200, response);
+    nock(ApiUri).post("/tradingApi", { command, nonce }).reply(200, response);
 
     const data = await client.getLendingHistory();
     assert.deepStrictEqual(data, response);

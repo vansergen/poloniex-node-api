@@ -25,8 +25,7 @@
     "prettier-write": "npm run prettier -- --write",
     "generate-docs": "typedoc",
     "test": "mocha -r ts-node/register --full-trace --ui tdd --bail --extension ts",
-    "snyk-protect": "snyk protect",
-    "prepare": "npm run snyk-protect"
+    "snyk-protect": "snyk protect"
   },
   "repository": {
     "type": "git",
@@ -45,26 +44,26 @@
   },
   "homepage": "https://github.com/vansergen/poloniex-node-api#readme",
   "dependencies": {
-    "@types/ws": "^7.2.3",
+    "@types/ws": "^7.2.6",
     "rpc-request": "^4.0.10",
-    "ws": "^7.3.1",
-    "snyk": "^1.381.1"
+    "ws": "^7.3.1"
   },
   "devDependencies": {
-    "@types/mocha": "^7.0.2",
-    "@typescript-eslint/eslint-plugin": "^2.24.0",
-    "@typescript-eslint/parser": "^2.24.0",
-    "coveralls": "^3.0.11",
-    "eslint": "^6.8.0",
-    "husky": "^4.2.3",
-    "lint-staged": "^10.0.8",
-    "mocha": "^7.1.1",
-    "nock": "^12.0.3",
-    "nyc": "^15.0.0",
-    "prettier": "^1.19.1",
-    "ts-node": "^8.7.0",
-    "typedoc": "^0.17.1",
-    "typescript": "^3.8.3"
+    "@types/mocha": "^8.0.3",
+    "@typescript-eslint/eslint-plugin": "^3.9.1",
+    "@typescript-eslint/parser": "^3.9.1",
+    "coveralls": "^3.1.0",
+    "eslint": "^7.7.0",
+    "husky": "^4.2.5",
+    "lint-staged": "^10.2.11",
+    "mocha": "^8.1.1",
+    "nock": "^13.0.4",
+    "nyc": "^15.1.0",
+    "prettier": "^2.0.5",
+    "snyk": "^1.381.1",
+    "ts-node": "^9.0.0",
+    "typedoc": "^0.18.0",
+    "typescript": "^4.0.2"
   },
   "husky": {
     "hooks": {
