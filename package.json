@@ -25,8 +25,7 @@
     "prettier-write": "npm run prettier -- --write",
     "generate-docs": "typedoc",
     "test": "mocha -r ts-node/register --full-trace --ui tdd --bail --extension ts",
-    "snyk-protect": "snyk protect",
-    "prepare": "npm run snyk-protect"
+    "snyk-protect": "snyk protect"
   },
   "repository": {
     "type": "git",
@@ -47,8 +46,7 @@
   "dependencies": {
     "@types/ws": "^7.2.6",
     "rpc-request": "^4.0.10",
-    "ws": "^7.3.1",
-    "snyk": "^1.319.2"
+    "ws": "^7.3.1"
   },
   "devDependencies": {
     "@types/mocha": "^8.0.3",
@@ -62,6 +60,7 @@
     "nock": "^13.0.4",
     "nyc": "^15.1.0",
     "prettier": "^2.0.5",
+    "snyk": "^1.381.1",
     "ts-node": "^9.0.0",
     "typedoc": "^0.18.0",
     "typescript": "^4.0.2"

@@ -20,6 +20,9 @@ shared: &shared
         name: npm postpublish
         command: npm run postpublish
     - run:
+        name: Snyk
+        command: npm run snyk-protect
+    - run:
         name: Coveralls
         command: npm run coverage-ci
 
