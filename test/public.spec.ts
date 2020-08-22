@@ -13,7 +13,7 @@ import {
   Trade,
   Candle,
   Currencies,
-  Loans
+  Loans,
 } from "../index";
 
 const client = new PublicClient();
@@ -25,7 +25,7 @@ suite("PublicClient", () => {
       baseUrl: ApiUri,
       json: true,
       timeout: DefaultTimeout,
-      headers: Headers
+      headers: Headers,
     });
   });
 
@@ -39,17 +39,14 @@ suite("PublicClient", () => {
       baseUrl: apiUri,
       json: true,
       timeout,
-      headers: Headers
+      headers: Headers,
     });
   });
 
   test(".get() (throws an error)", async () => {
     const error = "Some error message";
     const command = "returnTicker";
-    nock(ApiUri)
-      .get("/public")
-      .query({ command })
-      .reply(200, { error });
+    nock(ApiUri).get("/public").query({ command }).reply(200, { error });
 
     try {
       await client.get({ qs: { command } });
@@ -71,7 +68,7 @@ suite("PublicClient", () => {
         quoteVolume: "1064.67078796",
         isFrozen: "0",
         high24hr: "9325.00000000",
-        low24hr: "8732.23922667"
+        low24hr: "8732.23922667",
       },
       BTC_ETH: {
         id: 148,
@@ -83,14 +80,11 @@ suite("PublicClient", () => {
         quoteVolume: "8544.98856973",
         isFrozen: "0",
         high24hr: "0.03079000",
-        low24hr: "0.02938000"
-      }
+        low24hr: "0.02938000",
+      },
     };
     const command = "returnTicker";
-    nock(ApiUri)
-      .get("/public")
-      .query({ command })
-      .reply(200, tickers);
+    nock(ApiUri).get("/public").query({ command }).reply(200, tickers);
 
     const data = await client.getTickers();
     assert.deepStrictEqual(data, tickers);
@@ -102,13 +96,10 @@ suite("PublicClient", () => {
       USDT_ETH: { USDT: "895368.56029939", ETH: "3331.80491546" },
       totalETH: "370.77305935",
       totalBTC: "1845.83395826",
-      totalUSDT: "11287088.18195494"
+      totalUSDT: "11287088.18195494",
     };
     const command = "return24hVolume";
-    nock(ApiUri)
-      .get("/public")
-      .query({ command })
-      .reply(200, volume);
+    nock(ApiUri).get("/public").query({ command }).reply(200, volume);
 
     const data = await client.getVolume();
     assert.deepStrictEqual(data, volume);
@@ -119,27 +110,27 @@ suite("PublicClient", () => {
       USDT_BTC: {
         asks: [
           ["9297.44488770", 0.143181],
-          ["9298.08427869", 0.0001161]
+          ["9298.08427869", 0.0001161],
         ],
         bids: [
           ["9297.24540399", 1.46374898],
-          ["9297.24540398", 0.0443]
+          ["9297.24540398", 0.0443],
         ],
         isFrozen: "0",
-        seq: 376097564
+        seq: 376097564,
       },
       BTC_ETH: {
         asks: [
           ["0.02930568", 0.56225405],
-          ["0.02931998", 1]
+          ["0.02931998", 1],
         ],
         bids: [
           ["0.02930505", 0.00011779],
-          ["0.02929320", 25]
+          ["0.02929320", 25],
         ],
         isFrozen: "0",
-        seq: 711985070
-      }
+        seq: 711985070,
+      },
     };
     const command = "returnOrderBook";
     const currencyPair = "all";
@@ -157,14 +148,14 @@ suite("PublicClient", () => {
     const book: OrderBook = {
       asks: [
         ["9297.44488770", 0.143181],
-        ["9298.08427869", 0.0001161]
+        ["9298.08427869", 0.0001161],
       ],
       bids: [
         ["9297.24540399", 1.46374898],
-        ["9297.24540398", 0.0443]
+        ["9297.24540398", 0.0443],
       ],
       isFrozen: "0",
-      seq: 376097564
+      seq: 376097564,
     };
     const command = "returnOrderBook";
     const currencyPair = DefaultPair;
@@ -182,14 +173,14 @@ suite("PublicClient", () => {
     const book: OrderBook = {
       asks: [
         ["9297.44488770", 0.143181],
-        ["9298.08427869", 0.0001161]
+        ["9298.08427869", 0.0001161],
       ],
       bids: [
         ["9297.24540399", 1.46374898],
-        ["9297.24540398", 0.0443]
+        ["9297.24540398", 0.0443],
       ],
       isFrozen: "0",
-      seq: 376097564
+      seq: 376097564,
     };
     const command = "returnOrderBook";
     const currencyPair = "USDT_BTC";
@@ -207,14 +198,14 @@ suite("PublicClient", () => {
     const book: OrderBook = {
       asks: [
         ["9297.44488770", 0.143181],
-        ["9298.08427869", 0.0001161]
+        ["9298.08427869", 0.0001161],
       ],
       bids: [
         ["9297.24540399", 1.46374898],
-        ["9297.24540398", 0.0443]
+        ["9297.24540398", 0.0443],
       ],
       isFrozen: "0",
-      seq: 376097564
+      seq: 376097564,
     };
     const command = "returnOrderBook";
     const currencyPair = DefaultPair;
@@ -238,7 +229,7 @@ suite("PublicClient", () => {
         rate: "9257.23051444",
         amount: "0.01394711",
         total: "129.11161228",
-        orderNumber: 277619132092
+        orderNumber: 277619132092,
       },
       {
         globalTradeID: 420170477,
@@ -248,7 +239,7 @@ suite("PublicClient", () => {
         rate: "9257.18336240",
         amount: "0.07792262",
         total: "721.34398141",
-        orderNumber: 277619040184
+        orderNumber: 277619040184,
       },
       {
         globalTradeID: 420170476,
@@ -258,8 +249,8 @@ suite("PublicClient", () => {
         rate: "9257.18336240",
         amount: "0.00259138",
         total: "23.98887982",
-        orderNumber: 277619039185
-      }
+        orderNumber: 277619039185,
+      },
     ];
     const command = "returnTradeHistory";
     const currencyPair = "USDT_BTC";
@@ -284,7 +275,7 @@ suite("PublicClient", () => {
         rate: "9257.23051444",
         amount: "0.01394711",
         total: "129.11161228",
-        orderNumber: 277619132092
+        orderNumber: 277619132092,
       },
       {
         globalTradeID: 420170477,
@@ -294,7 +285,7 @@ suite("PublicClient", () => {
         rate: "9257.18336240",
         amount: "0.07792262",
         total: "721.34398141",
-        orderNumber: 277619040184
+        orderNumber: 277619040184,
       },
       {
         globalTradeID: 420170476,
@@ -304,8 +295,8 @@ suite("PublicClient", () => {
         rate: "9257.18336240",
         amount: "0.00259138",
         total: "23.98887982",
-        orderNumber: 277619039185
-      }
+        orderNumber: 277619039185,
+      },
     ];
     const command = "returnTradeHistory";
     const currencyPair = DefaultPair;
@@ -330,7 +321,7 @@ suite("PublicClient", () => {
         rate: "9257.23051444",
         amount: "0.01394711",
         total: "129.11161228",
-        orderNumber: 277619132092
+        orderNumber: 277619132092,
       },
       {
         globalTradeID: 420170477,
@@ -340,7 +331,7 @@ suite("PublicClient", () => {
         rate: "9257.18336240",
         amount: "0.07792262",
         total: "721.34398141",
-        orderNumber: 277619040184
+        orderNumber: 277619040184,
       },
       {
         globalTradeID: 420170476,
@@ -350,8 +341,8 @@ suite("PublicClient", () => {
         rate: "9257.18336240",
         amount: "0.00259138",
         total: "23.98887982",
-        orderNumber: 277619039185
-      }
+        orderNumber: 277619039185,
+      },
     ];
     const command = "returnTradeHistory";
     const currencyPair = DefaultPair;
@@ -374,7 +365,7 @@ suite("PublicClient", () => {
         close: 8809.26970927,
         volume: 0,
         quoteVolume: 0,
-        weightedAverage: 8809.26970927
+        weightedAverage: 8809.26970927,
       },
       {
         date: 1560643200,
@@ -384,7 +375,7 @@ suite("PublicClient", () => {
         close: 8968.92286817,
         volume: 11929575.934481,
         quoteVolume: 1317.2708549,
-        weightedAverage: 9056.28169795
+        weightedAverage: 9056.28169795,
       },
       {
         date: 1560729600,
@@ -394,8 +385,8 @@ suite("PublicClient", () => {
         close: 9157.79085762,
         volume: 3895287.1624447,
         quoteVolume: 423.63287478,
-        weightedAverage: 9194.95958491
-      }
+        weightedAverage: 9194.95958491,
+      },
     ];
     const currencyPair = "BTC_XMR";
     const command = "returnChartData";
@@ -411,7 +402,7 @@ suite("PublicClient", () => {
       period,
       start,
       currencyPair,
-      end
+      end,
     });
     assert.deepStrictEqual(data, candles);
   });
@@ -426,7 +417,7 @@ suite("PublicClient", () => {
         close: 8809.26970927,
         volume: 0,
         quoteVolume: 0,
-        weightedAverage: 8809.26970927
+        weightedAverage: 8809.26970927,
       },
       {
         date: 1560643200,
@@ -436,7 +427,7 @@ suite("PublicClient", () => {
         close: 8968.92286817,
         volume: 11929575.934481,
         quoteVolume: 1317.2708549,
-        weightedAverage: 9056.28169795
+        weightedAverage: 9056.28169795,
       },
       {
         date: 1560729600,
@@ -446,8 +437,8 @@ suite("PublicClient", () => {
         close: 9157.79085762,
         volume: 3895287.1624447,
         quoteVolume: 423.63287478,
-        weightedAverage: 9194.95958491
-      }
+        weightedAverage: 9194.95958491,
+      },
     ];
     const currencyPair = DefaultPair;
     const command = "returnChartData";
@@ -476,7 +467,7 @@ suite("PublicClient", () => {
         disabled: 0,
         delisted: 0,
         frozen: 0,
-        isGeofenced: 0
+        isGeofenced: 0,
       },
       USDT: {
         id: 214,
@@ -489,14 +480,11 @@ suite("PublicClient", () => {
         disabled: 0,
         delisted: 0,
         frozen: 0,
-        isGeofenced: 0
-      }
+        isGeofenced: 0,
+      },
     };
     const command = "returnCurrencies";
-    nock(ApiUri)
-      .get("/public")
-      .query({ command })
-      .reply(200, currencies);
+    nock(ApiUri).get("/public").query({ command }).reply(200, currencies);
 
     const data = await client.getCurrencies();
     assert.deepStrictEqual(data, currencies);
@@ -508,17 +496,14 @@ suite("PublicClient", () => {
     const loans: Loans = {
       offers: [
         { rate: "0.00005900", amount: "0.01961918", rangeMin: 2, rangeMax: 2 },
-        { rate: "0.00006000", amount: "62.24928418", rangeMin: 2, rangeMax: 2 }
+        { rate: "0.00006000", amount: "62.24928418", rangeMin: 2, rangeMax: 2 },
       ],
       demands: [
         { rate: "0.02000000", amount: "0.00100014", rangeMin: 2, rangeMax: 2 },
-        { rate: "0.00001000", amount: "0.04190154", rangeMin: 2, rangeMax: 2 }
-      ]
+        { rate: "0.00001000", amount: "0.04190154", rangeMin: 2, rangeMax: 2 },
+      ],
     };
-    nock(ApiUri)
-      .get("/public")
-      .query({ currency, command })
-      .reply(200, loans);
+    nock(ApiUri).get("/public").query({ currency, command }).reply(200, loans);
 
     const data = await client.getLoanOrders({ currency });
     assert.deepStrictEqual(data, loans);

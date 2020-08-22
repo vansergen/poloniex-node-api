@@ -1,5 +1,6 @@
 src/
 test/
+build/test/
 .circleci/
 .github/
 tsconfig.json
@@ -7,3 +8,4 @@ index.ts
 CODE_OF_CONDUCT.md
 .eslintrc.json
 typedoc.json
+.snyk

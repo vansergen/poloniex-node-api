@@ -6,7 +6,7 @@ export const DefaultPair = "USDT_BTC";
 export const ApiLimit = 100;
 export const Headers = {
   "User-Agent": "poloniex-node-api-client",
-  "X-Requested-With": "XMLHttpRequest"
+  "X-Requested-With": "XMLHttpRequest",
 };
 
 export type CurrencyPair = { currencyPair?: string };
@@ -115,7 +115,7 @@ export class PublicClient extends RPC {
   constructor({
     currencyPair = DefaultPair,
     apiUri = ApiUri,
-    timeout = DefaultTimeout
+    timeout = DefaultTimeout,
   }: PublicClientOptions = {}) {
     super({ baseUrl: apiUri, json: true, headers: Headers, timeout });
     this.currencyPair = currencyPair;
@@ -149,7 +149,7 @@ export class PublicClient extends RPC {
    */
   getOrderBook({
     currencyPair = this.currencyPair,
-    depth = ApiLimit
+    depth = ApiLimit,
   }: BookFilter = {}): Promise<OrderBook> {
     const qs = { command: "returnOrderBook", currencyPair, depth };
     return this.get({ qs });

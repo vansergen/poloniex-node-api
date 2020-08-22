@@ -295,7 +295,7 @@ export class WebsocketClient extends EventEmitter {
     raw = true,
     channels = DefaultChannels,
     key,
-    secret
+    secret,
   }: WebsocketClientOptions = {}) {
     super();
     this.wsUri = wsUri;
@@ -450,8 +450,8 @@ export class WebsocketClient extends EventEmitter {
       quoteVolume,
       isFrozen,
       high24hr,
-      low24hr
-    ]
+      low24hr,
+    ],
   ]: RawTickerMessage): WsTicker {
     return {
       subject: "ticker",
@@ -466,21 +466,21 @@ export class WebsocketClient extends EventEmitter {
       quoteVolume,
       isFrozen: isFrozen ? true : false,
       high24hr,
-      low24hr
+      low24hr,
     };
   }
 
   static formatVolume([
     channel_id,
     ,
-    [time, users, volume]
+    [time, users, volume],
   ]: RawVolumeMessage): WsVolume {
     return { subject: "volume", channel_id, time, users, volume };
   }
 
   static formatSnapshot([
     ,
-    { currencyPair, orderBook }
+    { currencyPair, orderBook },
   ]: RawSnapshot): WsSnapshot {
     const [asks, bids] = orderBook;
     return { subject: "snapshot", currencyPair, asks, bids };
@@ -492,7 +492,7 @@ export class WebsocketClient extends EventEmitter {
     side,
     price,
     size,
-    timestamp
+    timestamp,
   ]: RawPublicTrade): WsPublicTrade {
     const type = side === 1 ? "buy" : "sell";
     return { subject: "publicTrade", tradeID, type, price, size, timestamp };
@@ -509,7 +509,7 @@ export class WebsocketClient extends EventEmitter {
 
   static formatAcknowledge([
     channel_id,
-    sequence
+    sequence,
   ]: RawAcknowledgement): WsAcknowledgement {
     const subject = sequence ? "subscribed" : "unsubscribed";
     return { subject, channel_id };
@@ -518,7 +518,7 @@ export class WebsocketClient extends EventEmitter {
   static formatUpdate([
     channel_id,
     sequence,
-    messages
+    messages,
   ]: RawPriceAggregatedBook): WsBookMessage[] {
     const output: WsBookMessage[] = [];
     const currencyPair = CurrencyPairs[channel_id];
@@ -532,7 +532,7 @@ export class WebsocketClient extends EventEmitter {
           currencyPair,
           channel_id,
           sequence,
-          ...msg
+          ...msg,
         });
       } else {
         const msg = WebsocketClient.formatBookUpdate(message);
@@ -549,7 +549,7 @@ export class WebsocketClient extends EventEmitter {
     rate,
     amount,
     type,
-    clientOrderId
+    clientOrderId,
   ]: RawPendingOrder): WsPendingOrder {
     return {
       subject: "pending",
@@ -559,7 +559,7 @@ export class WebsocketClient extends EventEmitter {
       rate,
       amount,
       type: type === "0" ? "sell" : "buy",
-      clientOrderId
+      clientOrderId,
     };
   }
 
@@ -572,7 +572,7 @@ export class WebsocketClient extends EventEmitter {
     amount,
     date,
     originalAmount,
-    clientOrderId
+    clientOrderId,
   ]: RawNewOrder): WsNewOrder {
     return {
       subject: "new",
@@ -584,7 +584,7 @@ export class WebsocketClient extends EventEmitter {
       amount,
       date,
       originalAmount,
-      clientOrderId
+      clientOrderId,
     };
   }
 
@@ -599,7 +599,7 @@ export class WebsocketClient extends EventEmitter {
     orderNumber,
     newAmount,
     t,
-    clientOrderId
+    clientOrderId,
   ]: RawOrder): WsOrder {
     const subject = "order";
     const orderType =
@@ -617,7 +617,7 @@ export class WebsocketClient extends EventEmitter {
     orderNumber,
     fee,
     date,
-    clientOrderId
+    clientOrderId,
   ]: RawTrade): WsTrade {
     return {
       subject: "trade",
@@ -629,7 +629,7 @@ export class WebsocketClient extends EventEmitter {
       orderNumber,
       fee,
       date,
-      clientOrderId
+      clientOrderId,
     };
   }
 
@@ -640,7 +640,7 @@ export class WebsocketClient extends EventEmitter {
   static formatAccount([
     channel_id,
     ,
-    messages
+    messages,
   ]: RawAccountMessage): WsAccountMessage[] {
     const output: WsAccountMessage[] = [];
     for (const message of messages) {

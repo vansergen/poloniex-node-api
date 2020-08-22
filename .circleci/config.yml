@@ -20,6 +20,9 @@ shared: &shared
         name: npm postpublish
         command: npm run postpublish
     - run:
+        name: Snyk
+        command: npm run snyk-protect
+    - run:
         name: Coveralls
         command: npm run coverage-ci
 
@@ -40,6 +43,10 @@ jobs:
     <<: *shared
     docker:
       - image: circleci/node:13
+  node-14:
+    <<: *shared
+    docker:
+      - image: circleci/node:14
   coverage:
     docker:
       - image: circleci/node:12
@@ -56,9 +63,11 @@ workflows:
       - node-11
       - node-12
       - node-13
+      - node-14
       - coverage:
           requires:
             - node-10
             - node-11
             - node-12
             - node-13
+            - node-14
