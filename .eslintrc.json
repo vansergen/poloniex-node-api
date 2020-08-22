@@ -6,6 +6,12 @@
   ],
   "overrides": [
     {
+      "files": ["*.spec.js"],
+      "env": {
+        "mocha": true
+      }
+    },
+    {
       "files": ["*.js"],
       "rules": {
         "@typescript-eslint/explicit-function-return-type": "off",
@@ -16,12 +22,6 @@
       "files": ["*.d.ts"],
       "rules": {
         "@typescript-eslint/no-explicit-any": "off"
-      }
-    },
-    {
-      "files": ["./build/index.js"],
-      "rules": {
-        "no-prototype-builtins": "off"
       }
     }
   ],
@@ -40,7 +40,7 @@
     "eqeqeq": "error",
     "linebreak-style": "error",
     "no-console": "error",
-    "quotes": "error",
+    "quotes": ["error", "double", { "avoidEscape": true }],
     "prefer-destructuring": "error",
     "semi": "error",
     "@typescript-eslint/camelcase": "off"
