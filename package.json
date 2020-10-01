@@ -44,7 +44,7 @@
   },
   "homepage": "https://github.com/vansergen/poloniex-node-api#readme",
   "dependencies": {
-    "@types/ws": "^7.2.6",
+    "@types/ws": "^7.2.7",
     "rpc-request": "^4.0.10",
     "ws": "^7.3.1"
   },
