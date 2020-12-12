@@ -1,18 +1,6 @@
 {
+  "extends": "@b2broker/tsconfig",
   "compilerOptions": {
-    "target": "esnext",
-    "module": "commonjs",
-    "declaration": true,
-    "outDir": "./build",
-    "newLine": "lf",
-    "strict": true,
-    "noImplicitAny": true,
-    "noImplicitThis": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true,
-    "removeComments": true,
-    "forceConsistentCasingInFileNames": true
+    "outDir": "./build"
   }
 }
