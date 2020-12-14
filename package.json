@@ -15,6 +15,8 @@
     "build": "npm run build:remove && tsc",
     "build:remove": "rm -rf ./build",
     "build:test": "npm run build && npm run build:remove",
+    "commitlint": "commitlint --verbose",
+    "commitlint:all": "npm run commitlint -- --from=365c8e3e62a60820dbb3136f7928495248770395",
     "coverage": "nyc npm test && nyc report --reporter=lcov",
     "docs:build": "npm run docs:remove && typedoc && npm run lint:fix && npm run prettier:write -- --ignore-path .prettierignore_docs",
     "docs:remove": "rm -rf ./docs",
@@ -57,6 +59,7 @@
     "@types/mocha": "^8.2.0",
     "@typescript-eslint/eslint-plugin": "^3.9.1",
     "@typescript-eslint/parser": "^3.9.1",
+    "commitlint-config-b2broker": "^1.0.0",
     "coveralls": "^3.1.0",
     "eslint": "^7.7.0",
     "husky": "^4.2.5",
@@ -69,11 +72,6 @@
     "ts-node": "^9.1.1",
     "typedoc": "^0.19.2",
     "typescript": "^4.0.2"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
   },
   "lint-staged": {
     "*.{js,ts,json,md}": [
