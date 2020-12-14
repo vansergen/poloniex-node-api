@@ -66,13 +66,11 @@
     "nock": "^13.0.5",
     "nyc": "^15.1.0",
     "prettier": "^2.2.1",
-    "snyk": "^1.381.1",
     "ts-node": "^9.1.1",
     "typedoc": "^0.19.2"
   },
   "funding": {
     "type": "Coinbase Commerce",
     "url": "https://commerce.coinbase.com/checkout/8e527468-c00a-49e9-aa1d-a08bf49d1686"
-  },
-  "snyk": true
+  }
 }
