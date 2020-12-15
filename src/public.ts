@@ -111,11 +111,24 @@ export interface CurrencyInfo {
   disabled: 0 | 1;
   delisted: 0 | 1;
   frozen: 0 | 1;
+  hexColor: string;
+  blockchain: string | null;
   isGeofenced: 0 | 1;
+}
+
+export interface ExtendedCurrencyInfo extends CurrencyInfo {
+  parentChain: string | null;
+  isMultiChain: 0 | 1;
+  isChildChain: 0 | 1;
+  childChains: string[];
 }
 
 export interface Currencies {
   [currency: string]: CurrencyInfo;
+}
+
+export interface ExtendedCurrencies {
+  [currency: string]: ExtendedCurrencyInfo;
 }
 
 export interface Loan {
@@ -213,10 +226,18 @@ export class PublicClient extends FetchClient<unknown> {
   /**
    * Get information about currencies.
    */
-  public async getCurrencies(): Promise<Currencies> {
+  public async getCurrencies(params: {
+    includeMultiChainCurrencies: true;
+  }): Promise<ExtendedCurrencies>;
+  public async getCurrencies(params?: {
+    includeMultiChainCurrencies?: boolean;
+  }): Promise<Currencies>;
+  public async getCurrencies({
+    includeMultiChainCurrencies = false,
+  } = {}): Promise<ExtendedCurrencies | Currencies> {
     const command = "returnCurrencies";
     const url = new URL("/public", ApiUri);
-    PublicClient.addOptions(url, { command });
+    PublicClient.addOptions(url, { command, includeMultiChainCurrencies });
     const currencies = (await this.get(url.toString())) as Currencies;
     return currencies;
   }
@@ -234,7 +255,7 @@ export class PublicClient extends FetchClient<unknown> {
 
   protected static addOptions(
     target: URL | URLSearchParams,
-    data: Record<string, string | number | undefined>
+    data: Record<string, string | number | boolean | undefined>
   ): void {
     const searchParams = target instanceof URL ? target.searchParams : target;
     for (const key in data) {
