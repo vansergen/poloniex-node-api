@@ -156,6 +156,7 @@ export interface Order {
   total: string;
   date: string;
   margin: 0 | 1;
+  clientOrderId?: string;
 }
 
 export type Orders = { [currencyPair: string]: Order[] } | Order[];
