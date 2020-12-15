@@ -36,8 +36,8 @@ import {
   WsKill,
   RawAccountMessage,
   WsAccountMessage,
+  Currencies,
 } from "../index";
-import { Currencies } from "../src/currencies";
 import { Server, OPEN, CONNECTING, CLOSING, CLOSED } from "ws";
 
 const port = 10010;

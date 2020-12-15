@@ -10,7 +10,7 @@ import {
   OrderBook,
   Trade,
   Candle,
-  Currencies,
+  ICurrencies,
   ExtendedCurrencies,
   Loans,
 } from "../index";
@@ -435,7 +435,7 @@ suite("PublicClient", () => {
   });
 
   test(".getCurrencies()", async () => {
-    const currencies: Currencies = {
+    const currencies: ICurrencies = {
       BTC: {
         id: 28,
         name: "Bitcoin",

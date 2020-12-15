@@ -123,7 +123,7 @@ export interface ExtendedCurrencyInfo extends CurrencyInfo {
   childChains: string[];
 }
 
-export interface Currencies {
+export interface ICurrencies {
   [currency: string]: CurrencyInfo;
 }
 
@@ -231,14 +231,14 @@ export class PublicClient extends FetchClient<unknown> {
   }): Promise<ExtendedCurrencies>;
   public async getCurrencies(params?: {
     includeMultiChainCurrencies?: boolean;
-  }): Promise<Currencies>;
+  }): Promise<ICurrencies>;
   public async getCurrencies({
     includeMultiChainCurrencies = false,
-  } = {}): Promise<ExtendedCurrencies | Currencies> {
+  } = {}): Promise<ExtendedCurrencies | ICurrencies> {
     const command = "returnCurrencies";
     const url = new URL("/public", ApiUri);
     PublicClient.addOptions(url, { command, includeMultiChainCurrencies });
-    const currencies = (await this.get(url.toString())) as Currencies;
+    const currencies = (await this.get(url.toString())) as ICurrencies;
     return currencies;
   }
 
