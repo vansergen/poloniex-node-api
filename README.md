@@ -59,7 +59,8 @@ const candles = await client.getChartData({ currencyPair, period, start, end });
 - [`getCurrencies`](https://docs.poloniex.com/?shell#returncurrencies)
 
 ```typescript
-const currencies = await client.getCurrencies();
+const includeMultiChainCurrencies = true;
+const currencies = await client.getCurrencies({ includeMultiChainCurrencies });
 ```
 
 - [`getLoanOrders`](https://docs.poloniex.com/?shell#returnloanorders)
