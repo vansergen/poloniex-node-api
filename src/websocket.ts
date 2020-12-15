@@ -9,12 +9,14 @@ export const DefaultChannels = [121];
 
 export type Channel = number | string;
 
-export type Subscription = {
+export interface Subscription {
   command: "subscribe" | "unsubscribe";
   channel: Channel;
-};
+}
 
-export type RawError = { error: string };
+export interface RawError {
+  error: string;
+}
 
 export type RawWsHeartbeat = [1010];
 
@@ -87,6 +89,8 @@ export type RawBalance = ["b", number, "e" | "m" | "l", string];
 
 export type RawOrder = ["o", number, string, "f" | "s" | "c", string | null];
 
+export type RawMarginUpdate = ["m", number, number, string, string | null];
+
 export type RawTrade = [
   "t",
   number,
@@ -105,7 +109,15 @@ export type RawKill = ["k", number, string | null];
 export type RawAccountMessage = [
   1000,
   "",
-  (RawPendingOrder | RawNewOrder | RawBalance | RawOrder | RawTrade | RawKill)[]
+  (
+    | RawPendingOrder
+    | RawNewOrder
+    | RawBalance
+    | RawOrder
+    | RawMarginUpdate
+    | RawTrade
+    | RawKill
+  )[]
 ];
 
 export type RawMessage =
@@ -117,22 +129,22 @@ export type RawMessage =
   | RawAccountMessage
   | RawError;
 
-export type BaseMessage = {
+export interface BaseMessage {
   channel_id: Channel;
   subject: string;
   sequence?: number | string | null;
-};
+}
 
-export type WsHeartbeat = BaseMessage & {
+export interface WsHeartbeat extends BaseMessage {
   channel_id: 1010;
   subject: "heartbeat";
-};
+}
 
-export type WsAcknowledgement = BaseMessage & {
+export interface WsAcknowledgement extends BaseMessage {
   subject: "subscribed" | "unsubscribed";
-};
+}
 
-export type WsTicker = BaseMessage & {
+export interface WsTicker extends BaseMessage {
   subject: "ticker";
   channel_id: 1002;
   currencyPairId: number;
@@ -146,45 +158,45 @@ export type WsTicker = BaseMessage & {
   isFrozen: boolean;
   high24hr: string;
   low24hr: string;
-};
+}
 
-export type WsVolume = BaseMessage & {
+export interface WsVolume extends BaseMessage {
   subject: "volume";
   channel_id: 1003;
   time: string;
   users: number;
   volume: { [currency: string]: string };
-};
+}
 
-export type WsSnapshot = {
+export interface WsSnapshot {
   subject: "snapshot";
   currencyPair: string;
   asks: { [price: string]: string };
   bids: { [price: string]: string };
-};
+}
 
-export type WsPublicTrade = {
+export interface WsPublicTrade {
   subject: "publicTrade";
   tradeID: string;
   type: "buy" | "sell";
   price: string;
   size: string;
   timestamp: number;
-};
+}
 
-export type WsBookUpdate = {
+export interface WsBookUpdate {
   subject: "update";
   type: "bid" | "ask";
   price: string;
   size: string;
-};
+}
 
 export type WsBookMessage = BaseMessage & {
   sequence: number;
   currencyPair?: string;
 } & (WsSnapshot | WsPublicTrade | WsBookUpdate);
 
-export type WsPendingOrder = {
+export interface WsPendingOrder {
   subject: "pending";
   orderNumber: number;
   currencyPairId: number;
@@ -193,9 +205,9 @@ export type WsPendingOrder = {
   amount: string;
   type: "buy" | "sell";
   clientOrderId: string | null;
-};
+}
 
-export type WsNewOrder = {
+export interface WsNewOrder {
   subject: "new";
   currencyPairId: number;
   currencyPair?: string;
@@ -206,25 +218,33 @@ export type WsNewOrder = {
   date: string;
   originalAmount: string;
   clientOrderId: string | null;
-};
+}
 
-export type WsBalance = {
+export interface WsBalance {
   subject: "balance";
   currencyId: number;
   currency?: string;
   wallet: "exchange" | "margin" | "lending";
   amount: string;
-};
+}
 
-export type WsOrder = {
+export interface WsOrder {
   subject: "order";
   orderNumber: number;
   newAmount: string;
   orderType: "filled" | "canceled" | "self-trade";
   clientOrderId: string | null;
-};
+}
 
-export type WsTrade = {
+export interface WsMarginUpdate {
+  subject: "margin";
+  orderNumber: number;
+  currency: string;
+  amount: string;
+  clientOrderId?: string | null;
+}
+
+export interface WsTrade {
   subject: "trade";
   tradeID: number;
   rate: string;
@@ -235,16 +255,24 @@ export type WsTrade = {
   fee: string;
   date: string;
   clientOrderId: string | null;
-};
+}
 
-export type WsKill = {
+export interface WsKill {
   subject: "killed";
   orderNumber: number;
   clientOrderId: string | null;
-};
+}
 
 export type WsAccountMessage = BaseMessage &
-  (WsPendingOrder | WsNewOrder | WsBalance | WsOrder | WsTrade | WsKill);
+  (
+    | WsPendingOrder
+    | WsNewOrder
+    | WsBalance
+    | WsOrder
+    | WsMarginUpdate
+    | WsTrade
+    | WsKill
+  );
 
 export type WsMessage =
   | WsHeartbeat
@@ -254,13 +282,13 @@ export type WsMessage =
   | WsBookMessage
   | WsAccountMessage;
 
-export type WebsocketClientOptions = {
+export interface WebsocketClientOptions {
   wsUri?: string;
   raw?: boolean;
   channels?: Channel[];
   key?: string;
   secret?: string;
-};
+}
 
 export declare interface WebsocketClient {
   on(event: "open" | "close", eventListener: () => void): this;
@@ -650,6 +678,23 @@ export class WebsocketClient extends EventEmitter {
     return { subject, orderNumber, newAmount, orderType, clientOrderId };
   }
 
+  public static formatMarginUpdate([
+    ,
+    orderNumber,
+    currency,
+    amount,
+    clientOrderId,
+  ]: RawMarginUpdate): WsMarginUpdate {
+    const subject = "margin";
+    return {
+      subject,
+      orderNumber,
+      currency: Currencies[currency] ?? `${currency}`,
+      amount,
+      clientOrderId,
+    };
+  }
+
   public static formatTrade([
     ,
     tradeID,
@@ -698,6 +743,9 @@ export class WebsocketClient extends EventEmitter {
         output.push({ channel_id, ...msg });
       } else if (message[0] === "o") {
         const msg = WebsocketClient.formatOrder(message);
+        output.push({ channel_id, ...msg });
+      } else if (message[0] === "m") {
+        const msg = WebsocketClient.formatMarginUpdate(message);
         output.push({ channel_id, ...msg });
       } else if (message[0] === "t") {
         const msg = WebsocketClient.formatTrade(message);
