@@ -1,4 +1,4 @@
-# Poloniex Node.js API [![CircleCI](https://circleci.com/gh/vansergen/poloniex-node-api.svg?style=svg)](https://circleci.com/gh/vansergen/poloniex-node-api) [![GitHub version](https://badge.fury.io/gh/vansergen%2Fpoloniex-node-api.svg)](https://badge.fury.io/gh/vansergen%2Fpoloniex-node-api) [![Known Vulnerabilities](https://snyk.io/test/github/vansergen/poloniex-node-api/badge.svg)](https://snyk.io/test/github/vansergen/poloniex-node-api) [![Coverage Status](https://coveralls.io/repos/github/vansergen/poloniex-node-api/badge.svg?branch=master)](https://coveralls.io/github/vansergen/poloniex-node-api?branch=master) [![languages](https://img.shields.io/github/languages/top/vansergen/poloniex-node-api.svg)](https://github.com/vansergen/poloniex-node-api) ![node](https://img.shields.io/node/v/poloniex-node-api) [![npm downloads](https://img.shields.io/npm/dt/poloniex-node-api.svg)](https://www.npmjs.com/package/poloniex-node-api) [![license](https://img.shields.io/github/license/vansergen/poloniex-node-api.svg)](https://github.com/vansergen/poloniex-node-api/blob/master/LICENSE)
+# Poloniex Node.js API ![CI Status](https://github.com/vansergen/poloniex-node-api/workflows/CI/badge.svg) ![npm](https://img.shields.io/npm/v/poloniex-node-api) [![Coverage Status](https://coveralls.io/repos/github/vansergen/poloniex-node-api/badge.svg?branch=master)](https://coveralls.io/github/vansergen/poloniex-node-api?branch=master) [![Known Vulnerabilities](https://snyk.io/test/github/vansergen/poloniex-node-api/badge.svg)](https://snyk.io/test/github/vansergen/poloniex-node-api) [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier) [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release) [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org) ![NPM license](https://img.shields.io/npm/l/poloniex-node-api) ![node version](https://img.shields.io/node/v/poloniex-node-api) ![npm downloads](https://img.shields.io/npm/dt/poloniex-node-api) ![GitHub top language](https://img.shields.io/github/languages/top/vansergen/poloniex-node-api)
 
 Node.js library for [Poloniex](https://docs.poloniex.com/).
 
@@ -370,25 +370,25 @@ websocket.on("message", (message) => console.info(message));
 - `connect`
 
 ```typescript
-websocket.connect();
+await websocket.connect();
 ```
 
 - `disconnect`
 
 ```typescript
-websocket.disconnect();
+await websocket.disconnect();
 ```
 
 - [`subscribe`](https://docs.poloniex.com/#subscribing-and-unsubscribing)
 
 ```typescript
-websocket.subscribe(1003);
+await websocket.subscribe(1003);
 ```
 
 - [`unsubscribe`](https://docs.poloniex.com/#subscribing-and-unsubscribing)
 
 ```typescript
-websocket.unsubscribe("BTC_ZEC");
+await websocket.unsubscribe("BTC_ZEC");
 ```
 
 ### Test
