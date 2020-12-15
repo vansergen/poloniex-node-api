@@ -1,6 +1,1 @@
-{
-  "extends": ["b2broker-ts"],
-  "parserOptions": {
-    "project": "tsconfig.json"
-  }
-}
+{ "extends": ["b2broker-ts"], "parserOptions": { "project": "tsconfig.json" } }
