@@ -11,6 +11,7 @@ import {
   Trade,
   Candle,
   Currencies,
+  ExtendedCurrencies,
   Loans,
 } from "../index";
 
@@ -444,8 +445,10 @@ suite("PublicClient", () => {
         minConf: 1,
         depositAddress: null,
         disabled: 0,
-        delisted: 0,
         frozen: 0,
+        hexColor: "F59C3D",
+        blockchain: "BTC",
+        delisted: 0,
         isGeofenced: 0,
       },
       USDT: {
@@ -453,19 +456,77 @@ suite("PublicClient", () => {
         name: "Tether USD",
         humanType: "Sweep to Main Account",
         currencyType: "address",
-        txFee: "10.00000000",
+        txFee: "60.00000000",
         minConf: 2,
         depositAddress: null,
         disabled: 0,
-        delisted: 0,
         frozen: 0,
+        hexColor: "44A58B",
+        blockchain: "OMNI",
+        delisted: 0,
         isGeofenced: 0,
       },
     };
     const command = "returnCurrencies";
-    nock(ApiUri).get("/public").query({ command }).reply(200, currencies);
+    const includeMultiChainCurrencies = false;
+    nock(ApiUri)
+      .get("/public")
+      .query({ command, includeMultiChainCurrencies })
+      .reply(200, currencies);
 
     const data = await client.getCurrencies();
+    assert.deepStrictEqual(data, currencies);
+  });
+
+  test(".getCurrencies() (with `includeMultiChainCurrencies`)", async () => {
+    const currencies: ExtendedCurrencies = {
+      BTC: {
+        id: 28,
+        name: "Bitcoin",
+        humanType: "BTC Clone",
+        currencyType: "address",
+        txFee: "0.00050000",
+        minConf: 1,
+        depositAddress: null,
+        disabled: 0,
+        frozen: 0,
+        hexColor: "F59C3D",
+        blockchain: "BTC",
+        delisted: 0,
+        parentChain: null,
+        isMultiChain: 1,
+        isChildChain: 0,
+        childChains: ["BTCTRON"],
+        isGeofenced: 0,
+      },
+      USDT: {
+        id: 214,
+        name: "Tether USD",
+        humanType: "Sweep to Main Account",
+        currencyType: "address",
+        txFee: "60.00000000",
+        minConf: 2,
+        depositAddress: null,
+        disabled: 0,
+        frozen: 0,
+        hexColor: "44A58B",
+        blockchain: "OMNI",
+        delisted: 0,
+        parentChain: null,
+        isMultiChain: 1,
+        isChildChain: 0,
+        childChains: ["USDTETH", "USDTTRON"],
+        isGeofenced: 0,
+      },
+    };
+    const command = "returnCurrencies";
+    const includeMultiChainCurrencies = true;
+    nock(ApiUri)
+      .get("/public")
+      .query({ command, includeMultiChainCurrencies })
+      .reply(200, currencies);
+
+    const data = await client.getCurrencies({ includeMultiChainCurrencies });
     assert.deepStrictEqual(data, currencies);
   });
 
