@@ -1,29 +1,41 @@
-import { RPC, RPCOptions } from "rpc-request";
+import { FetchClient } from "rpc-request";
 
 export const ApiUri = "https://poloniex.com";
-export const DefaultTimeout = 30000;
 export const DefaultPair = "USDT_BTC";
 export const ApiLimit = 100;
-export const Headers = {
-  "User-Agent": "poloniex-node-api-client",
-  "X-Requested-With": "XMLHttpRequest",
-};
+export const Headers = { "User-Agent": "poloniex-node-api-client" };
 
-export type CurrencyPair = { currencyPair?: string };
+export interface CurrencyPair {
+  currencyPair?: string;
+}
 
-export type BookFilter = CurrencyPair & { depth?: number };
+export interface BookFilter extends CurrencyPair {
+  depth?: number;
+}
 
-export type TradesFilter = CurrencyPair & { start?: number; end?: number };
+export interface TradesFilter extends CurrencyPair {
+  start?: number;
+  end?: number;
+}
 
-export type TimeFilter = { start: number; end: number };
+export interface TimeFilter {
+  start: number;
+  end: number;
+}
 
-export type ChartFilter = CurrencyPair & {
-  period: 300 | 900 | 1800 | 7200 | 14400 | 86400;
-} & TimeFilter;
+export type Period = 300 | 900 | 1800 | 7200 | 14400 | 86400;
 
-export type CurrencyFilter = { currency: string };
+export interface ChartFilter extends CurrencyPair {
+  period: Period;
+  start: number;
+  end: number;
+}
 
-export type TickerInfo = {
+export interface CurrencyFilter {
+  currency: string;
+}
+
+export interface TickerInfo {
   id: number;
   last: string;
   lowestAsk: string;
@@ -34,41 +46,50 @@ export type TickerInfo = {
   isFrozen: string | 0 | 1;
   high24hr: string;
   low24hr: string;
-};
+}
 
-export type Tickers = { [currency: string]: TickerInfo };
+export interface Tickers {
+  [currency: string]: TickerInfo;
+}
 
-export type Volume = { [currency: string]: string };
+export interface Volume {
+  [currency: string]: string;
+}
 
-export type Volumes = { [currency: string]: string | Volume };
+export interface Volumes {
+  [currency: string]: string | Volume;
+}
 
-export type OrderBookInfo = {
+export interface OrderBookInfo {
   asks: [string, number][];
   bids: [string, number][];
   isFrozen: string;
   seq: number;
-};
+}
 
-export type OrderBooksInfo = { [currency: string]: OrderBookInfo };
+export interface OrderBooksInfo {
+  [currency: string]: OrderBookInfo;
+}
 
 export type OrderBook = OrderBookInfo | OrderBooksInfo;
 
-export type Type = { type: "sell" | "buy" };
+export type Side = "sell" | "buy";
 
-export type BaseTrade = Type & {
+export interface BaseTrade {
+  type: Side;
   amount: string;
   date: string;
   rate: string;
   total: string;
   tradeID: number | string;
-};
+}
 
-export type Trade = BaseTrade & {
+export interface Trade extends BaseTrade {
   globalTradeID: number;
   orderNumber: number | string;
-};
+}
 
-export type Candle = {
+export interface Candle {
   date: number;
   high: number;
   low: number;
@@ -77,9 +98,9 @@ export type Candle = {
   volume: number;
   quoteVolume: number;
   weightedAverage: number;
-};
+}
 
-export type CurrencyInfo = {
+export interface CurrencyInfo {
   id: number;
   name: string;
   humanType: string;
@@ -91,39 +112,34 @@ export type CurrencyInfo = {
   delisted: 0 | 1;
   frozen: 0 | 1;
   isGeofenced: 0 | 1;
-};
+}
 
-export type Currencies = { [currency: string]: CurrencyInfo };
+export interface Currencies {
+  [currency: string]: CurrencyInfo;
+}
 
-export type Loan = {
+export interface Loan {
   rate: string;
   amount: string;
   rangeMin: number;
   rangeMax: number;
-};
+}
 
-export type Loans = { offers: Loan[]; demands: Loan[] };
+export interface Loans {
+  offers: Loan[];
+  demands: Loan[];
+}
 
-export type PublicClientOptions = CurrencyPair & {
-  apiUri?: string;
-  timeout?: number;
-};
+export class PublicClient extends FetchClient<unknown> {
+  public readonly currencyPair: string;
 
-export class PublicClient extends RPC {
-  readonly currencyPair: string;
-
-  constructor({
-    currencyPair = DefaultPair,
-    apiUri = ApiUri,
-    timeout = DefaultTimeout,
-  }: PublicClientOptions = {}) {
-    super({ baseUrl: apiUri, json: true, headers: Headers, timeout });
+  public constructor({ currencyPair = DefaultPair }: CurrencyPair = {}) {
+    super({ headers: Headers }, { transform: "json", baseUrl: ApiUri });
     this.currencyPair = currencyPair;
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  async get({ qs }: RPCOptions): Promise<any> {
-    const response = await super.get({ uri: "/public", qs });
+  public async get(url: string): Promise<unknown> {
+    const response = (await super.get(url)) as { error?: string };
     if (response.error) {
       throw new Error(response.error);
     }
@@ -133,61 +149,99 @@ export class PublicClient extends RPC {
   /**
    * Retrieves summary information for each currency pair listed on the exchange.
    */
-  getTickers(): Promise<Tickers> {
-    return this.get({ qs: { command: "returnTicker" } });
+  public async getTickers(): Promise<Tickers> {
+    const command = "returnTicker";
+    const url = new URL("/public", ApiUri);
+    PublicClient.addOptions(url, { command });
+    const tickers = (await this.get(url.toString())) as Tickers;
+    return tickers;
   }
 
   /**
    * Retrieves the 24-hour volume for all markets as well as totals for primary currencies.
    */
-  getVolume(): Promise<Volumes> {
-    return this.get({ qs: { command: "return24hVolume" } });
+  public async getVolume(): Promise<Volumes> {
+    const command = "return24hVolume";
+    const url = new URL("/public", ApiUri);
+    PublicClient.addOptions(url, { command });
+    const volumes = (await this.get(url.toString())) as Volumes;
+    return volumes;
   }
 
   /**
    * Get the order book for a given market.
    */
-  getOrderBook({
+  public async getOrderBook({
     currencyPair = this.currencyPair,
     depth = ApiLimit,
   }: BookFilter = {}): Promise<OrderBook> {
-    const qs = { command: "returnOrderBook", currencyPair, depth };
-    return this.get({ qs });
+    const command = "returnOrderBook";
+    const url = new URL("/public", ApiUri);
+    PublicClient.addOptions(url, { command, currencyPair, depth });
+    const orderBook = (await this.get(url.toString())) as OrderBook;
+    return orderBook;
   }
 
   /**
    * Get the past 200 trades for a given market, or up to 1,000 trades between a range `start` and `end`.
    */
-  getTradeHistory({
+  public async getTradeHistory({
     currencyPair = this.currencyPair,
     ...rest
   }: TradesFilter = {}): Promise<Trade[]> {
-    const qs = { command: "returnTradeHistory", currencyPair, ...rest };
-    return this.get({ qs });
+    const command = "returnTradeHistory";
+    const url = new URL("/public", ApiUri);
+    PublicClient.addOptions(url, { command, currencyPair, ...rest });
+    const trades = (await this.get(url.toString())) as Trade[];
+    return trades;
   }
 
   /**
    * Get candlestick chart data.
    */
-  getChartData({
+  public async getChartData({
     currencyPair = this.currencyPair,
-    ...qs
+    ...rest
   }: ChartFilter): Promise<Candle[]> {
     const command = "returnChartData";
-    return this.get({ qs: { command, currencyPair, ...qs } });
+    const url = new URL("/public", ApiUri);
+    PublicClient.addOptions(url, { command, currencyPair, ...rest });
+    const candles = (await this.get(url.toString())) as Candle[];
+    return candles;
   }
 
   /**
    * Get information about currencies.
    */
-  getCurrencies(): Promise<Currencies> {
-    return this.get({ qs: { command: "returnCurrencies" } });
+  public async getCurrencies(): Promise<Currencies> {
+    const command = "returnCurrencies";
+    const url = new URL("/public", ApiUri);
+    PublicClient.addOptions(url, { command });
+    const currencies = (await this.get(url.toString())) as Currencies;
+    return currencies;
   }
 
   /**
    * Get the list of loan offers and demands for a given currency.
    */
-  getLoanOrders(qs: CurrencyFilter): Promise<Loans> {
-    return this.get({ qs: { command: "returnLoanOrders", ...qs } });
+  public async getLoanOrders(qs: CurrencyFilter): Promise<Loans> {
+    const command = "returnLoanOrders";
+    const url = new URL("/public", ApiUri);
+    PublicClient.addOptions(url, { command, ...qs });
+    const loans = (await this.get(url.toString())) as Loans;
+    return loans;
+  }
+
+  protected static addOptions(
+    target: URL | URLSearchParams,
+    data: Record<string, string | number | undefined>
+  ): void {
+    const searchParams = target instanceof URL ? target.searchParams : target;
+    for (const key in data) {
+      const value = data[key];
+      if (typeof value !== "undefined") {
+        searchParams.append(key, value.toString());
+      }
+    }
   }
 }
