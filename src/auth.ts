@@ -46,14 +46,13 @@ export interface WithdrawOptions {
   amount: number;
   address: string;
   paymentId?: string | number;
-  currencyToWithdrawAs?: string;
 }
 
 export interface TransferOptions {
   currency: string;
   amount: number;
-  fromAccount: "exchange" | "margin" | "lending";
-  toAccount: "exchange" | "margin" | "lending";
+  fromAccount: "exchange" | "margin" | "lending" | "futures";
+  toAccount: "exchange" | "margin" | "lending" | "futures";
 }
 
 export interface MarginOrderOptions extends CurrencyPair {
@@ -200,6 +199,8 @@ export interface ResultingTrade extends BaseTrade {
 export interface OrderResult {
   orderNumber: string;
   resultingTrades: ResultingTrade[];
+  tokenFee: number;
+  tokenFeeCurrency: string | null;
   fee: string;
   currencyPair: string;
   clientOrderId?: string;

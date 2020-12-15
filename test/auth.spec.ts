@@ -576,6 +576,8 @@ suite("AuthenticatedClient", () => {
         },
       ],
       fee: "0.01000000",
+      tokenFee: 0,
+      tokenFeeCurrency: null,
       currencyPair: "BTC_ETH",
     };
     const command = "buy";
@@ -605,6 +607,8 @@ suite("AuthenticatedClient", () => {
         },
       ],
       fee: "0.01000000",
+      tokenFee: 0,
+      tokenFeeCurrency: null,
       currencyPair,
     };
     const command = "buy";
@@ -639,6 +643,8 @@ suite("AuthenticatedClient", () => {
       fee: "0.01000000",
       currencyPair: "BTC_ETH",
       clientOrderId: "12345",
+      tokenFee: 0,
+      tokenFeeCurrency: null,
     };
     const command = "sell";
 
@@ -671,6 +677,8 @@ suite("AuthenticatedClient", () => {
       ],
       fee: "0.01000000",
       currencyPair,
+      tokenFee: 0,
+      tokenFeeCurrency: null,
       clientOrderId: "12345",
     };
     const command = "sell";
@@ -902,6 +910,8 @@ suite("AuthenticatedClient", () => {
       clientOrderId: "123",
       message: "Margin order placed.",
       fee: "0.00150000",
+      tokenFee: 0,
+      tokenFeeCurrency: null,
       currencyPair: "BTC_EOS",
     };
     const command = "marginBuy";
@@ -926,6 +936,8 @@ suite("AuthenticatedClient", () => {
       clientOrderId: "123",
       message: "Margin order placed.",
       fee: "0.00150000",
+      tokenFee: 0,
+      tokenFeeCurrency: null,
       currencyPair,
     };
     const command = "marginBuy";
@@ -951,6 +963,8 @@ suite("AuthenticatedClient", () => {
       clientOrderId: "123",
       message: "Margin order placed.",
       fee: "0.00150000",
+      tokenFee: 0,
+      tokenFeeCurrency: null,
       currencyPair: "BTC_EOS",
     };
     const command = "marginSell";
@@ -976,6 +990,8 @@ suite("AuthenticatedClient", () => {
       clientOrderId: "123",
       message: "Margin order placed.",
       fee: "0.00150000",
+      tokenFee: 0,
+      tokenFeeCurrency: null,
       currencyPair,
     };
     const command = "marginSell";
