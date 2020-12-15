@@ -28,6 +28,8 @@ import {
   WsBalance,
   RawOrder,
   WsOrder,
+  RawMarginUpdate,
+  WsMarginUpdate,
   RawTrade,
   WsTrade,
   RawKill,
@@ -35,6 +37,7 @@ import {
   RawAccountMessage,
   WsAccountMessage,
 } from "../index";
+import { Currencies } from "../src/currencies";
 import { Server, OPEN, CONNECTING, CLOSING, CLOSED } from "ws";
 
 const port = 10010;
@@ -767,6 +770,25 @@ suite("WebsocketClient", () => {
       assert.deepStrictEqual(order, expectedOrder);
     });
 
+    test(".formatMarginUpdate()", () => {
+      const rawUpdate: RawMarginUpdate = [
+        "m",
+        23432933,
+        28,
+        "-0.06000000",
+        null,
+      ];
+      const expectedUpdate: WsMarginUpdate = {
+        subject: "margin",
+        orderNumber: 23432933,
+        currency: Currencies[28] ?? "28",
+        amount: "-0.06000000",
+        clientOrderId: null,
+      };
+      const update = WebsocketClient.formatMarginUpdate(rawUpdate);
+      assert.deepStrictEqual(update, expectedUpdate);
+    });
+
     test(".formatTrade()", () => {
       const rawTrade: RawTrade = [
         "t",
@@ -1215,6 +1237,7 @@ suite("WebsocketClient", () => {
             ],
             ["b", 298, "m", "-1.00000000"],
             ["o", 123321123, "0.00000000", "c", null],
+            ["m", 23432933, 10000, "-0.06000000", null],
             [
               "t",
               12345,
@@ -1269,6 +1292,14 @@ suite("WebsocketClient", () => {
             orderNumber: 123321123,
             newAmount: "0.00000000",
             orderType: "canceled",
+            clientOrderId: null,
+          },
+          {
+            channel_id: 1000,
+            subject: "margin",
+            orderNumber: 23432933,
+            currency: "10000",
+            amount: "-0.06000000",
             clientOrderId: null,
           },
           {
