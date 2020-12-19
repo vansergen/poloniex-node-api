@@ -750,7 +750,7 @@ export class WebsocketClient extends EventEmitter {
       } else if (message[0] === "t") {
         const msg = WebsocketClient.formatTrade(message);
         output.push({ channel_id, ...msg });
-      } else {
+      } else if (message[0] === "k") {
         const msg = WebsocketClient.formatKill(message);
         output.push({ channel_id, ...msg });
       }
