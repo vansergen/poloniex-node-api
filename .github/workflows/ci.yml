@@ -48,7 +48,9 @@ jobs:
         run: npm run publish:test
 
       - name: Docs
-        run: npm run docs:test
+        run: |
+          rm -rf docs
+          npm run docs:test
 
       - name: npm vulnerabilities
         run: npm audit --production
