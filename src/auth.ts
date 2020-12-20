@@ -1,94 +1,105 @@
-import { RPCOptions } from "rpc-request";
 import {
   PublicClient,
-  PublicClientOptions,
-  Headers,
   CurrencyFilter,
   TimeFilter,
   CurrencyPair,
-  Type,
+  Side,
   TradesFilter,
   Trade,
   BaseTrade,
 } from "./public";
 import { SignRequest } from "./signer";
 
-export type AccountFilter = { account?: string };
+export interface AccountFilter {
+  account?: string;
+}
 
-export type HistoryTradesFilter = TradesFilter & { limit?: number };
+export interface HistoryTradesFilter extends TradesFilter {
+  limit?: number;
+}
 
-export type OrderFilter = { orderNumber: number };
+export interface OrderFilter {
+  orderNumber: number;
+}
 
-export type OrderOptions = CurrencyPair & {
+export interface OrderOptions extends CurrencyPair {
   rate: number;
   amount: number;
   fillOrKill?: 0 | 1;
   immediateOrCancel?: 0 | 1;
   postOnly?: 0 | 1;
   clientOrderId?: number;
-};
+}
 
 export type ClientOrderFilter = OrderFilter | { clientOrderId: number };
 
-export type MoveOrderOptions = OrderFilter & {
+export interface MoveOrderOptions extends OrderFilter {
   rate: number;
   amount?: number;
   postOnly?: 0 | 1;
   immediateOrCancel?: 0 | 1;
   clientOrderId?: number;
-};
+}
 
-export type WithdrawOptions = {
+export interface WithdrawOptions {
   currency: string;
   amount: number;
   address: string;
   paymentId?: string | number;
-  currencyToWithdrawAs?: string;
-};
+}
 
-export type TransferOptions = {
+export interface TransferOptions {
   currency: string;
   amount: number;
-  fromAccount: "exchange" | "margin" | "lending";
-  toAccount: "exchange" | "margin" | "lending";
-};
+  fromAccount: "exchange" | "margin" | "lending" | "futures";
+  toAccount: "exchange" | "margin" | "lending" | "futures";
+}
 
-export type MarginOrderOptions = CurrencyPair & {
+export interface MarginOrderOptions extends CurrencyPair {
   rate: number;
   amount: number;
   lendingRate?: number;
   clientOrderId?: number;
-};
+}
 
-export type OfferOptions = {
+export interface OfferOptions {
   currency: string;
   amount: number;
   duration: number;
   autoRenew: 0 | 1;
   lendingRate: number;
-};
+}
 
-export type LendingHistoryOptions = {
+export interface LendingHistoryOptions {
   start?: number;
   end?: number;
   limit?: number;
-};
+}
 
-export type Balances = { [currency: string]: string };
+export interface Balances {
+  [currency: string]: string;
+}
 
-export type CompleteBalance = {
+export interface CompleteBalance {
   available: string;
   onOrders: string;
   btcValue: string;
-};
+}
 
-export type CompleteBalances = { [currency: string]: CompleteBalance };
+export interface CompleteBalances {
+  [currency: string]: CompleteBalance;
+}
 
-export type Adresses = { [currency: string]: string };
+export interface Adresses {
+  [currency: string]: string;
+}
 
-export type NewAddress = { success: 0 | 1; response: string };
+export interface NewAddress {
+  success: 0 | 1;
+  response: string;
+}
 
-export type Adjustment = {
+export interface Adjustment {
   currency: string;
   amount: string;
   timestamp: number;
@@ -97,9 +108,9 @@ export type Adjustment = {
   adjustmentTitle: string;
   adjustmentDesc: string;
   adjustmentHelp: string;
-};
+}
 
-export type Withdrawal = {
+export interface Withdrawal {
   withdrawalNumber: number;
   currency: string;
   address: string;
@@ -113,9 +124,9 @@ export type Withdrawal = {
   paymentID: null | string;
   fiatAccountId?: null | string;
   scope?: null | string;
-};
+}
 
-export type Deposit = {
+export interface Deposit {
   currency: string;
   address: string;
   amount: string;
@@ -127,15 +138,16 @@ export type Deposit = {
   category: "deposit";
   fiatAccountId?: null | string;
   scope?: null | string;
-};
+}
 
-export type DepositsWithdrawals = {
+export interface DepositsWithdrawals {
   deposits: Deposit[];
   withdrawals: Withdrawal[];
   adjustments: Adjustment[];
-};
+}
 
-export type Order = Type & {
+export interface Order {
+  type: Side;
   orderNumber: string;
   rate: string;
   startingAmount: string;
@@ -143,26 +155,27 @@ export type Order = Type & {
   total: string;
   date: string;
   margin: 0 | 1;
-};
+  clientOrderId?: string;
+}
 
 export type Orders = { [currencyPair: string]: Order[] } | Order[];
 
-export type TradePrivate = Trade & {
+export interface TradePrivate extends Trade {
   fee: string;
   category: "exchange" | "margin";
-};
+}
 
 export type TradesPrivate =
   | { [currencyPair: string]: TradePrivate[] }
   | TradePrivate[];
 
-export type OrderTrade = BaseTrade & {
+export interface OrderTrade extends BaseTrade {
   globalTradeID: number;
   currencyPair: string;
   fee: string;
-};
+}
 
-export type OrderStatus = {
+export interface OrderStatus {
   result: {
     [order: string]: {
       currencyPair: string;
@@ -177,79 +190,90 @@ export type OrderStatus = {
     };
   };
   success: 0 | 1;
-};
+}
 
-export type ResultingTrade = BaseTrade & { takerAdjustment?: string };
+export interface ResultingTrade extends BaseTrade {
+  takerAdjustment?: string;
+}
 
-export type OrderResult = {
+export interface OrderResult {
   orderNumber: string;
   resultingTrades: ResultingTrade[];
+  tokenFee: number;
+  tokenFeeCurrency: string | null;
   fee: string;
   currencyPair: string;
   clientOrderId?: string;
-};
+}
 
-export type CancelResponse = {
+export interface CancelResponse {
   success: 0 | 1;
   amount: string;
   message: string;
   fee?: string;
   clientOrderId?: string;
   currencyPair?: string;
-};
+}
 
-export type CancelAllResponse = {
+export interface CancelAllResponse {
   success: 0 | 1;
   message: string;
   orderNumbers: number[];
-};
+}
 
-export type MoveResponse = {
+export interface MoveResponse {
   success: 0 | 1;
   orderNumber: string;
   fee: string;
   currencyPair: string;
   resultingTrades: { [currencyPair: string]: ResultingTrade[] };
   clientOrderId?: string;
-};
+}
 
-export type WithdrawResponse = {
+export interface WithdrawResponse {
   response: string;
   email2FA?: boolean;
   withdrawalNumber?: number;
-};
+}
 
-export type FeesInfo = {
+export interface FeesInfo {
   makerFee: string;
   takerFee: string;
   marginMakerFee?: string;
   marginTakerFee?: string;
   thirtyDayVolume: string;
   nextTier: number;
-};
+}
 
-export type AccountBalances = {
+export interface AccountBalances {
   exchange?: Balances | [];
   margin?: Balances | [];
   lending?: Balances | [];
-};
+}
 
-export type TradableBalances = { [currencyPair: string]: Balances };
+export interface TradableBalances {
+  [currencyPair: string]: Balances;
+}
 
-export type TransferResponse = { success: 0 | 1; message: string };
+export interface TransferResponse {
+  success: 0 | 1;
+  message: string;
+}
 
-export type MarginSummary = {
+export interface MarginSummary {
   totalValue: string;
   pl: string;
   lendingFees: string;
   netValue: string;
   totalBorrowedValue: string;
   currentMargin: string;
-};
+}
 
-export type MarginOrderResult = OrderResult & { message: string };
+export interface MarginOrderResult extends OrderResult {
+  message: string;
+}
 
-export type MarginPosition = {
+export interface MarginPosition {
   amount: string;
   total: string;
   basePrice: string;
@@ -257,38 +281,42 @@ export type MarginPosition = {
   pl: string;
   lendingFees: string;
   type: "long" | "short" | "none";
-};
+}
 
 export type MarginPositionResult =
   | { [currencyPair: string]: MarginPosition }
   | MarginPosition;
 
-export type ClosePositionResult = {
+export interface ClosePositionResult {
   success: 0 | 1;
   message: string;
   resultingTrades: { [currencyPair: string]: ResultingTrade[] };
-};
+}
 
-export type OfferResult = { success: 0 | 1; message: string; orderID?: number };
+export interface OfferResult {
+  success: 0 | 1;
+  message: string;
+  orderID?: number;
+}
 
-export type CancelLoanResponse = {
+export interface CancelLoanResponse {
   success: 0 | 1;
   message: string;
   amount?: string;
-};
+}
 
-export type LoanOffer = {
+export interface LoanOffer {
   id: number;
   rate: string;
   amount: string;
   duration: number;
   autoRenew: 0 | 1;
   date: string;
-};
+}
 
 export type LoanOffers = { [currency: string]: LoanOffer[] } | LoanOffer[];
 
-export type ActiveLoan = {
+export interface ActiveLoan {
   id: number;
   currency: string;
   rate: string;
@@ -297,11 +325,14 @@ export type ActiveLoan = {
   autoRenew?: 0 | 1;
   date: string;
   fees: string;
-};
+}
 
-export type ActiveLoans = { provided: ActiveLoan[]; used: ActiveLoan[] };
+export interface ActiveLoans {
+  provided: ActiveLoan[];
+  used: ActiveLoan[];
+}
 
-export type LendingHistoryItem = {
+export interface LendingHistoryItem {
   id: number;
   currency: string;
   rate: string;
@@ -312,42 +343,52 @@ export type LendingHistoryItem = {
   earned: string;
   open: string;
   close: string;
-};
+}
 
-export type LendingHistory = LendingHistoryItem[];
+export interface AutoRenewResult {
+  success: 0 | 1;
+  message: string | 0 | 1;
+}
 
-export type AutoRenewResult = { success: 0 | 1; message: string | 0 | 1 };
-
-export type AuthenticatedClientOptions = PublicClientOptions & {
+export interface AuthenticatedClientOptions extends CurrencyPair {
   key: string;
   secret: string;
-};
+}
 
 export class AuthenticatedClient extends PublicClient {
-  readonly key: string;
-  readonly secret: string;
-  private _nonce?: () => number;
+  readonly #key: string;
+  readonly #secret: string;
+  #nonce: () => number;
 
-  constructor({ key, secret, ...rest }: AuthenticatedClientOptions) {
+  public constructor({ key, secret, ...rest }: AuthenticatedClientOptions) {
     super(rest);
-    this.key = key;
-    this.secret = secret;
+    this.#key = key;
+    this.#secret = secret;
+    this.#nonce = (): number => Date.now();
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  async post({ form }: RPCOptions): Promise<any> {
-    if (!form || typeof form === "string") {
-      throw new Error("Incorrect form");
-    }
+  public async post(
+    url?: string,
+    { body = new URLSearchParams() }: { body?: URLSearchParams } = {}
+  ): Promise<unknown> {
+    const nonce = this.nonce();
+    body.set("nonce", `${nonce}`);
+    const { key, sign } = SignRequest({
+      key: this.#key,
+      secret: this.#secret,
+      body: body.toString(),
+    });
+    const data = (await super.post(url, { headers: { key, sign }, body })) as {
+      error?: string;
+      success?: 0 | 1;
+      result?: { error?: string };
+      message?: string;
+    };
 
-    form.nonce = this.nonce();
-    const sHeaders = SignRequest({ key: this.key, secret: this.secret, form });
-    const headers = { ...Headers, ...sHeaders };
-    const data = await super.post({ form, headers, uri: "/tradingApi" });
     if (data.error) {
       throw new Error(data.error);
-    } else if ("success" in data && data.success === 0) {
-      throw new Error(data.message || data.result.error);
+    } else if (data.success === 0) {
+      throw new Error(data?.result?.error);
     }
     return data;
   }
@@ -355,251 +396,417 @@ export class AuthenticatedClient extends PublicClient {
   /**
    * Get all of your balances available for trade after having deducted all open orders.
    */
-  getBalances(): Promise<Balances> {
-    return this.post({ form: { command: "returnBalances" } });
+  public async getBalances(): Promise<Balances> {
+    const command = "returnBalances";
+    const body = new URLSearchParams({ command });
+    const balances = (await this.post("/tradingApi", { body })) as Balances;
+    return balances;
   }
 
   /**
    * Get all of your balances, including available balance, balance on orders, and the estimated BTC value of your balance.
    */
-  getCompleteBalances(form: AccountFilter = {}): Promise<CompleteBalances> {
-    return this.post({ form: { command: "returnCompleteBalances", ...form } });
+  public async getCompleteBalances(
+    form: AccountFilter = {}
+  ): Promise<CompleteBalances> {
+    const command = "returnCompleteBalances";
+    const body = new URLSearchParams({ command });
+    PublicClient.addOptions(body, { ...form });
+    const balances = (await this.post("/tradingApi", {
+      body,
+    })) as CompleteBalances;
+    return balances;
   }
 
   /**
    * Get all of your deposit addresses.
    */
-  getDepositAddresses(): Promise<Adresses> {
-    return this.post({ form: { command: "returnDepositAddresses" } });
+  public async getDepositAddresses(): Promise<Adresses> {
+    const command = "returnDepositAddresses";
+    const body = new URLSearchParams({ command });
+    const adresses = (await this.post("/tradingApi", { body })) as Adresses;
+    return adresses;
   }
 
   /**
    * Generate a new deposit address.
    */
-  getNewAddress(form: CurrencyFilter): Promise<NewAddress> {
-    return this.post({ form: { command: "generateNewAddress", ...form } });
+  public async getNewAddress(form: CurrencyFilter): Promise<NewAddress> {
+    const command = "generateNewAddress";
+    const body = new URLSearchParams({ command });
+    PublicClient.addOptions(body, { ...form });
+    const address = (await this.post("/tradingApi", {
+      body,
+    })) as NewAddress;
+    return address;
   }
 
   /**
    * Get your adjustment, deposit, and withdrawal history within a range window.
    */
-  getDepositsWithdrawals(form: TimeFilter): Promise<DepositsWithdrawals> {
+  public async getDepositsWithdrawals(
+    form: TimeFilter
+  ): Promise<DepositsWithdrawals> {
     const command = "returnDepositsWithdrawals";
-    return this.post({ form: { command, ...form } });
+    const body = new URLSearchParams({ command });
+    PublicClient.addOptions(body, { ...form });
+    const records = (await this.post("/tradingApi", {
+      body,
+    })) as DepositsWithdrawals;
+    return records;
   }
 
   /**
    * Get your open orders for a given market.
    */
-  getOpenOrders({
+  public async getOpenOrders({
     currencyPair = this.currencyPair,
   }: CurrencyPair = {}): Promise<Orders> {
-    return this.post({ form: { command: "returnOpenOrders", currencyPair } });
+    const command = "returnOpenOrders";
+    const body = new URLSearchParams({ command, currencyPair });
+    const orders = (await this.post("/tradingApi", { body })) as Orders;
+    return orders;
   }
 
   /**
    * Get your trade history for a given market.
    */
-  getHistoryTrades({
+  public async getHistoryTrades({
     currencyPair = this.currencyPair,
     ...form
   }: HistoryTradesFilter = {}): Promise<TradesPrivate> {
     const command = "returnTradeHistory";
-    return this.post({ form: { command, currencyPair, ...form } });
+    const body = new URLSearchParams({ command, currencyPair });
+    PublicClient.addOptions(body, { ...form });
+    const trades = (await this.post("/tradingApi", {
+      body,
+    })) as TradesPrivate;
+    return trades;
   }
 
   /**
    * Get all trades involving a given order.
    */
-  getOrderTrades(form: OrderFilter): Promise<OrderTrade[]> {
-    return this.post({ form: { command: "returnOrderTrades", ...form } });
+  public async getOrderTrades(form: OrderFilter): Promise<OrderTrade[]> {
+    const command = "returnOrderTrades";
+    const body = new URLSearchParams({ command });
+    PublicClient.addOptions(body, { ...form });
+    const trades = (await this.post("/tradingApi", {
+      body,
+    })) as OrderTrade[];
+    return trades;
   }
 
   /**
    * Get the status of a given order.
    */
-  getOrderStatus(form: OrderFilter): Promise<OrderStatus> {
-    return this.post({ form: { command: "returnOrderStatus", ...form } });
+  public async getOrderStatus(form: OrderFilter): Promise<OrderStatus> {
+    const command = "returnOrderStatus";
+    const body = new URLSearchParams({ command });
+    PublicClient.addOptions(body, { ...form });
+    const order = (await this.post("/tradingApi", {
+      body,
+    })) as OrderStatus;
+    return order;
   }
 
   /**
    * Places a limit buy order.
    */
-  buy({
+  public async buy({
     currencyPair = this.currencyPair,
     ...form
   }: OrderOptions): Promise<OrderResult> {
-    return this.post({ form: { command: "buy", currencyPair, ...form } });
+    const command = "buy";
+    const body = new URLSearchParams({ command, currencyPair });
+    PublicClient.addOptions(body, { ...form });
+    const order = (await this.post("/tradingApi", {
+      body,
+    })) as OrderResult;
+    return order;
   }
 
   /**
    * Places a limit sell order.
    */
-  sell({
+  public async sell({
     currencyPair = this.currencyPair,
     ...form
   }: OrderOptions): Promise<OrderResult> {
-    return this.post({ form: { command: "sell", currencyPair, ...form } });
+    const command = "sell";
+    const body = new URLSearchParams({ command, currencyPair });
+    PublicClient.addOptions(body, { ...form });
+    const order = (await this.post("/tradingApi", {
+      body,
+    })) as OrderResult;
+    return order;
   }
 
   /**
    * Cancel an order you have placed in a given market.
    */
-  cancelOrder(form: ClientOrderFilter): Promise<CancelResponse> {
+  public async cancelOrder(form: ClientOrderFilter): Promise<CancelResponse> {
+    const command = "cancelOrder";
+    const body = new URLSearchParams({ command });
     if ("clientOrderId" in form) {
       const { clientOrderId } = form;
-      return this.post({ form: { command: "cancelOrder", clientOrderId } });
+      PublicClient.addOptions(body, { clientOrderId });
     } else {
       const { orderNumber } = form;
-      return this.post({ form: { command: "cancelOrder", orderNumber } });
+      PublicClient.addOptions(body, { orderNumber });
     }
+    const response = (await this.post("/tradingApi", {
+      body,
+    })) as CancelResponse;
+    return response;
   }
 
   /**
    * Cancel all open orders in a given market or, if no market is provided, all open orders in all markets.
    */
-  cancelAllOrders(form: CurrencyPair = {}): Promise<CancelAllResponse> {
-    return this.post({ form: { command: "cancelAllOrders", ...form } });
+  public async cancelAllOrders(
+    form: CurrencyPair = {}
+  ): Promise<CancelAllResponse> {
+    const command = "cancelAllOrders";
+    const body = new URLSearchParams({ command });
+    PublicClient.addOptions(body, { ...form });
+    const response = (await this.post("/tradingApi", {
+      body,
+    })) as CancelAllResponse;
+    return response;
   }
 
   /**
    * Cancels an order and places a new one of the same type in a single atomic transaction.
    */
-  moveOrder(form: MoveOrderOptions): Promise<MoveResponse> {
-    return this.post({ form: { command: "moveOrder", ...form } });
+  public async moveOrder(form: MoveOrderOptions): Promise<MoveResponse> {
+    const command = "moveOrder";
+    const body = new URLSearchParams({ command });
+    PublicClient.addOptions(body, { ...form });
+    const response = (await this.post("/tradingApi", {
+      body,
+    })) as MoveResponse;
+    return response;
   }
 
   /**
    * Immediately place a withdrawal for a given currency.
    */
-  withdraw(form: WithdrawOptions): Promise<WithdrawResponse> {
-    return this.post({ form: { command: "withdraw", ...form } });
+  public async withdraw(form: WithdrawOptions): Promise<WithdrawResponse> {
+    const command = "withdraw";
+    const body = new URLSearchParams({ command });
+    PublicClient.addOptions(body, { ...form });
+    const response = (await this.post("/tradingApi", {
+      body,
+    })) as WithdrawResponse;
+    return response;
   }
 
   /**
    * Get your current trading fees and trailing 30-day volume in BTC.
    */
-  getFeeInfo(): Promise<FeesInfo> {
-    return this.post({ form: { command: "returnFeeInfo" } });
+  public async getFeeInfo(): Promise<FeesInfo> {
+    const command = "returnFeeInfo";
+    const body = new URLSearchParams({ command });
+    const info = (await this.post("/tradingApi", { body })) as FeesInfo;
+    return info;
   }
 
   /**
    * Get your balances sorted by account.
    */
-  getAccountBalances(form: AccountFilter = {}): Promise<AccountBalances> {
+  public async getAccountBalances(
+    form: AccountFilter = {}
+  ): Promise<AccountBalances> {
     const command = "returnAvailableAccountBalances";
-    return this.post({ form: { command, ...form } });
+    const body = new URLSearchParams({ command });
+    PublicClient.addOptions(body, { ...form });
+    const balances = (await this.post("/tradingApi", {
+      body,
+    })) as AccountBalances;
+    return balances;
   }
 
   /**
    * Get your current tradable balances for each currency in each market for which margin trading is enabled.
    */
-  getTradableBalances(): Promise<TradableBalances> {
-    return this.post({ form: { command: "returnTradableBalances" } });
+  public async getTradableBalances(): Promise<TradableBalances> {
+    const command = "returnTradableBalances";
+    const body = new URLSearchParams({ command });
+    const balances = (await this.post("/tradingApi", {
+      body,
+    })) as TradableBalances;
+    return balances;
   }
 
   /**
    * Transfer funds from one account to another.
    */
-  transferBalance(form: TransferOptions): Promise<TransferResponse> {
-    return this.post({ form: { command: "transferBalance", ...form } });
+  public async transferBalance(
+    form: TransferOptions
+  ): Promise<TransferResponse> {
+    const command = "transferBalance";
+    const body = new URLSearchParams({ command });
+    PublicClient.addOptions(body, { ...form });
+    const response = (await this.post("/tradingApi", {
+      body,
+    })) as TransferResponse;
+    return response;
   }
 
   /**
    * Get a summary of your entire margin account.
    */
-  getMarginSummary(): Promise<MarginSummary> {
-    return this.post({ form: { command: "returnMarginAccountSummary" } });
+  public async getMarginSummary(): Promise<MarginSummary> {
+    const command = "returnMarginAccountSummary";
+    const body = new URLSearchParams({ command });
+    const summary = (await this.post("/tradingApi", { body })) as MarginSummary;
+    return summary;
   }
 
   /**
    * Place a margin buy order in a given market.
    */
-  marginBuy({
+  public async marginBuy({
     currencyPair = this.currencyPair,
     ...form
   }: MarginOrderOptions): Promise<MarginOrderResult> {
     const command = "marginBuy";
-    return this.post({ form: { command, currencyPair, ...form } });
+    const body = new URLSearchParams({ command, currencyPair });
+    PublicClient.addOptions(body, { ...form });
+    const result = (await this.post("/tradingApi", {
+      body,
+    })) as MarginOrderResult;
+    return result;
   }
 
   /**
    * Place a margin sell order in a given market.
    */
-  marginSell({
+  public async marginSell({
     currencyPair = this.currencyPair,
     ...form
   }: MarginOrderOptions): Promise<MarginOrderResult> {
     const command = "marginSell";
-    return this.post({ form: { command, currencyPair, ...form } });
+    const body = new URLSearchParams({ command, currencyPair });
+    PublicClient.addOptions(body, { ...form });
+    const result = (await this.post("/tradingApi", {
+      body,
+    })) as MarginOrderResult;
+    return result;
   }
 
   /**
    * Get information about your margin position in a given market.
    */
-  getMarginPosition({
+  public async getMarginPosition({
     currencyPair = this.currencyPair,
   }: CurrencyPair = {}): Promise<MarginPositionResult> {
-    return this.post({ form: { command: "getMarginPosition", currencyPair } });
+    const command = "getMarginPosition";
+    const body = new URLSearchParams({ command, currencyPair });
+    const result = (await this.post("/tradingApi", {
+      body,
+    })) as MarginPositionResult;
+    return result;
   }
 
   /**
    * Close your margin position in a given market using a market order.
    */
-  closeMarginPosition({
+  public async closeMarginPosition({
     currencyPair = this.currencyPair,
   }: CurrencyPair = {}): Promise<ClosePositionResult> {
     const command = "closeMarginPosition";
-    return this.post({ form: { command, currencyPair } });
+    const body = new URLSearchParams({ command, currencyPair });
+    const result = (await this.post("/tradingApi", {
+      body,
+    })) as ClosePositionResult;
+    return result;
   }
 
   /**
    * Create a loan offer for a given currency.
    */
-  createLoanOffer(form: OfferOptions): Promise<OfferResult> {
-    return this.post({ form: { command: "createLoanOffer", ...form } });
+  public async createLoanOffer(form: OfferOptions): Promise<OfferResult> {
+    const command = "createLoanOffer";
+    const body = new URLSearchParams({ command });
+    PublicClient.addOptions(body, { ...form });
+    const result = (await this.post("/tradingApi", {
+      body,
+    })) as OfferResult;
+    return result;
   }
 
   /**
    * Cancel a loan offer.
    */
-  cancelLoanOffer(form: OrderFilter): Promise<CancelLoanResponse> {
-    return this.post({ form: { command: "cancelLoanOffer", ...form } });
+  public async cancelLoanOffer(form: OrderFilter): Promise<CancelLoanResponse> {
+    const command = "cancelLoanOffer";
+    const body = new URLSearchParams({ command });
+    PublicClient.addOptions(body, { ...form });
+    const response = (await this.post("/tradingApi", {
+      body,
+    })) as CancelLoanResponse;
+    return response;
   }
 
   /**
    * Get your open loan offers for each currency.
    */
-  getOpenLoanOffers(): Promise<LoanOffers> {
-    return this.post({ form: { command: "returnOpenLoanOffers" } });
+  public async getOpenLoanOffers(): Promise<LoanOffers> {
+    const command = "returnOpenLoanOffers";
+    const body = new URLSearchParams({ command });
+    const offers = (await this.post("/tradingApi", {
+      body,
+    })) as LoanOffers;
+    return offers;
   }
 
   /**
    * Get your active loans for each currency.
    */
-  getActiveLoans(): Promise<ActiveLoans> {
-    return this.post({ form: { command: "returnActiveLoans" } });
+  public async getActiveLoans(): Promise<ActiveLoans> {
+    const command = "returnActiveLoans";
+    const body = new URLSearchParams({ command });
+    const loans = (await this.post("/tradingApi", {
+      body,
+    })) as ActiveLoans;
+    return loans;
   }
 
   /**
    * Get your lending history.
    */
-  getLendingHistory(form: LendingHistoryOptions = {}): Promise<LendingHistory> {
-    return this.post({ form: { command: "returnLendingHistory", ...form } });
+  public async getLendingHistory(
+    form: LendingHistoryOptions = {}
+  ): Promise<LendingHistoryItem[]> {
+    const command = "returnLendingHistory";
+    const body = new URLSearchParams({ command });
+    PublicClient.addOptions(body, { ...form });
+    const items = (await this.post("/tradingApi", {
+      body,
+    })) as LendingHistoryItem[];
+    return items;
   }
 
   /**
    * Toggle the autoRenew setting on an active loan.
    */
-  toggleAutoRenew(form: OrderFilter): Promise<AutoRenewResult> {
-    return this.post({ form: { command: "toggleAutoRenew", ...form } });
+  public async toggleAutoRenew(form: OrderFilter): Promise<AutoRenewResult> {
+    const command = "toggleAutoRenew";
+    const body = new URLSearchParams({ command });
+    PublicClient.addOptions(body, { ...form });
+    const result = (await this.post("/tradingApi", {
+      body,
+    })) as AutoRenewResult;
+    return result;
   }
 
-  set nonce(nonce: () => number) {
-    this._nonce = nonce;
+  public get nonce(): () => number {
+    return this.#nonce;
   }
 
-  get nonce(): () => number {
-    return this._nonce ? this._nonce : (): number => Date.now();
+  public set nonce(nonce: () => number) {
+    this.#nonce = nonce;
   }
 }

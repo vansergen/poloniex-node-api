@@ -1,25 +1,22 @@
-import * as crypto from "crypto";
-import { stringify } from "querystring";
+import { createHmac } from "crypto";
 
-export type SignRequestOptions = {
+export interface SignRequestOptions {
   key: string;
   secret: string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  form: { [prop: string]: any };
-};
+  body: string;
+}
 
-export type SignedRequest = { key: string; sign: string };
+export interface SignedRequest {
+  key: string;
+  sign: string;
+}
 
 export function SignRequest({
   key,
   secret,
-  form,
+  body,
 }: SignRequestOptions): SignedRequest {
-  return {
-    key: key,
-    sign: crypto
-      .createHmac("sha512", secret)
-      .update(stringify(form))
-      .digest("hex"),
-  };
+  const hmac = createHmac("sha512", secret).update(body);
+  const sign = hmac.digest("hex");
+  return { key, sign };
 }

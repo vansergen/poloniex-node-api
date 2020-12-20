@@ -1,6 +1,6 @@
-import * as Websocket from "ws";
+import Websocket from "ws";
 import { EventEmitter } from "events";
-import { SignRequest } from "./signer";
+import { SignRequest, SignedRequest } from "./signer";
 import { Currencies } from "./currencies";
 import { CurrencyPairs } from "./currencypairs";
 
@@ -9,12 +9,14 @@ export const DefaultChannels = [121];
 
 export type Channel = number | string;
 
-export type Subscription = {
+export interface Subscription {
   command: "subscribe" | "unsubscribe";
   channel: Channel;
-};
+}
 
-export type RawError = { error: string };
+export interface RawError {
+  error: string;
+}
 
 export type RawWsHeartbeat = [1010];
 
@@ -87,6 +89,8 @@ export type RawBalance = ["b", number, "e" | "m" | "l", string];
 
 export type RawOrder = ["o", number, string, "f" | "s" | "c", string | null];
 
+export type RawMarginUpdate = ["m", number, number, string, string | null];
+
 export type RawTrade = [
   "t",
   number,
@@ -105,7 +109,15 @@ export type RawKill = ["k", number, string | null];
 export type RawAccountMessage = [
   1000,
   "",
-  (RawPendingOrder | RawNewOrder | RawBalance | RawOrder | RawTrade | RawKill)[]
+  (
+    | RawPendingOrder
+    | RawNewOrder
+    | RawBalance
+    | RawOrder
+    | RawMarginUpdate
+    | RawTrade
+    | RawKill
+  )[]
 ];
 
 export type RawMessage =
@@ -117,22 +129,22 @@ export type RawMessage =
   | RawAccountMessage
   | RawError;
 
-export type BaseMessage = {
+export interface BaseMessage {
   channel_id: Channel;
   subject: string;
   sequence?: number | string | null;
-};
+}
 
-export type WsHeartbeat = BaseMessage & {
+export interface WsHeartbeat extends BaseMessage {
   channel_id: 1010;
   subject: "heartbeat";
-};
+}
 
-export type WsAcknowledgement = BaseMessage & {
+export interface WsAcknowledgement extends BaseMessage {
   subject: "subscribed" | "unsubscribed";
-};
+}
 
-export type WsTicker = BaseMessage & {
+export interface WsTicker extends BaseMessage {
   subject: "ticker";
   channel_id: 1002;
   currencyPairId: number;
@@ -146,45 +158,45 @@ export type WsTicker = BaseMessage & {
   isFrozen: boolean;
   high24hr: string;
   low24hr: string;
-};
+}
 
-export type WsVolume = BaseMessage & {
+export interface WsVolume extends BaseMessage {
   subject: "volume";
   channel_id: 1003;
   time: string;
   users: number;
   volume: { [currency: string]: string };
-};
+}
 
-export type WsSnapshot = {
+export interface WsSnapshot {
   subject: "snapshot";
   currencyPair: string;
   asks: { [price: string]: string };
   bids: { [price: string]: string };
-};
+}
 
-export type WsPublicTrade = {
+export interface WsPublicTrade {
   subject: "publicTrade";
   tradeID: string;
   type: "buy" | "sell";
   price: string;
   size: string;
   timestamp: number;
-};
+}
 
-export type WsBookUpdate = {
+export interface WsBookUpdate {
   subject: "update";
   type: "bid" | "ask";
   price: string;
   size: string;
-};
+}
 
 export type WsBookMessage = BaseMessage & {
   sequence: number;
   currencyPair?: string;
 } & (WsSnapshot | WsPublicTrade | WsBookUpdate);
 
-export type WsPendingOrder = {
+export interface WsPendingOrder {
   subject: "pending";
   orderNumber: number;
   currencyPairId: number;
@@ -193,9 +205,9 @@ export type WsPendingOrder = {
   amount: string;
   type: "buy" | "sell";
   clientOrderId: string | null;
-};
+}
 
-export type WsNewOrder = {
+export interface WsNewOrder {
   subject: "new";
   currencyPairId: number;
   currencyPair?: string;
@@ -206,25 +218,33 @@ export type WsNewOrder = {
   date: string;
   originalAmount: string;
   clientOrderId: string | null;
-};
+}
 
-export type WsBalance = {
+export interface WsBalance {
   subject: "balance";
   currencyId: number;
   currency?: string;
   wallet: "exchange" | "margin" | "lending";
   amount: string;
-};
+}
 
-export type WsOrder = {
+export interface WsOrder {
   subject: "order";
   orderNumber: number;
   newAmount: string;
   orderType: "filled" | "canceled" | "self-trade";
   clientOrderId: string | null;
-};
+}
 
-export type WsTrade = {
+export interface WsMarginUpdate {
+  subject: "margin";
+  orderNumber: number;
+  currency: string;
+  amount: string;
+  clientOrderId?: string | null;
+}
+
+export interface WsTrade {
   subject: "trade";
   tradeID: number;
   rate: string;
@@ -235,16 +255,24 @@ export type WsTrade = {
   fee: string;
   date: string;
   clientOrderId: string | null;
-};
+}
 
-export type WsKill = {
+export interface WsKill {
   subject: "killed";
   orderNumber: number;
   clientOrderId: string | null;
-};
+}
 
 export type WsAccountMessage = BaseMessage &
-  (WsPendingOrder | WsNewOrder | WsBalance | WsOrder | WsTrade | WsKill);
+  (
+    | WsPendingOrder
+    | WsNewOrder
+    | WsBalance
+    | WsOrder
+    | WsMarginUpdate
+    | WsTrade
+    | WsKill
+  );
 
 export type WsMessage =
   | WsHeartbeat
@@ -254,43 +282,40 @@ export type WsMessage =
   | WsBookMessage
   | WsAccountMessage;
 
-export type WebsocketClientOptions = {
+export interface WebsocketClientOptions {
   wsUri?: string;
   raw?: boolean;
   channels?: Channel[];
   key?: string;
   secret?: string;
-};
+}
 
 export declare interface WebsocketClient {
-  on(event: "open", eventListener: () => void): this;
-  on(event: "close", eventListener: () => void): this;
+  on(event: "open" | "close", eventListener: () => void): this;
   on(event: "message", eventListener: (data: WsMessage) => void): this;
   on(event: "rawMessage", eventListener: (data: RawMessage) => void): this;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  on(event: "error", eventListener: (error: any) => void): this;
+  on(event: "error", eventListener: (error: unknown) => void): this;
 
-  once(event: "open", eventListener: () => void): this;
-  once(event: "close", eventListener: () => void): this;
+  once(event: "open" | "close", eventListener: () => void): this;
   once(event: "message", eventListener: (data: WsMessage) => void): this;
   once(event: "rawMessage", eventListener: (data: RawMessage) => void): this;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  once(event: "error", eventListener: (error: any) => void): this;
+  once(event: "error", eventListener: (error: unknown) => void): this;
 }
 
 export class WebsocketClient extends EventEmitter {
-  readonly wsUri: string;
-  readonly raw: boolean;
-  readonly channels: Channel[];
-  readonly key?: string;
-  readonly secret?: string;
-  public socket?: Websocket;
-  private _nonce?: () => number;
+  readonly #key?: string;
+  readonly #secret?: string;
+  #nonce: () => number;
+
+  public ws?: Websocket;
+  public readonly raw: boolean;
+  public readonly channels: Channel[];
+  public readonly wsUri: string;
 
   /**
    * Create WebsocketClient.
    */
-  constructor({
+  public constructor({
     wsUri = WsUri,
     raw = true,
     channels = DefaultChannels,
@@ -298,92 +323,124 @@ export class WebsocketClient extends EventEmitter {
     secret,
   }: WebsocketClientOptions = {}) {
     super();
-    this.wsUri = wsUri;
     this.raw = raw;
     this.channels = channels;
+    this.#nonce = (): number => Date.now();
+    this.wsUri = wsUri;
     if (key && secret) {
-      this.key = key;
-      this.secret = secret;
+      this.#key = key;
+      this.#secret = secret;
     }
   }
 
   /**
    * Connect to the websocket.
    */
-  connect(): void {
-    if (this.socket) {
-      switch (this.socket.readyState) {
-        case Websocket.OPEN:
-          return;
+  public async connect(): Promise<void> {
+    if (this.ws) {
+      switch (this.ws.readyState) {
         case Websocket.CLOSING:
         case Websocket.CONNECTING:
-          throw new Error(
-            "Could not connect. State: " + this.socket.readyState
-          );
+          throw new Error(`Could not connect. State: ${this.ws.readyState}`);
+        case Websocket.OPEN:
+          return;
+        default:
+          break;
       }
     }
 
-    this.socket = new Websocket(this.wsUri);
-    this.socket.on("open", this.onOpen.bind(this));
-    this.socket.on("close", this.onClose.bind(this));
-    this.socket.on("message", this.onMessage.bind(this));
-    this.socket.on("error", this.onError.bind(this));
+    await new Promise<void>((resolve, reject) => {
+      this.ws = new Websocket(this.wsUri);
+      this.ws.once("open", resolve);
+      this.ws.on("open", () => {
+        this.onOpen().catch(reject);
+      });
+      this.ws.on("close", this.onClose.bind(this));
+      this.ws.on("message", this.onMessage.bind(this));
+      this.ws.once("error", reject);
+      this.ws.on("error", this.onError.bind(this));
+    });
   }
 
   /**
    * Disconnect from the websocket.
    */
-  disconnect(): void {
-    if (!this.socket) {
-      return;
-    }
-
-    switch (this.socket.readyState) {
+  public async disconnect(): Promise<void> {
+    switch (this.ws?.readyState) {
       case Websocket.CLOSED:
         return;
       case Websocket.CLOSING:
       case Websocket.CONNECTING:
-        throw new Error(
-          "Could not disconnect. State: " + this.socket.readyState
-        );
+        throw new Error(`Could not disconnect. State: ${this.ws.readyState}`);
+      default:
+        break;
     }
 
-    this.socket.close();
+    await new Promise<void>((resolve, reject) => {
+      if (!this.ws) {
+        resolve();
+        return;
+      }
+      this.ws.once("error", reject);
+      this.ws.once("close", resolve);
+      this.ws.close();
+    });
   }
 
   /**
    * Subscribes to the specified channel.
    */
-  subscribe(channel: Channel): void {
-    this.send({ command: "subscribe", channel });
+  public async subscribe(channel: Channel): Promise<void> {
+    await this.send({ command: "subscribe", channel });
   }
 
   /**
    * Unsubscribes from the specified channel.
    */
-  unsubscribe(channel: Channel): void {
-    this.send({ command: "unsubscribe", channel });
+  public async unsubscribe(channel: Channel): Promise<void> {
+    await this.send({ command: "unsubscribe", channel });
   }
 
-  private send(subscription: Subscription): void {
-    if (!this.socket) {
+  private async send(subscription: Subscription): Promise<void> {
+    const { ws } = this;
+
+    if (!ws) {
       throw new Error("Websocket is not initialized");
-    } else if (this.key && this.secret) {
-      const { key, secret } = this;
-      const form = { nonce: this.nonce() };
-      const payload = "nonce=" + form.nonce.toString();
-      const signature = SignRequest({ key, secret, form });
-      const message = { ...subscription, payload, ...signature };
-      this.socket.send(JSON.stringify(message));
-    } else {
-      this.socket.send(JSON.stringify(subscription));
     }
+
+    let message = { ...subscription } as Subscription & {
+      payload: string;
+    } & SignedRequest;
+
+    if (this.#key && this.#secret) {
+      const form = new URLSearchParams({ nonce: `${this.nonce()}` });
+      const payload = form.toString();
+      const signature = SignRequest({
+        key: this.#key,
+        secret: this.#secret,
+        body: payload,
+      });
+      message = { ...message, payload, ...signature };
+    }
+    await new Promise<void>((resolve, reject) => {
+      ws.send(JSON.stringify(message), (error) => {
+        if (error) {
+          reject(error);
+        } else {
+          resolve();
+        }
+      });
+    });
   }
 
-  private onOpen(): void {
+  private async onOpen(): Promise<void> {
     this.emit("open");
-    for (const channel of this.channels) {
-      this.subscribe(channel);
+    try {
+      for (const channel of this.channels) {
+        await this.subscribe(channel);
+      }
+    } catch (error) {
+      this.onError(error);
     }
   }
 
@@ -392,52 +449,56 @@ export class WebsocketClient extends EventEmitter {
   }
 
   private onMessage(data: string): void {
-    const jsondata: RawMessage = JSON.parse(data);
-    if ("error" in jsondata) {
-      return this.onError(jsondata);
-    }
-
-    if (this.raw) {
-      this.emit("rawMessage", jsondata);
-    }
-
-    if (jsondata.length === 1) {
-      const message = WebsocketClient.formatHeartbeat(jsondata);
-      this.emit("message", message);
-    } else if (jsondata.length === 2) {
-      const message = WebsocketClient.formatAcknowledge(jsondata);
-      this.emit("message", message);
-    } else if (jsondata[1] === null && jsondata[0] === 1002) {
-      const message = WebsocketClient.formatTicker(jsondata);
-      this.emit("message", message);
-    } else if (jsondata[1] === null && jsondata[0] === 1003) {
-      const message = WebsocketClient.formatVolume(jsondata);
-      this.emit("message", message);
-    } else if (
-      (jsondata[1] === "" || jsondata[1] === null) &&
-      jsondata[0] === 1000
-    ) {
-      const messages = WebsocketClient.formatAccount(jsondata);
-      for (const message of messages) {
-        this.emit("message", message);
+    try {
+      const jsondata = JSON.parse(data) as RawMessage;
+      if ("error" in jsondata) {
+        this.onError(jsondata);
+        return;
       }
-    } else {
-      const messages = WebsocketClient.formatUpdate(jsondata);
-      for (const message of messages) {
-        this.emit("message", message);
+
+      if (this.raw) {
+        this.emit("rawMessage", jsondata);
       }
+
+      if (jsondata.length === 1) {
+        const message = WebsocketClient.formatHeartbeat(jsondata);
+        this.emit("message", message);
+      } else if (jsondata.length === 2) {
+        const message = WebsocketClient.formatAcknowledge(jsondata);
+        this.emit("message", message);
+      } else if (jsondata[1] === null && jsondata[0] === 1002) {
+        const message = WebsocketClient.formatTicker(jsondata);
+        this.emit("message", message);
+      } else if (jsondata[1] === null && jsondata[0] === 1003) {
+        const message = WebsocketClient.formatVolume(jsondata);
+        this.emit("message", message);
+      } else if (
+        (jsondata[1] === "" || jsondata[1] === null) &&
+        jsondata[0] === 1000
+      ) {
+        const messages = WebsocketClient.formatAccount(jsondata);
+        for (const message of messages) {
+          this.emit("message", message);
+        }
+      } else {
+        const messages = WebsocketClient.formatUpdate(jsondata);
+        for (const message of messages) {
+          this.emit("message", message);
+        }
+      }
+    } catch (error) {
+      this.onError(error);
     }
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  private onError(error: any): void {
+  private onError(error: unknown): void {
     if (!error) {
       return;
     }
     this.emit("error", error);
   }
 
-  static formatTicker([
+  public static formatTicker([
     channel_id,
     ,
     [
@@ -470,7 +531,7 @@ export class WebsocketClient extends EventEmitter {
     };
   }
 
-  static formatVolume([
+  public static formatVolume([
     channel_id,
     ,
     [time, users, volume],
@@ -478,7 +539,7 @@ export class WebsocketClient extends EventEmitter {
     return { subject: "volume", channel_id, time, users, volume };
   }
 
-  static formatSnapshot([
+  public static formatSnapshot([
     ,
     { currencyPair, orderBook },
   ]: RawSnapshot): WsSnapshot {
@@ -486,7 +547,7 @@ export class WebsocketClient extends EventEmitter {
     return { subject: "snapshot", currencyPair, asks, bids };
   }
 
-  static formatPublicTrade([
+  public static formatPublicTrade([
     ,
     tradeID,
     side,
@@ -498,16 +559,21 @@ export class WebsocketClient extends EventEmitter {
     return { subject: "publicTrade", tradeID, type, price, size, timestamp };
   }
 
-  static formatBookUpdate([, side, price, size]: RawBookUpdate): WsBookUpdate {
+  public static formatBookUpdate([
+    ,
+    side,
+    price,
+    size,
+  ]: RawBookUpdate): WsBookUpdate {
     const type = side === 1 ? "bid" : "ask";
     return { subject: "update", type, price, size };
   }
 
-  static formatHeartbeat([channel_id]: RawWsHeartbeat): WsHeartbeat {
+  public static formatHeartbeat([channel_id]: RawWsHeartbeat): WsHeartbeat {
     return { subject: "heartbeat", channel_id };
   }
 
-  static formatAcknowledge([
+  public static formatAcknowledge([
     channel_id,
     sequence,
   ]: RawAcknowledgement): WsAcknowledgement {
@@ -515,7 +581,7 @@ export class WebsocketClient extends EventEmitter {
     return { subject, channel_id };
   }
 
-  static formatUpdate([
+  public static formatUpdate([
     channel_id,
     sequence,
     messages,
@@ -542,7 +608,7 @@ export class WebsocketClient extends EventEmitter {
     return output;
   }
 
-  static formatPending([
+  public static formatPending([
     ,
     orderNumber,
     currencyPairId,
@@ -563,7 +629,7 @@ export class WebsocketClient extends EventEmitter {
     };
   }
 
-  static formatNew([
+  public static formatNew([
     ,
     currencyPairId,
     orderNumber,
@@ -588,13 +654,18 @@ export class WebsocketClient extends EventEmitter {
     };
   }
 
-  static formatBalance([, currencyId, w, amount]: RawBalance): WsBalance {
+  public static formatBalance([
+    ,
+    currencyId,
+    w,
+    amount,
+  ]: RawBalance): WsBalance {
     const wallet = w === "e" ? "exchange" : w === "m" ? "margin" : "lending";
     const currency = Currencies[currencyId];
     return { subject: "balance", currencyId, currency, wallet, amount };
   }
 
-  static formatOrder([
+  public static formatOrder([
     ,
     orderNumber,
     newAmount,
@@ -607,7 +678,24 @@ export class WebsocketClient extends EventEmitter {
     return { subject, orderNumber, newAmount, orderType, clientOrderId };
   }
 
-  static formatTrade([
+  public static formatMarginUpdate([
+    ,
+    orderNumber,
+    currency,
+    amount,
+    clientOrderId,
+  ]: RawMarginUpdate): WsMarginUpdate {
+    const subject = "margin";
+    return {
+      subject,
+      orderNumber,
+      currency: Currencies[currency] ?? `${currency}`,
+      amount,
+      clientOrderId,
+    };
+  }
+
+  public static formatTrade([
     ,
     tradeID,
     rate,
@@ -633,11 +721,11 @@ export class WebsocketClient extends EventEmitter {
     };
   }
 
-  static formatKill([, orderNumber, clientOrderId]: RawKill): WsKill {
+  public static formatKill([, orderNumber, clientOrderId]: RawKill): WsKill {
     return { subject: "killed", orderNumber, clientOrderId };
   }
 
-  static formatAccount([
+  public static formatAccount([
     channel_id,
     ,
     messages,
@@ -656,10 +744,13 @@ export class WebsocketClient extends EventEmitter {
       } else if (message[0] === "o") {
         const msg = WebsocketClient.formatOrder(message);
         output.push({ channel_id, ...msg });
+      } else if (message[0] === "m") {
+        const msg = WebsocketClient.formatMarginUpdate(message);
+        output.push({ channel_id, ...msg });
       } else if (message[0] === "t") {
         const msg = WebsocketClient.formatTrade(message);
         output.push({ channel_id, ...msg });
-      } else {
+      } else if (message[0] === "k") {
         const msg = WebsocketClient.formatKill(message);
         output.push({ channel_id, ...msg });
       }
@@ -667,11 +758,11 @@ export class WebsocketClient extends EventEmitter {
     return output;
   }
 
-  set nonce(nonce: () => number) {
-    this._nonce = nonce;
+  public set nonce(nonce: () => number) {
+    this.#nonce = nonce;
   }
 
-  get nonce(): () => number {
-    return this._nonce ? this._nonce : (): number => Date.now();
+  public get nonce(): () => number {
+    return this.#nonce;
   }
 }

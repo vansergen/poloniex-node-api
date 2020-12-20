@@ -1,9 +1,8 @@
-import * as assert from "assert";
-import * as nock from "nock";
+import assert from "assert";
+import nock from "nock";
 import {
   AuthenticatedClient,
   DefaultPair,
-  Headers,
   ApiUri,
   Balances,
   CompleteBalances,
@@ -31,7 +30,7 @@ import {
   CancelLoanResponse,
   LoanOffers,
   ActiveLoans,
-  LendingHistory,
+  LendingHistoryItem,
   AutoRenewResult,
 } from "../index";
 
@@ -42,35 +41,26 @@ const nonce = 1;
 client.nonce = (): number => nonce;
 
 suite("AuthenticatedClient", () => {
+  test("constructor (default `currencyPair`)", () => {
+    assert.deepStrictEqual(client.currencyPair, DefaultPair);
+  });
+
   test("constructor", () => {
-    const apiUri = "https://new-poloniex-api-url.com";
-    const timeout = 9000;
     const currencyPair = "BTC_ETH";
-    const client = new AuthenticatedClient({
-      apiUri,
-      timeout,
+    const otherClient = new AuthenticatedClient({
       currencyPair,
       key,
       secret,
     });
-    assert.deepStrictEqual(client.currencyPair, currencyPair);
-    assert.deepStrictEqual(client.key, key);
-    assert.deepStrictEqual(client.secret, secret);
-    assert.deepStrictEqual(client._rpoptions, {
-      baseUrl: apiUri,
-      json: true,
-      timeout,
-      headers: Headers,
-    });
+    assert.deepStrictEqual(otherClient.currencyPair, currencyPair);
   });
 
-  test(".post() (with invalid form)", async () => {
-    try {
-      await client.post({ form: "String" });
-      assert.fail("Should throw an error");
-    } catch (error) {
-      assert.deepStrictEqual(error, new Error("Incorrect form"));
-    }
+  test(".post()", async () => {
+    const response = { success: 1 };
+    nock(ApiUri).post("/", { nonce }).reply(200, response);
+
+    const data = await client.post();
+    assert.deepStrictEqual(data, response);
   });
 
   test(".post() (with error in the response)", async () => {
@@ -81,7 +71,7 @@ suite("AuthenticatedClient", () => {
       .reply(200, { error });
 
     try {
-      await client.post({ form });
+      await client.post("/tradingApi", { body: new URLSearchParams(form) });
       assert.fail("Should throw an error");
     } catch (err) {
       assert.deepStrictEqual(err, new Error(error));
@@ -97,7 +87,7 @@ suite("AuthenticatedClient", () => {
       .reply(200, { success, result });
 
     try {
-      await client.post({ form });
+      await client.post("/tradingApi", { body: new URLSearchParams(form) });
       assert.fail("Should throw an error");
     } catch (err) {
       assert.deepStrictEqual(err, new Error(result.error));
@@ -586,6 +576,8 @@ suite("AuthenticatedClient", () => {
         },
       ],
       fee: "0.01000000",
+      tokenFee: 0,
+      tokenFeeCurrency: null,
       currencyPair: "BTC_ETH",
     };
     const command = "buy";
@@ -615,6 +607,8 @@ suite("AuthenticatedClient", () => {
         },
       ],
       fee: "0.01000000",
+      tokenFee: 0,
+      tokenFeeCurrency: null,
       currencyPair,
     };
     const command = "buy";
@@ -649,6 +643,8 @@ suite("AuthenticatedClient", () => {
       fee: "0.01000000",
       currencyPair: "BTC_ETH",
       clientOrderId: "12345",
+      tokenFee: 0,
+      tokenFeeCurrency: null,
     };
     const command = "sell";
 
@@ -681,6 +677,8 @@ suite("AuthenticatedClient", () => {
       ],
       fee: "0.01000000",
       currencyPair,
+      tokenFee: 0,
+      tokenFeeCurrency: null,
       clientOrderId: "12345",
     };
     const command = "sell";
@@ -766,7 +764,7 @@ suite("AuthenticatedClient", () => {
   test(".moveOrder()", async () => {
     const orderNumber = 514851026755;
     const rate = 0.00015;
-    const clientOrderId = 12345;
+    let clientOrderId: undefined;
     const response: MoveResponse = {
       success: 1,
       orderNumber: "514851232549",
@@ -778,7 +776,7 @@ suite("AuthenticatedClient", () => {
     const command = "moveOrder";
 
     nock(ApiUri)
-      .post("/tradingApi", { command, nonce, orderNumber, rate, clientOrderId })
+      .post("/tradingApi", { command, nonce, orderNumber, rate })
       .reply(200, response);
 
     const data = await client.moveOrder({ orderNumber, rate, clientOrderId });
@@ -912,6 +910,8 @@ suite("AuthenticatedClient", () => {
       clientOrderId: "123",
       message: "Margin order placed.",
       fee: "0.00150000",
+      tokenFee: 0,
+      tokenFeeCurrency: null,
       currencyPair: "BTC_EOS",
     };
     const command = "marginBuy";
@@ -936,6 +936,8 @@ suite("AuthenticatedClient", () => {
       clientOrderId: "123",
       message: "Margin order placed.",
       fee: "0.00150000",
+      tokenFee: 0,
+      tokenFeeCurrency: null,
       currencyPair,
     };
     const command = "marginBuy";
@@ -961,6 +963,8 @@ suite("AuthenticatedClient", () => {
       clientOrderId: "123",
       message: "Margin order placed.",
       fee: "0.00150000",
+      tokenFee: 0,
+      tokenFeeCurrency: null,
       currencyPair: "BTC_EOS",
     };
     const command = "marginSell";
@@ -986,6 +990,8 @@ suite("AuthenticatedClient", () => {
       clientOrderId: "123",
       message: "Margin order placed.",
       fee: "0.00150000",
+      tokenFee: 0,
+      tokenFeeCurrency: null,
       currencyPair,
     };
     const command = "marginSell";
@@ -1278,7 +1284,7 @@ suite("AuthenticatedClient", () => {
     const start = 1483228800;
     const end = 1483315200;
     const limit = 100;
-    const response: LendingHistory = [
+    const response: LendingHistoryItem[] = [
       {
         id: 246300115,
         currency: "BTC",
@@ -1315,7 +1321,7 @@ suite("AuthenticatedClient", () => {
   });
 
   test(".getLendingHistory() (with no arguments)", async () => {
-    const response: LendingHistory = [
+    const response: LendingHistoryItem[] = [
       {
         id: 246300115,
         currency: "BTC",
@@ -1363,8 +1369,8 @@ suite("AuthenticatedClient", () => {
   });
 
   test(".nonce()", () => {
-    const client = new AuthenticatedClient({ key, secret });
-    const nonce = client.nonce();
-    assert.deepStrictEqual(typeof nonce, "number");
+    const otherClient = new AuthenticatedClient({ key, secret });
+    const otherNonce = otherClient.nonce();
+    assert.deepStrictEqual(typeof otherNonce, "number");
   });
 });

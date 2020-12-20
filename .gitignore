@@ -104,4 +104,7 @@ dist
 .tern-port
 
 # Build
-build
+build/
+
+# PGP key
+.github/pgp/key.asc

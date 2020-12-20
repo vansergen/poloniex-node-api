@@ -1,18 +1,17 @@
-import * as assert from "assert";
-import * as nock from "nock";
+import assert from "assert";
+import nock from "nock";
 import {
   PublicClient,
   ApiUri,
   ApiLimit,
-  DefaultTimeout,
   DefaultPair,
-  Headers,
   Tickers,
   Volumes,
   OrderBook,
   Trade,
   Candle,
-  Currencies,
+  ICurrencies,
+  ExtendedCurrencies,
   Loans,
 } from "../index";
 
@@ -21,39 +20,20 @@ const client = new PublicClient();
 suite("PublicClient", () => {
   test("constructor", () => {
     assert.deepStrictEqual(client.currencyPair, DefaultPair);
-    assert.deepStrictEqual(client._rpoptions, {
-      baseUrl: ApiUri,
-      json: true,
-      timeout: DefaultTimeout,
-      headers: Headers,
-    });
   });
 
   test(".constructor() (with custom parameters)", () => {
-    const apiUri = "https://new-poloniex-api-url.com";
-    const timeout = 9000;
     const currencyPair = "BTC_ETH";
-    const client = new PublicClient({ apiUri, timeout, currencyPair });
-    assert.deepStrictEqual(client.currencyPair, currencyPair);
-    assert.deepStrictEqual(client._rpoptions, {
-      baseUrl: apiUri,
-      json: true,
-      timeout,
-      headers: Headers,
-    });
+    const otherClient = new PublicClient({ currencyPair });
+    assert.deepStrictEqual(otherClient.currencyPair, currencyPair);
   });
 
   test(".get() (throws an error)", async () => {
     const error = "Some error message";
-    const command = "returnTicker";
-    nock(ApiUri).get("/public").query({ command }).reply(200, { error });
+    const path = "/public";
+    nock(ApiUri).get(path).reply(200, { error });
 
-    try {
-      await client.get({ qs: { command } });
-      assert.fail("Should throw an error");
-    } catch (err) {
-      assert.deepStrictEqual(err, new Error(error));
-    }
+    await assert.rejects(client.get(path), new Error(error));
   });
 
   test(".getTickers()", async () => {
@@ -255,10 +235,10 @@ suite("PublicClient", () => {
     const command = "returnTradeHistory";
     const currencyPair = "USDT_BTC";
     const start = 1410158341;
-    const end = 1410499372;
+    let end: undefined;
     nock(ApiUri)
       .get("/public")
-      .query({ command, currencyPair, start, end })
+      .query({ command, currencyPair, start })
       .reply(200, trades);
 
     const data = await client.getTradeHistory({ end, start, currencyPair });
@@ -455,7 +435,7 @@ suite("PublicClient", () => {
   });
 
   test(".getCurrencies()", async () => {
-    const currencies: Currencies = {
+    const currencies: ICurrencies = {
       BTC: {
         id: 28,
         name: "Bitcoin",
@@ -465,8 +445,10 @@ suite("PublicClient", () => {
         minConf: 1,
         depositAddress: null,
         disabled: 0,
-        delisted: 0,
         frozen: 0,
+        hexColor: "F59C3D",
+        blockchain: "BTC",
+        delisted: 0,
         isGeofenced: 0,
       },
       USDT: {
@@ -474,19 +456,77 @@ suite("PublicClient", () => {
         name: "Tether USD",
         humanType: "Sweep to Main Account",
         currencyType: "address",
-        txFee: "10.00000000",
+        txFee: "60.00000000",
         minConf: 2,
         depositAddress: null,
         disabled: 0,
-        delisted: 0,
         frozen: 0,
+        hexColor: "44A58B",
+        blockchain: "OMNI",
+        delisted: 0,
         isGeofenced: 0,
       },
     };
     const command = "returnCurrencies";
-    nock(ApiUri).get("/public").query({ command }).reply(200, currencies);
+    const includeMultiChainCurrencies = false;
+    nock(ApiUri)
+      .get("/public")
+      .query({ command, includeMultiChainCurrencies })
+      .reply(200, currencies);
 
     const data = await client.getCurrencies();
+    assert.deepStrictEqual(data, currencies);
+  });
+
+  test(".getCurrencies() (with `includeMultiChainCurrencies`)", async () => {
+    const currencies: ExtendedCurrencies = {
+      BTC: {
+        id: 28,
+        name: "Bitcoin",
+        humanType: "BTC Clone",
+        currencyType: "address",
+        txFee: "0.00050000",
+        minConf: 1,
+        depositAddress: null,
+        disabled: 0,
+        frozen: 0,
+        hexColor: "F59C3D",
+        blockchain: "BTC",
+        delisted: 0,
+        parentChain: null,
+        isMultiChain: 1,
+        isChildChain: 0,
+        childChains: ["BTCTRON"],
+        isGeofenced: 0,
+      },
+      USDT: {
+        id: 214,
+        name: "Tether USD",
+        humanType: "Sweep to Main Account",
+        currencyType: "address",
+        txFee: "60.00000000",
+        minConf: 2,
+        depositAddress: null,
+        disabled: 0,
+        frozen: 0,
+        hexColor: "44A58B",
+        blockchain: "OMNI",
+        delisted: 0,
+        parentChain: null,
+        isMultiChain: 1,
+        isChildChain: 0,
+        childChains: ["USDTETH", "USDTTRON"],
+        isGeofenced: 0,
+      },
+    };
+    const command = "returnCurrencies";
+    const includeMultiChainCurrencies = true;
+    nock(ApiUri)
+      .get("/public")
+      .query({ command, includeMultiChainCurrencies })
+      .reply(200, currencies);
+
+    const data = await client.getCurrencies({ includeMultiChainCurrencies });
     assert.deepStrictEqual(data, currencies);
   });
 
