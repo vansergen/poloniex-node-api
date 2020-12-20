@@ -1,5 +1,11 @@
 # Changelog
 
+### [3.0.1](https://github.com/vansergen/poloniex-node-api/compare/v3.0.0...v3.0.1) (2020-12-20)
+
+### Dependencies
+
+- update `rpc-request` to `v5.0.1` ([1ca8121](https://github.com/vansergen/poloniex-node-api/commit/1ca812100e1bab730d3382b07cb0a5d9aa3b097b))
+
 ## [3.0.0](https://github.com/vansergen/poloniex-node-api/compare/v2.0.4...v3.0.0) (2020-12-20)
 
 ### ⚠ BREAKING CHANGES
