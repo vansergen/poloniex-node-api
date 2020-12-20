@@ -932,8 +932,8 @@ suite("WebsocketClient", () => {
     });
   });
 
-  suite(".socket listeners", () => {
-    suite(".onOpen()", () => {
+  suite("socket events", () => {
+    suite("open", () => {
       test("emits `open`", async () => {
         const connect = new Promise<void>((resolve) => {
           client.once("open", () => {
@@ -995,7 +995,7 @@ suite("WebsocketClient", () => {
       });
     });
 
-    suite(".onClose()", () => {
+    suite("close", () => {
       test("emits `close`", async () => {
         client.once("open", () => {
           client.ws?.emit("close");
@@ -1010,7 +1010,7 @@ suite("WebsocketClient", () => {
       });
     });
 
-    suite(".onMessage()", () => {
+    suite("message", () => {
       test("emits `error` when receiving an error message", async () => {
         const error = "Permission denied.";
         server.once("connection", (ws) => ws.send(JSON.stringify({ error })));
@@ -1453,7 +1453,7 @@ suite("WebsocketClient", () => {
       });
     });
 
-    suite(".onError()", () => {
+    suite("error", () => {
       test("emits `error`", async () => {
         const error = new Error("Some error");
         client.once("open", () => {

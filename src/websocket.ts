@@ -337,28 +337,78 @@ export class WebsocketClient extends EventEmitter {
    * Connect to the websocket.
    */
   public async connect(): Promise<void> {
-    if (this.ws) {
-      switch (this.ws.readyState) {
-        case Websocket.CLOSING:
-        case Websocket.CONNECTING:
-          throw new Error(`Could not connect. State: ${this.ws.readyState}`);
-        case Websocket.OPEN:
-          return;
-        default:
-          break;
-      }
+    switch (this.ws?.readyState) {
+      case Websocket.CLOSING:
+      case Websocket.CONNECTING:
+        throw new Error(`Could not connect. State: ${this.ws.readyState}`);
+      case Websocket.OPEN:
+        return;
+      default:
+        break;
     }
 
     await new Promise<void>((resolve, reject) => {
       this.ws = new Websocket(this.wsUri);
       this.ws.once("open", resolve);
-      this.ws.on("open", () => {
-        this.onOpen().catch(reject);
-      });
-      this.ws.on("close", this.onClose.bind(this));
-      this.ws.on("message", this.onMessage.bind(this));
       this.ws.once("error", reject);
-      this.ws.on("error", this.onError.bind(this));
+      this.ws.on("open", () => {
+        this.emit("open");
+        for (const channel of this.channels) {
+          this.subscribe(channel).catch((error) => {
+            this.emit("error", error);
+          });
+        }
+      });
+      this.ws.on("close", () => {
+        this.emit("close");
+      });
+      this.ws.on("message", (data: string) => {
+        try {
+          const jsondata = JSON.parse(data) as RawMessage;
+          if ("error" in jsondata) {
+            this.emit("error", jsondata);
+            return;
+          }
+
+          if (this.raw) {
+            this.emit("rawMessage", jsondata);
+          }
+
+          if (jsondata.length === 1) {
+            const message = WebsocketClient.formatHeartbeat(jsondata);
+            this.emit("message", message);
+          } else if (jsondata.length === 2) {
+            const message = WebsocketClient.formatAcknowledge(jsondata);
+            this.emit("message", message);
+          } else if (jsondata[1] === null && jsondata[0] === 1002) {
+            const message = WebsocketClient.formatTicker(jsondata);
+            this.emit("message", message);
+          } else if (jsondata[1] === null && jsondata[0] === 1003) {
+            const message = WebsocketClient.formatVolume(jsondata);
+            this.emit("message", message);
+          } else if (
+            (jsondata[1] === "" || jsondata[1] === null) &&
+            jsondata[0] === 1000
+          ) {
+            const messages = WebsocketClient.formatAccount(jsondata);
+            for (const message of messages) {
+              this.emit("message", message);
+            }
+          } else {
+            const messages = WebsocketClient.formatUpdate(jsondata);
+            for (const message of messages) {
+              this.emit("message", message);
+            }
+          }
+        } catch (error) {
+          this.emit("error", error);
+        }
+      });
+      this.ws.on("error", (error) => {
+        if (error) {
+          this.emit("error", error);
+        }
+      });
     });
   }
 
@@ -431,71 +481,6 @@ export class WebsocketClient extends EventEmitter {
         }
       });
     });
-  }
-
-  private async onOpen(): Promise<void> {
-    this.emit("open");
-    try {
-      for (const channel of this.channels) {
-        await this.subscribe(channel);
-      }
-    } catch (error) {
-      this.onError(error);
-    }
-  }
-
-  private onClose(): void {
-    this.emit("close");
-  }
-
-  private onMessage(data: string): void {
-    try {
-      const jsondata = JSON.parse(data) as RawMessage;
-      if ("error" in jsondata) {
-        this.onError(jsondata);
-        return;
-      }
-
-      if (this.raw) {
-        this.emit("rawMessage", jsondata);
-      }
-
-      if (jsondata.length === 1) {
-        const message = WebsocketClient.formatHeartbeat(jsondata);
-        this.emit("message", message);
-      } else if (jsondata.length === 2) {
-        const message = WebsocketClient.formatAcknowledge(jsondata);
-        this.emit("message", message);
-      } else if (jsondata[1] === null && jsondata[0] === 1002) {
-        const message = WebsocketClient.formatTicker(jsondata);
-        this.emit("message", message);
-      } else if (jsondata[1] === null && jsondata[0] === 1003) {
-        const message = WebsocketClient.formatVolume(jsondata);
-        this.emit("message", message);
-      } else if (
-        (jsondata[1] === "" || jsondata[1] === null) &&
-        jsondata[0] === 1000
-      ) {
-        const messages = WebsocketClient.formatAccount(jsondata);
-        for (const message of messages) {
-          this.emit("message", message);
-        }
-      } else {
-        const messages = WebsocketClient.formatUpdate(jsondata);
-        for (const message of messages) {
-          this.emit("message", message);
-        }
-      }
-    } catch (error) {
-      this.onError(error);
-    }
-  }
-
-  private onError(error: unknown): void {
-    if (!error) {
-      return;
-    }
-    this.emit("error", error);
   }
 
   public static formatTicker([
