@@ -1,6 +1,6 @@
 {
   "name": "poloniex-node-api",
-  "version": "2.0.4",
+  "version": "3.0.0",
   "description": "Poloniex Node.js API",
   "main": "build/index.js",
   "directories": {

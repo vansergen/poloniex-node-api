@@ -1,0 +1,1389 @@
+<!DOCTYPE html>
+<html class="default no-js">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>poloniex-node-api - v3.0.0</title>
+    <meta
+      name="description"
+      content="Documentation for poloniex-node-api - v3.0.0"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+  </head>
+  <body>
+    <header>
+      <div class="tsd-page-toolbar">
+        <div class="container">
+          <div class="table-wrap">
+            <div
+              class="table-cell"
+              id="tsd-search"
+              data-index="assets/js/search.json"
+              data-base="."
+            >
+              <div class="field">
+                <label
+                  for="tsd-search-field"
+                  class="tsd-widget search no-caption"
+                  >Search</label
+                >
+                <input id="tsd-search-field" type="text" />
+              </div>
+              <ul class="results">
+                <li class="state loading">Preparing search index...</li>
+                <li class="state failure">The search index is not available</li>
+              </ul>
+              <a href="index.html" class="title">poloniex-node-api - v3.0.0</a>
+            </div>
+            <div class="table-cell" id="tsd-widgets">
+              <div id="tsd-filter">
+                <a
+                  href="#"
+                  class="tsd-widget options no-caption"
+                  data-toggle="options"
+                  >Options</a
+                >
+                <div class="tsd-filter-group">
+                  <div class="tsd-select" id="tsd-filter-visibility">
+                    <span class="tsd-select-label">All</span>
+                    <ul class="tsd-select-list">
+                      <li data-value="public">Public</li>
+                      <li data-value="protected">Public/Protected</li>
+                      <li data-value="private" class="selected">All</li>
+                    </ul>
+                  </div>
+                  <input type="checkbox" id="tsd-filter-inherited" checked />
+                  <label class="tsd-widget" for="tsd-filter-inherited"
+                    >Inherited</label
+                  >
+                  <input type="checkbox" id="tsd-filter-externals" checked />
+                  <label class="tsd-widget" for="tsd-filter-externals"
+                    >Externals</label
+                  >
+                  <input type="checkbox" id="tsd-filter-only-exported" />
+                  <label class="tsd-widget" for="tsd-filter-only-exported"
+                    >Only exported</label
+                  >
+                </div>
+              </div>
+              <a href="#" class="tsd-widget menu no-caption" data-toggle="menu"
+                >Menu</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="tsd-page-title">
+        <div class="container">
+          <ul class="tsd-breadcrumb">
+            <li>
+              <a href="globals.html">Globals</a>
+            </li>
+          </ul>
+          <h1>poloniex-node-api - v3.0.0</h1>
+        </div>
+      </div>
+    </header>
+    <div class="container container-main">
+      <div class="row">
+        <div class="col-8 col-content">
+          <div class="tsd-panel tsd-typography">
+            <a
+              href="#poloniex-nodejs-api-----------"
+              id="poloniex-nodejs-api-----------"
+              style="color: inherit; text-decoration: none"
+            >
+              <h1>
+                Poloniex Node.js API
+                <img
+                  src="https://github.com/vansergen/poloniex-node-api/workflows/CI/badge.svg"
+                  alt="CI Status"
+                />
+                <img
+                  src="https://img.shields.io/npm/v/poloniex-node-api"
+                  alt="npm"
+                />
+                <a
+                  href="https://coveralls.io/github/vansergen/poloniex-node-api?branch=master"
+                  ><img
+                    src="https://coveralls.io/repos/github/vansergen/poloniex-node-api/badge.svg?branch=master"
+                    alt="Coverage Status"
+                /></a>
+                <a
+                  href="https://snyk.io/test/github/vansergen/poloniex-node-api"
+                  ><img
+                    src="https://snyk.io/test/github/vansergen/poloniex-node-api/badge.svg"
+                    alt="Known Vulnerabilities"
+                /></a>
+                <a href="https://github.com/prettier/prettier"
+                  ><img
+                    src="https://img.shields.io/badge/code_style-prettier-ff69b4.svg"
+                    alt="code style: prettier"
+                /></a>
+                <a href="https://github.com/semantic-release/semantic-release"
+                  ><img
+                    src="https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg"
+                    alt="semantic-release"
+                /></a>
+                <a href="https://conventionalcommits.org"
+                  ><img
+                    src="https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg"
+                    alt="Conventional Commits"
+                /></a>
+                <img
+                  src="https://img.shields.io/npm/l/poloniex-node-api"
+                  alt="NPM license"
+                />
+                <img
+                  src="https://img.shields.io/node/v/poloniex-node-api"
+                  alt="node version"
+                />
+                <img
+                  src="https://img.shields.io/npm/dt/poloniex-node-api"
+                  alt="npm downloads"
+                />
+                <img
+                  src="https://img.shields.io/github/languages/top/vansergen/poloniex-node-api"
+                  alt="GitHub top language"
+                />
+              </h1>
+            </a>
+            <p>
+              Node.js library for
+              <a href="https://docs.poloniex.com/">Poloniex</a>.
+            </p>
+            <a
+              href="#installation"
+              id="installation"
+              style="color: inherit; text-decoration: none"
+            >
+              <h2>Installation</h2>
+            </a>
+            <pre><code class="language-bash">npm install poloniex-node-api</code></pre>
+            <a
+              href="#usage"
+              id="usage"
+              style="color: inherit; text-decoration: none"
+            >
+              <h2>Usage</h2>
+            </a>
+            <a
+              href="#publicclient"
+              id="publicclient"
+              style="color: inherit; text-decoration: none"
+            >
+              <h3>
+                <a href="https://docs.poloniex.com/#public-http-api-methods"
+                  >PublicClient</a
+                >
+              </h3>
+            </a>
+            <pre><code class="language-typescript"><span class="hljs-keyword">import</span> { PublicClient } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;poloniex-node-api&quot;</span>;
+<span class="hljs-keyword">const</span> client = <span class="hljs-keyword">new</span> PublicClient();</code></pre>
+            <ul>
+              <li>
+                <a href="https://docs.poloniex.com/?shell#returnticker"
+                  ><code>getTickers</code></a
+                >
+              </li>
+            </ul>
+            <pre><code class="language-typescript"><span class="hljs-keyword">const</span> tickers = <span class="hljs-keyword">await</span> client.getTickers();</code></pre>
+            <ul>
+              <li>
+                <a href="https://docs.poloniex.com/?shell#return24hvolume"
+                  ><code>getVolume</code></a
+                >
+              </li>
+            </ul>
+            <pre><code class="language-typescript"><span class="hljs-keyword">const</span> volume = <span class="hljs-keyword">await</span> client.getVolume();</code></pre>
+            <ul>
+              <li>
+                <a href="https://docs.poloniex.com/?shell#returnorderbook"
+                  ><code>getOrderBook</code></a
+                >
+              </li>
+            </ul>
+            <pre><code class="language-typescript"><span class="hljs-keyword">const</span> currencyPair = <span class="hljs-string">&quot;USDT_BTC&quot;</span>;
+<span class="hljs-keyword">const</span> depth = <span class="hljs-number">25</span>;
+<span class="hljs-keyword">const</span> book = <span class="hljs-keyword">await</span> client.getOrderBook({ currencyPair, depth });</code></pre>
+            <ul>
+              <li>
+                <a
+                  href="https://docs.poloniex.com/?shell#returntradehistory-public"
+                  ><code>getTradeHistory</code></a
+                >
+              </li>
+            </ul>
+            <pre><code class="language-typescript"><span class="hljs-keyword">const</span> currencyPair = <span class="hljs-string">&quot;currencyPair&quot;</span>;
+<span class="hljs-keyword">const</span> start = <span class="hljs-number">1410158341</span>;
+<span class="hljs-keyword">const</span> end = <span class="hljs-number">1410499372</span>;
+<span class="hljs-keyword">const</span> trades = <span class="hljs-keyword">await</span> client.getTradeHistory({ currencyPair, start, end });</code></pre>
+            <ul>
+              <li>
+                <a href="https://docs.poloniex.com/?shell#returnchartdata"
+                  ><code>getChartData</code></a
+                >
+              </li>
+            </ul>
+            <pre><code class="language-typescript"><span class="hljs-keyword">const</span> currencyPair = <span class="hljs-string">&quot;BTC_XMR&quot;</span>;
+<span class="hljs-keyword">const</span> period = <span class="hljs-number">14400</span>;
+<span class="hljs-keyword">const</span> start = <span class="hljs-number">1546300800</span>;
+<span class="hljs-keyword">const</span> end = <span class="hljs-number">1546646400</span>;
+<span class="hljs-keyword">const</span> candles = <span class="hljs-keyword">await</span> client.getChartData({ currencyPair, period, start, end });</code></pre>
+            <ul>
+              <li>
+                <a href="https://docs.poloniex.com/?shell#returncurrencies"
+                  ><code>getCurrencies</code></a
+                >
+              </li>
+            </ul>
+            <pre><code class="language-typescript"><span class="hljs-keyword">const</span> includeMultiChainCurrencies = <span class="hljs-literal">true</span>;
+<span class="hljs-keyword">const</span> currencies = <span class="hljs-keyword">await</span> client.getCurrencies({ includeMultiChainCurrencies });</code></pre>
+            <ul>
+              <li>
+                <a href="https://docs.poloniex.com/?shell#returnloanorders"
+                  ><code>getLoanOrders</code></a
+                >
+              </li>
+            </ul>
+            <pre><code class="language-typescript"><span class="hljs-keyword">const</span> currency = <span class="hljs-string">&quot;USDT&quot;</span>;
+<span class="hljs-keyword">const</span> loans = <span class="hljs-keyword">await</span> client.getLoanOrders({ currency });</code></pre>
+            <a
+              href="#authenticatedclient"
+              id="authenticatedclient"
+              style="color: inherit; text-decoration: none"
+            >
+              <h3>
+                <a href="https://docs.poloniex.com/#private-http-api-methods"
+                  >AuthenticatedClient</a
+                >
+              </h3>
+            </a>
+            <pre><code class="language-typescript"><span class="hljs-keyword">import</span> { AuthenticatedClient } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;poloniex-node-api&quot;</span>;
+<span class="hljs-keyword">const</span> key = <span class="hljs-string">&quot;poloniexapikey&quot;</span>;
+<span class="hljs-keyword">const</span> secret = <span class="hljs-string">&quot;poloniexapisecret&quot;</span>;
+<span class="hljs-keyword">const</span> client = <span class="hljs-keyword">new</span> AuthenticatedClient({ key, secret });</code></pre>
+            <ul>
+              <li>
+                <a href="https://docs.poloniex.com/?shell#returnbalances"
+                  ><code>getBalances</code></a
+                >
+              </li>
+            </ul>
+            <pre><code class="language-typescript"><span class="hljs-keyword">const</span> balances = <span class="hljs-keyword">await</span> client.getBalances();</code></pre>
+            <ul>
+              <li>
+                <a
+                  href="https://docs.poloniex.com/?shell#returncompletebalances"
+                  ><code>getCompleteBalances</code></a
+                >
+              </li>
+            </ul>
+            <pre><code class="language-typescript"><span class="hljs-keyword">const</span> account = <span class="hljs-string">&quot;all&quot;</span>;
+<span class="hljs-keyword">const</span> balances = <span class="hljs-keyword">await</span> client.getCompleteBalances({ account });</code></pre>
+            <ul>
+              <li>
+                <a
+                  href="https://docs.poloniex.com/?shell#returndepositaddresses"
+                  ><code>getDepositAddresses</code></a
+                >
+              </li>
+            </ul>
+            <pre><code class="language-typescript"><span class="hljs-keyword">const</span> addresses = <span class="hljs-keyword">await</span> client.getDepositAddresses();</code></pre>
+            <ul>
+              <li>
+                <a href="https://docs.poloniex.com/?shell#generatenewaddress"
+                  ><code>getNewAddress</code></a
+                >
+              </li>
+            </ul>
+            <pre><code class="language-typescript"><span class="hljs-keyword">const</span> currency = <span class="hljs-string">&quot;ZEC&quot;</span>;
+<span class="hljs-keyword">const</span> addresses = <span class="hljs-keyword">await</span> client.getNewAddress({ currency });</code></pre>
+            <ul>
+              <li>
+                <a
+                  href="https://docs.poloniex.com/?shell#returndepositswithdrawals"
+                  ><code>getDepositsWithdrawals</code></a
+                >
+              </li>
+            </ul>
+            <pre><code class="language-typescript"><span class="hljs-keyword">const</span> start = <span class="hljs-number">1539954535</span>;
+<span class="hljs-keyword">const</span> end = <span class="hljs-number">1540314535</span>;
+<span class="hljs-keyword">const</span> result = <span class="hljs-keyword">await</span> client.getDepositsWithdrawals({ start, end });</code></pre>
+            <ul>
+              <li>
+                <a href="https://docs.poloniex.com/?shell#returnopenorders"
+                  ><code>getOpenOrders</code></a
+                >
+              </li>
+            </ul>
+            <pre><code class="language-typescript"><span class="hljs-keyword">const</span> currencyPair = <span class="hljs-string">&quot;BTC_DASH&quot;</span>;
+<span class="hljs-keyword">const</span> orders = <span class="hljs-keyword">await</span> client.getOpenOrders({ currencyPair });</code></pre>
+            <ul>
+              <li>
+                <a
+                  href="https://docs.poloniex.com/?shell#returntradehistory-private"
+                  ><code>getHistoryTrades</code></a
+                >
+              </li>
+            </ul>
+            <pre><code class="language-typescript"><span class="hljs-keyword">const</span> currencyPair = <span class="hljs-string">&quot;BTC_ETC&quot;</span>;
+<span class="hljs-keyword">const</span> start = <span class="hljs-number">1573953463</span>;
+<span class="hljs-keyword">const</span> end = <span class="hljs-number">1576588663</span>;
+<span class="hljs-keyword">const</span> limit = <span class="hljs-number">5000</span>;
+<span class="hljs-keyword">const</span> trades = <span class="hljs-keyword">await</span> client.getHistoryTrades({
+  currencyPair,
+  start,
+  end,
+  limit,
+});</code></pre>
+            <ul>
+              <li>
+                <a
+                  href="https://docs.poloniex.com/?shell#returntradehistory-private"
+                  ><code>getOrderTrades</code></a
+                >
+              </li>
+            </ul>
+            <pre><code class="language-typescript"><span class="hljs-keyword">const</span> orderNumber = <span class="hljs-number">96238912842</span>;
+<span class="hljs-keyword">const</span> trades = <span class="hljs-keyword">await</span> client.getOrderTrades({ orderNumber });</code></pre>
+            <ul>
+              <li>
+                <a href="https://docs.poloniex.com/?shell#returnorderstatus"
+                  ><code>getOrderStatus</code></a
+                >
+              </li>
+            </ul>
+            <pre><code class="language-typescript"><span class="hljs-keyword">const</span> orderNumber = <span class="hljs-number">96238912842</span>;
+<span class="hljs-keyword">const</span> trades = <span class="hljs-keyword">await</span> client.getOrderStatus({ orderNumber });</code></pre>
+            <ul>
+              <li>
+                <a href="https://docs.poloniex.com/?shell#buy"
+                  ><code>buy</code></a
+                >
+              </li>
+            </ul>
+            <pre><code class="language-typescript"><span class="hljs-keyword">const</span> currencyPair = <span class="hljs-string">&quot;BTC_ETH&quot;</span>;
+<span class="hljs-keyword">const</span> rate = <span class="hljs-number">0.01</span>;
+<span class="hljs-keyword">const</span> amount = <span class="hljs-number">1</span>;
+<span class="hljs-keyword">const</span> clientOrderId = <span class="hljs-number">12345</span>;
+<span class="hljs-keyword">const</span> postOnly = <span class="hljs-number">1</span>;
+<span class="hljs-keyword">const</span> order = <span class="hljs-keyword">await</span> client.buy({
+  currencyPair,
+  rate,
+  amount,
+  postOnly,
+  clientOrderId,
+});</code></pre>
+            <ul>
+              <li>
+                <a href="https://docs.poloniex.com/?shell#sell"
+                  ><code>sell</code></a
+                >
+              </li>
+            </ul>
+            <pre><code class="language-typescript"><span class="hljs-keyword">const</span> currencyPair = <span class="hljs-string">&quot;BTC_ETH&quot;</span>;
+<span class="hljs-keyword">const</span> rate = <span class="hljs-number">10</span>;
+<span class="hljs-keyword">const</span> amount = <span class="hljs-number">1</span>;
+<span class="hljs-keyword">const</span> order = <span class="hljs-keyword">await</span> client.sell({ currencyPair, rate, amount });</code></pre>
+            <ul>
+              <li>
+                <a href="https://docs.poloniex.com/?shell#cancelorder"
+                  ><code>cancelOrder</code></a
+                >
+              </li>
+            </ul>
+            <pre><code class="language-typescript"><span class="hljs-keyword">const</span> orderNumber = <span class="hljs-number">514845991795</span>;
+<span class="hljs-keyword">let</span> result = <span class="hljs-keyword">await</span> client.cancelOrder({ orderNumber });
+<span class="hljs-comment">// or by `clientOrderId`</span>
+<span class="hljs-keyword">const</span> clientOrderId = <span class="hljs-number">12345</span>;
+result = <span class="hljs-keyword">await</span> client.cancelOrder({ clientOrderId });</code></pre>
+            <ul>
+              <li>
+                <a href="https://docs.poloniex.com/?shell#cancelallorders"
+                  ><code>cancelAllOrders</code></a
+                >
+              </li>
+            </ul>
+            <pre><code class="language-typescript"><span class="hljs-keyword">const</span> currencyPair = <span class="hljs-string">&quot;BTC_ETH&quot;</span>;
+<span class="hljs-keyword">const</span> orders = <span class="hljs-keyword">await</span> client.cancelAllOrders({ currencyPair });</code></pre>
+            <ul>
+              <li>
+                <a href="https://docs.poloniex.com/?shell#moveorder"
+                  ><code>moveOrder</code></a
+                >
+              </li>
+            </ul>
+            <pre><code class="language-typescript"><span class="hljs-keyword">const</span> orderNumber = <span class="hljs-number">514851026755</span>;
+<span class="hljs-keyword">const</span> rate = <span class="hljs-number">0.00015</span>;
+<span class="hljs-keyword">const</span> clientOrderId = <span class="hljs-number">12345</span>;
+<span class="hljs-keyword">const</span> result = <span class="hljs-keyword">await</span> client.moveOrder({ rate, orderNumber, clientOrderId });</code></pre>
+            <ul>
+              <li>
+                <a href="https://docs.poloniex.com/?shell#withdraw"
+                  ><code>withdraw</code></a
+                >
+              </li>
+            </ul>
+            <pre><code class="language-typescript"><span class="hljs-keyword">const</span> currency = <span class="hljs-string">&quot;EOS&quot;</span>;
+<span class="hljs-keyword">const</span> amount = <span class="hljs-number">1000</span>;
+<span class="hljs-keyword">const</span> address = <span class="hljs-string">&quot;eos-address&quot;</span>;
+<span class="hljs-keyword">const</span> paymentId = <span class="hljs-number">1234567890</span>;
+<span class="hljs-keyword">const</span> result = <span class="hljs-keyword">await</span> client.withdraw({
+  currency,
+  amount,
+  address,
+  paymentId,
+});</code></pre>
+            <ul>
+              <li>
+                <a href="https://docs.poloniex.com/?shell#returnfeeinfo"
+                  ><code>getFeeInfo</code></a
+                >
+              </li>
+            </ul>
+            <pre><code class="language-typescript"><span class="hljs-keyword">const</span> fees = <span class="hljs-keyword">await</span> client.getFeeInfo();</code></pre>
+            <ul>
+              <li>
+                <a
+                  href="https://docs.poloniex.com/?shell#returnavailableaccountbalances"
+                  ><code>getAccountBalances</code></a
+                >
+              </li>
+            </ul>
+            <pre><code class="language-typescript"><span class="hljs-keyword">const</span> account = <span class="hljs-string">&quot;lending&quot;</span>;
+<span class="hljs-keyword">const</span> balances = <span class="hljs-keyword">await</span> client.getAccountBalances({ account });</code></pre>
+            <ul>
+              <li>
+                <a
+                  href="https://docs.poloniex.com/?shell#returntradablebalances"
+                  ><code>getTradableBalances</code></a
+                >
+              </li>
+            </ul>
+            <pre><code class="language-typescript"><span class="hljs-keyword">const</span> balances = <span class="hljs-keyword">await</span> client.getTradableBalances();</code></pre>
+            <ul>
+              <li>
+                <a href="https://docs.poloniex.com/?shell#transferbalance"
+                  ><code>transferBalance</code></a
+                >
+              </li>
+            </ul>
+            <pre><code class="language-typescript"><span class="hljs-keyword">const</span> currency = <span class="hljs-string">&quot;BTC&quot;</span>;
+<span class="hljs-keyword">const</span> amount = <span class="hljs-number">0.5</span>;
+<span class="hljs-keyword">const</span> fromAccount = <span class="hljs-string">&quot;lending&quot;</span>;
+<span class="hljs-keyword">const</span> toAccount = <span class="hljs-string">&quot;exchange&quot;</span>;
+<span class="hljs-keyword">const</span> transfer = <span class="hljs-keyword">await</span> client.transferBalance({
+  currency,
+  amount,
+  fromAccount,
+  toAccount,
+});</code></pre>
+            <ul>
+              <li>
+                <a
+                  href="https://docs.poloniex.com/?shell#returnmarginaccountsummary"
+                  ><code>getMarginSummary</code></a
+                >
+              </li>
+            </ul>
+            <pre><code class="language-typescript"><span class="hljs-keyword">const</span> summary = <span class="hljs-keyword">await</span> client.getMarginSummary();</code></pre>
+            <ul>
+              <li>
+                <a href="https://docs.poloniex.com/?shell#marginbuy"
+                  ><code>marginBuy</code></a
+                >
+              </li>
+            </ul>
+            <pre><code class="language-typescript"><span class="hljs-keyword">const</span> currencyPair = <span class="hljs-string">&quot;BTC_ETH&quot;</span>;
+<span class="hljs-keyword">const</span> rate = <span class="hljs-number">0.01</span>;
+<span class="hljs-keyword">const</span> amount = <span class="hljs-number">1</span>;
+<span class="hljs-keyword">const</span> lendingRate = <span class="hljs-number">0.01</span>;
+<span class="hljs-keyword">const</span> order = <span class="hljs-keyword">await</span> client.marginBuy({
+  currencyPair,
+  rate,
+  amount,
+  lendingRate,
+});</code></pre>
+            <ul>
+              <li>
+                <a href="https://docs.poloniex.com/?shell#marginsell"
+                  ><code>marginSell</code></a
+                >
+              </li>
+            </ul>
+            <pre><code class="language-typescript"><span class="hljs-keyword">const</span> currencyPair = <span class="hljs-string">&quot;BTC_ETH&quot;</span>;
+<span class="hljs-keyword">const</span> rate = <span class="hljs-number">10</span>;
+<span class="hljs-keyword">const</span> amount = <span class="hljs-number">1</span>;
+<span class="hljs-keyword">const</span> lendingRate = <span class="hljs-number">0.015</span>;
+<span class="hljs-keyword">const</span> clientOrderId = <span class="hljs-number">12345</span>;
+<span class="hljs-keyword">const</span> order = <span class="hljs-keyword">await</span> client.marginSell({
+  currencyPair,
+  rate,
+  amount,
+  lendingRate,
+  clientOrderId,
+});</code></pre>
+            <ul>
+              <li>
+                <a href="https://docs.poloniex.com/?shell#getmarginposition"
+                  ><code>getMarginPosition</code></a
+                >
+              </li>
+            </ul>
+            <pre><code class="language-typescript"><span class="hljs-keyword">const</span> currencyPair = <span class="hljs-string">&quot;BTC_ETH&quot;</span>;
+<span class="hljs-keyword">const</span> position = <span class="hljs-keyword">await</span> client.getMarginPosition({ currencyPair });</code></pre>
+            <ul>
+              <li>
+                <a href="https://docs.poloniex.com/?shell#closemarginposition"
+                  ><code>closeMarginPosition</code></a
+                >
+              </li>
+            </ul>
+            <pre><code class="language-typescript"><span class="hljs-keyword">const</span> currencyPair = <span class="hljs-string">&quot;BTC_ETH&quot;</span>;
+<span class="hljs-keyword">const</span> position = <span class="hljs-keyword">await</span> client.closeMarginPosition({ currencyPair });</code></pre>
+            <ul>
+              <li>
+                <a href="https://docs.poloniex.com/?shell#createloanoffer"
+                  ><code>createLoanOffer</code></a
+                >
+              </li>
+            </ul>
+            <pre><code class="language-typescript"><span class="hljs-keyword">const</span> currency = <span class="hljs-string">&quot;BTC&quot;</span>;
+<span class="hljs-keyword">const</span> amount = <span class="hljs-number">0.1</span>;
+<span class="hljs-keyword">const</span> duration = <span class="hljs-number">2</span>;
+<span class="hljs-keyword">const</span> autoRenew = <span class="hljs-number">0</span>;
+<span class="hljs-keyword">const</span> lendingRate = <span class="hljs-number">0.015</span>;
+<span class="hljs-keyword">const</span> offer = <span class="hljs-keyword">await</span> client.createLoanOffer({
+  currency,
+  amount,
+  duration,
+  autoRenew,
+  lendingRate,
+});</code></pre>
+            <ul>
+              <li>
+                <a href="https://docs.poloniex.com/?shell#cancelloanoffer"
+                  ><code>cancelLoanOffer</code></a
+                >
+              </li>
+            </ul>
+            <pre><code class="language-typescript"><span class="hljs-keyword">const</span> orderNumber = <span class="hljs-number">1002013188</span>;
+<span class="hljs-keyword">const</span> offer = <span class="hljs-keyword">await</span> client.cancelLoanOffer({ orderNumber });</code></pre>
+            <ul>
+              <li>
+                <a href="https://docs.poloniex.com/?shell#returnopenloanoffers"
+                  ><code>getOpenLoanOffers</code></a
+                >
+              </li>
+            </ul>
+            <pre><code class="language-typescript"><span class="hljs-keyword">const</span> offers = <span class="hljs-keyword">await</span> client.getOpenLoanOffers();</code></pre>
+            <ul>
+              <li>
+                <a href="https://docs.poloniex.com/#returnactiveloans"
+                  ><code>getActiveLoans</code></a
+                >
+              </li>
+            </ul>
+            <pre><code class="language-typescript"><span class="hljs-keyword">const</span> loans = <span class="hljs-keyword">await</span> client.getActiveLoans();</code></pre>
+            <ul>
+              <li>
+                <a href="https://docs.poloniex.com/#returnlendinghistory"
+                  ><code>getLendingHistory</code></a
+                >
+              </li>
+            </ul>
+            <pre><code class="language-typescript"><span class="hljs-keyword">const</span> start = <span class="hljs-number">1483228800</span>;
+<span class="hljs-keyword">const</span> end = <span class="hljs-number">1483315200</span>;
+<span class="hljs-keyword">const</span> limit = <span class="hljs-number">100</span>;
+<span class="hljs-keyword">const</span> history = <span class="hljs-keyword">await</span> client.getLendingHistory({ start, end, limit });</code></pre>
+            <ul>
+              <li>
+                <a href="https://docs.poloniex.com/#toggleautorenew"
+                  ><code>toggleAutoRenew</code></a
+                >
+              </li>
+            </ul>
+            <pre><code class="language-typescript"><span class="hljs-keyword">const</span> orderNumber = <span class="hljs-number">1002013188</span>;
+<span class="hljs-keyword">const</span> result = <span class="hljs-keyword">await</span> client.toggleAutoRenew({ orderNumber });</code></pre>
+            <a
+              href="#websocketclient"
+              id="websocketclient"
+              style="color: inherit; text-decoration: none"
+            >
+              <h3>
+                <a href="https://docs.poloniex.com/#websocket-api"
+                  >WebsocketClient</a
+                >
+              </h3>
+            </a>
+            <pre><code class="language-typescript"><span class="hljs-keyword">import</span> { WebsocketClient } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;poloniex-node-api&quot;</span>;
+<span class="hljs-keyword">const</span> key = <span class="hljs-string">&quot;poloniexapikey&quot;</span>;
+<span class="hljs-keyword">const</span> secret = <span class="hljs-string">&quot;poloniexapisecret&quot;</span>;
+<span class="hljs-keyword">const</span> channels = [<span class="hljs-number">1000</span>, <span class="hljs-string">&quot;BTC_DOGE&quot;</span>];
+<span class="hljs-keyword">const</span> websocket = <span class="hljs-keyword">new</span> WebsocketClient({ key, secret, channels });
+websocket.on(<span class="hljs-string">&quot;open&quot;</span>, <span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;open&quot;</span>));
+websocket.on(<span class="hljs-string">&quot;close&quot;</span>, <span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;close&quot;</span>));
+websocket.on(<span class="hljs-string">&quot;error&quot;</span>, <span class="hljs-function">(<span class="hljs-params">error</span>) =&gt;</span> <span class="hljs-built_in">console</span>.error(error));
+websocket.on(<span class="hljs-string">&quot;message&quot;</span>, <span class="hljs-function">(<span class="hljs-params">message</span>) =&gt;</span> <span class="hljs-built_in">console</span>.info(message));</code></pre>
+            <ul>
+              <li><code>connect</code></li>
+            </ul>
+            <pre><code class="language-typescript"><span class="hljs-keyword">await</span> websocket.connect();</code></pre>
+            <ul>
+              <li><code>disconnect</code></li>
+            </ul>
+            <pre><code class="language-typescript"><span class="hljs-keyword">await</span> websocket.disconnect();</code></pre>
+            <ul>
+              <li>
+                <a
+                  href="https://docs.poloniex.com/#subscribing-and-unsubscribing"
+                  ><code>subscribe</code></a
+                >
+              </li>
+            </ul>
+            <pre><code class="language-typescript"><span class="hljs-keyword">await</span> websocket.subscribe(<span class="hljs-number">1003</span>);</code></pre>
+            <ul>
+              <li>
+                <a
+                  href="https://docs.poloniex.com/#subscribing-and-unsubscribing"
+                  ><code>unsubscribe</code></a
+                >
+              </li>
+            </ul>
+            <pre><code class="language-typescript"><span class="hljs-keyword">await</span> websocket.unsubscribe(<span class="hljs-string">&quot;BTC_ZEC&quot;</span>);</code></pre>
+            <a
+              href="#test"
+              id="test"
+              style="color: inherit; text-decoration: none"
+            >
+              <h3>Test</h3>
+            </a>
+            <pre><code class="language-bash">npm <span class="hljs-built_in">test</span></code></pre>
+          </div>
+        </div>
+        <div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+          <nav class="tsd-navigation primary">
+            <ul>
+              <li class="globals">
+                <a href="globals.html"><em>Globals</em></a>
+              </li>
+            </ul>
+          </nav>
+          <nav class="tsd-navigation secondary menu-sticky">
+            <ul class="before-current">
+              <li class="tsd-kind-class">
+                <a href="classes/authenticatedclient.html" class="tsd-kind-icon"
+                  >Authenticated<wbr />Client</a
+                >
+              </li>
+              <li class="tsd-kind-class">
+                <a href="classes/publicclient.html" class="tsd-kind-icon"
+                  >Public<wbr />Client</a
+                >
+              </li>
+              <li class="tsd-kind-class">
+                <a href="classes/websocketclient.html" class="tsd-kind-icon"
+                  >Websocket<wbr />Client</a
+                >
+              </li>
+              <li class="tsd-kind-interface">
+                <a href="interfaces/accountbalances.html" class="tsd-kind-icon"
+                  >Account<wbr />Balances</a
+                >
+              </li>
+              <li class="tsd-kind-interface">
+                <a href="interfaces/accountfilter.html" class="tsd-kind-icon"
+                  >Account<wbr />Filter</a
+                >
+              </li>
+              <li class="tsd-kind-interface">
+                <a href="interfaces/activeloan.html" class="tsd-kind-icon"
+                  >Active<wbr />Loan</a
+                >
+              </li>
+              <li class="tsd-kind-interface">
+                <a href="interfaces/activeloans.html" class="tsd-kind-icon"
+                  >Active<wbr />Loans</a
+                >
+              </li>
+              <li class="tsd-kind-interface">
+                <a href="interfaces/adjustment.html" class="tsd-kind-icon"
+                  >Adjustment</a
+                >
+              </li>
+              <li class="tsd-kind-interface">
+                <a href="interfaces/adresses.html" class="tsd-kind-icon"
+                  >Adresses</a
+                >
+              </li>
+              <li class="tsd-kind-interface">
+                <a
+                  href="interfaces/authenticatedclientoptions.html"
+                  class="tsd-kind-icon"
+                  >Authenticated<wbr />Client<wbr />Options</a
+                >
+              </li>
+              <li class="tsd-kind-interface">
+                <a href="interfaces/autorenewresult.html" class="tsd-kind-icon"
+                  >Auto<wbr />Renew<wbr />Result</a
+                >
+              </li>
+              <li class="tsd-kind-interface">
+                <a href="interfaces/balances.html" class="tsd-kind-icon"
+                  >Balances</a
+                >
+              </li>
+              <li class="tsd-kind-interface">
+                <a href="interfaces/basemessage.html" class="tsd-kind-icon"
+                  >Base<wbr />Message</a
+                >
+              </li>
+              <li class="tsd-kind-interface">
+                <a href="interfaces/basetrade.html" class="tsd-kind-icon"
+                  >Base<wbr />Trade</a
+                >
+              </li>
+              <li class="tsd-kind-interface">
+                <a href="interfaces/bookfilter.html" class="tsd-kind-icon"
+                  >Book<wbr />Filter</a
+                >
+              </li>
+              <li class="tsd-kind-interface">
+                <a
+                  href="interfaces/cancelallresponse.html"
+                  class="tsd-kind-icon"
+                  >Cancel<wbr />All<wbr />Response</a
+                >
+              </li>
+              <li class="tsd-kind-interface">
+                <a
+                  href="interfaces/cancelloanresponse.html"
+                  class="tsd-kind-icon"
+                  >Cancel<wbr />Loan<wbr />Response</a
+                >
+              </li>
+              <li class="tsd-kind-interface">
+                <a href="interfaces/cancelresponse.html" class="tsd-kind-icon"
+                  >Cancel<wbr />Response</a
+                >
+              </li>
+              <li class="tsd-kind-interface">
+                <a href="interfaces/candle.html" class="tsd-kind-icon"
+                  >Candle</a
+                >
+              </li>
+              <li class="tsd-kind-interface">
+                <a href="interfaces/chartfilter.html" class="tsd-kind-icon"
+                  >Chart<wbr />Filter</a
+                >
+              </li>
+              <li class="tsd-kind-interface">
+                <a
+                  href="interfaces/closepositionresult.html"
+                  class="tsd-kind-icon"
+                  >Close<wbr />Position<wbr />Result</a
+                >
+              </li>
+              <li class="tsd-kind-interface">
+                <a href="interfaces/completebalance.html" class="tsd-kind-icon"
+                  >Complete<wbr />Balance</a
+                >
+              </li>
+              <li class="tsd-kind-interface">
+                <a href="interfaces/completebalances.html" class="tsd-kind-icon"
+                  >Complete<wbr />Balances</a
+                >
+              </li>
+              <li class="tsd-kind-interface">
+                <a href="interfaces/currencyfilter.html" class="tsd-kind-icon"
+                  >Currency<wbr />Filter</a
+                >
+              </li>
+              <li class="tsd-kind-interface">
+                <a href="interfaces/currencyinfo.html" class="tsd-kind-icon"
+                  >Currency<wbr />Info</a
+                >
+              </li>
+              <li class="tsd-kind-interface">
+                <a href="interfaces/currencypair.html" class="tsd-kind-icon"
+                  >Currency<wbr />Pair</a
+                >
+              </li>
+              <li class="tsd-kind-interface">
+                <a href="interfaces/deposit.html" class="tsd-kind-icon"
+                  >Deposit</a
+                >
+              </li>
+              <li class="tsd-kind-interface">
+                <a
+                  href="interfaces/depositswithdrawals.html"
+                  class="tsd-kind-icon"
+                  >Deposits<wbr />Withdrawals</a
+                >
+              </li>
+              <li class="tsd-kind-interface">
+                <a
+                  href="interfaces/extendedcurrencies.html"
+                  class="tsd-kind-icon"
+                  >Extended<wbr />Currencies</a
+                >
+              </li>
+              <li class="tsd-kind-interface">
+                <a
+                  href="interfaces/extendedcurrencyinfo.html"
+                  class="tsd-kind-icon"
+                  >Extended<wbr />Currency<wbr />Info</a
+                >
+              </li>
+              <li class="tsd-kind-interface">
+                <a href="interfaces/feesinfo.html" class="tsd-kind-icon"
+                  >Fees<wbr />Info</a
+                >
+              </li>
+              <li class="tsd-kind-interface">
+                <a
+                  href="interfaces/historytradesfilter.html"
+                  class="tsd-kind-icon"
+                  >History<wbr />Trades<wbr />Filter</a
+                >
+              </li>
+              <li class="tsd-kind-interface">
+                <a href="interfaces/icurrencies.html" class="tsd-kind-icon"
+                  >ICurrencies</a
+                >
+              </li>
+              <li class="tsd-kind-interface">
+                <a
+                  href="interfaces/lendinghistoryitem.html"
+                  class="tsd-kind-icon"
+                  >Lending<wbr />History<wbr />Item</a
+                >
+              </li>
+              <li class="tsd-kind-interface">
+                <a
+                  href="interfaces/lendinghistoryoptions.html"
+                  class="tsd-kind-icon"
+                  >Lending<wbr />History<wbr />Options</a
+                >
+              </li>
+              <li class="tsd-kind-interface">
+                <a href="interfaces/loan.html" class="tsd-kind-icon">Loan</a>
+              </li>
+              <li class="tsd-kind-interface">
+                <a href="interfaces/loanoffer.html" class="tsd-kind-icon"
+                  >Loan<wbr />Offer</a
+                >
+              </li>
+              <li class="tsd-kind-interface">
+                <a href="interfaces/loans.html" class="tsd-kind-icon">Loans</a>
+              </li>
+              <li class="tsd-kind-interface">
+                <a
+                  href="interfaces/marginorderoptions.html"
+                  class="tsd-kind-icon"
+                  >Margin<wbr />Order<wbr />Options</a
+                >
+              </li>
+              <li class="tsd-kind-interface">
+                <a
+                  href="interfaces/marginorderresult.html"
+                  class="tsd-kind-icon"
+                  >Margin<wbr />Order<wbr />Result</a
+                >
+              </li>
+              <li class="tsd-kind-interface">
+                <a href="interfaces/marginposition.html" class="tsd-kind-icon"
+                  >Margin<wbr />Position</a
+                >
+              </li>
+              <li class="tsd-kind-interface">
+                <a href="interfaces/marginsummary.html" class="tsd-kind-icon"
+                  >Margin<wbr />Summary</a
+                >
+              </li>
+              <li class="tsd-kind-interface">
+                <a href="interfaces/moveorderoptions.html" class="tsd-kind-icon"
+                  >Move<wbr />Order<wbr />Options</a
+                >
+              </li>
+              <li class="tsd-kind-interface">
+                <a href="interfaces/moveresponse.html" class="tsd-kind-icon"
+                  >Move<wbr />Response</a
+                >
+              </li>
+              <li class="tsd-kind-interface">
+                <a href="interfaces/newaddress.html" class="tsd-kind-icon"
+                  >New<wbr />Address</a
+                >
+              </li>
+              <li class="tsd-kind-interface">
+                <a href="interfaces/offeroptions.html" class="tsd-kind-icon"
+                  >Offer<wbr />Options</a
+                >
+              </li>
+              <li class="tsd-kind-interface">
+                <a href="interfaces/offerresult.html" class="tsd-kind-icon"
+                  >Offer<wbr />Result</a
+                >
+              </li>
+              <li class="tsd-kind-interface">
+                <a href="interfaces/order.html" class="tsd-kind-icon">Order</a>
+              </li>
+              <li class="tsd-kind-interface">
+                <a href="interfaces/orderbookinfo.html" class="tsd-kind-icon"
+                  >Order<wbr />Book<wbr />Info</a
+                >
+              </li>
+              <li class="tsd-kind-interface">
+                <a href="interfaces/orderbooksinfo.html" class="tsd-kind-icon"
+                  >Order<wbr />Books<wbr />Info</a
+                >
+              </li>
+              <li class="tsd-kind-interface">
+                <a href="interfaces/orderfilter.html" class="tsd-kind-icon"
+                  >Order<wbr />Filter</a
+                >
+              </li>
+              <li class="tsd-kind-interface">
+                <a href="interfaces/orderoptions.html" class="tsd-kind-icon"
+                  >Order<wbr />Options</a
+                >
+              </li>
+              <li class="tsd-kind-interface">
+                <a href="interfaces/orderresult.html" class="tsd-kind-icon"
+                  >Order<wbr />Result</a
+                >
+              </li>
+              <li class="tsd-kind-interface">
+                <a href="interfaces/orderstatus.html" class="tsd-kind-icon"
+                  >Order<wbr />Status</a
+                >
+              </li>
+              <li class="tsd-kind-interface">
+                <a href="interfaces/ordertrade.html" class="tsd-kind-icon"
+                  >Order<wbr />Trade</a
+                >
+              </li>
+              <li class="tsd-kind-interface">
+                <a href="interfaces/rawerror.html" class="tsd-kind-icon"
+                  >Raw<wbr />Error</a
+                >
+              </li>
+              <li class="tsd-kind-interface">
+                <a href="interfaces/resultingtrade.html" class="tsd-kind-icon"
+                  >Resulting<wbr />Trade</a
+                >
+              </li>
+              <li class="tsd-kind-interface">
+                <a
+                  href="interfaces/signrequestoptions.html"
+                  class="tsd-kind-icon"
+                  >Sign<wbr />Request<wbr />Options</a
+                >
+              </li>
+              <li class="tsd-kind-interface">
+                <a href="interfaces/signedrequest.html" class="tsd-kind-icon"
+                  >Signed<wbr />Request</a
+                >
+              </li>
+              <li class="tsd-kind-interface">
+                <a href="interfaces/subscription.html" class="tsd-kind-icon"
+                  >Subscription</a
+                >
+              </li>
+              <li class="tsd-kind-interface">
+                <a href="interfaces/tickerinfo.html" class="tsd-kind-icon"
+                  >Ticker<wbr />Info</a
+                >
+              </li>
+              <li class="tsd-kind-interface">
+                <a href="interfaces/tickers.html" class="tsd-kind-icon"
+                  >Tickers</a
+                >
+              </li>
+              <li class="tsd-kind-interface">
+                <a href="interfaces/timefilter.html" class="tsd-kind-icon"
+                  >Time<wbr />Filter</a
+                >
+              </li>
+              <li class="tsd-kind-interface">
+                <a href="interfaces/tradablebalances.html" class="tsd-kind-icon"
+                  >Tradable<wbr />Balances</a
+                >
+              </li>
+              <li class="tsd-kind-interface">
+                <a href="interfaces/trade.html" class="tsd-kind-icon">Trade</a>
+              </li>
+              <li class="tsd-kind-interface">
+                <a href="interfaces/tradeprivate.html" class="tsd-kind-icon"
+                  >Trade<wbr />Private</a
+                >
+              </li>
+              <li class="tsd-kind-interface">
+                <a href="interfaces/tradesfilter.html" class="tsd-kind-icon"
+                  >Trades<wbr />Filter</a
+                >
+              </li>
+              <li class="tsd-kind-interface">
+                <a href="interfaces/transferoptions.html" class="tsd-kind-icon"
+                  >Transfer<wbr />Options</a
+                >
+              </li>
+              <li class="tsd-kind-interface">
+                <a href="interfaces/transferresponse.html" class="tsd-kind-icon"
+                  >Transfer<wbr />Response</a
+                >
+              </li>
+              <li class="tsd-kind-interface">
+                <a href="interfaces/volume.html" class="tsd-kind-icon"
+                  >Volume</a
+                >
+              </li>
+              <li class="tsd-kind-interface">
+                <a href="interfaces/volumes.html" class="tsd-kind-icon"
+                  >Volumes</a
+                >
+              </li>
+              <li class="tsd-kind-interface">
+                <a
+                  href="interfaces/websocketclientoptions.html"
+                  class="tsd-kind-icon"
+                  >Websocket<wbr />Client<wbr />Options</a
+                >
+              </li>
+              <li class="tsd-kind-interface">
+                <a href="interfaces/withdrawoptions.html" class="tsd-kind-icon"
+                  >Withdraw<wbr />Options</a
+                >
+              </li>
+              <li class="tsd-kind-interface">
+                <a href="interfaces/withdrawresponse.html" class="tsd-kind-icon"
+                  >Withdraw<wbr />Response</a
+                >
+              </li>
+              <li class="tsd-kind-interface">
+                <a href="interfaces/withdrawal.html" class="tsd-kind-icon"
+                  >Withdrawal</a
+                >
+              </li>
+              <li class="tsd-kind-interface">
+                <a
+                  href="interfaces/wsacknowledgement.html"
+                  class="tsd-kind-icon"
+                  >Ws<wbr />Acknowledgement</a
+                >
+              </li>
+              <li class="tsd-kind-interface">
+                <a href="interfaces/wsbalance.html" class="tsd-kind-icon"
+                  >Ws<wbr />Balance</a
+                >
+              </li>
+              <li class="tsd-kind-interface">
+                <a href="interfaces/wsbookupdate.html" class="tsd-kind-icon"
+                  >Ws<wbr />Book<wbr />Update</a
+                >
+              </li>
+              <li class="tsd-kind-interface">
+                <a href="interfaces/wsheartbeat.html" class="tsd-kind-icon"
+                  >Ws<wbr />Heartbeat</a
+                >
+              </li>
+              <li class="tsd-kind-interface">
+                <a href="interfaces/wskill.html" class="tsd-kind-icon"
+                  >Ws<wbr />Kill</a
+                >
+              </li>
+              <li class="tsd-kind-interface">
+                <a href="interfaces/wsmarginupdate.html" class="tsd-kind-icon"
+                  >Ws<wbr />Margin<wbr />Update</a
+                >
+              </li>
+              <li class="tsd-kind-interface">
+                <a href="interfaces/wsneworder.html" class="tsd-kind-icon"
+                  >Ws<wbr />New<wbr />Order</a
+                >
+              </li>
+              <li class="tsd-kind-interface">
+                <a href="interfaces/wsorder.html" class="tsd-kind-icon"
+                  >Ws<wbr />Order</a
+                >
+              </li>
+              <li class="tsd-kind-interface">
+                <a href="interfaces/wspendingorder.html" class="tsd-kind-icon"
+                  >Ws<wbr />Pending<wbr />Order</a
+                >
+              </li>
+              <li class="tsd-kind-interface">
+                <a href="interfaces/wspublictrade.html" class="tsd-kind-icon"
+                  >Ws<wbr />Public<wbr />Trade</a
+                >
+              </li>
+              <li class="tsd-kind-interface">
+                <a href="interfaces/wssnapshot.html" class="tsd-kind-icon"
+                  >Ws<wbr />Snapshot</a
+                >
+              </li>
+              <li class="tsd-kind-interface">
+                <a href="interfaces/wsticker.html" class="tsd-kind-icon"
+                  >Ws<wbr />Ticker</a
+                >
+              </li>
+              <li class="tsd-kind-interface">
+                <a href="interfaces/wstrade.html" class="tsd-kind-icon"
+                  >Ws<wbr />Trade</a
+                >
+              </li>
+              <li class="tsd-kind-interface">
+                <a href="interfaces/wsvolume.html" class="tsd-kind-icon"
+                  >Ws<wbr />Volume</a
+                >
+              </li>
+              <li class="tsd-kind-type-alias">
+                <a href="globals.html#channel" class="tsd-kind-icon">Channel</a>
+              </li>
+              <li class="tsd-kind-type-alias">
+                <a href="globals.html#clientorderfilter" class="tsd-kind-icon"
+                  >Client<wbr />Order<wbr />Filter</a
+                >
+              </li>
+              <li class="tsd-kind-type-alias">
+                <a href="globals.html#loanoffers" class="tsd-kind-icon"
+                  >Loan<wbr />Offers</a
+                >
+              </li>
+              <li class="tsd-kind-type-alias">
+                <a
+                  href="globals.html#marginpositionresult"
+                  class="tsd-kind-icon"
+                  >Margin<wbr />Position<wbr />Result</a
+                >
+              </li>
+              <li class="tsd-kind-type-alias">
+                <a href="globals.html#orderbook" class="tsd-kind-icon"
+                  >Order<wbr />Book</a
+                >
+              </li>
+              <li class="tsd-kind-type-alias">
+                <a href="globals.html#orders" class="tsd-kind-icon">Orders</a>
+              </li>
+              <li class="tsd-kind-type-alias">
+                <a href="globals.html#period" class="tsd-kind-icon">Period</a>
+              </li>
+              <li class="tsd-kind-type-alias">
+                <a href="globals.html#rawaccountmessage" class="tsd-kind-icon"
+                  >Raw<wbr />Account<wbr />Message</a
+                >
+              </li>
+              <li class="tsd-kind-type-alias">
+                <a href="globals.html#rawacknowledgement" class="tsd-kind-icon"
+                  >Raw<wbr />Acknowledgement</a
+                >
+              </li>
+              <li class="tsd-kind-type-alias">
+                <a href="globals.html#rawbalance" class="tsd-kind-icon"
+                  >Raw<wbr />Balance</a
+                >
+              </li>
+              <li class="tsd-kind-type-alias">
+                <a href="globals.html#rawbookupdate" class="tsd-kind-icon"
+                  >Raw<wbr />Book<wbr />Update</a
+                >
+              </li>
+              <li class="tsd-kind-type-alias">
+                <a href="globals.html#rawkill" class="tsd-kind-icon"
+                  >Raw<wbr />Kill</a
+                >
+              </li>
+              <li class="tsd-kind-type-alias">
+                <a href="globals.html#rawmarginupdate" class="tsd-kind-icon"
+                  >Raw<wbr />Margin<wbr />Update</a
+                >
+              </li>
+              <li class="tsd-kind-type-alias">
+                <a href="globals.html#rawmessage" class="tsd-kind-icon"
+                  >Raw<wbr />Message</a
+                >
+              </li>
+              <li class="tsd-kind-type-alias">
+                <a href="globals.html#rawneworder" class="tsd-kind-icon"
+                  >Raw<wbr />New<wbr />Order</a
+                >
+              </li>
+              <li class="tsd-kind-type-alias">
+                <a href="globals.html#raworder" class="tsd-kind-icon"
+                  >Raw<wbr />Order</a
+                >
+              </li>
+              <li class="tsd-kind-type-alias">
+                <a href="globals.html#rawpendingorder" class="tsd-kind-icon"
+                  >Raw<wbr />Pending<wbr />Order</a
+                >
+              </li>
+              <li class="tsd-kind-type-alias">
+                <a
+                  href="globals.html#rawpriceaggregatedbook"
+                  class="tsd-kind-icon"
+                  >Raw<wbr />Price<wbr />Aggregated<wbr />Book</a
+                >
+              </li>
+              <li class="tsd-kind-type-alias">
+                <a href="globals.html#rawpublictrade" class="tsd-kind-icon"
+                  >Raw<wbr />Public<wbr />Trade</a
+                >
+              </li>
+              <li class="tsd-kind-type-alias">
+                <a href="globals.html#rawsnapshot" class="tsd-kind-icon"
+                  >Raw<wbr />Snapshot</a
+                >
+              </li>
+              <li class="tsd-kind-type-alias">
+                <a href="globals.html#rawtickermessage" class="tsd-kind-icon"
+                  >Raw<wbr />Ticker<wbr />Message</a
+                >
+              </li>
+              <li class="tsd-kind-type-alias">
+                <a href="globals.html#rawtrade" class="tsd-kind-icon"
+                  >Raw<wbr />Trade</a
+                >
+              </li>
+              <li class="tsd-kind-type-alias">
+                <a href="globals.html#rawvolumemessage" class="tsd-kind-icon"
+                  >Raw<wbr />Volume<wbr />Message</a
+                >
+              </li>
+              <li class="tsd-kind-type-alias">
+                <a href="globals.html#rawwsheartbeat" class="tsd-kind-icon"
+                  >Raw<wbr />WsHeartbeat</a
+                >
+              </li>
+              <li class="tsd-kind-type-alias">
+                <a href="globals.html#side" class="tsd-kind-icon">Side</a>
+              </li>
+              <li class="tsd-kind-type-alias">
+                <a href="globals.html#tradesprivate" class="tsd-kind-icon"
+                  >Trades<wbr />Private</a
+                >
+              </li>
+              <li class="tsd-kind-type-alias">
+                <a href="globals.html#wsaccountmessage" class="tsd-kind-icon"
+                  >Ws<wbr />Account<wbr />Message</a
+                >
+              </li>
+              <li class="tsd-kind-type-alias">
+                <a href="globals.html#wsbookmessage" class="tsd-kind-icon"
+                  >Ws<wbr />Book<wbr />Message</a
+                >
+              </li>
+              <li class="tsd-kind-type-alias">
+                <a href="globals.html#wsmessage" class="tsd-kind-icon"
+                  >Ws<wbr />Message</a
+                >
+              </li>
+              <li class="tsd-kind-variable">
+                <a href="globals.html#apilimit" class="tsd-kind-icon"
+                  >Api<wbr />Limit</a
+                >
+              </li>
+              <li class="tsd-kind-variable">
+                <a href="globals.html#apiuri" class="tsd-kind-icon"
+                  >Api<wbr />Uri</a
+                >
+              </li>
+              <li class="tsd-kind-variable">
+                <a href="globals.html#defaultchannels" class="tsd-kind-icon"
+                  >Default<wbr />Channels</a
+                >
+              </li>
+              <li class="tsd-kind-variable">
+                <a href="globals.html#defaultpair" class="tsd-kind-icon"
+                  >Default<wbr />Pair</a
+                >
+              </li>
+              <li class="tsd-kind-variable">
+                <a href="globals.html#wsuri" class="tsd-kind-icon"
+                  >Ws<wbr />Uri</a
+                >
+              </li>
+              <li class="tsd-kind-function">
+                <a href="globals.html#signrequest" class="tsd-kind-icon"
+                  >Sign<wbr />Request</a
+                >
+              </li>
+              <li class="tsd-kind-object-literal">
+                <a href="globals.html#currencies" class="tsd-kind-icon"
+                  >Currencies</a
+                >
+              </li>
+              <li class="tsd-kind-object-literal">
+                <a href="globals.html#currencypairs" class="tsd-kind-icon"
+                  >Currency<wbr />Pairs</a
+                >
+              </li>
+              <li class="tsd-kind-object-literal">
+                <a href="globals.html#headers" class="tsd-kind-icon">Headers</a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+    <footer>
+      <div class="container">
+        <h2>Legend</h2>
+        <div class="tsd-legend-group">
+          <ul class="tsd-legend">
+            <li class="tsd-kind-constructor tsd-parent-kind-class">
+              <span class="tsd-kind-icon">Constructor</span>
+            </li>
+            <li class="tsd-kind-property tsd-parent-kind-class">
+              <span class="tsd-kind-icon">Property</span>
+            </li>
+            <li class="tsd-kind-method tsd-parent-kind-class">
+              <span class="tsd-kind-icon">Method</span>
+            </li>
+            <li class="tsd-kind-accessor tsd-parent-kind-class">
+              <span class="tsd-kind-icon">Accessor</span>
+            </li>
+          </ul>
+          <ul class="tsd-legend">
+            <li
+              class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"
+            >
+              <span class="tsd-kind-icon">Inherited property</span>
+            </li>
+            <li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+              <span class="tsd-kind-icon">Inherited method</span>
+            </li>
+            <li
+              class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"
+            >
+              <span class="tsd-kind-icon">Inherited accessor</span>
+            </li>
+          </ul>
+          <ul class="tsd-legend">
+            <li class="tsd-kind-property tsd-parent-kind-class tsd-is-private">
+              <span class="tsd-kind-icon">Private property</span>
+            </li>
+            <li class="tsd-kind-method tsd-parent-kind-class tsd-is-private">
+              <span class="tsd-kind-icon">Private method</span>
+            </li>
+          </ul>
+          <ul class="tsd-legend">
+            <li class="tsd-kind-property tsd-parent-kind-interface">
+              <span class="tsd-kind-icon">Property</span>
+            </li>
+          </ul>
+          <ul class="tsd-legend">
+            <li class="tsd-kind-method tsd-parent-kind-class tsd-is-static">
+              <span class="tsd-kind-icon">Static method</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </footer>
+    <div class="overlay"></div>
+    <script src="assets/js/main.js"></script>
+  </body>
+</html>
