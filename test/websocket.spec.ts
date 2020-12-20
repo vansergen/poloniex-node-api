@@ -830,7 +830,9 @@ suite("WebsocketClient", () => {
     });
 
     test(".formatAccount()", () => {
-      const rawAccountMessage: RawAccountMessage = [
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-explicit-any
+      const unnkownmessage = ["unnkownmessage"] as any;
+      const rawAccountMessage = [
         1000,
         "",
         [
@@ -861,8 +863,9 @@ suite("WebsocketClient", () => {
             "12345",
           ],
           ["k", 12345, null],
+          unnkownmessage,
         ],
-      ];
+      ] as RawAccountMessage;
       const expectedMessages: WsAccountMessage[] = [
         {
           channel_id: 1000,
