@@ -1,5 +1,11 @@
 # Changelog
 
+### [3.0.2](https://github.com/vansergen/poloniex-node-api/compare/v3.0.1...v3.0.2) (2021-02-07)
+
+### Dependencies
+
+- upgrade `ws` to `v7.4.3` ([7a1a8d2](https://github.com/vansergen/poloniex-node-api/commit/7a1a8d2917b394d3857ac36e6d2906b80cf934cb))
+
 ### [3.0.1](https://github.com/vansergen/poloniex-node-api/compare/v3.0.0...v3.0.1) (2020-12-20)
 
 ### Dependencies
