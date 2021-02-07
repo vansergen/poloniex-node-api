@@ -18,7 +18,7 @@
     "commitlint": "commitlint --verbose",
     "commitlint:all": "npm run commitlint -- --from=365c8e3e62a60820dbb3136f7928495248770395",
     "coverage": "nyc npm test && nyc report --reporter=lcov",
-    "docs:build": "npm run docs:remove && typedoc && npm run lint:fix && npm run prettier:write -- --ignore-path .prettierignore_docs",
+    "docs:build": "npm run docs:remove && typedoc && npm run prettier:write -- --ignore-path .prettierignore_docs",
     "docs:remove": "rm -rf ./docs",
     "docs:test": "npm run docs:build && npm run docs:remove",
     "install:clean": "rm -fr node_modules && rm -f package-lock.json && npm install",
@@ -71,7 +71,7 @@
     "prettier": "^2.2.1",
     "semantic-release": "^17.3.0",
     "ts-node": "^9.1.1",
-    "typedoc": "^0.19.2"
+    "typedoc": "^0.20.23"
   },
   "funding": {
     "type": "Coinbase Commerce",
