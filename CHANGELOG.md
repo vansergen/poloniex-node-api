@@ -1,5 +1,12 @@
 # Changelog
 
+### [3.0.3](https://github.com/vansergen/poloniex-node-api/compare/v3.0.2...v3.0.3) (2021-02-08)
+
+### Bug Fixes
+
+- update Currencies ([5fd080b](https://github.com/vansergen/poloniex-node-api/commit/5fd080b64c25f638dc831465a088f934081f18b7))
+- update CurrencyPairs ([fee61d9](https://github.com/vansergen/poloniex-node-api/commit/fee61d98f2a8f63e293e0cee4ce10ac24857d7e0))
+
 ### [3.0.2](https://github.com/vansergen/poloniex-node-api/compare/v3.0.1...v3.0.2) (2021-02-07)
 
 ### Dependencies
