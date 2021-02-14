@@ -76,6 +76,12 @@ export interface LendingHistoryOptions {
   limit?: number;
 }
 
+export interface SwapCurrenciesOptions {
+  fromCurrency: string;
+  toCurrency: string;
+  amount: number;
+}
+
 export interface Balances {
   [currency: string]: string;
 }
@@ -350,6 +356,11 @@ export interface AutoRenewResult {
   message: string | 0 | 1;
 }
 
+export interface SwapResult {
+  success: boolean;
+  message: string;
+}
+
 export interface AuthenticatedClientOptions extends CurrencyPair {
   key: string;
   secret: string;
@@ -380,15 +391,15 @@ export class AuthenticatedClient extends PublicClient {
     });
     const data = (await super.post(url, { headers: { key, sign }, body })) as {
       error?: string;
-      success?: 0 | 1;
+      success?: 0 | 1 | boolean;
       result?: { error?: string };
       message?: string;
     };
 
     if (data.error) {
       throw new Error(data.error);
-    } else if (data.success === 0) {
-      throw new Error(data?.result?.error);
+    } else if ("success" in data && !data.success) {
+      throw new Error(data?.result?.error ?? data?.message);
     }
     return data;
   }
@@ -799,6 +810,19 @@ export class AuthenticatedClient extends PublicClient {
     const result = (await this.post("/tradingApi", {
       body,
     })) as AutoRenewResult;
+    return result;
+  }
+
+  /**
+   * Swap `fromCurrency` to `toCurrency` if the currency pair is available.
+   */
+  public async swapCurrencies(
+    form: SwapCurrenciesOptions
+  ): Promise<SwapResult> {
+    const command = "swapCurrencies";
+    const body = new URLSearchParams({ command });
+    PublicClient.addOptions(body, { ...form });
+    const result = (await this.post("/tradingApi", { body })) as SwapResult;
     return result;
   }
 

@@ -94,6 +94,22 @@ suite("AuthenticatedClient", () => {
     }
   });
 
+  test(".post() (with no success in the response and no result)", async () => {
+    const success = false;
+    const message = "Some message";
+    const form = { command: "returnBalances" };
+    nock(ApiUri)
+      .post("/tradingApi", { ...form, nonce })
+      .reply(404, { success, message });
+
+    try {
+      await client.post("/tradingApi", { body: new URLSearchParams(form) });
+      assert.fail("Should throw an error");
+    } catch (err) {
+      assert.deepStrictEqual(err, new Error(message));
+    }
+  });
+
   test(".getBalances()", async () => {
     const balances: Balances = {
       BTC: "1.23456789",
@@ -1365,6 +1381,28 @@ suite("AuthenticatedClient", () => {
       .reply(200, response);
 
     const data = await client.toggleAutoRenew({ orderNumber });
+    assert.deepStrictEqual(data, response);
+  });
+
+  test(".swapCurrencies()", async () => {
+    const command = "swapCurrencies";
+    const fromCurrency = "BTC";
+    const toCurrency = "WBTC";
+    const amount = 25;
+    const response = {
+      success: true,
+      message: "Swap 24.998 from BTC to WBTC.",
+    };
+
+    nock(ApiUri)
+      .post("/tradingApi", { command, nonce, fromCurrency, toCurrency, amount })
+      .reply(200, response);
+
+    const data = await client.swapCurrencies({
+      fromCurrency,
+      toCurrency,
+      amount,
+    });
     assert.deepStrictEqual(data, response);
   });
 
