@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>AccountBalances | poloniex-node-api</title>
+    <title>SwapResult | poloniex-node-api</title>
     <meta name="description" content="Documentation for poloniex-node-api" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="../assets/css/main.css" />
@@ -75,10 +75,10 @@
               <a href="../modules.html">poloniex-node-api</a>
             </li>
             <li>
-              <a href="accountbalances.html">AccountBalances</a>
+              <a href="swapresult.html">SwapResult</a>
             </li>
           </ul>
-          <h1>Interface AccountBalances</h1>
+          <h1>Interface SwapResult</h1>
         </div>
       </div>
     </header>
@@ -89,7 +89,7 @@
             <h3>Hierarchy</h3>
             <ul class="tsd-hierarchy">
               <li>
-                <span class="target">AccountBalances</span>
+                <span class="target">SwapResult</span>
               </li>
             </ul>
           </section>
@@ -101,24 +101,13 @@
                   <h3>Properties</h3>
                   <ul class="tsd-index-list">
                     <li class="tsd-kind-property tsd-parent-kind-interface">
-                      <a
-                        href="accountbalances.html#exchange"
-                        class="tsd-kind-icon"
-                        >exchange</a
+                      <a href="swapresult.html#message" class="tsd-kind-icon"
+                        >message</a
                       >
                     </li>
                     <li class="tsd-kind-property tsd-parent-kind-interface">
-                      <a
-                        href="accountbalances.html#lending"
-                        class="tsd-kind-icon"
-                        >lending</a
-                      >
-                    </li>
-                    <li class="tsd-kind-property tsd-parent-kind-interface">
-                      <a
-                        href="accountbalances.html#margin"
-                        class="tsd-kind-icon"
-                        >margin</a
+                      <a href="swapresult.html#success" class="tsd-kind-icon"
+                        >success</a
                       >
                     </li>
                   </ul>
@@ -131,30 +120,19 @@
             <section
               class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface"
             >
-              <a name="exchange" class="tsd-anchor"></a>
-              <h3>
-                <span class="tsd-flag ts-flagOptional">Optional</span> exchange
-              </h3>
+              <a name="message" class="tsd-anchor"></a>
+              <h3>message</h3>
               <div class="tsd-signature tsd-kind-icon">
-                exchange<span class="tsd-signature-symbol">:</span>
-                <span class="tsd-signature-type">undefined</span
-                ><span class="tsd-signature-symbol"> | </span
-                ><a
-                  href="balances.html"
-                  class="tsd-signature-type"
-                  data-tsd-kind="Interface"
-                  >Balances</a
-                ><span class="tsd-signature-symbol"> | </span
-                ><span class="tsd-signature-symbol">[</span
-                ><span class="tsd-signature-symbol">]</span>
+                message<span class="tsd-signature-symbol">:</span>
+                <span class="tsd-signature-type">string</span>
               </div>
               <aside class="tsd-sources">
                 <ul>
                   <li>
                     Defined in
                     <a
-                      href="https://github.com/vansergen/poloniex-node-api/blob/master/src/auth.ts#L255"
-                      >src/auth.ts:255</a
+                      href="https://github.com/vansergen/poloniex-node-api/blob/master/src/auth.ts#L361"
+                      >src/auth.ts:361</a
                     >
                   </li>
                 </ul>
@@ -163,62 +141,19 @@
             <section
               class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface"
             >
-              <a name="lending" class="tsd-anchor"></a>
-              <h3>
-                <span class="tsd-flag ts-flagOptional">Optional</span> lending
-              </h3>
+              <a name="success" class="tsd-anchor"></a>
+              <h3>success</h3>
               <div class="tsd-signature tsd-kind-icon">
-                lending<span class="tsd-signature-symbol">:</span>
-                <span class="tsd-signature-type">undefined</span
-                ><span class="tsd-signature-symbol"> | </span
-                ><a
-                  href="balances.html"
-                  class="tsd-signature-type"
-                  data-tsd-kind="Interface"
-                  >Balances</a
-                ><span class="tsd-signature-symbol"> | </span
-                ><span class="tsd-signature-symbol">[</span
-                ><span class="tsd-signature-symbol">]</span>
+                success<span class="tsd-signature-symbol">:</span>
+                <span class="tsd-signature-type">boolean</span>
               </div>
               <aside class="tsd-sources">
                 <ul>
                   <li>
                     Defined in
                     <a
-                      href="https://github.com/vansergen/poloniex-node-api/blob/master/src/auth.ts#L257"
-                      >src/auth.ts:257</a
-                    >
-                  </li>
-                </ul>
-              </aside>
-            </section>
-            <section
-              class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface"
-            >
-              <a name="margin" class="tsd-anchor"></a>
-              <h3>
-                <span class="tsd-flag ts-flagOptional">Optional</span> margin
-              </h3>
-              <div class="tsd-signature tsd-kind-icon">
-                margin<span class="tsd-signature-symbol">:</span>
-                <span class="tsd-signature-type">undefined</span
-                ><span class="tsd-signature-symbol"> | </span
-                ><a
-                  href="balances.html"
-                  class="tsd-signature-type"
-                  data-tsd-kind="Interface"
-                  >Balances</a
-                ><span class="tsd-signature-symbol"> | </span
-                ><span class="tsd-signature-symbol">[</span
-                ><span class="tsd-signature-symbol">]</span>
-              </div>
-              <aside class="tsd-sources">
-                <ul>
-                  <li>
-                    Defined in
-                    <a
-                      href="https://github.com/vansergen/poloniex-node-api/blob/master/src/auth.ts#L256"
-                      >src/auth.ts:256</a
+                      href="https://github.com/vansergen/poloniex-node-api/blob/master/src/auth.ts#L360"
+                      >src/auth.ts:360</a
                     >
                   </li>
                 </ul>
@@ -238,25 +173,18 @@
             <ul class="before-current"></ul>
             <ul class="current">
               <li class="current tsd-kind-interface">
-                <a href="accountbalances.html" class="tsd-kind-icon"
-                  >Account<wbr />Balances</a
+                <a href="swapresult.html" class="tsd-kind-icon"
+                  >Swap<wbr />Result</a
                 >
                 <ul>
                   <li class="tsd-kind-property tsd-parent-kind-interface">
-                    <a
-                      href="accountbalances.html#exchange"
-                      class="tsd-kind-icon"
-                      >exchange</a
+                    <a href="swapresult.html#message" class="tsd-kind-icon"
+                      >message</a
                     >
                   </li>
                   <li class="tsd-kind-property tsd-parent-kind-interface">
-                    <a href="accountbalances.html#lending" class="tsd-kind-icon"
-                      >lending</a
-                    >
-                  </li>
-                  <li class="tsd-kind-property tsd-parent-kind-interface">
-                    <a href="accountbalances.html#margin" class="tsd-kind-icon"
-                      >margin</a
+                    <a href="swapresult.html#success" class="tsd-kind-icon"
+                      >success</a
                     >
                   </li>
                 </ul>

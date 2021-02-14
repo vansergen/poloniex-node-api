@@ -1,5 +1,15 @@
 # Changelog
 
+## [3.1.0](https://github.com/vansergen/poloniex-node-api/compare/v3.0.3...v3.1.0) (2021-02-14)
+
+### Features
+
+- add the `swapCurrencies` method ([a104dd8](https://github.com/vansergen/poloniex-node-api/commit/a104dd8cf69cd09e1f64ae70818eb7bd64be93ae))
+
+### Dependencies
+
+- upgrade `rpc-request` to `v5.0.2` ([d24a753](https://github.com/vansergen/poloniex-node-api/commit/d24a7539905e521644c8fd85e83dff24e6ccc4a9))
+
 ### [3.0.3](https://github.com/vansergen/poloniex-node-api/compare/v3.0.2...v3.0.3) (2021-02-08)
 
 ### Bug Fixes
