@@ -354,6 +354,19 @@ const orderNumber = 1002013188;
 const result = await client.toggleAutoRenew({ orderNumber });
 ```
 
+- [`swapCurrencies`](https://docs.poloniex.com/#swapcurrencies)
+
+```typescript
+const fromCurrency = "WBTC";
+const toCurrency = "BTC";
+const amount = 1.2;
+const result = await client.swapCurrencies({
+  fromCurrency,
+  toCurrency,
+  amount,
+});
+```
+
 ### [WebsocketClient](https://docs.poloniex.com/#websocket-api)
 
 ```typescript
