@@ -147,7 +147,10 @@ export class PublicClient extends FetchClient<unknown> {
   public readonly currencyPair: string;
 
   public constructor({ currencyPair = DefaultPair }: CurrencyPair = {}) {
-    super({ headers: Headers }, { transform: "json", baseUrl: ApiUri });
+    super(
+      { headers: Headers },
+      { rejectNotOk: false, transform: "json", baseUrl: ApiUri }
+    );
     this.currencyPair = currencyPair;
   }
 
