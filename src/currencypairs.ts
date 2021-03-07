@@ -326,4 +326,9 @@ export const CurrencyPairs: { [id: string]: string | undefined } = {
   "527": "TUSD_BTC",
   "528": "TUSD_ETH",
   "529": "USDT_ALPHA",
+  "531": "USDT_ZKS",
+  "534": "USDT_VSP",
+  "535": "TRX_VSP",
+  "537": "USDT_BRG",
+  "538": "TRX_BRG",
 };

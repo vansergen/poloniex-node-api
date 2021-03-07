@@ -471,4 +471,7 @@ export const Currencies: { [id: string]: string | undefined } = {
   "492": "XLMBEAR",
   "493": "XLMBULL",
   "495": "WETH",
+  "497": "ZKS",
+  "499": "VSP",
+  "500": "BRG",
 };
