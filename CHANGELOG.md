@@ -1,5 +1,25 @@
 # Changelog
 
+## [4.0.0](https://github.com/vansergen/poloniex-node-api/compare/v3.1.1...v4.0.0) (2021-06-03)
+
+### ⚠ BREAKING CHANGES
+
+- drop Node <16.3.0 support
+
+### Bug Fixes
+
+- update Currencies ([faad8d0](https://github.com/vansergen/poloniex-node-api/commit/faad8d08b01cf2c43a5a1dcf0f2d5ce622002cef))
+- update currency pairs ([85d4f9f](https://github.com/vansergen/poloniex-node-api/commit/85d4f9ff3ba62c30f1c26e4b91fa3545539b459d))
+
+### Performance Improvements
+
+- drop Node <16.3.0 support ([c0800c1](https://github.com/vansergen/poloniex-node-api/commit/c0800c13719da60896ec28ad07a942ff2d953700))
+
+### Dependencies
+
+- upgrade `@types/ws` to `v7.4.4` ([05e15ce](https://github.com/vansergen/poloniex-node-api/commit/05e15ce3af688aa3ab1b91c619abb107854d9473))
+- upgrade `ws` to `v7.4.6` ([3b73402](https://github.com/vansergen/poloniex-node-api/commit/3b73402ebdef1c2aea094a35030e4356e0129801))
+
 ### [3.1.1](https://github.com/vansergen/poloniex-node-api/compare/v3.1.0...v3.1.1) (2021-03-07)
 
 ### Bug Fixes

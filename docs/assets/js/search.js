@@ -925,7 +925,7 @@ window.searchData = {
       kind: 512,
       name: "constructor",
       url: "classes/publicclient.html#constructor",
-      classes: "tsd-kind-constructor tsd-parent-kind-class",
+      classes: "tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite",
       parent: "PublicClient",
     },
     {
@@ -941,7 +941,7 @@ window.searchData = {
       kind: 2048,
       name: "get",
       url: "classes/publicclient.html#get",
-      classes: "tsd-kind-method tsd-parent-kind-class",
+      classes: "tsd-kind-method tsd-parent-kind-class tsd-is-overwrite",
       parent: "PublicClient",
     },
     {
@@ -3222,7 +3222,7 @@ window.searchData = {
       kind: 512,
       name: "constructor",
       url: "classes/authenticatedclient.html#constructor",
-      classes: "tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited",
+      classes: "tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite",
       parent: "AuthenticatedClient",
     },
     {
