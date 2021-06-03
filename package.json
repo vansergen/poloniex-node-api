@@ -53,7 +53,7 @@
   "dependencies": {
     "@types/ws": "^7.4.4",
     "rpc-request": "^5.0.3",
-    "ws": "^7.4.4"
+    "ws": "^7.4.6"
   },
   "devDependencies": {
     "@b2broker/tsconfig": "^1.0.3",
