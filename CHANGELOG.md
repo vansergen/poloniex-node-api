@@ -1,5 +1,11 @@
 # Changelog
 
+### [4.0.1](https://github.com/vansergen/poloniex-node-api/compare/v4.0.0...v4.0.1) (2021-06-03)
+
+### Metadata
+
+- update the `engines` ([6d3f64d](https://github.com/vansergen/poloniex-node-api/commit/6d3f64d4804bf17848faeb101d2001f7821fb89e))
+
 ## [4.0.0](https://github.com/vansergen/poloniex-node-api/compare/v3.1.1...v4.0.0) (2021-06-03)
 
 ### ⚠ BREAKING CHANGES
