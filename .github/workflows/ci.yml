@@ -23,6 +23,9 @@ jobs:
       - name: Node.js version
         run: node --version
 
+      - name: Install npm@7
+        run: npm install -g npm@">=7.0.0"
+
       - name: npm version
         run: npm --version
 
