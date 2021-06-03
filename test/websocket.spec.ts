@@ -93,7 +93,7 @@ suite("WebsocketClient", () => {
 
     const connection = new Promise<void>((resolve, reject) => {
       server.once("connection", (ws) => {
-        ws.once("message", (data) => {
+        ws.once("message", (data: string) => {
           try {
             const [channel] = DefaultChannels;
             const command = "subscribe";
@@ -196,7 +196,7 @@ suite("WebsocketClient", () => {
         const command = "subscribe";
         ws.once("message", (message: string) => {
           assert.deepStrictEqual(JSON.parse(message), { command, channel });
-          ws.once("message", (data) => {
+          ws.once("message", (data: string) => {
             assert.deepStrictEqual(JSON.parse(data), {
               command,
               channel: channelToSubscribe,
@@ -231,7 +231,7 @@ suite("WebsocketClient", () => {
         const command = "subscribe";
         ws.once("message", (message: string) => {
           assert.deepStrictEqual(JSON.parse(message), { command, channel });
-          ws.once("message", (data) => {
+          ws.once("message", (data: string) => {
             assert.deepStrictEqual(JSON.parse(data), {
               command: "unsubscribe",
               channel,
@@ -968,8 +968,8 @@ suite("WebsocketClient", () => {
         const connection = new Promise<void>((resolve, reject) => {
           server.once("connection", (ws) => {
             const command = "subscribe";
-            ws.once("message", (data) => {
-              ws.once("message", (otherData) => {
+            ws.once("message", (data: string) => {
+              ws.once("message", (otherData: string) => {
                 try {
                   const channel = 1003;
                   assert.deepStrictEqual(JSON.parse(otherData), {
@@ -1497,7 +1497,7 @@ suite("WebsocketClient", () => {
     authClient.nonce = (): number => nonce;
     const connection = new Promise<void>((resolve, reject) => {
       server.once("connection", (ws) => {
-        ws.once("message", (data) => {
+        ws.once("message", (data: string) => {
           try {
             const [channel] = DefaultChannels;
 

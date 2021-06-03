@@ -228,8 +228,7 @@ suite("AuthenticatedClient", () => {
           fiatAccountId: null,
           scope: null,
           address: "131rdg5Rzn6BFufnnQaHhVa5ZtRU1J2EZR",
-          txid:
-            "b05bdec7430a56b5a5ed34af4a31a54859dda9b7c88a5586bc5d6540cdfbfc7a",
+          txid: "b05bdec7430a56b5a5ed34af4a31a54859dda9b7c88a5586bc5d6540cdfbfc7a",
         },
       ],
       withdrawals: [
