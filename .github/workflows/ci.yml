@@ -6,10 +6,6 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [14, 15, 16]
-
     steps:
       - uses: actions/checkout@main
         with:
@@ -17,14 +13,11 @@ jobs:
 
       - uses: actions/setup-node@main
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: 16
           check-latest: true
 
       - name: Node.js version
         run: node --version
-
-      - name: Install npm@7
-        run: npm install -g npm@">=7.0.0"
 
       - name: npm version
         run: npm --version
