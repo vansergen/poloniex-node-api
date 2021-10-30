@@ -386,6 +386,7 @@ suite("WebSocketClient", () => {
             },
           ],
         },
+        "1580123594000",
       ];
       const expectedSnapshot: WsSnapshot = {
         subject: "snapshot",
@@ -406,6 +407,7 @@ suite("WebSocketClient", () => {
           "0.00000002": "670207.00000000",
           "0.00000001": "1462262.00000000",
         },
+        epoch_ms: "1580123594000",
       };
       const snapshot = WebSocketClient.formatSnapshot(rawSnapshot);
       deepStrictEqual(snapshot, expectedSnapshot);
@@ -419,6 +421,7 @@ suite("WebSocketClient", () => {
         "0.01924381",
         "0.60000000",
         1580123594,
+        "1580123594000",
       ];
       const expectedTrade: WsPublicTrade = {
         subject: "publicTrade",
@@ -427,6 +430,7 @@ suite("WebSocketClient", () => {
         price: "0.01924381",
         size: "0.60000000",
         timestamp: 1580123594,
+        epoch_ms: "1580123594000",
       };
       const trade = WebSocketClient.formatPublicTrade(rawTrade);
       deepStrictEqual(trade, expectedTrade);
@@ -440,6 +444,7 @@ suite("WebSocketClient", () => {
         "0.01924381",
         "0.60000000",
         1580123594,
+        "1580123594000",
       ];
       const expectedTrade: WsPublicTrade = {
         subject: "publicTrade",
@@ -448,30 +453,45 @@ suite("WebSocketClient", () => {
         price: "0.01924381",
         size: "0.60000000",
         timestamp: 1580123594,
+        epoch_ms: "1580123594000",
       };
       const trade = WebSocketClient.formatPublicTrade(rawTrade);
       deepStrictEqual(trade, expectedTrade);
     });
 
     test(".formatBookUpdate() (bid)", () => {
-      const rawUpdate: RawBookUpdate = ["o", 1, "0.01924381", "0.00000000"];
+      const rawUpdate: RawBookUpdate = [
+        "o",
+        1,
+        "0.01924381",
+        "0.00000000",
+        "1580123594000",
+      ];
       const expectedUpdate: WsBookUpdate = {
         subject: "update",
         type: "bid",
         price: "0.01924381",
         size: "0.00000000",
+        epoch_ms: "1580123594000",
       };
       const update = WebSocketClient.formatBookUpdate(rawUpdate);
       deepStrictEqual(update, expectedUpdate);
     });
 
     test(".formatBookUpdate() (ask)", () => {
-      const rawUpdate: RawBookUpdate = ["o", 0, "0.01924381", "0.00000000"];
+      const rawUpdate: RawBookUpdate = [
+        "o",
+        0,
+        "0.01924381",
+        "0.00000000",
+        "1580123594000",
+      ];
       const expectedUpdate: WsBookUpdate = {
         subject: "update",
         type: "ask",
         price: "0.01924381",
         size: "0.00000000",
+        epoch_ms: "1580123594000",
       };
       const update = WebSocketClient.formatBookUpdate(rawUpdate);
       deepStrictEqual(update, expectedUpdate);
@@ -535,9 +555,18 @@ suite("WebSocketClient", () => {
                 },
               ],
             },
+            "1580123594000",
           ],
-          ["o", 1, "0.01924381", "0.00000000"],
-          ["t", "48555788", 0, "0.01924381", "0.60000000", 1580123594],
+          ["o", 1, "0.01924381", "0.00000000", "1580123594000"],
+          [
+            "t",
+            "48555788",
+            0,
+            "0.01924381",
+            "0.60000000",
+            1580123594,
+            "1580123594000",
+          ],
         ],
       ];
       const expectedMessages: WsBookMessage[] = [
@@ -562,6 +591,7 @@ suite("WebSocketClient", () => {
             "0.00000002": "670207.00000000",
             "0.00000001": "1462262.00000000",
           },
+          epoch_ms: "1580123594000",
         },
         {
           channel_id: 148,
@@ -571,6 +601,7 @@ suite("WebSocketClient", () => {
           type: "bid",
           price: "0.01924381",
           size: "0.00000000",
+          epoch_ms: "1580123594000",
         },
         {
           channel_id: 148,
@@ -582,6 +613,7 @@ suite("WebSocketClient", () => {
           price: "0.01924381",
           size: "0.60000000",
           timestamp: 1580123594,
+          epoch_ms: "1580123594000",
         },
       ];
       const messages = WebSocketClient.formatUpdate(rawPriceAggregatedBook);
@@ -597,6 +629,7 @@ suite("WebSocketClient", () => {
         "1.00000000",
         "1",
         null,
+        "1580123594000",
       ];
       const expectedPending: WsPendingOrder = {
         subject: "pending",
@@ -607,6 +640,7 @@ suite("WebSocketClient", () => {
         amount: "1.00000000",
         type: "buy",
         clientOrderId: null,
+        epoch_ms: "1580123594000",
       };
       const pending = WebSocketClient.formatPending(rawPending);
       deepStrictEqual(pending, expectedPending);
@@ -621,6 +655,7 @@ suite("WebSocketClient", () => {
         "1.00000000",
         "0",
         null,
+        "1580123594000",
       ];
       const expectedPending: WsPendingOrder = {
         subject: "pending",
@@ -631,6 +666,7 @@ suite("WebSocketClient", () => {
         amount: "1.00000000",
         type: "sell",
         clientOrderId: null,
+        epoch_ms: "1580123594000",
       };
       const pending = WebSocketClient.formatPending(rawPending);
       deepStrictEqual(pending, expectedPending);
@@ -801,6 +837,8 @@ suite("WebSocketClient", () => {
         "0.00000375",
         "2018-09-08 05:54:09",
         "12345",
+        "0",
+        "1580123594000",
       ];
       const expectedTrade: WsTrade = {
         subject: "trade",
@@ -813,6 +851,8 @@ suite("WebSocketClient", () => {
         fee: "0.00000375",
         date: "2018-09-08 05:54:09",
         clientOrderId: "12345",
+        total_trade: "0",
+        epoch_ms: "1580123594000",
       };
       const trade = WebSocketClient.formatTrade(rawTrade);
       deepStrictEqual(trade, expectedTrade);
@@ -831,12 +871,21 @@ suite("WebSocketClient", () => {
 
     test(".formatAccount()", () => {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-explicit-any
-      const unnkownmessage = ["unnkownmessage"] as any;
+      const unnkownmessage = ["unnkownmessage"] as unknown;
       const rawAccountMessage = [
         1000,
         "",
         [
-          ["p", 78612171341, 203, "1000.00000000", "1.00000000", "1", null],
+          [
+            "p",
+            78612171341,
+            203,
+            "1000.00000000",
+            "1.00000000",
+            "1",
+            null,
+            "1580123594000",
+          ] as RawPendingOrder,
           [
             "n",
             203,
@@ -847,7 +896,7 @@ suite("WebSocketClient", () => {
             "2020-01-27 11:33:21",
             "1.00000000",
             null,
-          ],
+          ] as RawNewOrder,
           ["b", 298, "m", "-1.00000000"],
           ["o", 123321123, "0.00000000", "c", null],
           [
@@ -861,7 +910,9 @@ suite("WebSocketClient", () => {
             "0.00000375",
             "2018-09-08 05:54:09",
             "12345",
-          ],
+            "0",
+            "1580123594000",
+          ] as RawTrade,
           ["k", 12345, null],
           unnkownmessage,
         ],
@@ -877,6 +928,7 @@ suite("WebSocketClient", () => {
           amount: "1.00000000",
           type: "buy",
           clientOrderId: null,
+          epoch_ms: "1580123594000",
         },
         {
           channel_id: 1000,
@@ -919,6 +971,8 @@ suite("WebSocketClient", () => {
           fee: "0.00000375",
           date: "2018-09-08 05:54:09",
           clientOrderId: "12345",
+          total_trade: "0",
+          epoch_ms: "1580123594000",
         },
         {
           channel_id: 1000,
@@ -1226,7 +1280,16 @@ suite("WebSocketClient", () => {
           1000,
           "",
           [
-            ["p", 78612171341, 203, "1000.00000000", "1.00000000", "1", null],
+            [
+              "p",
+              78612171341,
+              203,
+              "1000.00000000",
+              "1.00000000",
+              "1",
+              null,
+              "1580123594000",
+            ],
             [
               "n",
               203,
@@ -1252,6 +1315,8 @@ suite("WebSocketClient", () => {
               "0.00000375",
               "2018-09-08 05:54:09",
               "12345",
+              "0",
+              "1580123594000",
             ],
             ["k", 12345, null],
           ],
@@ -1267,6 +1332,7 @@ suite("WebSocketClient", () => {
             amount: "1.00000000",
             type: "buy",
             clientOrderId: null,
+            epoch_ms: "1580123594000",
           },
           {
             channel_id: 1000,
@@ -1317,6 +1383,8 @@ suite("WebSocketClient", () => {
             fee: "0.00000375",
             date: "2018-09-08 05:54:09",
             clientOrderId: "12345",
+            total_trade: "0",
+            epoch_ms: "1580123594000",
           },
           {
             channel_id: 1000,
@@ -1378,9 +1446,18 @@ suite("WebSocketClient", () => {
                   },
                 ],
               },
+              "1580123594000",
             ],
-            ["o", 1, "0.01924381", "0.00000000"],
-            ["t", "48555788", 0, "0.01924381", "0.60000000", 1580123594],
+            ["o", 1, "0.01924381", "0.00000000", "1580123594000"],
+            [
+              "t",
+              "48555788",
+              0,
+              "0.01924381",
+              "0.60000000",
+              1580123594,
+              "1580123594000",
+            ],
           ],
         ];
         const messages: WsBookMessage[] = [
@@ -1405,6 +1482,7 @@ suite("WebSocketClient", () => {
               "0.00000002": "670207.00000000",
               "0.00000001": "1462262.00000000",
             },
+            epoch_ms: "1580123594000",
           },
           {
             channel_id: 148,
@@ -1414,6 +1492,7 @@ suite("WebSocketClient", () => {
             type: "bid",
             price: "0.01924381",
             size: "0.00000000",
+            epoch_ms: "1580123594000",
           },
           {
             channel_id: 148,
@@ -1425,6 +1504,7 @@ suite("WebSocketClient", () => {
             price: "0.01924381",
             size: "0.60000000",
             timestamp: 1580123594,
+            epoch_ms: "1580123594000",
           },
         ];
         server.once("connection", (ws) => {
