@@ -154,39 +154,33 @@ export class PublicClient extends FetchClient<unknown> {
     this.currencyPair = currencyPair;
   }
 
-  public async get(url: string): Promise<unknown> {
+  public async get<T = unknown>(url: string): Promise<T> {
     const response = (await super.get(url)) as { error?: string };
-    if (response.error) {
+    if (response?.error) {
       throw new Error(response.error);
     }
-    return response;
+    return response as T;
   }
 
-  /**
-   * Retrieves summary information for each currency pair listed on the exchange.
-   */
+  /** Retrieves summary information for each currency pair listed on the exchange. */
   public async getTickers(): Promise<Tickers> {
     const command = "returnTicker";
     const url = new URL("/public", ApiUri);
     PublicClient.addOptions(url, { command });
-    const tickers = (await this.get(url.toString())) as Tickers;
+    const tickers = await this.get<Tickers>(url.toString());
     return tickers;
   }
 
-  /**
-   * Retrieves the 24-hour volume for all markets as well as totals for primary currencies.
-   */
+  /** Retrieves the 24-hour volume for all markets as well as totals for primary currencies. */
   public async getVolume(): Promise<Volumes> {
     const command = "return24hVolume";
     const url = new URL("/public", ApiUri);
     PublicClient.addOptions(url, { command });
-    const volumes = (await this.get(url.toString())) as Volumes;
+    const volumes = await this.get<Volumes>(url.toString());
     return volumes;
   }
 
-  /**
-   * Get the order book for a given market.
-   */
+  /** Get the order book for a given market. */
   public async getOrderBook({
     currencyPair = this.currencyPair,
     depth = ApiLimit,
@@ -194,13 +188,11 @@ export class PublicClient extends FetchClient<unknown> {
     const command = "returnOrderBook";
     const url = new URL("/public", ApiUri);
     PublicClient.addOptions(url, { command, currencyPair, depth });
-    const orderBook = (await this.get(url.toString())) as OrderBook;
+    const orderBook = await this.get<OrderBook>(url.toString());
     return orderBook;
   }
 
-  /**
-   * Get the past 200 trades for a given market, or up to 1,000 trades between a range `start` and `end`.
-   */
+  /** Get the past 200 trades for a given market, or up to 1,000 trades between a range `start` and `end`. */
   public async getTradeHistory({
     currencyPair = this.currencyPair,
     ...rest
@@ -208,13 +200,11 @@ export class PublicClient extends FetchClient<unknown> {
     const command = "returnTradeHistory";
     const url = new URL("/public", ApiUri);
     PublicClient.addOptions(url, { command, currencyPair, ...rest });
-    const trades = (await this.get(url.toString())) as Trade[];
+    const trades = await this.get<Trade[]>(url.toString());
     return trades;
   }
 
-  /**
-   * Get candlestick chart data.
-   */
+  /** Get candlestick chart data. */
   public async getChartData({
     currencyPair = this.currencyPair,
     ...rest
@@ -222,13 +212,11 @@ export class PublicClient extends FetchClient<unknown> {
     const command = "returnChartData";
     const url = new URL("/public", ApiUri);
     PublicClient.addOptions(url, { command, currencyPair, ...rest });
-    const candles = (await this.get(url.toString())) as Candle[];
+    const candles = await this.get<Candle[]>(url.toString());
     return candles;
   }
 
-  /**
-   * Get information about currencies.
-   */
+  /** Get information about currencies. */
   public async getCurrencies(params: {
     includeMultiChainCurrencies: true;
   }): Promise<ExtendedCurrencies>;
@@ -241,18 +229,16 @@ export class PublicClient extends FetchClient<unknown> {
     const command = "returnCurrencies";
     const url = new URL("/public", ApiUri);
     PublicClient.addOptions(url, { command, includeMultiChainCurrencies });
-    const currencies = (await this.get(url.toString())) as ICurrencies;
+    const currencies = await this.get<ICurrencies>(url.toString());
     return currencies;
   }
 
-  /**
-   * Get the list of loan offers and demands for a given currency.
-   */
+  /**  Get the list of loan offers and demands for a given currency. */
   public async getLoanOrders(qs: CurrencyFilter): Promise<Loans> {
     const command = "returnLoanOrders";
     const url = new URL("/public", ApiUri);
     PublicClient.addOptions(url, { command, ...qs });
-    const loans = (await this.get(url.toString())) as Loans;
+    const loans = await this.get<Loans>(url.toString());
     return loans;
   }
 
