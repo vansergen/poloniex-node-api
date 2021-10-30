@@ -1,4 +1,4 @@
-import { createHmac } from "crypto";
+import { createHmac } from "node:crypto";
 
 export interface SignRequestOptions {
   key: string;
@@ -16,7 +16,5 @@ export function SignRequest({
   secret,
   body,
 }: SignRequestOptions): SignedRequest {
-  const hmac = createHmac("sha512", secret).update(body);
-  const sign = hmac.digest("hex");
-  return { key, sign };
+  return { key, sign: createHmac("sha512", secret).update(body).digest("hex") };
 }

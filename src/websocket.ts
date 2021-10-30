@@ -1,8 +1,8 @@
-import Websocket from "ws";
-import { EventEmitter } from "events";
-import { SignRequest, SignedRequest } from "./signer";
-import { Currencies } from "./currencies";
-import { CurrencyPairs } from "./currencypairs";
+import { EventEmitter } from "node:events";
+import { WebSocket } from "ws";
+import { Currencies } from "./currencies.js";
+import { CurrencyPairs } from "./currencypairs.js";
+import { SignRequest, SignedRequest } from "./signer.js";
 
 export const WsUri = "wss://api2.poloniex.com";
 export const DefaultChannels = [121];
@@ -50,12 +50,21 @@ export type RawSnapshot = [
   {
     currencyPair: string;
     orderBook: [{ [asks: string]: string }, { [bids: string]: string }];
-  }
+  },
+  string
 ];
 
-export type RawPublicTrade = ["t", string, 0 | 1, string, string, number];
+export type RawPublicTrade = [
+  "t",
+  string,
+  0 | 1,
+  string,
+  string,
+  number,
+  string
+];
 
-export type RawBookUpdate = ["o", 0 | 1, string, string];
+export type RawBookUpdate = ["o", 0 | 1, string, string, string];
 
 export type RawPriceAggregatedBook = [
   Channel,
@@ -70,7 +79,8 @@ export type RawPendingOrder = [
   string,
   string,
   string,
-  string | null
+  string | null,
+  string
 ];
 
 export type RawNewOrder = [
@@ -101,7 +111,9 @@ export type RawTrade = [
   number,
   string,
   string,
-  string | null
+  string | null,
+  string,
+  string
 ];
 
 export type RawKill = ["k", number, string | null];
@@ -173,6 +185,7 @@ export interface WsSnapshot {
   currencyPair: string;
   asks: { [price: string]: string };
   bids: { [price: string]: string };
+  epoch_ms: string;
 }
 
 export interface WsPublicTrade {
@@ -182,6 +195,7 @@ export interface WsPublicTrade {
   price: string;
   size: string;
   timestamp: number;
+  epoch_ms: string;
 }
 
 export interface WsBookUpdate {
@@ -189,6 +203,7 @@ export interface WsBookUpdate {
   type: "bid" | "ask";
   price: string;
   size: string;
+  epoch_ms: string;
 }
 
 export type WsBookMessage = BaseMessage & {
@@ -205,6 +220,7 @@ export interface WsPendingOrder {
   amount: string;
   type: "buy" | "sell";
   clientOrderId: string | null;
+  epoch_ms: string;
 }
 
 export interface WsNewOrder {
@@ -255,6 +271,8 @@ export interface WsTrade {
   fee: string;
   date: string;
   clientOrderId: string | null;
+  total_trade: string;
+  epoch_ms: string;
 }
 
 export interface WsKill {
@@ -282,7 +300,7 @@ export type WsMessage =
   | WsBookMessage
   | WsAccountMessage;
 
-export interface WebsocketClientOptions {
+export interface WebSocketClientOptions {
   wsUri?: string;
   raw?: boolean;
   channels?: Channel[];
@@ -290,7 +308,7 @@ export interface WebsocketClientOptions {
   secret?: string;
 }
 
-export declare interface WebsocketClient {
+export declare interface WebSocketClient {
   on(event: "open" | "close", eventListener: () => void): this;
   on(event: "message", eventListener: (data: WsMessage) => void): this;
   on(event: "rawMessage", eventListener: (data: RawMessage) => void): this;
@@ -302,26 +320,24 @@ export declare interface WebsocketClient {
   once(event: "error", eventListener: (error: unknown) => void): this;
 }
 
-export class WebsocketClient extends EventEmitter {
+export class WebSocketClient extends EventEmitter {
   readonly #key?: string;
   readonly #secret?: string;
   #nonce: () => number;
 
-  public ws?: Websocket;
+  public ws?: WebSocket;
   public readonly raw: boolean;
   public readonly channels: Channel[];
   public readonly wsUri: string;
 
-  /**
-   * Create WebsocketClient.
-   */
+  /** Create WebSocketClient. */
   public constructor({
     wsUri = WsUri,
     raw = true,
     channels = DefaultChannels,
     key,
     secret,
-  }: WebsocketClientOptions = {}) {
+  }: WebSocketClientOptions = {}) {
     super();
     this.raw = raw;
     this.channels = channels;
@@ -333,129 +349,120 @@ export class WebsocketClient extends EventEmitter {
     }
   }
 
-  /**
-   * Connect to the websocket.
-   */
+  /** Connect to the websocket. */
   public async connect(): Promise<void> {
     switch (this.ws?.readyState) {
-      case Websocket.CLOSING:
-      case Websocket.CONNECTING:
+      case WebSocket.CLOSING:
+      case WebSocket.CONNECTING:
         throw new Error(`Could not connect. State: ${this.ws.readyState}`);
-      case Websocket.OPEN:
+      case WebSocket.OPEN:
         return;
       default:
         break;
     }
 
     await new Promise<void>((resolve, reject) => {
-      this.ws = new Websocket(this.wsUri);
-      this.ws.once("open", resolve);
-      this.ws.once("error", reject);
-      this.ws.on("open", () => {
-        this.emit("open");
-        for (const channel of this.channels) {
-          this.subscribe(channel).catch((error) => {
+      this.ws = new WebSocket(this.wsUri);
+      this.ws
+        .once("open", resolve)
+        .once("error", reject)
+        .on("open", () => {
+          this.emit("open");
+          for (const channel of this.channels) {
+            this.subscribe(channel).catch((error) => {
+              this.emit("error", error);
+            });
+          }
+        })
+        .on("close", () => {
+          this.emit("close");
+        })
+        .on("message", (data: string) => {
+          try {
+            const jsondata = JSON.parse(data) as RawMessage;
+            if ("error" in jsondata) {
+              this.emit("error", jsondata);
+              return;
+            }
+
+            if (this.raw) {
+              this.emit("rawMessage", jsondata);
+            }
+
+            if (jsondata.length === 1) {
+              const message = WebSocketClient.formatHeartbeat(jsondata);
+              this.emit("message", message);
+            } else if (jsondata.length === 2) {
+              const message = WebSocketClient.formatAcknowledge(jsondata);
+              this.emit("message", message);
+            } else if (jsondata[1] === null && jsondata[0] === 1002) {
+              const message = WebSocketClient.formatTicker(jsondata);
+              this.emit("message", message);
+            } else if (jsondata[1] === null && jsondata[0] === 1003) {
+              const message = WebSocketClient.formatVolume(jsondata);
+              this.emit("message", message);
+            } else if (
+              (jsondata[1] === "" || jsondata[1] === null) &&
+              jsondata[0] === 1000
+            ) {
+              const messages = WebSocketClient.formatAccount(jsondata);
+              for (const message of messages) {
+                this.emit("message", message);
+              }
+            } else {
+              const messages = WebSocketClient.formatUpdate(jsondata);
+              for (const message of messages) {
+                this.emit("message", message);
+              }
+            }
+          } catch (error) {
             this.emit("error", error);
-          });
-        }
-      });
-      this.ws.on("close", () => {
-        this.emit("close");
-      });
-      this.ws.on("message", (data: string) => {
-        try {
-          const jsondata = JSON.parse(data) as RawMessage;
-          if ("error" in jsondata) {
-            this.emit("error", jsondata);
-            return;
           }
-
-          if (this.raw) {
-            this.emit("rawMessage", jsondata);
+        })
+        .on("error", (error) => {
+          if (error) {
+            this.emit("error", error);
           }
-
-          if (jsondata.length === 1) {
-            const message = WebsocketClient.formatHeartbeat(jsondata);
-            this.emit("message", message);
-          } else if (jsondata.length === 2) {
-            const message = WebsocketClient.formatAcknowledge(jsondata);
-            this.emit("message", message);
-          } else if (jsondata[1] === null && jsondata[0] === 1002) {
-            const message = WebsocketClient.formatTicker(jsondata);
-            this.emit("message", message);
-          } else if (jsondata[1] === null && jsondata[0] === 1003) {
-            const message = WebsocketClient.formatVolume(jsondata);
-            this.emit("message", message);
-          } else if (
-            (jsondata[1] === "" || jsondata[1] === null) &&
-            jsondata[0] === 1000
-          ) {
-            const messages = WebsocketClient.formatAccount(jsondata);
-            for (const message of messages) {
-              this.emit("message", message);
-            }
-          } else {
-            const messages = WebsocketClient.formatUpdate(jsondata);
-            for (const message of messages) {
-              this.emit("message", message);
-            }
-          }
-        } catch (error) {
-          this.emit("error", error);
-        }
-      });
-      this.ws.on("error", (error) => {
-        if (error) {
-          this.emit("error", error);
-        }
-      });
+        });
     });
   }
 
-  /**
-   * Disconnect from the websocket.
-   */
+  /** Disconnect from the websocket. */
   public async disconnect(): Promise<void> {
     switch (this.ws?.readyState) {
-      case Websocket.CLOSED:
+      case WebSocket.CLOSED:
         return;
-      case Websocket.CLOSING:
-      case Websocket.CONNECTING:
+      case WebSocket.CLOSING:
+      case WebSocket.CONNECTING:
         throw new Error(`Could not disconnect. State: ${this.ws.readyState}`);
       default:
         break;
     }
 
     await new Promise<void>((resolve, reject) => {
-      if (!this.ws) {
+      if (this.ws) {
+        this.ws.once("error", reject).once("close", resolve).close();
+      } else {
         resolve();
-        return;
       }
-      this.ws.once("error", reject);
-      this.ws.once("close", resolve);
-      this.ws.close();
     });
   }
 
-  /**
-   * Subscribes to the specified channel.
-   */
-  public async subscribe(channel: Channel): Promise<void> {
-    await this.send({ command: "subscribe", channel });
+  /** Subscribes to the specified channel. */
+  public subscribe(channel: Channel): Promise<void> {
+    return this.#send({ command: "subscribe", channel });
   }
 
-  /**
-   * Unsubscribes from the specified channel.
-   */
-  public async unsubscribe(channel: Channel): Promise<void> {
-    await this.send({ command: "unsubscribe", channel });
+  /** Unsubscribes from the specified channel. */
+  public unsubscribe(channel: Channel): Promise<void> {
+    return this.#send({ command: "unsubscribe", channel });
   }
 
-  private async send(subscription: Subscription): Promise<void> {
+  async #send(subscription: Subscription): Promise<void> {
     const { ws } = this;
 
     if (!ws) {
-      throw new Error("Websocket is not initialized");
+      throw new Error("WebSocket is not initialized");
     }
 
     let message = { ...subscription } as Subscription & {
@@ -472,6 +479,7 @@ export class WebsocketClient extends EventEmitter {
       });
       message = { ...message, payload, ...signature };
     }
+
     await new Promise<void>((resolve, reject) => {
       ws.send(JSON.stringify(message), (error) => {
         if (error) {
@@ -527,9 +535,10 @@ export class WebsocketClient extends EventEmitter {
   public static formatSnapshot([
     ,
     { currencyPair, orderBook },
+    epoch_ms,
   ]: RawSnapshot): WsSnapshot {
     const [asks, bids] = orderBook;
-    return { subject: "snapshot", currencyPair, asks, bids };
+    return { subject: "snapshot", currencyPair, asks, bids, epoch_ms };
   }
 
   public static formatPublicTrade([
@@ -539,9 +548,17 @@ export class WebsocketClient extends EventEmitter {
     price,
     size,
     timestamp,
+    epoch_ms,
   ]: RawPublicTrade): WsPublicTrade {
-    const type = side === 1 ? "buy" : "sell";
-    return { subject: "publicTrade", tradeID, type, price, size, timestamp };
+    return {
+      subject: "publicTrade",
+      tradeID,
+      type: side === 1 ? "buy" : "sell",
+      price,
+      size,
+      timestamp,
+      epoch_ms,
+    };
   }
 
   public static formatBookUpdate([
@@ -549,9 +566,10 @@ export class WebsocketClient extends EventEmitter {
     side,
     price,
     size,
+    epoch_ms,
   ]: RawBookUpdate): WsBookUpdate {
     const type = side === 1 ? "bid" : "ask";
-    return { subject: "update", type, price, size };
+    return { subject: "update", type, price, size, epoch_ms };
   }
 
   public static formatHeartbeat([channel_id]: RawWsHeartbeat): WsHeartbeat {
@@ -575,10 +593,10 @@ export class WebsocketClient extends EventEmitter {
     const currencyPair = CurrencyPairs[channel_id];
     for (const message of messages) {
       if (message[0] === "i") {
-        const msg = WebsocketClient.formatSnapshot(message);
+        const msg = WebSocketClient.formatSnapshot(message);
         output.push({ channel_id, sequence, ...msg });
       } else if (message[0] === "t") {
-        const msg = WebsocketClient.formatPublicTrade(message);
+        const msg = WebSocketClient.formatPublicTrade(message);
         output.push({
           currencyPair,
           channel_id,
@@ -586,7 +604,7 @@ export class WebsocketClient extends EventEmitter {
           ...msg,
         });
       } else {
-        const msg = WebsocketClient.formatBookUpdate(message);
+        const msg = WebSocketClient.formatBookUpdate(message);
         output.push({ currencyPair, channel_id, sequence, ...msg });
       }
     }
@@ -601,6 +619,7 @@ export class WebsocketClient extends EventEmitter {
     amount,
     type,
     clientOrderId,
+    epoch_ms,
   ]: RawPendingOrder): WsPendingOrder {
     return {
       subject: "pending",
@@ -611,6 +630,7 @@ export class WebsocketClient extends EventEmitter {
       amount,
       type: type === "0" ? "sell" : "buy",
       clientOrderId,
+      epoch_ms,
     };
   }
 
@@ -691,6 +711,8 @@ export class WebsocketClient extends EventEmitter {
     fee,
     date,
     clientOrderId,
+    total_trade,
+    epoch_ms,
   ]: RawTrade): WsTrade {
     return {
       subject: "trade",
@@ -703,6 +725,8 @@ export class WebsocketClient extends EventEmitter {
       fee,
       date,
       clientOrderId,
+      total_trade,
+      epoch_ms,
     };
   }
 
@@ -718,25 +742,25 @@ export class WebsocketClient extends EventEmitter {
     const output: WsAccountMessage[] = [];
     for (const message of messages) {
       if (message[0] === "p") {
-        const msg = WebsocketClient.formatPending(message);
+        const msg = WebSocketClient.formatPending(message);
         output.push({ channel_id, ...msg });
       } else if (message[0] === "n") {
-        const msg = WebsocketClient.formatNew(message);
+        const msg = WebSocketClient.formatNew(message);
         output.push({ channel_id, ...msg });
       } else if (message[0] === "b") {
-        const msg = WebsocketClient.formatBalance(message);
+        const msg = WebSocketClient.formatBalance(message);
         output.push({ channel_id, ...msg });
       } else if (message[0] === "o") {
-        const msg = WebsocketClient.formatOrder(message);
+        const msg = WebSocketClient.formatOrder(message);
         output.push({ channel_id, ...msg });
       } else if (message[0] === "m") {
-        const msg = WebsocketClient.formatMarginUpdate(message);
+        const msg = WebSocketClient.formatMarginUpdate(message);
         output.push({ channel_id, ...msg });
       } else if (message[0] === "t") {
-        const msg = WebsocketClient.formatTrade(message);
+        const msg = WebSocketClient.formatTrade(message);
         output.push({ channel_id, ...msg });
       } else if (message[0] === "k") {
-        const msg = WebsocketClient.formatKill(message);
+        const msg = WebSocketClient.formatKill(message);
         output.push({ channel_id, ...msg });
       }
     }

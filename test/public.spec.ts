@@ -1,4 +1,4 @@
-import assert from "assert";
+import { deepStrictEqual, rejects } from "node:assert";
 import nock from "nock";
 import {
   PublicClient,
@@ -13,19 +13,19 @@ import {
   ICurrencies,
   ExtendedCurrencies,
   Loans,
-} from "../index";
+} from "../index.js";
 
 const client = new PublicClient();
 
 suite("PublicClient", () => {
   test("constructor", () => {
-    assert.deepStrictEqual(client.currencyPair, DefaultPair);
+    deepStrictEqual(client.currencyPair, DefaultPair);
   });
 
   test(".constructor() (with custom parameters)", () => {
     const currencyPair = "BTC_ETH";
     const otherClient = new PublicClient({ currencyPair });
-    assert.deepStrictEqual(otherClient.currencyPair, currencyPair);
+    deepStrictEqual(otherClient.currencyPair, currencyPair);
   });
 
   test(".get() (throws an error)", async () => {
@@ -33,7 +33,7 @@ suite("PublicClient", () => {
     const path = "/public";
     nock(ApiUri).get(path).reply(200, { error });
 
-    await assert.rejects(client.get(path), new Error(error));
+    await rejects(client.get(path), new Error(error));
   });
 
   test(".getTickers()", async () => {
@@ -67,7 +67,7 @@ suite("PublicClient", () => {
     nock(ApiUri).get("/public").query({ command }).reply(200, tickers);
 
     const data = await client.getTickers();
-    assert.deepStrictEqual(data, tickers);
+    deepStrictEqual(data, tickers);
   });
 
   test(".getVolume()", async () => {
@@ -82,7 +82,7 @@ suite("PublicClient", () => {
     nock(ApiUri).get("/public").query({ command }).reply(200, volume);
 
     const data = await client.getVolume();
-    assert.deepStrictEqual(data, volume);
+    deepStrictEqual(data, volume);
   });
 
   test(".getOrderBook()", async () => {
@@ -121,7 +121,7 @@ suite("PublicClient", () => {
       .reply(200, books);
 
     const data = await client.getOrderBook({ currencyPair, depth });
-    assert.deepStrictEqual(data, books);
+    deepStrictEqual(data, books);
   });
 
   test(".getOrderBook() (with no `currencyPair`)", async () => {
@@ -146,7 +146,7 @@ suite("PublicClient", () => {
       .reply(200, book);
 
     const data = await client.getOrderBook({ depth });
-    assert.deepStrictEqual(data, book);
+    deepStrictEqual(data, book);
   });
 
   test(".getOrderBook() (with no `depth`)", async () => {
@@ -171,7 +171,7 @@ suite("PublicClient", () => {
       .reply(200, book);
 
     const data = await client.getOrderBook({ currencyPair });
-    assert.deepStrictEqual(data, book);
+    deepStrictEqual(data, book);
   });
 
   test(".getOrderBook() (with no arguments)", async () => {
@@ -196,7 +196,7 @@ suite("PublicClient", () => {
       .reply(200, book);
 
     const data = await client.getOrderBook();
-    assert.deepStrictEqual(data, book);
+    deepStrictEqual(data, book);
   });
 
   test(".getTradeHistory()", async () => {
@@ -242,7 +242,7 @@ suite("PublicClient", () => {
       .reply(200, trades);
 
     const data = await client.getTradeHistory({ end, start, currencyPair });
-    assert.deepStrictEqual(data, trades);
+    deepStrictEqual(data, trades);
   });
 
   test(".getTradeHistory() (with no `currencyPair`)", async () => {
@@ -288,7 +288,7 @@ suite("PublicClient", () => {
       .reply(200, trades);
 
     const data = await client.getTradeHistory({ end, start });
-    assert.deepStrictEqual(data, trades);
+    deepStrictEqual(data, trades);
   });
 
   test(".getTradeHistory() (with no arguments)", async () => {
@@ -332,7 +332,7 @@ suite("PublicClient", () => {
       .reply(200, trades);
 
     const data = await client.getTradeHistory();
-    assert.deepStrictEqual(data, trades);
+    deepStrictEqual(data, trades);
   });
 
   test(".getChartData()", async () => {
@@ -384,7 +384,7 @@ suite("PublicClient", () => {
       currencyPair,
       end,
     });
-    assert.deepStrictEqual(data, candles);
+    deepStrictEqual(data, candles);
   });
 
   test(".getChartData() (with no `currencyPair`)", async () => {
@@ -431,7 +431,7 @@ suite("PublicClient", () => {
       .reply(200, candles);
 
     const data = await client.getChartData({ period, start, end });
-    assert.deepStrictEqual(data, candles);
+    deepStrictEqual(data, candles);
   });
 
   test(".getCurrencies()", async () => {
@@ -475,7 +475,7 @@ suite("PublicClient", () => {
       .reply(200, currencies);
 
     const data = await client.getCurrencies();
-    assert.deepStrictEqual(data, currencies);
+    deepStrictEqual(data, currencies);
   });
 
   test(".getCurrencies() (with `includeMultiChainCurrencies`)", async () => {
@@ -527,7 +527,7 @@ suite("PublicClient", () => {
       .reply(200, currencies);
 
     const data = await client.getCurrencies({ includeMultiChainCurrencies });
-    assert.deepStrictEqual(data, currencies);
+    deepStrictEqual(data, currencies);
   });
 
   test(".getLoanOrders()", async () => {
@@ -546,6 +546,6 @@ suite("PublicClient", () => {
     nock(ApiUri).get("/public").query({ currency, command }).reply(200, loans);
 
     const data = await client.getLoanOrders({ currency });
-    assert.deepStrictEqual(data, loans);
+    deepStrictEqual(data, loans);
   });
 });
