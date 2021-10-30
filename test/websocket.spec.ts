@@ -1,6 +1,6 @@
-import assert from "assert";
+import { deepStrictEqual, ok, rejects } from "node:assert";
 import {
-  WebsocketClient,
+  WebSocketClient,
   WsUri,
   DefaultChannels,
   SignRequest,
@@ -37,23 +37,23 @@ import {
   RawAccountMessage,
   WsAccountMessage,
   Currencies,
-} from "../index";
-import { Server, OPEN, CONNECTING, CLOSING, CLOSED } from "ws";
+} from "../index.js";
+import { WebSocketServer, WebSocket } from "ws";
 
 const port = 10010;
 const wsUri = `ws://localhost:${port}`;
 
-suite("WebsocketClient", () => {
-  let client: WebsocketClient;
-  let server: Server;
+suite("WebSocketClient", () => {
+  let client: WebSocketClient;
+  let server: WebSocketServer;
 
   setup(() => {
-    server = new Server({ port });
-    client = new WebsocketClient({ wsUri });
+    server = new WebSocketServer({ port });
+    client = new WebSocketClient({ wsUri });
   });
 
   teardown(async () => {
-    await client.disconnect();
+    server.clients?.forEach((c) => c.close());
     await new Promise<void>((resolve, reject) => {
       server.close((error) => {
         if (error) {
@@ -70,26 +70,26 @@ suite("WebsocketClient", () => {
     const secret = "poloniexapisecret";
     const channels = [] as number[];
     const raw = false;
-    const websocket = new WebsocketClient({ key, secret, raw, channels });
-    assert.deepStrictEqual(websocket.channels, channels);
-    assert.deepStrictEqual(websocket.wsUri, WsUri);
-    assert.deepStrictEqual(websocket.raw, raw);
+    const websocket = new WebSocketClient({ key, secret, raw, channels });
+    deepStrictEqual(websocket.channels, channels);
+    deepStrictEqual(websocket.wsUri, WsUri);
+    deepStrictEqual(websocket.raw, raw);
   });
 
   test(".nonce()", () => {
     const nonce = client.nonce();
-    assert.ok(Date.now() - nonce < 10);
+    ok(Date.now() - nonce < 10);
   });
 
   test("constructor (with no arguments)", () => {
-    const websocket = new WebsocketClient();
-    assert.deepStrictEqual(websocket.channels, DefaultChannels);
-    assert.deepStrictEqual(websocket.wsUri, WsUri);
-    assert.deepStrictEqual(websocket.raw, true);
+    const websocket = new WebSocketClient();
+    deepStrictEqual(websocket.channels, DefaultChannels);
+    deepStrictEqual(websocket.wsUri, WsUri);
+    deepStrictEqual(websocket.raw, true);
   });
 
   test(".connect() (subscribes to the default channel)", async () => {
-    assert.deepStrictEqual(client.wsUri, wsUri);
+    deepStrictEqual(client.wsUri, wsUri);
 
     const connection = new Promise<void>((resolve, reject) => {
       server.once("connection", (ws) => {
@@ -97,7 +97,7 @@ suite("WebsocketClient", () => {
           try {
             const [channel] = DefaultChannels;
             const command = "subscribe";
-            assert.deepStrictEqual(JSON.parse(data), { command, channel });
+            deepStrictEqual(JSON.parse(data), { command, channel });
             resolve();
           } catch (error) {
             reject(error);
@@ -107,85 +107,85 @@ suite("WebsocketClient", () => {
     });
 
     await client.connect();
-    assert.deepStrictEqual(client.ws?.readyState, OPEN);
+    deepStrictEqual(client.ws?.readyState, WebSocket.OPEN);
     await connection;
   });
 
   test(".connect() (when `readyState` is `OPEN`)", async () => {
     await client.connect();
-    assert.deepStrictEqual(client.ws?.readyState, OPEN);
+    deepStrictEqual(client.ws?.readyState, WebSocket.OPEN);
     await client.connect();
-    assert.deepStrictEqual(client.ws?.readyState, OPEN);
+    deepStrictEqual(client.ws?.readyState, WebSocket.OPEN);
   });
 
   test(".connect() (when `readyState` is `CONNECTING`)", async () => {
     const connect = client.connect();
     const error = new Error("Could not connect. State: 0");
-    assert.deepStrictEqual(client.ws?.readyState, CONNECTING);
-    await assert.rejects(client.connect(), error);
+    deepStrictEqual(client.ws?.readyState, WebSocket.CONNECTING);
+    await rejects(client.connect(), error);
     await connect;
-    assert.deepStrictEqual(client.ws?.readyState, OPEN);
+    deepStrictEqual(client.ws?.readyState, WebSocket.OPEN);
   });
 
   test(".connect() (when `readyState` is `CLOSING`)", async () => {
     await client.connect();
-    assert.deepStrictEqual(client.ws?.readyState, OPEN);
+    deepStrictEqual(client.ws?.readyState, WebSocket.OPEN);
     const disconnect = client.disconnect();
     const error = new Error("Could not connect. State: 2");
-    assert.deepStrictEqual(client.ws?.readyState, CLOSING);
-    await assert.rejects(client.connect(), error);
+    deepStrictEqual(client.ws?.readyState, WebSocket.CLOSING);
+    await rejects(client.connect(), error);
     await disconnect;
   });
 
   test(".connect() (when `readyState` is `CLOSED`)", async () => {
     await client.connect();
-    assert.deepStrictEqual(client.ws?.readyState, OPEN);
+    deepStrictEqual(client.ws?.readyState, WebSocket.OPEN);
     await client.disconnect();
-    assert.deepStrictEqual(client.ws?.readyState, CLOSED);
+    deepStrictEqual(client.ws?.readyState, WebSocket.CLOSED);
     await client.connect();
-    assert.deepStrictEqual(client.ws?.readyState, OPEN);
+    deepStrictEqual(client.ws?.readyState, WebSocket.OPEN);
   });
 
   test(".disconnect()", async () => {
     await client.connect();
-    assert.deepStrictEqual(client.ws?.readyState, OPEN);
+    deepStrictEqual(client.ws?.readyState, WebSocket.OPEN);
     await client.disconnect();
-    assert.deepStrictEqual(client.ws?.readyState, CLOSED);
+    deepStrictEqual(client.ws?.readyState, WebSocket.CLOSED);
   });
 
   test(".disconnect() (when socket is not initialized)", async () => {
-    assert.ok(typeof client.ws === "undefined");
+    ok(typeof client.ws === "undefined");
     await client.disconnect();
-    assert.ok(typeof client.ws === "undefined");
+    ok(typeof client.ws === "undefined");
   });
 
   test(".disconnect() (when `readyState` is `CLOSED`)", async () => {
     await client.connect();
-    assert.deepStrictEqual(client.ws?.readyState, OPEN);
+    deepStrictEqual(client.ws?.readyState, WebSocket.OPEN);
     await client.disconnect();
-    assert.deepStrictEqual(client.ws?.readyState, CLOSED);
+    deepStrictEqual(client.ws?.readyState, WebSocket.CLOSED);
     await client.disconnect();
-    assert.deepStrictEqual(client.ws?.readyState, CLOSED);
+    deepStrictEqual(client.ws?.readyState, WebSocket.CLOSED);
   });
 
   test(".disconnect() (when `readyState` is `CONNECTING`)", async () => {
     const connect = client.connect();
     const error = new Error("Could not disconnect. State: 0");
-    assert.deepStrictEqual(client.ws?.readyState, CONNECTING);
-    await assert.rejects(client.disconnect(), error);
+    deepStrictEqual(client.ws?.readyState, WebSocket.CONNECTING);
+    await rejects(client.disconnect(), error);
     await connect;
-    assert.deepStrictEqual(client.ws?.readyState, OPEN);
+    deepStrictEqual(client.ws?.readyState, WebSocket.OPEN);
   });
 
   test(".disconnect() (when `readyState` is `CLOSING`)", async () => {
     await client.connect();
-    assert.deepStrictEqual(client.ws?.readyState, OPEN);
+    deepStrictEqual(client.ws?.readyState, WebSocket.OPEN);
     const disconnect = client.disconnect();
     const error = new Error("Could not disconnect. State: 2");
-    assert.deepStrictEqual(client.ws?.readyState, CLOSING);
-    await assert.rejects(client.disconnect(), error);
+    deepStrictEqual(client.ws?.readyState, WebSocket.CLOSING);
+    await rejects(client.disconnect(), error);
     await disconnect;
-    assert.deepStrictEqual(client.ws?.readyState, CLOSED);
+    deepStrictEqual(client.ws?.readyState, WebSocket.CLOSED);
   });
 
   test(".subscribe()", async () => {
@@ -195,9 +195,9 @@ suite("WebsocketClient", () => {
       server.once("connection", (ws) => {
         const command = "subscribe";
         ws.once("message", (message: string) => {
-          assert.deepStrictEqual(JSON.parse(message), { command, channel });
+          deepStrictEqual(JSON.parse(message), { command, channel });
           ws.once("message", (data: string) => {
-            assert.deepStrictEqual(JSON.parse(data), {
+            deepStrictEqual(JSON.parse(data), {
               command,
               channel: channelToSubscribe,
             });
@@ -216,12 +216,12 @@ suite("WebsocketClient", () => {
     await client.connect();
     await client.disconnect();
 
-    await assert.rejects(client.subscribe(1000), new Error(message));
+    await rejects(client.subscribe(1000), new Error(message));
   });
 
   test(".subscribe() (when `socket` is not initialized)", async () => {
-    const error = new Error("Websocket is not initialized");
-    await assert.rejects(client.subscribe(1002), error);
+    const error = new Error("WebSocket is not initialized");
+    await rejects(client.subscribe(1002), error);
   });
 
   test(".unsubscribe()", async () => {
@@ -230,9 +230,9 @@ suite("WebsocketClient", () => {
       server.once("connection", (ws) => {
         const command = "subscribe";
         ws.once("message", (message: string) => {
-          assert.deepStrictEqual(JSON.parse(message), { command, channel });
+          deepStrictEqual(JSON.parse(message), { command, channel });
           ws.once("message", (data: string) => {
-            assert.deepStrictEqual(JSON.parse(data), {
+            deepStrictEqual(JSON.parse(data), {
               command: "unsubscribe",
               channel,
             });
@@ -250,12 +250,12 @@ suite("WebsocketClient", () => {
     const key = "poloniex-api-key";
     const secret = "poloniex-api-secret";
     const message = "WebSocket is not open: readyState 3 (CLOSED)";
-    const authClient = new WebsocketClient({ wsUri, key, secret });
+    const authClient = new WebSocketClient({ wsUri, key, secret });
     const nonce = 1;
     authClient.nonce = (): number => nonce;
     await authClient.connect();
     await authClient.disconnect();
-    await assert.rejects(authClient.unsubscribe(1000), new Error(message));
+    await rejects(authClient.unsubscribe(1000), new Error(message));
   });
 
   suite("Formatters", () => {
@@ -291,8 +291,8 @@ suite("WebsocketClient", () => {
         high24hr: "0.00000100",
         low24hr: "0.00000096",
       };
-      const ticker = WebsocketClient.formatTicker(rawTicker);
-      assert.deepStrictEqual(ticker, expectedTicker);
+      const ticker = WebSocketClient.formatTicker(rawTicker);
+      deepStrictEqual(ticker, expectedTicker);
     });
 
     test(".formatTicker() (`isFrozen` is true)", () => {
@@ -327,8 +327,8 @@ suite("WebsocketClient", () => {
         high24hr: "0.00000100",
         low24hr: "0.00000096",
       };
-      const ticker = WebsocketClient.formatTicker(rawTicker);
-      assert.deepStrictEqual(ticker, expectedTicker);
+      const ticker = WebSocketClient.formatTicker(rawTicker);
+      deepStrictEqual(ticker, expectedTicker);
     });
 
     test(".formatVolume()", () => {
@@ -358,8 +358,8 @@ suite("WebsocketClient", () => {
           USDC: "1578020.908",
         },
       };
-      const volume = WebsocketClient.formatVolume(rawVolume);
-      assert.deepStrictEqual(volume, expectedVolume);
+      const volume = WebSocketClient.formatVolume(rawVolume);
+      deepStrictEqual(volume, expectedVolume);
     });
 
     test(".formatSnapshot()", () => {
@@ -407,8 +407,8 @@ suite("WebsocketClient", () => {
           "0.00000001": "1462262.00000000",
         },
       };
-      const snapshot = WebsocketClient.formatSnapshot(rawSnapshot);
-      assert.deepStrictEqual(snapshot, expectedSnapshot);
+      const snapshot = WebSocketClient.formatSnapshot(rawSnapshot);
+      deepStrictEqual(snapshot, expectedSnapshot);
     });
 
     test(".formatPublicTrade() (buy)", () => {
@@ -428,8 +428,8 @@ suite("WebsocketClient", () => {
         size: "0.60000000",
         timestamp: 1580123594,
       };
-      const trade = WebsocketClient.formatPublicTrade(rawTrade);
-      assert.deepStrictEqual(trade, expectedTrade);
+      const trade = WebSocketClient.formatPublicTrade(rawTrade);
+      deepStrictEqual(trade, expectedTrade);
     });
 
     test(".formatPublicTrade() (sell)", () => {
@@ -449,8 +449,8 @@ suite("WebsocketClient", () => {
         size: "0.60000000",
         timestamp: 1580123594,
       };
-      const trade = WebsocketClient.formatPublicTrade(rawTrade);
-      assert.deepStrictEqual(trade, expectedTrade);
+      const trade = WebSocketClient.formatPublicTrade(rawTrade);
+      deepStrictEqual(trade, expectedTrade);
     });
 
     test(".formatBookUpdate() (bid)", () => {
@@ -461,8 +461,8 @@ suite("WebsocketClient", () => {
         price: "0.01924381",
         size: "0.00000000",
       };
-      const update = WebsocketClient.formatBookUpdate(rawUpdate);
-      assert.deepStrictEqual(update, expectedUpdate);
+      const update = WebSocketClient.formatBookUpdate(rawUpdate);
+      deepStrictEqual(update, expectedUpdate);
     });
 
     test(".formatBookUpdate() (ask)", () => {
@@ -473,8 +473,8 @@ suite("WebsocketClient", () => {
         price: "0.01924381",
         size: "0.00000000",
       };
-      const update = WebsocketClient.formatBookUpdate(rawUpdate);
-      assert.deepStrictEqual(update, expectedUpdate);
+      const update = WebSocketClient.formatBookUpdate(rawUpdate);
+      deepStrictEqual(update, expectedUpdate);
     });
 
     test(".formatHeartbeat()", () => {
@@ -483,8 +483,8 @@ suite("WebsocketClient", () => {
         subject: "heartbeat",
         channel_id: 1010,
       };
-      const heartbeat = WebsocketClient.formatHeartbeat(rawHeartbeat);
-      assert.deepStrictEqual(heartbeat, expectedHeartbeat);
+      const heartbeat = WebSocketClient.formatHeartbeat(rawHeartbeat);
+      deepStrictEqual(heartbeat, expectedHeartbeat);
     });
 
     test(".formatAcknowledge() (subscribe)", () => {
@@ -493,8 +493,8 @@ suite("WebsocketClient", () => {
         subject: "subscribed",
         channel_id: 1002,
       };
-      const acknowledge = WebsocketClient.formatAcknowledge(rawAcknowledge);
-      assert.deepStrictEqual(acknowledge, expectedAcknowledge);
+      const acknowledge = WebSocketClient.formatAcknowledge(rawAcknowledge);
+      deepStrictEqual(acknowledge, expectedAcknowledge);
     });
 
     test(".formatAcknowledge() (unsubscribed)", () => {
@@ -503,8 +503,8 @@ suite("WebsocketClient", () => {
         subject: "unsubscribed",
         channel_id: 1002,
       };
-      const acknowledge = WebsocketClient.formatAcknowledge(rawAcknowledge);
-      assert.deepStrictEqual(acknowledge, expectedAcknowledge);
+      const acknowledge = WebSocketClient.formatAcknowledge(rawAcknowledge);
+      deepStrictEqual(acknowledge, expectedAcknowledge);
     });
 
     test(".formatUpdate()", () => {
@@ -584,8 +584,8 @@ suite("WebsocketClient", () => {
           timestamp: 1580123594,
         },
       ];
-      const messages = WebsocketClient.formatUpdate(rawPriceAggregatedBook);
-      assert.deepStrictEqual(messages, expectedMessages);
+      const messages = WebSocketClient.formatUpdate(rawPriceAggregatedBook);
+      deepStrictEqual(messages, expectedMessages);
     });
 
     test(".formatPending() (buy)", () => {
@@ -608,8 +608,8 @@ suite("WebsocketClient", () => {
         type: "buy",
         clientOrderId: null,
       };
-      const pending = WebsocketClient.formatPending(rawPending);
-      assert.deepStrictEqual(pending, expectedPending);
+      const pending = WebSocketClient.formatPending(rawPending);
+      deepStrictEqual(pending, expectedPending);
     });
 
     test(".formatPending() (sell)", () => {
@@ -632,8 +632,8 @@ suite("WebsocketClient", () => {
         type: "sell",
         clientOrderId: null,
       };
-      const pending = WebsocketClient.formatPending(rawPending);
-      assert.deepStrictEqual(pending, expectedPending);
+      const pending = WebSocketClient.formatPending(rawPending);
+      deepStrictEqual(pending, expectedPending);
     });
 
     test(".formatNew() (buy)", () => {
@@ -660,8 +660,8 @@ suite("WebsocketClient", () => {
         originalAmount: "1.00000000",
         clientOrderId: null,
       };
-      const newOrder = WebsocketClient.formatNew(rawNew);
-      assert.deepStrictEqual(newOrder, expectedNew);
+      const newOrder = WebSocketClient.formatNew(rawNew);
+      deepStrictEqual(newOrder, expectedNew);
     });
 
     test(".formatNew() (sell)", () => {
@@ -688,8 +688,8 @@ suite("WebsocketClient", () => {
         originalAmount: "1.00000000",
         clientOrderId: null,
       };
-      const newOrder = WebsocketClient.formatNew(rawNew);
-      assert.deepStrictEqual(newOrder, expectedNew);
+      const newOrder = WebSocketClient.formatNew(rawNew);
+      deepStrictEqual(newOrder, expectedNew);
     });
 
     test(".formatBalance() (exchange)", () => {
@@ -701,8 +701,8 @@ suite("WebsocketClient", () => {
         wallet: "exchange",
         amount: "-1.00000000",
       };
-      const balance = WebsocketClient.formatBalance(rawBalance);
-      assert.deepStrictEqual(balance, expectedBalance);
+      const balance = WebSocketClient.formatBalance(rawBalance);
+      deepStrictEqual(balance, expectedBalance);
     });
 
     test(".formatBalance() (margin)", () => {
@@ -714,8 +714,8 @@ suite("WebsocketClient", () => {
         wallet: "margin",
         amount: "-1.00000000",
       };
-      const balance = WebsocketClient.formatBalance(rawBalance);
-      assert.deepStrictEqual(balance, expectedBalance);
+      const balance = WebSocketClient.formatBalance(rawBalance);
+      deepStrictEqual(balance, expectedBalance);
     });
 
     test(".formatBalance() (lending)", () => {
@@ -727,8 +727,8 @@ suite("WebsocketClient", () => {
         wallet: "lending",
         amount: "-1.00000000",
       };
-      const balance = WebsocketClient.formatBalance(rawBalance);
-      assert.deepStrictEqual(balance, expectedBalance);
+      const balance = WebSocketClient.formatBalance(rawBalance);
+      deepStrictEqual(balance, expectedBalance);
     });
 
     test(".formatOrder() (canceled)", () => {
@@ -740,8 +740,8 @@ suite("WebsocketClient", () => {
         orderType: "canceled",
         clientOrderId: null,
       };
-      const order = WebsocketClient.formatOrder(rawOrder);
-      assert.deepStrictEqual(order, expectedOrder);
+      const order = WebSocketClient.formatOrder(rawOrder);
+      deepStrictEqual(order, expectedOrder);
     });
 
     test(".formatOrder() (filled)", () => {
@@ -753,8 +753,8 @@ suite("WebsocketClient", () => {
         orderType: "filled",
         clientOrderId: null,
       };
-      const order = WebsocketClient.formatOrder(rawOrder);
-      assert.deepStrictEqual(order, expectedOrder);
+      const order = WebSocketClient.formatOrder(rawOrder);
+      deepStrictEqual(order, expectedOrder);
     });
 
     test(".formatOrder() (self-trade)", () => {
@@ -766,8 +766,8 @@ suite("WebsocketClient", () => {
         orderType: "self-trade",
         clientOrderId: "123",
       };
-      const order = WebsocketClient.formatOrder(rawOrder);
-      assert.deepStrictEqual(order, expectedOrder);
+      const order = WebSocketClient.formatOrder(rawOrder);
+      deepStrictEqual(order, expectedOrder);
     });
 
     test(".formatMarginUpdate()", () => {
@@ -785,8 +785,8 @@ suite("WebsocketClient", () => {
         amount: "-0.06000000",
         clientOrderId: null,
       };
-      const update = WebsocketClient.formatMarginUpdate(rawUpdate);
-      assert.deepStrictEqual(update, expectedUpdate);
+      const update = WebSocketClient.formatMarginUpdate(rawUpdate);
+      deepStrictEqual(update, expectedUpdate);
     });
 
     test(".formatTrade()", () => {
@@ -814,8 +814,8 @@ suite("WebsocketClient", () => {
         date: "2018-09-08 05:54:09",
         clientOrderId: "12345",
       };
-      const trade = WebsocketClient.formatTrade(rawTrade);
-      assert.deepStrictEqual(trade, expectedTrade);
+      const trade = WebSocketClient.formatTrade(rawTrade);
+      deepStrictEqual(trade, expectedTrade);
     });
 
     test(".formatKill()", () => {
@@ -825,8 +825,8 @@ suite("WebsocketClient", () => {
         orderNumber: 12345,
         clientOrderId: null,
       };
-      const kill = WebsocketClient.formatKill(rawKill);
-      assert.deepStrictEqual(kill, expectedKill);
+      const kill = WebSocketClient.formatKill(rawKill);
+      deepStrictEqual(kill, expectedKill);
     });
 
     test(".formatAccount()", () => {
@@ -927,8 +927,8 @@ suite("WebsocketClient", () => {
           clientOrderId: null,
         },
       ];
-      const messages = WebsocketClient.formatAccount(rawAccountMessage);
-      assert.deepStrictEqual(messages, expectedMessages);
+      const messages = WebSocketClient.formatAccount(rawAccountMessage);
+      deepStrictEqual(messages, expectedMessages);
     });
   });
 
@@ -951,20 +951,20 @@ suite("WebsocketClient", () => {
         const errorPromise = new Promise<void>((resolve, reject) => {
           client.once("error", (err) => {
             try {
-              assert.deepStrictEqual(err, new Error(message));
+              deepStrictEqual(err, new Error(message));
               resolve();
             } catch (error) {
               reject(error);
             }
           });
         });
-        assert.deepStrictEqual(client.ws?.emit("open"), true);
+        deepStrictEqual(client.ws?.emit("open"), true);
         await errorPromise;
       });
 
       test("subscribes to the channels", async () => {
         const channels = [1000, 1003];
-        const otherClient = new WebsocketClient({ wsUri, channels });
+        const otherClient = new WebSocketClient({ wsUri, channels });
         const connection = new Promise<void>((resolve, reject) => {
           server.once("connection", (ws) => {
             const command = "subscribe";
@@ -972,7 +972,7 @@ suite("WebsocketClient", () => {
               ws.once("message", (otherData: string) => {
                 try {
                   const channel = 1003;
-                  assert.deepStrictEqual(JSON.parse(otherData), {
+                  deepStrictEqual(JSON.parse(otherData), {
                     command,
                     channel,
                   });
@@ -983,7 +983,7 @@ suite("WebsocketClient", () => {
               });
               const channel = 1000;
               try {
-                assert.deepStrictEqual(JSON.parse(data), { command, channel });
+                deepStrictEqual(JSON.parse(data), { command, channel });
               } catch (error) {
                 reject(error);
               }
@@ -1018,7 +1018,7 @@ suite("WebsocketClient", () => {
         const errorPromise = new Promise<void>((resolve, reject) => {
           client.once("error", (data) => {
             try {
-              assert.deepStrictEqual(data, { error });
+              deepStrictEqual(data, { error });
               resolve();
             } catch (err) {
               reject(err);
@@ -1036,7 +1036,7 @@ suite("WebsocketClient", () => {
         const errorPromise = new Promise<void>((resolve, reject) => {
           client.once("error", (data) => {
             try {
-              assert.deepStrictEqual(
+              deepStrictEqual(
                 data,
                 new SyntaxError("Unexpected token P in JSON at position 0")
               );
@@ -1065,7 +1065,7 @@ suite("WebsocketClient", () => {
       });
 
       test("does not emit `rawMessage` (when `raw=false`)", async () => {
-        const otherClient = new WebsocketClient({ wsUri, raw: false });
+        const otherClient = new WebSocketClient({ wsUri, raw: false });
         const rawMessage: [number] = [1010];
         const raw = new Promise<void>((resolve, reject) => {
           otherClient.once("rawMessage", () =>
@@ -1094,7 +1094,7 @@ suite("WebsocketClient", () => {
         const message = new Promise<void>((resolve, reject) => {
           client.once("message", (data) => {
             try {
-              assert.deepStrictEqual(data, heartbeat);
+              deepStrictEqual(data, heartbeat);
               resolve();
             } catch (error) {
               reject(error);
@@ -1118,7 +1118,7 @@ suite("WebsocketClient", () => {
         const message = new Promise<void>((resolve, reject) => {
           client.once("message", (data) => {
             try {
-              assert.deepStrictEqual(data, acknowledge);
+              deepStrictEqual(data, acknowledge);
               resolve();
             } catch (error) {
               reject(error);
@@ -1167,7 +1167,7 @@ suite("WebsocketClient", () => {
         const message = new Promise<void>((resolve, reject) => {
           client.once("message", (data) => {
             try {
-              assert.deepStrictEqual(data, ticker);
+              deepStrictEqual(data, ticker);
               resolve();
             } catch (error) {
               reject(error);
@@ -1210,7 +1210,7 @@ suite("WebsocketClient", () => {
         const message = new Promise<void>((resolve, reject) => {
           client.once("message", (data) => {
             try {
-              assert.deepStrictEqual(data, volume);
+              deepStrictEqual(data, volume);
               resolve();
             } catch (error) {
               reject(error);
@@ -1332,7 +1332,7 @@ suite("WebsocketClient", () => {
           const verify = (i: number): void => {
             client.once("message", (data) => {
               try {
-                assert.deepStrictEqual(data, messages[i++]);
+                deepStrictEqual(data, messages[i++]);
                 if (i === messages.length) {
                   resolve();
                 } else {
@@ -1434,7 +1434,7 @@ suite("WebsocketClient", () => {
           const verify = (i: number): void => {
             client.once("message", (data) => {
               try {
-                assert.deepStrictEqual(data, messages[i++]);
+                deepStrictEqual(data, messages[i++]);
                 if (i === messages.length) {
                   resolve();
                 } else {
@@ -1461,7 +1461,7 @@ suite("WebsocketClient", () => {
         });
         const errorPromise = new Promise<void>((resolve) => {
           client.once("error", (err) => {
-            assert.deepStrictEqual(err, error);
+            deepStrictEqual(err, error);
             resolve();
           });
         });
@@ -1492,7 +1492,7 @@ suite("WebsocketClient", () => {
   test("passes authentication details through", async () => {
     const key = "poloniex-api-key";
     const secret = "poloniex-api-secret";
-    const authClient = new WebsocketClient({ wsUri, key, secret });
+    const authClient = new WebSocketClient({ wsUri, key, secret });
     const nonce = 1;
     authClient.nonce = (): number => nonce;
     const connection = new Promise<void>((resolve, reject) => {
@@ -1507,7 +1507,7 @@ suite("WebsocketClient", () => {
               secret,
               body: form.toString(),
             });
-            assert.deepStrictEqual(JSON.parse(data), {
+            deepStrictEqual(JSON.parse(data), {
               command: "subscribe",
               channel,
               payload: `nonce=${nonce}`,
