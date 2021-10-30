@@ -1,5 +1,34 @@
 # Changelog
 
+## [5.0.0](https://github.com/vansergen/poloniex-node-api/compare/v4.0.1...v5.0.0) (2021-10-30)
+
+### ⚠ BREAKING CHANGES
+
+- drop Node.js `<16.13.0` support
+- change package type from `commonjs` to `module`
+- rename the class `WebsocketClient` to `WebSocketClient`
+
+### Bug Fixes
+
+- add the `epoch_ms` field to WebSocket message ([92da589](https://github.com/vansergen/poloniex-node-api/commit/92da5896081c106d541dce9b17e8f17c66ec5d0c))
+- update `Currencies` ([eb3d647](https://github.com/vansergen/poloniex-node-api/commit/eb3d647c08bfe0a5328a50d9945b2aad85ad2f7e))
+- update `CurrencyPairs` ([56d0cc0](https://github.com/vansergen/poloniex-node-api/commit/56d0cc0f0ba4ba77f0d4fa0a5911f7458974b79a))
+
+### Performance Improvements
+
+- change package type from `commonjs` to `module` ([99d3850](https://github.com/vansergen/poloniex-node-api/commit/99d3850325f1ec6d1b59f29c3796b91ada405599))
+- drop Node.js `<16.13.0` support ([883abfe](https://github.com/vansergen/poloniex-node-api/commit/883abfe7ee736bbb61590c5a1018c611b80139f7))
+
+### Dependencies
+
+- upgrade `@types/ws` to `v8.2.0` ([e99f935](https://github.com/vansergen/poloniex-node-api/commit/e99f9356cd379e1d477b4aac5568a4100f54be75))
+- upgrade `rpc-request` to `v6.0.0` ([371d56a](https://github.com/vansergen/poloniex-node-api/commit/371d56ad9937309a81d743015e709e3192001c9b))
+- upgrade `ws` to `v8.2.3` ([c788e6d](https://github.com/vansergen/poloniex-node-api/commit/c788e6db9f5e358c1c90e9f15016ecd3c7963828))
+
+### Code Refactoring
+
+- rename the class `WebsocketClient` to `WebSocketClient` ([ba9780b](https://github.com/vansergen/poloniex-node-api/commit/ba9780b6a89b89dd9d6e835eb2bd501abfe6e776))
+
 ### [4.0.1](https://github.com/vansergen/poloniex-node-api/compare/v4.0.0...v4.0.1) (2021-06-03)
 
 ### Metadata
