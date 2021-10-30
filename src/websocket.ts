@@ -50,12 +50,21 @@ export type RawSnapshot = [
   {
     currencyPair: string;
     orderBook: [{ [asks: string]: string }, { [bids: string]: string }];
-  }
+  },
+  string
 ];
 
-export type RawPublicTrade = ["t", string, 0 | 1, string, string, number];
+export type RawPublicTrade = [
+  "t",
+  string,
+  0 | 1,
+  string,
+  string,
+  number,
+  string
+];
 
-export type RawBookUpdate = ["o", 0 | 1, string, string];
+export type RawBookUpdate = ["o", 0 | 1, string, string, string];
 
 export type RawPriceAggregatedBook = [
   Channel,
@@ -70,7 +79,8 @@ export type RawPendingOrder = [
   string,
   string,
   string,
-  string | null
+  string | null,
+  string
 ];
 
 export type RawNewOrder = [
@@ -101,7 +111,9 @@ export type RawTrade = [
   number,
   string,
   string,
-  string | null
+  string | null,
+  string,
+  string
 ];
 
 export type RawKill = ["k", number, string | null];
@@ -173,6 +185,7 @@ export interface WsSnapshot {
   currencyPair: string;
   asks: { [price: string]: string };
   bids: { [price: string]: string };
+  epoch_ms: string;
 }
 
 export interface WsPublicTrade {
@@ -182,6 +195,7 @@ export interface WsPublicTrade {
   price: string;
   size: string;
   timestamp: number;
+  epoch_ms: string;
 }
 
 export interface WsBookUpdate {
@@ -189,6 +203,7 @@ export interface WsBookUpdate {
   type: "bid" | "ask";
   price: string;
   size: string;
+  epoch_ms: string;
 }
 
 export type WsBookMessage = BaseMessage & {
@@ -205,6 +220,7 @@ export interface WsPendingOrder {
   amount: string;
   type: "buy" | "sell";
   clientOrderId: string | null;
+  epoch_ms: string;
 }
 
 export interface WsNewOrder {
@@ -255,6 +271,8 @@ export interface WsTrade {
   fee: string;
   date: string;
   clientOrderId: string | null;
+  total_trade: string;
+  epoch_ms: string;
 }
 
 export interface WsKill {
@@ -517,9 +535,10 @@ export class WebSocketClient extends EventEmitter {
   public static formatSnapshot([
     ,
     { currencyPair, orderBook },
+    epoch_ms,
   ]: RawSnapshot): WsSnapshot {
     const [asks, bids] = orderBook;
-    return { subject: "snapshot", currencyPair, asks, bids };
+    return { subject: "snapshot", currencyPair, asks, bids, epoch_ms };
   }
 
   public static formatPublicTrade([
@@ -529,9 +548,17 @@ export class WebSocketClient extends EventEmitter {
     price,
     size,
     timestamp,
+    epoch_ms,
   ]: RawPublicTrade): WsPublicTrade {
-    const type = side === 1 ? "buy" : "sell";
-    return { subject: "publicTrade", tradeID, type, price, size, timestamp };
+    return {
+      subject: "publicTrade",
+      tradeID,
+      type: side === 1 ? "buy" : "sell",
+      price,
+      size,
+      timestamp,
+      epoch_ms,
+    };
   }
 
   public static formatBookUpdate([
@@ -539,9 +566,10 @@ export class WebSocketClient extends EventEmitter {
     side,
     price,
     size,
+    epoch_ms,
   ]: RawBookUpdate): WsBookUpdate {
     const type = side === 1 ? "bid" : "ask";
-    return { subject: "update", type, price, size };
+    return { subject: "update", type, price, size, epoch_ms };
   }
 
   public static formatHeartbeat([channel_id]: RawWsHeartbeat): WsHeartbeat {
@@ -591,6 +619,7 @@ export class WebSocketClient extends EventEmitter {
     amount,
     type,
     clientOrderId,
+    epoch_ms,
   ]: RawPendingOrder): WsPendingOrder {
     return {
       subject: "pending",
@@ -601,6 +630,7 @@ export class WebSocketClient extends EventEmitter {
       amount,
       type: type === "0" ? "sell" : "buy",
       clientOrderId,
+      epoch_ms,
     };
   }
 
@@ -681,6 +711,8 @@ export class WebSocketClient extends EventEmitter {
     fee,
     date,
     clientOrderId,
+    total_trade,
+    epoch_ms,
   ]: RawTrade): WsTrade {
     return {
       subject: "trade",
@@ -693,6 +725,8 @@ export class WebSocketClient extends EventEmitter {
       fee,
       date,
       clientOrderId,
+      total_trade,
+      epoch_ms,
     };
   }
 
