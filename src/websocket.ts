@@ -666,7 +666,9 @@ export class WebSocketClient extends EventEmitter {
     amount,
   ]: RawBalance): WsBalance {
     const wallet = w === "e" ? "exchange" : w === "m" ? "margin" : "lending";
-    const currency = Currencies[currencyId];
+    const currency = (
+      Currencies as Record<string, string | undefined> & typeof Currencies
+    )[currencyId];
     return { subject: "balance", currencyId, currency, wallet, amount };
   }
 
@@ -694,7 +696,9 @@ export class WebSocketClient extends EventEmitter {
     return {
       subject,
       orderNumber,
-      currency: Currencies[currency] ?? `${currency}`,
+      currency:
+        (Currencies as typeof Currencies & Record<string, string>)[currency] ??
+        `${currency}`,
       amount,
       clientOrderId,
     };
