@@ -511,7 +511,10 @@ export class WebSocketClient extends EventEmitter {
       subject: "ticker",
       channel_id,
       currencyPairId,
-      currencyPair: CurrencyPairs[currencyPairId],
+      currencyPair: (
+        CurrencyPairs as typeof CurrencyPairs &
+          Record<string, string | undefined>
+      )[currencyPairId],
       last,
       lowestAsk,
       highestBid,
@@ -590,7 +593,9 @@ export class WebSocketClient extends EventEmitter {
     messages,
   ]: RawPriceAggregatedBook): WsBookMessage[] {
     const output: WsBookMessage[] = [];
-    const currencyPair = CurrencyPairs[channel_id];
+    const currencyPair = (
+      CurrencyPairs as typeof CurrencyPairs & Record<string, string | undefined>
+    )[channel_id];
     for (const message of messages) {
       if (message[0] === "i") {
         const msg = WebSocketClient.formatSnapshot(message);
@@ -625,7 +630,10 @@ export class WebSocketClient extends EventEmitter {
       subject: "pending",
       orderNumber,
       currencyPairId,
-      currencyPair: CurrencyPairs[currencyPairId],
+      currencyPair: (
+        CurrencyPairs as typeof CurrencyPairs &
+          Record<string, string | undefined>
+      )[currencyPairId],
       rate,
       amount,
       type: type === "0" ? "sell" : "buy",
@@ -648,7 +656,10 @@ export class WebSocketClient extends EventEmitter {
     return {
       subject: "new",
       currencyPairId,
-      currencyPair: CurrencyPairs[currencyPairId],
+      currencyPair: (
+        CurrencyPairs as typeof CurrencyPairs &
+          Record<string, string | undefined>
+      )[currencyPairId],
       orderNumber,
       type: type === "0" ? "sell" : "buy",
       rate,
@@ -666,7 +677,9 @@ export class WebSocketClient extends EventEmitter {
     amount,
   ]: RawBalance): WsBalance {
     const wallet = w === "e" ? "exchange" : w === "m" ? "margin" : "lending";
-    const currency = Currencies[currencyId];
+    const currency = (
+      Currencies as Record<string, string | undefined> & typeof Currencies
+    )[currencyId];
     return { subject: "balance", currencyId, currency, wallet, amount };
   }
 
@@ -694,7 +707,9 @@ export class WebSocketClient extends EventEmitter {
     return {
       subject,
       orderNumber,
-      currency: Currencies[currency] ?? `${currency}`,
+      currency:
+        (Currencies as typeof Currencies & Record<string, string>)[currency] ??
+        `${currency}`,
       amount,
       clientOrderId,
     };
