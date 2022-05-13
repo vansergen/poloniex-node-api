@@ -1,5 +1,16 @@
 # Changelog
 
+### [5.0.1](https://github.com/vansergen/poloniex-node-api/compare/v5.0.0...v5.0.1) (2022-05-13)
+
+### Bug Fixes
+
+- update `Currencies` ([9147a23](https://github.com/vansergen/poloniex-node-api/commit/9147a231ad744fd57cbca963c3818ef5ef4c683e))
+- update `CurrencyPairs` ([fb9690c](https://github.com/vansergen/poloniex-node-api/commit/fb9690cb28883b8b81429868056acbecdfdd7ede))
+
+### Dependencies
+
+- upgrade `ws` to `v8.6.0` ([9e6a1be](https://github.com/vansergen/poloniex-node-api/commit/9e6a1be7502c34a638b481701acc9902a01dd5f6))
+
 ## [5.0.0](https://github.com/vansergen/poloniex-node-api/compare/v4.0.1...v5.0.0) (2021-10-30)
 
 ### ⚠ BREAKING CHANGES
