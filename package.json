@@ -71,7 +71,7 @@
     "prettier": "^2.4.1",
     "semantic-release": "^18.0.0",
     "ts-node": "^10.4.0",
-    "typedoc": "^0.22.7"
+    "typedoc": "^0.22.15"
   },
   "funding": {
     "type": "Coinbase Commerce",
