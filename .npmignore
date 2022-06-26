@@ -8,14 +8,14 @@ coverage
 .c8rc.json
 
 # GitHub folder
-.github/
+.github
 
 # Tests
-test/
-build/test/
+test
+build/test
 
 # Documentation
-docs/
+docs
 
 # Commitlint config - https://commitlint.js.org/
 .commitlintrc.json
@@ -38,6 +38,9 @@ docs/
 
 # semantic-release config - https://semantic-release.gitbook.io/semantic-release/
 .releaserc.json
+
+# Snyk policy file - https://snyk.io/
+.snyk
 
 # TypeScript config - https://www.typescriptlang.org/tsconfig
 tsconfig.json
