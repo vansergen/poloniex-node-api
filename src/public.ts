@@ -6,16 +6,16 @@ export const ApiLimit = 100;
 export const Headers = { "User-Agent": "poloniex-node-api-client" };
 
 export interface CurrencyPair {
-  currencyPair?: string;
+  currencyPair?: string | undefined;
 }
 
 export interface BookFilter extends CurrencyPair {
-  depth?: number;
+  depth?: number | undefined;
 }
 
 export interface TradesFilter extends CurrencyPair {
-  start?: number;
-  end?: number;
+  start?: number | undefined;
+  end?: number | undefined;
 }
 
 export interface TimeFilter {

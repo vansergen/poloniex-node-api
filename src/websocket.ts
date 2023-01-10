@@ -160,7 +160,7 @@ export interface WsTicker extends BaseMessage {
   subject: "ticker";
   channel_id: 1002;
   currencyPairId: number;
-  currencyPair?: string;
+  currencyPair?: string | undefined;
   last: string;
   lowestAsk: string;
   highestBid: string;
@@ -208,14 +208,14 @@ export interface WsBookUpdate {
 
 export type WsBookMessage = BaseMessage & {
   sequence: number;
-  currencyPair?: string;
+  currencyPair?: string | undefined;
 } & (WsSnapshot | WsPublicTrade | WsBookUpdate);
 
 export interface WsPendingOrder {
   subject: "pending";
   orderNumber: number;
   currencyPairId: number;
-  currencyPair?: string;
+  currencyPair?: string | undefined;
   rate: string;
   amount: string;
   type: "buy" | "sell";
@@ -226,7 +226,7 @@ export interface WsPendingOrder {
 export interface WsNewOrder {
   subject: "new";
   currencyPairId: number;
-  currencyPair?: string;
+  currencyPair?: string | undefined;
   orderNumber: number;
   type: "buy" | "sell";
   rate: string;
@@ -239,7 +239,7 @@ export interface WsNewOrder {
 export interface WsBalance {
   subject: "balance";
   currencyId: number;
-  currency?: string;
+  currency?: string | undefined;
   wallet: "exchange" | "margin" | "lending";
   amount: string;
 }

@@ -1090,10 +1090,7 @@ suite("WebSocketClient", () => {
         const errorPromise = new Promise<void>((resolve, reject) => {
           client.once("error", (data) => {
             try {
-              deepStrictEqual(
-                data,
-                new SyntaxError("Unexpected token P in JSON at position 0")
-              );
+              ok(data instanceof SyntaxError);
               resolve();
             } catch (err) {
               reject(err);

@@ -11,11 +11,11 @@ import {
 import { SignRequest } from "./signer.js";
 
 export interface AccountFilter {
-  account?: string;
+  account?: string | undefined;
 }
 
 export interface HistoryTradesFilter extends TradesFilter {
-  limit?: number;
+  limit?: number | undefined;
 }
 
 export interface OrderFilter {
@@ -25,27 +25,27 @@ export interface OrderFilter {
 export interface OrderOptions extends CurrencyPair {
   rate: number;
   amount: number;
-  fillOrKill?: 0 | 1;
-  immediateOrCancel?: 0 | 1;
-  postOnly?: 0 | 1;
-  clientOrderId?: number;
+  fillOrKill?: 0 | 1 | undefined;
+  immediateOrCancel?: 0 | 1 | undefined;
+  postOnly?: 0 | 1 | undefined;
+  clientOrderId?: number | undefined;
 }
 
 export type ClientOrderFilter = OrderFilter | { clientOrderId: number };
 
 export interface MoveOrderOptions extends OrderFilter {
   rate: number;
-  amount?: number;
-  postOnly?: 0 | 1;
-  immediateOrCancel?: 0 | 1;
-  clientOrderId?: number;
+  amount?: number | undefined;
+  postOnly?: 0 | 1 | undefined;
+  immediateOrCancel?: 0 | 1 | undefined;
+  clientOrderId?: number | undefined;
 }
 
 export interface WithdrawOptions {
   currency: string;
   amount: number;
   address: string;
-  paymentId?: string | number;
+  paymentId?: string | number | undefined;
 }
 
 export interface TransferOptions {
@@ -58,8 +58,8 @@ export interface TransferOptions {
 export interface MarginOrderOptions extends CurrencyPair {
   rate: number;
   amount: number;
-  lendingRate?: number;
-  clientOrderId?: number;
+  lendingRate?: number | undefined;
+  clientOrderId?: number | undefined;
 }
 
 export interface OfferOptions {
@@ -71,9 +71,9 @@ export interface OfferOptions {
 }
 
 export interface LendingHistoryOptions {
-  start?: number;
-  end?: number;
-  limit?: number;
+  start?: number | undefined;
+  end?: number | undefined;
+  limit?: number | undefined;
 }
 
 export interface SwapCurrenciesOptions {
