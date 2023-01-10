@@ -72,7 +72,7 @@
     "nock": "^13.2.7",
     "prettier": "^2.7.1",
     "semantic-release": "^19.0.3",
-    "ts-node": "^10.8.1",
+    "ts-node": "^10.9.1",
     "typedoc": "^0.23.24"
   },
   "funding": {
