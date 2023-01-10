@@ -235,6 +235,7 @@ suite("PublicClient", () => {
     const command = "returnTradeHistory";
     const currencyPair = "USDT_BTC";
     const start = 1410158341;
+    // eslint-disable-next-line init-declarations
     let end: undefined;
     nock(ApiUri)
       .get("/public")

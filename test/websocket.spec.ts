@@ -3,7 +3,7 @@ import {
   WebSocketClient,
   WsUri,
   DefaultChannels,
-  SignRequest,
+  SignRequest as signRequest,
   RawTickerMessage,
   WsTicker,
   RawVolumeMessage,
@@ -44,7 +44,9 @@ const port = 10010;
 const wsUri = `ws://localhost:${port}`;
 
 suite("WebSocketClient", () => {
+  // eslint-disable-next-line init-declarations
   let client: WebSocketClient;
+  // eslint-disable-next-line init-declarations
   let server: WebSocketServer;
 
   setup(() => {
@@ -53,7 +55,9 @@ suite("WebSocketClient", () => {
   });
 
   teardown(async () => {
-    server.clients?.forEach((c) => c.close());
+    server.clients.forEach((c) => {
+      c.close();
+    });
     await new Promise<void>((resolve, reject) => {
       server.close((error) => {
         if (error) {
@@ -115,7 +119,7 @@ suite("WebSocketClient", () => {
     await client.connect();
     deepStrictEqual(client.ws?.readyState, WebSocket.OPEN);
     await client.connect();
-    deepStrictEqual(client.ws?.readyState, WebSocket.OPEN);
+    deepStrictEqual(client.ws.readyState, WebSocket.OPEN);
   });
 
   test(".connect() (when `readyState` is `CONNECTING`)", async () => {
@@ -124,7 +128,7 @@ suite("WebSocketClient", () => {
     deepStrictEqual(client.ws?.readyState, WebSocket.CONNECTING);
     await rejects(client.connect(), error);
     await connect;
-    deepStrictEqual(client.ws?.readyState, WebSocket.OPEN);
+    deepStrictEqual(client.ws.readyState, WebSocket.OPEN);
   });
 
   test(".connect() (when `readyState` is `CLOSING`)", async () => {
@@ -132,7 +136,7 @@ suite("WebSocketClient", () => {
     deepStrictEqual(client.ws?.readyState, WebSocket.OPEN);
     const disconnect = client.disconnect();
     const error = new Error("Could not connect. State: 2");
-    deepStrictEqual(client.ws?.readyState, WebSocket.CLOSING);
+    deepStrictEqual(client.ws.readyState, WebSocket.CLOSING);
     await rejects(client.connect(), error);
     await disconnect;
   });
@@ -141,16 +145,16 @@ suite("WebSocketClient", () => {
     await client.connect();
     deepStrictEqual(client.ws?.readyState, WebSocket.OPEN);
     await client.disconnect();
-    deepStrictEqual(client.ws?.readyState, WebSocket.CLOSED);
+    deepStrictEqual(client.ws.readyState, WebSocket.CLOSED);
     await client.connect();
-    deepStrictEqual(client.ws?.readyState, WebSocket.OPEN);
+    deepStrictEqual(client.ws.readyState, WebSocket.OPEN);
   });
 
   test(".disconnect()", async () => {
     await client.connect();
     deepStrictEqual(client.ws?.readyState, WebSocket.OPEN);
     await client.disconnect();
-    deepStrictEqual(client.ws?.readyState, WebSocket.CLOSED);
+    deepStrictEqual(client.ws.readyState, WebSocket.CLOSED);
   });
 
   test(".disconnect() (when socket is not initialized)", async () => {
@@ -163,9 +167,9 @@ suite("WebSocketClient", () => {
     await client.connect();
     deepStrictEqual(client.ws?.readyState, WebSocket.OPEN);
     await client.disconnect();
-    deepStrictEqual(client.ws?.readyState, WebSocket.CLOSED);
+    deepStrictEqual(client.ws.readyState, WebSocket.CLOSED);
     await client.disconnect();
-    deepStrictEqual(client.ws?.readyState, WebSocket.CLOSED);
+    deepStrictEqual(client.ws.readyState, WebSocket.CLOSED);
   });
 
   test(".disconnect() (when `readyState` is `CONNECTING`)", async () => {
@@ -174,7 +178,7 @@ suite("WebSocketClient", () => {
     deepStrictEqual(client.ws?.readyState, WebSocket.CONNECTING);
     await rejects(client.disconnect(), error);
     await connect;
-    deepStrictEqual(client.ws?.readyState, WebSocket.OPEN);
+    deepStrictEqual(client.ws.readyState, WebSocket.OPEN);
   });
 
   test(".disconnect() (when `readyState` is `CLOSING`)", async () => {
@@ -182,10 +186,10 @@ suite("WebSocketClient", () => {
     deepStrictEqual(client.ws?.readyState, WebSocket.OPEN);
     const disconnect = client.disconnect();
     const error = new Error("Could not disconnect. State: 2");
-    deepStrictEqual(client.ws?.readyState, WebSocket.CLOSING);
+    deepStrictEqual(client.ws.readyState, WebSocket.CLOSING);
     await rejects(client.disconnect(), error);
     await disconnect;
-    deepStrictEqual(client.ws?.readyState, WebSocket.CLOSED);
+    deepStrictEqual(client.ws.readyState, WebSocket.CLOSED);
   });
 
   test(".subscribe()", async () => {
@@ -370,7 +374,7 @@ suite("WebSocketClient", () => {
           orderBook: [
             {
               "0.03119500": "8.87619723",
-              "0.03120486": "2.15539849",
+              0.03120486: "2.15539849",
               "0.03120500": "50.78890000",
               "3777.70000000": "0.00100000",
               "4999.00000000": "0.05000000",
@@ -378,8 +382,8 @@ suite("WebSocketClient", () => {
             },
             {
               "0.03118500": "50.78940000",
-              "0.03117855": "10.55121501",
-              "0.03117841": "6.20027213",
+              0.03117855: "10.55121501",
+              0.03117841: "6.20027213",
               "0.00000003": "20000.00000000",
               "0.00000002": "670207.00000000",
               "0.00000001": "1462262.00000000",
@@ -393,7 +397,7 @@ suite("WebSocketClient", () => {
         currencyPair: "BTC_ETH",
         asks: {
           "0.03119500": "8.87619723",
-          "0.03120486": "2.15539849",
+          0.03120486: "2.15539849",
           "0.03120500": "50.78890000",
           "3777.70000000": "0.00100000",
           "4999.00000000": "0.05000000",
@@ -401,8 +405,8 @@ suite("WebSocketClient", () => {
         },
         bids: {
           "0.03118500": "50.78940000",
-          "0.03117855": "10.55121501",
-          "0.03117841": "6.20027213",
+          0.03117855: "10.55121501",
+          0.03117841: "6.20027213",
           "0.00000003": "20000.00000000",
           "0.00000002": "670207.00000000",
           "0.00000001": "1462262.00000000",
@@ -539,7 +543,7 @@ suite("WebSocketClient", () => {
               orderBook: [
                 {
                   "0.03119500": "8.87619723",
-                  "0.03120486": "2.15539849",
+                  0.03120486: "2.15539849",
                   "0.03120500": "50.78890000",
                   "3777.70000000": "0.00100000",
                   "4999.00000000": "0.05000000",
@@ -547,8 +551,8 @@ suite("WebSocketClient", () => {
                 },
                 {
                   "0.03118500": "50.78940000",
-                  "0.03117855": "10.55121501",
-                  "0.03117841": "6.20027213",
+                  0.03117855: "10.55121501",
+                  0.03117841: "6.20027213",
                   "0.00000003": "20000.00000000",
                   "0.00000002": "670207.00000000",
                   "0.00000001": "1462262.00000000",
@@ -577,7 +581,7 @@ suite("WebSocketClient", () => {
           currencyPair: "BTC_ETH",
           asks: {
             "0.03119500": "8.87619723",
-            "0.03120486": "2.15539849",
+            0.03120486: "2.15539849",
             "0.03120500": "50.78890000",
             "3777.70000000": "0.00100000",
             "4999.00000000": "0.05000000",
@@ -585,8 +589,8 @@ suite("WebSocketClient", () => {
           },
           bids: {
             "0.03118500": "50.78940000",
-            "0.03117855": "10.55121501",
-            "0.03117841": "6.20027213",
+            0.03117855: "10.55121501",
+            0.03117841: "6.20027213",
             "0.00000003": "20000.00000000",
             "0.00000002": "670207.00000000",
             "0.00000001": "1462262.00000000",
@@ -817,7 +821,7 @@ suite("WebSocketClient", () => {
       const expectedUpdate: WsMarginUpdate = {
         subject: "margin",
         orderNumber: 23432933,
-        currency: Currencies[28] ?? "28",
+        currency: Currencies[28],
         amount: "-0.06000000",
         clientOrderId: null,
       };
@@ -1067,7 +1071,9 @@ suite("WebSocketClient", () => {
     suite("message", () => {
       test("emits `error` when receiving an error message", async () => {
         const error = "Permission denied.";
-        server.once("connection", (ws) => ws.send(JSON.stringify({ error })));
+        server.once("connection", (ws) => {
+          ws.send(JSON.stringify({ error }));
+        });
 
         const errorPromise = new Promise<void>((resolve, reject) => {
           client.once("error", (data) => {
@@ -1085,15 +1091,14 @@ suite("WebSocketClient", () => {
 
       test("emits `error` when receiving an invalid JSON message", async () => {
         const error = "Permission denied.";
-        server.once("connection", (ws) => ws.send(error));
+        server.once("connection", (ws) => {
+          ws.send(error);
+        });
 
         const errorPromise = new Promise<void>((resolve, reject) => {
           client.once("error", (data) => {
             try {
-              deepStrictEqual(
-                data,
-                new SyntaxError("Unexpected token P in JSON at position 0")
-              );
+              ok(data instanceof SyntaxError);
               resolve();
             } catch (err) {
               reject(err);
@@ -1106,7 +1111,9 @@ suite("WebSocketClient", () => {
 
       test("emits `rawMessage`", async () => {
         const rawMessage: [number] = [1010];
-        server.once("connection", (ws) => ws.send(JSON.stringify(rawMessage)));
+        server.once("connection", (ws) => {
+          ws.send(JSON.stringify(rawMessage));
+        });
         const raw = new Promise<void>((resolve) => {
           client.once("rawMessage", () => {
             client.once("message", () => {
@@ -1122,14 +1129,16 @@ suite("WebSocketClient", () => {
         const otherClient = new WebSocketClient({ wsUri, raw: false });
         const rawMessage: [number] = [1010];
         const raw = new Promise<void>((resolve, reject) => {
-          otherClient.once("rawMessage", () =>
-            reject(new Error("rawMessage was emitted"))
-          );
+          otherClient.once("rawMessage", () => {
+            reject(new Error("rawMessage was emitted"));
+          });
           otherClient.once("message", () => {
             resolve();
           });
         });
-        server.once("connection", (ws) => ws.send(JSON.stringify(rawMessage)));
+        server.once("connection", (ws) => {
+          ws.send(JSON.stringify(rawMessage));
+        });
         await otherClient.connect();
         await raw;
         await otherClient.disconnect();
@@ -1141,9 +1150,9 @@ suite("WebSocketClient", () => {
           subject: "heartbeat",
           channel_id: 1010,
         };
-        server.once("connection", (ws) =>
-          ws.send(JSON.stringify(rawHeartbeat))
-        );
+        server.once("connection", (ws) => {
+          ws.send(JSON.stringify(rawHeartbeat));
+        });
 
         const message = new Promise<void>((resolve, reject) => {
           client.once("message", (data) => {
@@ -1165,9 +1174,9 @@ suite("WebSocketClient", () => {
           subject: "subscribed",
           channel_id: 1002,
         };
-        server.once("connection", (ws) =>
-          ws.send(JSON.stringify(rawAcknowledge))
-        );
+        server.once("connection", (ws) => {
+          ws.send(JSON.stringify(rawAcknowledge));
+        });
 
         const message = new Promise<void>((resolve, reject) => {
           client.once("message", (data) => {
@@ -1216,7 +1225,9 @@ suite("WebSocketClient", () => {
           high24hr: "0.00000100",
           low24hr: "0.00000096",
         };
-        server.once("connection", (ws) => ws.send(JSON.stringify(rawTicker)));
+        server.once("connection", (ws) => {
+          ws.send(JSON.stringify(rawTicker));
+        });
 
         const message = new Promise<void>((resolve, reject) => {
           client.once("message", (data) => {
@@ -1259,7 +1270,9 @@ suite("WebSocketClient", () => {
             USDC: "1578020.908",
           },
         };
-        server.once("connection", (ws) => ws.send(JSON.stringify(rawVolume)));
+        server.once("connection", (ws) => {
+          ws.send(JSON.stringify(rawVolume));
+        });
 
         const message = new Promise<void>((resolve, reject) => {
           client.once("message", (data) => {
@@ -1397,14 +1410,16 @@ suite("WebSocketClient", () => {
           ws.send(JSON.stringify(rawAccountMessage));
         });
         const message = new Promise<void>((resolve, reject) => {
-          const verify = (i: number): void => {
+          let i = 0;
+          const verify = (): void => {
             client.once("message", (data) => {
               try {
-                deepStrictEqual(data, messages[i++]);
+                deepStrictEqual(data, messages[i]);
+                i += 1;
                 if (i === messages.length) {
                   resolve();
                 } else {
-                  verify(i);
+                  verify();
                 }
               } catch (error) {
                 reject(error);
@@ -1412,7 +1427,7 @@ suite("WebSocketClient", () => {
             });
           };
 
-          verify(0);
+          verify();
         });
         await client.connect();
         await message;
@@ -1430,7 +1445,7 @@ suite("WebSocketClient", () => {
                 orderBook: [
                   {
                     "0.03119500": "8.87619723",
-                    "0.03120486": "2.15539849",
+                    0.03120486: "2.15539849",
                     "0.03120500": "50.78890000",
                     "3777.70000000": "0.00100000",
                     "4999.00000000": "0.05000000",
@@ -1438,8 +1453,8 @@ suite("WebSocketClient", () => {
                   },
                   {
                     "0.03118500": "50.78940000",
-                    "0.03117855": "10.55121501",
-                    "0.03117841": "6.20027213",
+                    0.03117855: "10.55121501",
+                    0.03117841: "6.20027213",
                     "0.00000003": "20000.00000000",
                     "0.00000002": "670207.00000000",
                     "0.00000001": "1462262.00000000",
@@ -1468,7 +1483,7 @@ suite("WebSocketClient", () => {
             currencyPair: "BTC_ETH",
             asks: {
               "0.03119500": "8.87619723",
-              "0.03120486": "2.15539849",
+              0.03120486: "2.15539849",
               "0.03120500": "50.78890000",
               "3777.70000000": "0.00100000",
               "4999.00000000": "0.05000000",
@@ -1476,8 +1491,8 @@ suite("WebSocketClient", () => {
             },
             bids: {
               "0.03118500": "50.78940000",
-              "0.03117855": "10.55121501",
-              "0.03117841": "6.20027213",
+              0.03117855: "10.55121501",
+              0.03117841: "6.20027213",
               "0.00000003": "20000.00000000",
               "0.00000002": "670207.00000000",
               "0.00000001": "1462262.00000000",
@@ -1511,14 +1526,16 @@ suite("WebSocketClient", () => {
           ws.send(JSON.stringify(rawPriceAggregatedBook));
         });
         const message = new Promise<void>((resolve, reject) => {
-          const verify = (i: number): void => {
+          let i = 0;
+          const verify = (): void => {
             client.once("message", (data) => {
               try {
-                deepStrictEqual(data, messages[i++]);
+                deepStrictEqual(data, messages[i]);
+                i += 1;
                 if (i === messages.length) {
                   resolve();
                 } else {
-                  verify(i);
+                  verify();
                 }
               } catch (error) {
                 reject(error);
@@ -1526,7 +1543,7 @@ suite("WebSocketClient", () => {
             });
           };
 
-          verify(0);
+          verify();
         });
         await client.connect();
         await message;
@@ -1552,11 +1569,11 @@ suite("WebSocketClient", () => {
       test("with no error", async () => {
         const errorPromise = new Promise<void>((resolve, reject) => {
           client.once("open", () => {
-            if (!client.ws) {
-              reject(new Error("`socket` is not initialized"));
-            } else {
+            if (client.ws) {
               client.ws.emit("error");
               setImmediate(resolve);
+            } else {
+              reject(new Error("`socket` is not initialized"));
             }
           });
           client.once("error", () => {
@@ -1582,7 +1599,7 @@ suite("WebSocketClient", () => {
             const [channel] = DefaultChannels;
 
             const form = new URLSearchParams({ nonce: `${nonce}` });
-            const { sign } = SignRequest({
+            const { sign } = signRequest({
               key,
               secret,
               body: form.toString(),

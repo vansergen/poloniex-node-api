@@ -1,0 +1,30 @@
+version: 2
+
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: daily
+    allow:
+      - dependency-type: direct
+    assignees:
+      - vansergen
+    versioning-strategy: increase
+    labels:
+      - dependabot
+      - dependencies
+    commit-message:
+      prefix: dependencies
+      prefix-development: devDependencies
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: daily
+    assignees:
+      - vansergen
+    labels:
+      - dependabot
+      - ci
+    commit-message:
+      prefix: ci

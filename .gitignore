@@ -103,8 +103,5 @@ dist
 # TernJS port file
 .tern-port
 
-# Build
-build/
-
 # PGP key
 .github/pgp/key.asc

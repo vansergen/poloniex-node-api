@@ -6,16 +6,16 @@ export const ApiLimit = 100;
 export const Headers = { "User-Agent": "poloniex-node-api-client" };
 
 export interface CurrencyPair {
-  currencyPair?: string;
+  currencyPair?: string | undefined;
 }
 
 export interface BookFilter extends CurrencyPair {
-  depth?: number;
+  depth?: number | undefined;
 }
 
 export interface TradesFilter extends CurrencyPair {
-  start?: number;
-  end?: number;
+  start?: number | undefined;
+  end?: number | undefined;
 }
 
 export interface TimeFilter {
@@ -48,17 +48,11 @@ export interface TickerInfo {
   low24hr: string;
 }
 
-export interface Tickers {
-  [currency: string]: TickerInfo;
-}
+export type Tickers = Record<string, TickerInfo>;
 
-export interface Volume {
-  [currency: string]: string;
-}
+export type Volume = Record<string, string>;
 
-export interface Volumes {
-  [currency: string]: string | Volume;
-}
+export type Volumes = Record<string, Volume | string>;
 
 export interface OrderBookInfo {
   asks: [string, number][];
@@ -67,13 +61,11 @@ export interface OrderBookInfo {
   seq: number;
 }
 
-export interface OrderBooksInfo {
-  [currency: string]: OrderBookInfo;
-}
+export type OrderBooksInfo = Record<string, OrderBookInfo>;
 
 export type OrderBook = OrderBookInfo | OrderBooksInfo;
 
-export type Side = "sell" | "buy";
+export type Side = "buy" | "sell";
 
 export interface BaseTrade {
   type: Side;
@@ -107,7 +99,7 @@ export interface CurrencyInfo {
   currencyType: string;
   txFee: string;
   minConf: number;
-  depositAddress: null | string;
+  depositAddress: string | null;
   disabled: 0 | 1;
   delisted: 0 | 1;
   frozen: 0 | 1;
@@ -123,13 +115,9 @@ export interface ExtendedCurrencyInfo extends CurrencyInfo {
   childChains: string[];
 }
 
-export interface ICurrencies {
-  [currency: string]: CurrencyInfo;
-}
+export type ICurrencies = Record<string, CurrencyInfo>;
 
-export interface ExtendedCurrencies {
-  [currency: string]: ExtendedCurrencyInfo;
-}
+export type ExtendedCurrencies = Record<string, ExtendedCurrencyInfo>;
 
 export interface Loan {
   rate: string;
@@ -156,7 +144,7 @@ export class PublicClient extends FetchClient<unknown> {
 
   public async get<T = unknown>(url: string): Promise<T> {
     const response = (await super.get(url)) as { error?: string };
-    if (response?.error) {
+    if (typeof response.error !== "undefined") {
       throw new Error(response.error);
     }
     return response as T;
@@ -244,7 +232,7 @@ export class PublicClient extends FetchClient<unknown> {
 
   protected static addOptions(
     target: URL | URLSearchParams,
-    data: Record<string, string | number | boolean | undefined>
+    data: Record<string, boolean | number | string | undefined>
   ): void {
     const searchParams = target instanceof URL ? target.searchParams : target;
     for (const key in data) {

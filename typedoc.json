@@ -2,7 +2,7 @@
   "out": "docs",
   "entryPoints": ["./index.ts"],
   "name": "poloniex-node-api",
-  "exclude": "test/**/*",
+  "exclude": ["test/**/*"],
   "hideGenerator": true,
   "gitRevision": "main"
 }

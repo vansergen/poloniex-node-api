@@ -1,11 +1,5 @@
 # Typescript compiled files
-build/
+dist
 
 # Documentation
-docs/
-
-# nyc test coverage
-.nyc_output/
-
-# Coverage directory used by nyc
-coverage/
+docs
