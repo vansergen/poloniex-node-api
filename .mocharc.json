@@ -1,0 +1,7 @@
+{
+  "bail": true,
+  "extension": "ts",
+  "full-trace": true,
+  "node-option": "loader=ts-node/esm",
+  "ui": "tdd"
+}

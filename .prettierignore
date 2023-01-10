@@ -1,8 +1,2 @@
-# Coverage directory used by nyc
+# Coverage directory used by c8
 coverage
-
-# nyc test coverage
-.nyc_output
-
-# Documentation
-docs
