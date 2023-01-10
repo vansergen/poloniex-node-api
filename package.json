@@ -13,7 +13,8 @@
   "type": "module",
   "types": "build/index.d.ts",
   "scripts": {
-    "build": "npm run postpublish && tsc",
+    "build": "tsc",
+    "build:remove": "rm -rf dist",
     "ci:all": "npm ci && npm run prettier && npm run eslint && npm run commitlint && npm test && npm publish --dry-run && npm run docs:build && npm run coverage",
     "commitlint": "commitlint --verbose --from=365c8e3e62a60820dbb3136f7928495248770395",
     "coverage": "c8 npm test",
@@ -75,6 +76,6 @@
   },
   "funding": {
     "type": "Coinbase Commerce",
-    "url": "https://commerce.coinbase.com/checkout/8e527468-c00a-49e9-aa1d-a08bf49d1686"
+    "url": "https://commerce.coinbase.com/checkout/8e000f08-63ab-47a2-8410-8fb64d385c20"
   }
 }
