@@ -53,10 +53,10 @@
   "homepage": "https://github.com/vansergen/poloniex-node-api#readme",
   "dependencies": {
     "rpc-request": "^6.0.2",
-    "ws": "^8.8.0"
+    "ws": "^8.12.0"
   },
   "peerDependencies": {
-    "@types/ws": "^8.5.3"
+    "@types/ws": "^8.5.4"
   },
   "devDependencies": {
     "@b2broker/tsconfig": "^1.0.3",
