@@ -27,7 +27,7 @@
     "prepare": "husky install",
     "prepublishOnly": "npm run build && npm run prettier:write",
     "prettier": "prettier -c .",
-    "prettier:write": "npm run prettier -- --write",
+    "prettier:write": "prettier -c -w .",
     "publish:test": "npm publish --dry-run",
     "release": "semantic-release",
     "test": "mocha 'build/test/**/*.spec.js' --ui=tdd --full-trace --bail",
@@ -68,7 +68,7 @@
     "lint-staged": "^13.0.3",
     "mocha": "^10.0.0",
     "nock": "^13.2.7",
-    "prettier": "^2.7.1",
+    "prettier": "^2.8.2",
     "ts-node": "^10.9.1",
     "typedoc": "^0.23.24"
   },
