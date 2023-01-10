@@ -672,5 +672,7 @@ export const Currencies = {
   739: "FRAX",
   741: "HBB",
   742: "USDH",
+  743: "KUB",
   744: "SHIT",
+  748: "WLKN",
 } as const;
