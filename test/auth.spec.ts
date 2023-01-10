@@ -552,7 +552,7 @@ suite("AuthenticatedClient", () => {
     const command = "returnOrderStatus";
     const response: OrderStatus = {
       result: {
-        "6071071": {
+        6071071: {
           status: "Open",
           rate: "0.40000000",
           amount: "1.00000000",
@@ -779,6 +779,7 @@ suite("AuthenticatedClient", () => {
   test(".moveOrder()", async () => {
     const orderNumber = 514851026755;
     const rate = 0.00015;
+    // eslint-disable-next-line init-declarations
     let clientOrderId: undefined;
     const response: MoveResponse = {
       success: 1,

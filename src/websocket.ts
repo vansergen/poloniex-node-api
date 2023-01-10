@@ -2,7 +2,7 @@ import { EventEmitter } from "node:events";
 import { WebSocket } from "ws";
 import { Currencies } from "./currencies.js";
 import { CurrencyPairs } from "./currencypairs.js";
-import { SignRequest, SignedRequest } from "./signer.js";
+import { SignRequest as signRequest, SignedRequest } from "./signer.js";
 
 export const WsUri = "wss://api2.poloniex.com";
 export const DefaultChannels = [121];
@@ -42,14 +42,14 @@ export type RawTickerMessage = [
 export type RawVolumeMessage = [
   1003,
   null,
-  [string, number, { [currency: string]: string }]
+  [string, number, Record<string, string>]
 ];
 
 export type RawSnapshot = [
   "i",
   {
     currencyPair: string;
-    orderBook: [{ [asks: string]: string }, { [bids: string]: string }];
+    orderBook: [Record<string, string>, Record<string, string>];
   },
   string
 ];
@@ -69,7 +69,7 @@ export type RawBookUpdate = ["o", 0 | 1, string, string, string];
 export type RawPriceAggregatedBook = [
   Channel,
   number,
-  (RawSnapshot | RawPublicTrade | RawBookUpdate)[]
+  (RawBookUpdate | RawPublicTrade | RawSnapshot)[]
 ];
 
 export type RawPendingOrder = [
@@ -95,9 +95,9 @@ export type RawNewOrder = [
   string | null
 ];
 
-export type RawBalance = ["b", number, "e" | "m" | "l", string];
+export type RawBalance = ["b", number, "e" | "l" | "m", string];
 
-export type RawOrder = ["o", number, string, "f" | "s" | "c", string | null];
+export type RawOrder = ["o", number, string, "c" | "f" | "s", string | null];
 
 export type RawMarginUpdate = ["m", number, number, string, string | null];
 
@@ -122,24 +122,24 @@ export type RawAccountMessage = [
   1000,
   "",
   (
-    | RawPendingOrder
-    | RawNewOrder
     | RawBalance
-    | RawOrder
-    | RawMarginUpdate
-    | RawTrade
     | RawKill
+    | RawMarginUpdate
+    | RawNewOrder
+    | RawOrder
+    | RawPendingOrder
+    | RawTrade
   )[]
 ];
 
 export type RawMessage =
-  | RawWsHeartbeat
+  | RawAccountMessage
   | RawAcknowledgement
+  | RawError
+  | RawPriceAggregatedBook
   | RawTickerMessage
   | RawVolumeMessage
-  | RawPriceAggregatedBook
-  | RawAccountMessage
-  | RawError;
+  | RawWsHeartbeat;
 
 export interface BaseMessage {
   channel_id: Channel;
@@ -177,14 +177,14 @@ export interface WsVolume extends BaseMessage {
   channel_id: 1003;
   time: string;
   users: number;
-  volume: { [currency: string]: string };
+  volume: Record<string, string>;
 }
 
 export interface WsSnapshot {
   subject: "snapshot";
   currencyPair: string;
-  asks: { [price: string]: string };
-  bids: { [price: string]: string };
+  asks: Record<string, string>;
+  bids: Record<string, string>;
   epoch_ms: string;
 }
 
@@ -200,7 +200,7 @@ export interface WsPublicTrade {
 
 export interface WsBookUpdate {
   subject: "update";
-  type: "bid" | "ask";
+  type: "ask" | "bid";
   price: string;
   size: string;
   epoch_ms: string;
@@ -209,7 +209,7 @@ export interface WsBookUpdate {
 export type WsBookMessage = BaseMessage & {
   sequence: number;
   currencyPair?: string | undefined;
-} & (WsSnapshot | WsPublicTrade | WsBookUpdate);
+} & (WsBookUpdate | WsPublicTrade | WsSnapshot);
 
 export interface WsPendingOrder {
   subject: "pending";
@@ -240,7 +240,7 @@ export interface WsBalance {
   subject: "balance";
   currencyId: number;
   currency?: string | undefined;
-  wallet: "exchange" | "margin" | "lending";
+  wallet: "exchange" | "lending" | "margin";
   amount: string;
 }
 
@@ -248,7 +248,7 @@ export interface WsOrder {
   subject: "order";
   orderNumber: number;
   newAmount: string;
-  orderType: "filled" | "canceled" | "self-trade";
+  orderType: "canceled" | "filled" | "self-trade";
   clientOrderId: string | null;
 }
 
@@ -283,22 +283,22 @@ export interface WsKill {
 
 export type WsAccountMessage = BaseMessage &
   (
-    | WsPendingOrder
-    | WsNewOrder
     | WsBalance
-    | WsOrder
-    | WsMarginUpdate
-    | WsTrade
     | WsKill
+    | WsMarginUpdate
+    | WsNewOrder
+    | WsOrder
+    | WsPendingOrder
+    | WsTrade
   );
 
 export type WsMessage =
-  | WsHeartbeat
+  | WsAccountMessage
   | WsAcknowledgement
-  | WsTicker
-  | WsVolume
   | WsBookMessage
-  | WsAccountMessage;
+  | WsHeartbeat
+  | WsTicker
+  | WsVolume;
 
 export interface WebSocketClientOptions {
   wsUri?: string;
@@ -308,19 +308,19 @@ export interface WebSocketClientOptions {
   secret?: string;
 }
 
-export declare interface WebSocketClient {
-  on(event: "open" | "close", eventListener: () => void): this;
-  on(event: "message", eventListener: (data: WsMessage) => void): this;
-  on(event: "rawMessage", eventListener: (data: RawMessage) => void): this;
-  on(event: "error", eventListener: (error: unknown) => void): this;
+export interface IWebSocketClient {
+  on: ((event: "close" | "open", eventListener: () => void) => this) &
+    ((event: "error", eventListener: (error: unknown) => void) => this) &
+    ((event: "message", eventListener: (data: WsMessage) => void) => this) &
+    ((event: "rawMessage", eventListener: (data: RawMessage) => void) => this);
 
-  once(event: "open" | "close", eventListener: () => void): this;
-  once(event: "message", eventListener: (data: WsMessage) => void): this;
-  once(event: "rawMessage", eventListener: (data: RawMessage) => void): this;
-  once(event: "error", eventListener: (error: unknown) => void): this;
+  once: ((event: "close" | "open", eventListener: () => void) => this) &
+    ((event: "error", eventListener: (error: unknown) => void) => this) &
+    ((event: "message", eventListener: (data: WsMessage) => void) => this) &
+    ((event: "rawMessage", eventListener: (data: RawMessage) => void) => this);
 }
 
-export class WebSocketClient extends EventEmitter {
+export class WebSocketClient extends EventEmitter implements IWebSocketClient {
   readonly #key?: string;
   readonly #secret?: string;
   #nonce: () => number;
@@ -343,7 +343,7 @@ export class WebSocketClient extends EventEmitter {
     this.channels = channels;
     this.#nonce = (): number => Date.now();
     this.wsUri = wsUri;
-    if (key && secret) {
+    if (typeof key !== "undefined" && typeof secret !== "undefined") {
       this.#key = key;
       this.#secret = secret;
     }
@@ -398,13 +398,10 @@ export class WebSocketClient extends EventEmitter {
             } else if (jsondata[1] === null && jsondata[0] === 1002) {
               const message = WebSocketClient.formatTicker(jsondata);
               this.emit("message", message);
-            } else if (jsondata[1] === null && jsondata[0] === 1003) {
+            } else if (jsondata[1] === null) {
               const message = WebSocketClient.formatVolume(jsondata);
               this.emit("message", message);
-            } else if (
-              (jsondata[1] === "" || jsondata[1] === null) &&
-              jsondata[0] === 1000
-            ) {
+            } else if (jsondata[1] === "") {
               const messages = WebSocketClient.formatAccount(jsondata);
               for (const message of messages) {
                 this.emit("message", message);
@@ -420,7 +417,7 @@ export class WebSocketClient extends EventEmitter {
           }
         })
         .on("error", (error) => {
-          if (error) {
+          if (typeof error !== "undefined") {
             this.emit("error", error);
           }
         });
@@ -465,14 +462,18 @@ export class WebSocketClient extends EventEmitter {
       throw new Error("WebSocket is not initialized");
     }
 
-    let message = { ...subscription } as Subscription & {
-      payload: string;
-    } & SignedRequest;
+    let message = { ...subscription } as SignedRequest &
+      Subscription & {
+        payload: string;
+      };
 
-    if (this.#key && this.#secret) {
+    if (
+      typeof this.#key !== "undefined" &&
+      typeof this.#secret !== "undefined"
+    ) {
       const form = new URLSearchParams({ nonce: `${this.nonce()}` });
       const payload = form.toString();
-      const signature = SignRequest({
+      const signature = signRequest({
         key: this.#key,
         secret: this.#secret,
         body: payload,
@@ -512,8 +513,8 @@ export class WebSocketClient extends EventEmitter {
       channel_id,
       currencyPairId,
       currencyPair: (
-        CurrencyPairs as typeof CurrencyPairs &
-          Record<string, string | undefined>
+        CurrencyPairs as Record<string, string | undefined> &
+          typeof CurrencyPairs
       )[currencyPairId],
       last,
       lowestAsk,
@@ -521,7 +522,7 @@ export class WebSocketClient extends EventEmitter {
       percentChange,
       baseVolume,
       quoteVolume,
-      isFrozen: isFrozen ? true : false,
+      isFrozen: Boolean(isFrozen),
       high24hr,
       low24hr,
     };
@@ -594,7 +595,7 @@ export class WebSocketClient extends EventEmitter {
   ]: RawPriceAggregatedBook): WsBookMessage[] {
     const output: WsBookMessage[] = [];
     const currencyPair = (
-      CurrencyPairs as typeof CurrencyPairs & Record<string, string | undefined>
+      CurrencyPairs as Record<string, string | undefined> & typeof CurrencyPairs
     )[channel_id];
     for (const message of messages) {
       if (message[0] === "i") {
@@ -631,8 +632,8 @@ export class WebSocketClient extends EventEmitter {
       orderNumber,
       currencyPairId,
       currencyPair: (
-        CurrencyPairs as typeof CurrencyPairs &
-          Record<string, string | undefined>
+        CurrencyPairs as Record<string, string | undefined> &
+          typeof CurrencyPairs
       )[currencyPairId],
       rate,
       amount,
@@ -657,8 +658,8 @@ export class WebSocketClient extends EventEmitter {
       subject: "new",
       currencyPairId,
       currencyPair: (
-        CurrencyPairs as typeof CurrencyPairs &
-          Record<string, string | undefined>
+        CurrencyPairs as Record<string, string | undefined> &
+          typeof CurrencyPairs
       )[currencyPairId],
       orderNumber,
       type: type === "0" ? "sell" : "buy",
@@ -708,8 +709,9 @@ export class WebSocketClient extends EventEmitter {
       subject,
       orderNumber,
       currency:
-        (Currencies as typeof Currencies & Record<string, string>)[currency] ??
-        `${currency}`,
+        (Currencies as Record<string, string | undefined> & typeof Currencies)[
+          currency
+        ] ?? `${currency}`,
       amount,
       clientOrderId,
     };
@@ -774,6 +776,7 @@ export class WebSocketClient extends EventEmitter {
       } else if (message[0] === "t") {
         const msg = WebSocketClient.formatTrade(message);
         output.push({ channel_id, ...msg });
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
       } else if (message[0] === "k") {
         const msg = WebSocketClient.formatKill(message);
         output.push({ channel_id, ...msg });

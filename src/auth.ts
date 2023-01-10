@@ -8,7 +8,7 @@ import {
   Trade,
   BaseTrade,
 } from "./public.js";
-import { SignRequest } from "./signer.js";
+import { SignRequest as signRequest } from "./signer.js";
 
 export interface AccountFilter {
   account?: string | undefined;
@@ -45,14 +45,14 @@ export interface WithdrawOptions {
   currency: string;
   amount: number;
   address: string;
-  paymentId?: string | number | undefined;
+  paymentId?: number | string | undefined;
 }
 
 export interface TransferOptions {
   currency: string;
   amount: number;
-  fromAccount: "exchange" | "margin" | "lending" | "futures";
-  toAccount: "exchange" | "margin" | "lending" | "futures";
+  fromAccount: "exchange" | "futures" | "lending" | "margin";
+  toAccount: "exchange" | "futures" | "lending" | "margin";
 }
 
 export interface MarginOrderOptions extends CurrencyPair {
@@ -82,9 +82,7 @@ export interface SwapCurrenciesOptions {
   amount: number;
 }
 
-export interface Balances {
-  [currency: string]: string;
-}
+export type Balances = Record<string, string>;
 
 export interface CompleteBalance {
   available: string;
@@ -92,13 +90,9 @@ export interface CompleteBalance {
   btcValue: string;
 }
 
-export interface CompleteBalances {
-  [currency: string]: CompleteBalance;
-}
+export type CompleteBalances = Record<string, CompleteBalance>;
 
-export interface Adresses {
-  [currency: string]: string;
-}
+export type Adresses = Record<string, string>;
 
 export interface NewAddress {
   success: 0 | 1;
@@ -127,9 +121,9 @@ export interface Withdrawal {
   ipAddress: string;
   canCancel: 0 | 1;
   canResendEmail: 0 | 1;
-  paymentID: null | string;
-  fiatAccountId?: null | string;
-  scope?: null | string;
+  paymentID: string | null;
+  fiatAccountId?: string | null;
+  scope?: string | null;
 }
 
 export interface Deposit {
@@ -139,11 +133,11 @@ export interface Deposit {
   confirmations: number;
   txid: string;
   timestamp: number;
-  status: "PENDING" | "COMPLETE";
+  status: "COMPLETE" | "PENDING";
   depositNumber: number;
   category: "deposit";
-  fiatAccountId?: null | string;
-  scope?: null | string;
+  fiatAccountId?: string | null;
+  scope?: string | null;
 }
 
 export interface DepositsWithdrawals {
@@ -164,16 +158,14 @@ export interface Order {
   clientOrderId?: string;
 }
 
-export type Orders = { [currencyPair: string]: Order[] } | Order[];
+export type Orders = Order[] | Record<string, Order[]>;
 
 export interface TradePrivate extends Trade {
   fee: string;
   category: "exchange" | "margin";
 }
 
-export type TradesPrivate =
-  | { [currencyPair: string]: TradePrivate[] }
-  | TradePrivate[];
+export type TradesPrivate = Record<string, TradePrivate[]> | TradePrivate[];
 
 export interface OrderTrade extends BaseTrade {
   globalTradeID: number;
@@ -182,8 +174,9 @@ export interface OrderTrade extends BaseTrade {
 }
 
 export interface OrderStatus {
-  result: {
-    [order: string]: {
+  result: Record<
+    string,
+    {
       currencyPair: string;
       rate: string;
       amount: string;
@@ -193,8 +186,8 @@ export interface OrderStatus {
       status: "Open" | "Partially filled";
       date: string;
       fee?: string;
-    };
-  };
+    }
+  >;
   success: 0 | 1;
 }
 
@@ -232,7 +225,7 @@ export interface MoveResponse {
   orderNumber: string;
   fee: string;
   currencyPair: string;
-  resultingTrades: { [currencyPair: string]: ResultingTrade[] };
+  resultingTrades: Record<string, ResultingTrade[]>;
   clientOrderId?: string;
 }
 
@@ -257,9 +250,7 @@ export interface AccountBalances {
   lending?: Balances | [];
 }
 
-export interface TradableBalances {
-  [currencyPair: string]: Balances;
-}
+export type TradableBalances = Record<string, Balances>;
 
 export interface TransferResponse {
   success: 0 | 1;
@@ -286,17 +277,17 @@ export interface MarginPosition {
   liquidationPrice: number;
   pl: string;
   lendingFees: string;
-  type: "long" | "short" | "none";
+  type: "long" | "none" | "short";
 }
 
 export type MarginPositionResult =
-  | { [currencyPair: string]: MarginPosition }
-  | MarginPosition;
+  | MarginPosition
+  | Record<string, MarginPosition>;
 
 export interface ClosePositionResult {
   success: 0 | 1;
   message: string;
-  resultingTrades: { [currencyPair: string]: ResultingTrade[] };
+  resultingTrades: Record<string, ResultingTrade[]>;
 }
 
 export interface OfferResult {
@@ -320,7 +311,7 @@ export interface LoanOffer {
   date: string;
 }
 
-export type LoanOffers = { [currency: string]: LoanOffer[] } | LoanOffer[];
+export type LoanOffers = LoanOffer[] | Record<string, LoanOffer[]>;
 
 export interface ActiveLoan {
   id: number;
@@ -384,22 +375,26 @@ export class AuthenticatedClient extends PublicClient {
   ): Promise<T> {
     const nonce = this.nonce();
     body.set("nonce", `${nonce}`);
-    const { key, sign } = SignRequest({
+    const { key, sign } = signRequest({
       key: this.#key,
       secret: this.#secret,
       body: body.toString(),
     });
     const data = (await super.post(url, { headers: { key, sign }, body })) as {
       error?: string;
-      success?: 0 | 1 | boolean;
+      success?: boolean | 0 | 1;
       result?: { error?: string };
       message?: string;
     };
 
-    if (data.error) {
+    if (typeof data.error !== "undefined") {
       throw new Error(data.error);
-    } else if ("success" in data && !data.success) {
-      throw new Error(data?.result?.error ?? data?.message);
+    } else if (
+      "success" in data &&
+      data.success !== true &&
+      data.success !== 1
+    ) {
+      throw new Error(data.result?.error ?? data.message);
     }
 
     return data as T;
