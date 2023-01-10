@@ -547,6 +547,10 @@ export const CurrencyPairs = {
   804: "USDT_USDH",
   805: "USDD_HBB",
   806: "USDD_USDH",
+  807: "USDT_KUB",
+  808: "USDD_KUB",
   809: "USDT_SHIT",
   810: "USDD_SHIT",
+  820: "USDT_WLKN",
+  821: "USDD_WLKN",
 } as const;
