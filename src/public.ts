@@ -153,83 +153,76 @@ export class PublicClient extends Fetch {
   }
 
   /** Retrieves summary information for each currency pair listed on the exchange. */
-  public async getTickers(): Promise<Tickers> {
+  public getTickers(): Promise<Tickers> {
     const command = "returnTicker";
     const url = new URL("/public", ApiUri);
     PublicClient.addOptions(url, { command });
-    const tickers = await this.get<Tickers>(url.toString());
-    return tickers;
+    return this.get<Tickers>(url.toString());
   }
 
   /** Retrieves the 24-hour volume for all markets as well as totals for primary currencies. */
-  public async getVolume(): Promise<Volumes> {
+  public getVolume(): Promise<Volumes> {
     const command = "return24hVolume";
     const url = new URL("/public", ApiUri);
     PublicClient.addOptions(url, { command });
-    const volumes = await this.get<Volumes>(url.toString());
-    return volumes;
+    return this.get<Volumes>(url.toString());
   }
 
   /** Get the order book for a given market. */
-  public async getOrderBook({
+  public getOrderBook({
     currencyPair = this.currencyPair,
     depth = ApiLimit,
   }: BookFilter = {}): Promise<OrderBook> {
     const command = "returnOrderBook";
     const url = new URL("/public", ApiUri);
     PublicClient.addOptions(url, { command, currencyPair, depth });
-    const orderBook = await this.get<OrderBook>(url.toString());
-    return orderBook;
+    return this.get<OrderBook>(url.toString());
   }
 
   /** Get the past 200 trades for a given market, or up to 1,000 trades between a range `start` and `end`. */
-  public async getTradeHistory({
+  public getTradeHistory({
     currencyPair = this.currencyPair,
     ...rest
   }: TradesFilter = {}): Promise<Trade[]> {
     const command = "returnTradeHistory";
     const url = new URL("/public", ApiUri);
     PublicClient.addOptions(url, { command, currencyPair, ...rest });
-    const trades = await this.get<Trade[]>(url.toString());
-    return trades;
+    return this.get<Trade[]>(url.toString());
   }
 
   /** Get candlestick chart data. */
-  public async getChartData({
+  public getChartData({
     currencyPair = this.currencyPair,
     ...rest
   }: ChartFilter): Promise<Candle[]> {
     const command = "returnChartData";
     const url = new URL("/public", ApiUri);
     PublicClient.addOptions(url, { command, currencyPair, ...rest });
-    const candles = await this.get<Candle[]>(url.toString());
-    return candles;
+    return this.get<Candle[]>(url.toString());
   }
 
   /** Get information about currencies. */
-  public async getCurrencies(params: {
+  public getCurrencies(params: {
     includeMultiChainCurrencies: true;
   }): Promise<ExtendedCurrencies>;
-  public async getCurrencies(params?: {
+  public getCurrencies(params?: {
     includeMultiChainCurrencies?: boolean;
   }): Promise<ICurrencies>;
-  public async getCurrencies({
-    includeMultiChainCurrencies = false,
-  } = {}): Promise<ExtendedCurrencies | ICurrencies> {
+  public getCurrencies({ includeMultiChainCurrencies = false } = {}): Promise<
+    ExtendedCurrencies | ICurrencies
+  > {
     const command = "returnCurrencies";
     const url = new URL("/public", ApiUri);
     PublicClient.addOptions(url, { command, includeMultiChainCurrencies });
-    const currencies = await this.get<ICurrencies>(url.toString());
-    return currencies;
+    return this.get<ICurrencies>(url.toString());
   }
 
   /**  Get the list of loan offers and demands for a given currency. */
-  public async getLoanOrders(qs: CurrencyFilter): Promise<Loans> {
+  public getLoanOrders(qs: CurrencyFilter): Promise<Loans> {
     const command = "returnLoanOrders";
     const url = new URL("/public", ApiUri);
     PublicClient.addOptions(url, { command, ...qs });
-    const loans = await this.get<Loans>(url.toString());
-    return loans;
+    return this.get<Loans>(url.toString());
   }
 
   protected static addOptions(
