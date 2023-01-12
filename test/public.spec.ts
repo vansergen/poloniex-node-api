@@ -1,5 +1,5 @@
 import { deepStrictEqual, rejects } from "node:assert";
-import nock from "nock";
+import { MockAgent, getGlobalDispatcher, setGlobalDispatcher } from "undici";
 import {
   PublicClient,
   ApiUri,
@@ -15,9 +15,24 @@ import {
   Loans,
 } from "../index.js";
 
-const client = new PublicClient();
-
 suite("PublicClient", () => {
+  const api_url = new URL(ApiUri);
+  const client = new PublicClient();
+
+  const globalDispatcher = getGlobalDispatcher();
+  const mockAgent = new MockAgent();
+  const mockPool = mockAgent.get(api_url.origin);
+
+  suiteSetup(() => {
+    setGlobalDispatcher(mockAgent);
+    mockAgent.disableNetConnect();
+  });
+
+  suiteTeardown(() => {
+    mockAgent.enableNetConnect();
+    setGlobalDispatcher(globalDispatcher);
+  });
+
   test("constructor", () => {
     deepStrictEqual(client.currencyPair, DefaultPair);
   });
@@ -31,7 +46,10 @@ suite("PublicClient", () => {
   test(".get() (throws an error)", async () => {
     const error = "Some error message";
     const path = "/public";
-    nock(ApiUri).get(path).reply(200, { error });
+    const url = new URL(path, ApiUri);
+    mockPool
+      .intercept({ path: url.pathname, method: "GET" })
+      .reply(200, { error });
 
     await rejects(client.get(path), new Error(error));
   });
@@ -63,8 +81,12 @@ suite("PublicClient", () => {
         low24hr: "0.02938000",
       },
     };
+    const path = "/public";
     const command = "returnTicker";
-    nock(ApiUri).get("/public").query({ command }).reply(200, tickers);
+    const url = new URL(path, ApiUri);
+    mockPool
+      .intercept({ path: url.pathname, method: "GET", query: { command } })
+      .reply(200, tickers);
 
     const data = await client.getTickers();
     deepStrictEqual(data, tickers);
@@ -78,8 +100,12 @@ suite("PublicClient", () => {
       totalBTC: "1845.83395826",
       totalUSDT: "11287088.18195494",
     };
+    const path = "/public";
     const command = "return24hVolume";
-    nock(ApiUri).get("/public").query({ command }).reply(200, volume);
+    const url = new URL(path, ApiUri);
+    mockPool
+      .intercept({ path: url.pathname, method: "GET", query: { command } })
+      .reply(200, volume);
 
     const data = await client.getVolume();
     deepStrictEqual(data, volume);
@@ -112,12 +138,14 @@ suite("PublicClient", () => {
         seq: 711985070,
       },
     };
+    const path = "/public";
     const command = "returnOrderBook";
+    const url = new URL(path, ApiUri);
     const currencyPair = "all";
     const depth = 10;
-    nock(ApiUri)
-      .get("/public")
-      .query({ command, currencyPair, depth })
+    const query = { command, currencyPair, depth };
+    mockPool
+      .intercept({ path: url.pathname, method: "GET", query })
       .reply(200, books);
 
     const data = await client.getOrderBook({ currencyPair, depth });
@@ -137,12 +165,14 @@ suite("PublicClient", () => {
       isFrozen: "0",
       seq: 376097564,
     };
+    const path = "/public";
     const command = "returnOrderBook";
+    const url = new URL(path, ApiUri);
     const currencyPair = DefaultPair;
     const depth = 10;
-    nock(ApiUri)
-      .get("/public")
-      .query({ command, currencyPair, depth })
+    const query = { command, currencyPair, depth };
+    mockPool
+      .intercept({ path: url.pathname, method: "GET", query })
       .reply(200, book);
 
     const data = await client.getOrderBook({ depth });
@@ -162,12 +192,14 @@ suite("PublicClient", () => {
       isFrozen: "0",
       seq: 376097564,
     };
+    const path = "/public";
     const command = "returnOrderBook";
+    const url = new URL(path, ApiUri);
     const currencyPair = "USDT_BTC";
     const depth = ApiLimit;
-    nock(ApiUri)
-      .get("/public")
-      .query({ command, currencyPair, depth })
+    const query = { command, currencyPair, depth };
+    mockPool
+      .intercept({ path: url.pathname, method: "GET", query })
       .reply(200, book);
 
     const data = await client.getOrderBook({ currencyPair });
@@ -187,12 +219,14 @@ suite("PublicClient", () => {
       isFrozen: "0",
       seq: 376097564,
     };
+    const path = "/public";
     const command = "returnOrderBook";
+    const url = new URL(path, ApiUri);
     const currencyPair = DefaultPair;
     const depth = ApiLimit;
-    nock(ApiUri)
-      .get("/public")
-      .query({ command, currencyPair, depth })
+    const query = { command, currencyPair, depth };
+    mockPool
+      .intercept({ path: url.pathname, method: "GET", query })
       .reply(200, book);
 
     const data = await client.getOrderBook();
@@ -232,16 +266,18 @@ suite("PublicClient", () => {
         orderNumber: 277619039185,
       },
     ];
+    const path = "/public";
     const command = "returnTradeHistory";
+    const url = new URL(path, ApiUri);
     const currencyPair = "USDT_BTC";
     const start = 1410158341;
-    // eslint-disable-next-line init-declarations
-    let end: undefined;
-    nock(ApiUri)
-      .get("/public")
-      .query({ command, currencyPair, start })
+    const query = { command, currencyPair, start };
+    mockPool
+      .intercept({ path: url.pathname, method: "GET", query })
       .reply(200, trades);
 
+    // eslint-disable-next-line init-declarations
+    let end: undefined;
     const data = await client.getTradeHistory({ end, start, currencyPair });
     deepStrictEqual(data, trades);
   });
@@ -279,13 +315,15 @@ suite("PublicClient", () => {
         orderNumber: 277619039185,
       },
     ];
+    const path = "/public";
     const command = "returnTradeHistory";
+    const url = new URL(path, ApiUri);
     const currencyPair = DefaultPair;
     const start = 1410158341;
     const end = 1410499372;
-    nock(ApiUri)
-      .get("/public")
-      .query({ command, currencyPair, start, end })
+    const query = { command, currencyPair, start, end };
+    mockPool
+      .intercept({ path: url.pathname, method: "GET", query })
       .reply(200, trades);
 
     const data = await client.getTradeHistory({ end, start });
@@ -325,11 +363,13 @@ suite("PublicClient", () => {
         orderNumber: 277619039185,
       },
     ];
+    const path = "/public";
     const command = "returnTradeHistory";
+    const url = new URL(path, ApiUri);
     const currencyPair = DefaultPair;
-    nock(ApiUri)
-      .get("/public")
-      .query({ command, currencyPair })
+    const query = { command, currencyPair };
+    mockPool
+      .intercept({ path: url.pathname, method: "GET", query })
       .reply(200, trades);
 
     const data = await client.getTradeHistory();
@@ -369,14 +409,16 @@ suite("PublicClient", () => {
         weightedAverage: 9194.95958491,
       },
     ];
-    const currencyPair = "BTC_XMR";
+    const path = "/public";
     const command = "returnChartData";
+    const url = new URL(path, ApiUri);
+    const currencyPair = "BTC_XMR";
     const period = 14400;
     const start = 1546300800;
     const end = 1546646400;
-    nock(ApiUri)
-      .get("/public")
-      .query({ command, currencyPair, period, start, end })
+    const query = { command, currencyPair, period, start, end };
+    mockPool
+      .intercept({ path: url.pathname, method: "GET", query })
       .reply(200, candles);
 
     const data = await client.getChartData({
@@ -421,14 +463,16 @@ suite("PublicClient", () => {
         weightedAverage: 9194.95958491,
       },
     ];
-    const currencyPair = DefaultPair;
+    const path = "/public";
     const command = "returnChartData";
+    const url = new URL(path, ApiUri);
+    const currencyPair = DefaultPair;
     const period = 14400;
     const start = 1546300800;
     const end = 1546646400;
-    nock(ApiUri)
-      .get("/public")
-      .query({ command, currencyPair, period, start, end })
+    const query = { command, currencyPair, period, start, end };
+    mockPool
+      .intercept({ path: url.pathname, method: "GET", query })
       .reply(200, candles);
 
     const data = await client.getChartData({ period, start, end });
@@ -468,11 +512,13 @@ suite("PublicClient", () => {
         isGeofenced: 0,
       },
     };
+    const path = "/public";
     const command = "returnCurrencies";
     const includeMultiChainCurrencies = false;
-    nock(ApiUri)
-      .get("/public")
-      .query({ command, includeMultiChainCurrencies })
+    const url = new URL(path, ApiUri);
+    const query = { command, includeMultiChainCurrencies };
+    mockPool
+      .intercept({ path: url.pathname, method: "GET", query })
       .reply(200, currencies);
 
     const data = await client.getCurrencies();
@@ -520,11 +566,13 @@ suite("PublicClient", () => {
         isGeofenced: 0,
       },
     };
+    const path = "/public";
     const command = "returnCurrencies";
     const includeMultiChainCurrencies = true;
-    nock(ApiUri)
-      .get("/public")
-      .query({ command, includeMultiChainCurrencies })
+    const url = new URL(path, ApiUri);
+    const query = { command, includeMultiChainCurrencies };
+    mockPool
+      .intercept({ path: url.pathname, method: "GET", query })
       .reply(200, currencies);
 
     const data = await client.getCurrencies({ includeMultiChainCurrencies });
@@ -532,8 +580,6 @@ suite("PublicClient", () => {
   });
 
   test(".getLoanOrders()", async () => {
-    const currency = "BTC";
-    const command = "returnLoanOrders";
     const loans: Loans = {
       offers: [
         { rate: "0.00005900", amount: "0.01961918", rangeMin: 2, rangeMax: 2 },
@@ -544,7 +590,14 @@ suite("PublicClient", () => {
         { rate: "0.00001000", amount: "0.04190154", rangeMin: 2, rangeMax: 2 },
       ],
     };
-    nock(ApiUri).get("/public").query({ currency, command }).reply(200, loans);
+    const path = "/public";
+    const command = "returnLoanOrders";
+    const currency = "BTC";
+    const url = new URL(path, ApiUri);
+    const query = { currency, command };
+    mockPool
+      .intercept({ path: url.pathname, method: "GET", query })
+      .reply(200, loans);
 
     const data = await client.getLoanOrders({ currency });
     deepStrictEqual(data, loans);
