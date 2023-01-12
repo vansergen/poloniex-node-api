@@ -246,7 +246,7 @@
                   <h3 class="tsd-index-heading">Accessors</h3>
                   <div class="tsd-index-list">
                     <a
-                      href="AuthenticatedClient.html#fetchOptions"
+                      href="AuthenticatedClient.html#base_url"
                       class="tsd-index-link tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited tsd-is-external"
                       ><svg
                         class="tsd-kind-icon"
@@ -270,7 +270,20 @@
                           fill="var(--color-text)"
                           id="icon-262144-text"
                         ></path></svg
-                      ><span>fetch<wbr />Options</span></a
+                      ><span>base_<wbr />url</span></a
+                    >
+                    <a
+                      href="AuthenticatedClient.html#init"
+                      class="tsd-index-link tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited tsd-is-external"
+                      ><svg
+                        class="tsd-kind-icon"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                      >
+                        <use href="#icon-262144-path"></use>
+                        <use href="#icon-262144-text"></use></svg
+                      ><span>init</span></a
                     >
                     <a
                       href="AuthenticatedClient.html#nonce"
@@ -284,6 +297,32 @@
                         <use href="#icon-262144-path"></use>
                         <use href="#icon-262144-text"></use></svg
                       ><span>nonce</span></a
+                    >
+                    <a
+                      href="AuthenticatedClient.html#reject"
+                      class="tsd-index-link tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited tsd-is-external"
+                      ><svg
+                        class="tsd-kind-icon"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                      >
+                        <use href="#icon-262144-path"></use>
+                        <use href="#icon-262144-text"></use></svg
+                      ><span>reject</span></a
+                    >
+                    <a
+                      href="AuthenticatedClient.html#transform"
+                      class="tsd-index-link tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited tsd-is-external"
+                      ><svg
+                        class="tsd-kind-icon"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                      >
+                        <use href="#icon-262144-path"></use>
+                        <use href="#icon-262144-text"></use></svg
+                      ><span>transform</span></a
                     >
                   </div>
                 </section>
@@ -877,19 +916,6 @@
                       ><span>toggle<wbr />Auto<wbr />Renew</span></a
                     >
                     <a
-                      href="AuthenticatedClient.html#trace"
-                      class="tsd-index-link tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external"
-                      ><svg
-                        class="tsd-kind-icon"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                      >
-                        <use href="#icon-2048-path"></use>
-                        <use href="#icon-2048-text"></use></svg
-                      ><span>trace</span></a
-                    >
-                    <a
                       href="AuthenticatedClient.html#transferBalance"
                       class="tsd-index-link tsd-kind-method tsd-parent-kind-class"
                       ><svg
@@ -1202,7 +1228,7 @@
                 >
               </p>
               <ul>
-                <li>Defined in node_modules/rpc-request/build/index.d.ts:25</li>
+                <li>Defined in node_modules/rpc-request/dist/index.d.ts:21</li>
               </ul>
             </aside>
           </section>
@@ -1298,11 +1324,11 @@
           <section
             class="tsd-panel tsd-member tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited tsd-is-external"
           >
-            <a id="fetchOptions" class="tsd-anchor"></a>
+            <a id="base_url" class="tsd-anchor"></a>
             <h3 class="tsd-anchor-link">
-              <span>fetch<wbr />Options</span
+              <span>base_<wbr />url</span
               ><a
-                href="#fetchOptions"
+                href="#base_url"
                 aria-label="Permalink"
                 class="tsd-anchor-icon"
                 ><svg
@@ -1322,8 +1348,59 @@
             <ul
               class="tsd-signatures tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited tsd-is-external"
             >
-              <li class="tsd-signature" id="fetchOptions.fetchOptions-1">
-                <span class="tsd-signature-symbol">get</span> fetchOptions<span
+              <li class="tsd-signature" id="base_url.base_url-1">
+                <span class="tsd-signature-symbol">get</span> base_url<span
+                  class="tsd-signature-symbol"
+                  >(</span
+                ><span class="tsd-signature-symbol">)</span
+                ><span class="tsd-signature-symbol">: </span
+                ><span class="tsd-signature-type">null</span
+                ><span class="tsd-signature-symbol"> | </span
+                ><span class="tsd-signature-type">URL</span>
+              </li>
+              <li class="tsd-description">
+                <h4 class="tsd-returns-title">
+                  Returns <span class="tsd-signature-type">null</span
+                  ><span class="tsd-signature-symbol"> | </span
+                  ><span class="tsd-signature-type">URL</span>
+                </h4>
+                <aside class="tsd-sources">
+                  <p>Inherited from PublicClient.base_url</p>
+                  <ul>
+                    <li>
+                      Defined in node_modules/rpc-request/dist/index.d.ts:25
+                    </li>
+                  </ul>
+                </aside>
+              </li>
+            </ul>
+          </section>
+          <section
+            class="tsd-panel tsd-member tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited tsd-is-external"
+          >
+            <a id="init" class="tsd-anchor"></a>
+            <h3 class="tsd-anchor-link">
+              <span>init</span
+              ><a href="#init" aria-label="Permalink" class="tsd-anchor-icon"
+                ><svg
+                  class="icon icon-tabler icon-tabler-link"
+                  viewBox="0 0 24 24"
+                  stroke-width="2"
+                  stroke="currentColor"
+                  fill="none"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <use href="#icon-anchor-a"></use>
+                  <use href="#icon-anchor-b"></use>
+                  <use href="#icon-anchor-c"></use></svg
+              ></a>
+            </h3>
+            <ul
+              class="tsd-signatures tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited tsd-is-external"
+            >
+              <li class="tsd-signature" id="init.init-1">
+                <span class="tsd-signature-symbol">get</span> init<span
                   class="tsd-signature-symbol"
                   >(</span
                 ><span class="tsd-signature-symbol">)</span
@@ -1335,44 +1412,10 @@
                   Returns <span class="tsd-signature-type">RequestInit</span>
                 </h4>
                 <aside class="tsd-sources">
-                  <p>Inherited from PublicClient.fetchOptions</p>
+                  <p>Inherited from PublicClient.init</p>
                   <ul>
                     <li>
-                      Defined in node_modules/rpc-request/build/index.d.ts:30
-                    </li>
-                  </ul>
-                </aside>
-              </li>
-              <li class="tsd-signature" id="fetchOptions.fetchOptions-2">
-                <span class="tsd-signature-symbol">set</span> fetchOptions<span
-                  class="tsd-signature-symbol"
-                  >(</span
-                >options<span class="tsd-signature-symbol">: </span
-                ><span class="tsd-signature-type">RequestInit</span
-                ><span class="tsd-signature-symbol">)</span
-                ><span class="tsd-signature-symbol">: </span
-                ><span class="tsd-signature-type">void</span>
-              </li>
-              <li class="tsd-description">
-                <div class="tsd-parameters">
-                  <h4 class="tsd-parameters-title">Parameters</h4>
-                  <ul class="tsd-parameter-list">
-                    <li>
-                      <h5>
-                        options:
-                        <span class="tsd-signature-type">RequestInit</span>
-                      </h5>
-                    </li>
-                  </ul>
-                </div>
-                <h4 class="tsd-returns-title">
-                  Returns <span class="tsd-signature-type">void</span>
-                </h4>
-                <aside class="tsd-sources">
-                  <p>Inherited from PublicClient.fetchOptions</p>
-                  <ul>
-                    <li>
-                      Defined in node_modules/rpc-request/build/index.d.ts:31
+                      Defined in node_modules/rpc-request/dist/index.d.ts:26
                     </li>
                   </ul>
                 </aside>
@@ -1448,8 +1491,8 @@
                     <li>
                       Defined in
                       <a
-                        href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L725"
-                        >src/auth.ts:725</a
+                        href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L676"
+                        >src/auth.ts:676</a
                       >
                     </li>
                   </ul>
@@ -1512,9 +1555,110 @@
                     <li>
                       Defined in
                       <a
-                        href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L729"
-                        >src/auth.ts:729</a
+                        href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L680"
+                        >src/auth.ts:680</a
                       >
+                    </li>
+                  </ul>
+                </aside>
+              </li>
+            </ul>
+          </section>
+          <section
+            class="tsd-panel tsd-member tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited tsd-is-external"
+          >
+            <a id="reject" class="tsd-anchor"></a>
+            <h3 class="tsd-anchor-link">
+              <span>reject</span
+              ><a href="#reject" aria-label="Permalink" class="tsd-anchor-icon"
+                ><svg
+                  class="icon icon-tabler icon-tabler-link"
+                  viewBox="0 0 24 24"
+                  stroke-width="2"
+                  stroke="currentColor"
+                  fill="none"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <use href="#icon-anchor-a"></use>
+                  <use href="#icon-anchor-b"></use>
+                  <use href="#icon-anchor-c"></use></svg
+              ></a>
+            </h3>
+            <ul
+              class="tsd-signatures tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited tsd-is-external"
+            >
+              <li class="tsd-signature" id="reject.reject-1">
+                <span class="tsd-signature-symbol">get</span> reject<span
+                  class="tsd-signature-symbol"
+                  >(</span
+                ><span class="tsd-signature-symbol">)</span
+                ><span class="tsd-signature-symbol">: </span
+                ><span class="tsd-signature-type">boolean</span>
+              </li>
+              <li class="tsd-description">
+                <h4 class="tsd-returns-title">
+                  Returns <span class="tsd-signature-type">boolean</span>
+                </h4>
+                <aside class="tsd-sources">
+                  <p>Inherited from PublicClient.reject</p>
+                  <ul>
+                    <li>
+                      Defined in node_modules/rpc-request/dist/index.d.ts:23
+                    </li>
+                  </ul>
+                </aside>
+              </li>
+            </ul>
+          </section>
+          <section
+            class="tsd-panel tsd-member tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited tsd-is-external"
+          >
+            <a id="transform" class="tsd-anchor"></a>
+            <h3 class="tsd-anchor-link">
+              <span>transform</span
+              ><a
+                href="#transform"
+                aria-label="Permalink"
+                class="tsd-anchor-icon"
+                ><svg
+                  class="icon icon-tabler icon-tabler-link"
+                  viewBox="0 0 24 24"
+                  stroke-width="2"
+                  stroke="currentColor"
+                  fill="none"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <use href="#icon-anchor-a"></use>
+                  <use href="#icon-anchor-b"></use>
+                  <use href="#icon-anchor-c"></use></svg
+              ></a>
+            </h3>
+            <ul
+              class="tsd-signatures tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited tsd-is-external"
+            >
+              <li class="tsd-signature" id="transform.transform-1">
+                <span class="tsd-signature-symbol">get</span> transform<span
+                  class="tsd-signature-symbol"
+                  >(</span
+                ><span class="tsd-signature-symbol">)</span
+                ><span class="tsd-signature-symbol">: </span
+                ><span class="tsd-signature-type">null</span
+                ><span class="tsd-signature-symbol"> | </span
+                ><span class="tsd-signature-type">ITransformType</span>
+              </li>
+              <li class="tsd-description">
+                <h4 class="tsd-returns-title">
+                  Returns <span class="tsd-signature-type">null</span
+                  ><span class="tsd-signature-symbol"> | </span
+                  ><span class="tsd-signature-type">ITransformType</span>
+                </h4>
+                <aside class="tsd-sources">
+                  <p>Inherited from PublicClient.transform</p>
+                  <ul>
+                    <li>
+                      Defined in node_modules/rpc-request/dist/index.d.ts:24
                     </li>
                   </ul>
                 </aside>
@@ -1617,8 +1761,8 @@
                     <li>
                       Defined in
                       <a
-                        href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L493"
-                        >src/auth.ts:493</a
+                        href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L482"
+                        >src/auth.ts:482</a
                       >
                     </li>
                   </ul>
@@ -1729,8 +1873,8 @@
                     <li>
                       Defined in
                       <a
-                        href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L532"
-                        >src/auth.ts:532</a
+                        href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L518"
+                        >src/auth.ts:518</a
                       >
                     </li>
                   </ul>
@@ -1838,8 +1982,8 @@
                     <li>
                       Defined in
                       <a
-                        href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L666"
-                        >src/auth.ts:666</a
+                        href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L629"
+                        >src/auth.ts:629</a
                       >
                     </li>
                   </ul>
@@ -1946,8 +2090,8 @@
                     <li>
                       Defined in
                       <a
-                        href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L517"
-                        >src/auth.ts:517</a
+                        href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L504"
+                        >src/auth.ts:504</a
                       >
                     </li>
                   </ul>
@@ -2059,8 +2203,8 @@
                     <li>
                       Defined in
                       <a
-                        href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L645"
-                        >src/auth.ts:645</a
+                        href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L612"
+                        >src/auth.ts:612</a
                       >
                     </li>
                   </ul>
@@ -2168,8 +2312,8 @@
                     <li>
                       Defined in
                       <a
-                        href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L657"
-                        >src/auth.ts:657</a
+                        href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L621"
+                        >src/auth.ts:621</a
                       >
                     </li>
                   </ul>
@@ -2202,17 +2346,23 @@
               class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external"
             >
               <li class="tsd-signature tsd-anchor-link" id="delete.delete-1">
-                delete<span class="tsd-signature-symbol">(</span>path<span
+                delete<span class="tsd-signature-symbol">&lt;</span
+                ><span class="tsd-signature-type" data-tsd-kind="Type parameter"
+                  >T</span
+                ><span class="tsd-signature-symbol">&gt;</span
+                ><span class="tsd-signature-symbol">(</span>path<span
                   class="tsd-signature-symbol"
                   >?: </span
-                ><span class="tsd-signature-type">string</span>,
-                _fetchOptions<span class="tsd-signature-symbol">?: </span
-                ><span class="tsd-signature-type">RequestInit</span
+                ><span class="tsd-signature-type">string</span>, init<span
+                  class="tsd-signature-symbol"
+                  >?: </span
+                ><span class="tsd-signature-type">IFetchOptions</span
                 ><span class="tsd-signature-symbol">)</span
                 ><span class="tsd-signature-symbol">: </span
                 ><span class="tsd-signature-type">Promise</span
                 ><span class="tsd-signature-symbol">&lt;</span
-                ><span class="tsd-signature-type">unknown</span
+                ><span class="tsd-signature-type" data-tsd-kind="Type parameter"
+                  >T</span
                 ><span class="tsd-signature-symbol">&gt;</span
                 ><a
                   href="#delete.delete-1"
@@ -2233,6 +2383,16 @@
                 ></a>
               </li>
               <li class="tsd-description">
+                <section class="tsd-panel tsd-type-parameters">
+                  <h4>Type Parameters</h4>
+                  <ul class="tsd-type-parameters">
+                    <li>
+                      <h4>
+                        T = <span class="tsd-signature-type">unknown</span>
+                      </h4>
+                    </li>
+                  </ul>
+                </section>
                 <div class="tsd-parameters">
                   <h4 class="tsd-parameters-title">Parameters</h4>
                   <ul class="tsd-parameter-list">
@@ -2245,8 +2405,8 @@
                     <li>
                       <h5>
                         <code class="tsd-tag ts-flagOptional">Optional</code>
-                        _fetchOptions:
-                        <span class="tsd-signature-type">RequestInit</span>
+                        init:
+                        <span class="tsd-signature-type">IFetchOptions</span>
                       </h5>
                     </li>
                   </ul>
@@ -2254,7 +2414,10 @@
                 <h4 class="tsd-returns-title">
                   Returns <span class="tsd-signature-type">Promise</span
                   ><span class="tsd-signature-symbol">&lt;</span
-                  ><span class="tsd-signature-type">unknown</span
+                  ><span
+                    class="tsd-signature-type"
+                    data-tsd-kind="Type parameter"
+                    >T</span
                   ><span class="tsd-signature-symbol">&gt;</span>
                 </h4>
                 <aside class="tsd-sources">
@@ -2267,7 +2430,7 @@
                   </p>
                   <ul>
                     <li>
-                      Defined in node_modules/rpc-request/build/index.d.ts:36
+                      Defined in node_modules/rpc-request/dist/index.d.ts:31
                     </li>
                   </ul>
                 </aside>
@@ -2299,18 +2462,22 @@
               class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external"
             >
               <li class="tsd-signature tsd-anchor-link" id="fetch.fetch-1">
-                fetch<span class="tsd-signature-symbol">(</span>path<span
+                fetch<span class="tsd-signature-symbol">&lt;</span
+                ><span class="tsd-signature-type" data-tsd-kind="Type parameter"
+                  >T</span
+                ><span class="tsd-signature-symbol">&gt;</span
+                ><span class="tsd-signature-symbol">(</span>path<span
                   class="tsd-signature-symbol"
                   >?: </span
-                ><span class="tsd-signature-type">string</span>, options<span
-                  class="tsd-signature-symbol"
-                  >?: </span
-                ><span class="tsd-signature-type">RequestInit</span
+                ><span class="tsd-signature-type">string</span>,
+                __namedParameters<span class="tsd-signature-symbol">?: </span
+                ><span class="tsd-signature-type">IFetchOptions</span
                 ><span class="tsd-signature-symbol">)</span
                 ><span class="tsd-signature-symbol">: </span
                 ><span class="tsd-signature-type">Promise</span
                 ><span class="tsd-signature-symbol">&lt;</span
-                ><span class="tsd-signature-type">unknown</span
+                ><span class="tsd-signature-type" data-tsd-kind="Type parameter"
+                  >T</span
                 ><span class="tsd-signature-symbol">&gt;</span
                 ><a
                   href="#fetch.fetch-1"
@@ -2331,6 +2498,16 @@
                 ></a>
               </li>
               <li class="tsd-description">
+                <section class="tsd-panel tsd-type-parameters">
+                  <h4>Type Parameters</h4>
+                  <ul class="tsd-type-parameters">
+                    <li>
+                      <h4>
+                        T = <span class="tsd-signature-type">unknown</span>
+                      </h4>
+                    </li>
+                  </ul>
+                </section>
                 <div class="tsd-parameters">
                   <h4 class="tsd-parameters-title">Parameters</h4>
                   <ul class="tsd-parameter-list">
@@ -2343,8 +2520,8 @@
                     <li>
                       <h5>
                         <code class="tsd-tag ts-flagOptional">Optional</code>
-                        options:
-                        <span class="tsd-signature-type">RequestInit</span>
+                        __namedParameters:
+                        <span class="tsd-signature-type">IFetchOptions</span>
                       </h5>
                     </li>
                   </ul>
@@ -2352,7 +2529,10 @@
                 <h4 class="tsd-returns-title">
                   Returns <span class="tsd-signature-type">Promise</span
                   ><span class="tsd-signature-symbol">&lt;</span
-                  ><span class="tsd-signature-type">unknown</span
+                  ><span
+                    class="tsd-signature-type"
+                    data-tsd-kind="Type parameter"
+                    >T</span
                   ><span class="tsd-signature-symbol">&gt;</span>
                 </h4>
                 <aside class="tsd-sources">
@@ -2365,7 +2545,7 @@
                   </p>
                   <ul>
                     <li>
-                      Defined in node_modules/rpc-request/build/index.d.ts:40
+                      Defined in node_modules/rpc-request/dist/index.d.ts:34
                     </li>
                   </ul>
                 </aside>
@@ -2472,8 +2652,8 @@
                     <li>
                       Defined in
                       <a
-                        href="https://github.com/vansergen/poloniex-node-api/blob/main/src/public.ts#L145"
-                        >src/public.ts:145</a
+                        href="https://github.com/vansergen/poloniex-node-api/blob/main/src/public.ts#L147"
+                        >src/public.ts:147</a
                       >
                     </li>
                   </ul>
@@ -2582,8 +2762,8 @@
                     <li>
                       Defined in
                       <a
-                        href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L571"
-                        >src/auth.ts:571</a
+                        href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L549"
+                        >src/auth.ts:549</a
                       >
                     </li>
                   </ul>
@@ -2669,8 +2849,8 @@
                     <li>
                       Defined in
                       <a
-                        href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L685"
-                        >src/auth.ts:685</a
+                        href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L644"
+                        >src/auth.ts:644</a
                       >
                     </li>
                   </ul>
@@ -2878,8 +3058,8 @@
                     <li>
                       Defined in
                       <a
-                        href="https://github.com/vansergen/poloniex-node-api/blob/main/src/public.ts#L196"
-                        >src/public.ts:196</a
+                        href="https://github.com/vansergen/poloniex-node-api/blob/main/src/public.ts#L194"
+                        >src/public.ts:194</a
                       >
                     </li>
                   </ul>
@@ -2992,8 +3172,8 @@
                     <li>
                       Defined in
                       <a
-                        href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L412"
-                        >src/auth.ts:412</a
+                        href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L411"
+                        >src/auth.ts:411</a
                       >
                     </li>
                   </ul>
@@ -3124,8 +3304,8 @@
                     <li>
                       Defined in
                       <a
-                        href="https://github.com/vansergen/poloniex-node-api/blob/main/src/public.ts#L208"
-                        >src/public.ts:208</a
+                        href="https://github.com/vansergen/poloniex-node-api/blob/main/src/public.ts#L205"
+                        >src/public.ts:205</a
                       >
                     </li>
                   </ul>
@@ -3228,8 +3408,8 @@
                     <li>
                       Defined in
                       <a
-                        href="https://github.com/vansergen/poloniex-node-api/blob/main/src/public.ts#L211"
-                        >src/public.ts:211</a
+                        href="https://github.com/vansergen/poloniex-node-api/blob/main/src/public.ts#L208"
+                        >src/public.ts:208</a
                       >
                     </li>
                   </ul>
@@ -3316,8 +3496,8 @@
                     <li>
                       Defined in
                       <a
-                        href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L423"
-                        >src/auth.ts:423</a
+                        href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L421"
+                        >src/auth.ts:421</a
                       >
                     </li>
                   </ul>
@@ -3429,8 +3609,8 @@
                     <li>
                       Defined in
                       <a
-                        href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L440"
-                        >src/auth.ts:440</a
+                        href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L436"
+                        >src/auth.ts:436</a
                       >
                     </li>
                   </ul>
@@ -3519,8 +3699,8 @@
                     <li>
                       Defined in
                       <a
-                        href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L563"
-                        >src/auth.ts:563</a
+                        href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L542"
+                        >src/auth.ts:542</a
                       >
                     </li>
                   </ul>
@@ -3628,8 +3808,8 @@
                     <li>
                       Defined in
                       <a
-                        href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L463"
-                        >src/auth.ts:463</a
+                        href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L455"
+                        >src/auth.ts:455</a
                       >
                     </li>
                   </ul>
@@ -3740,8 +3920,8 @@
                     <li>
                       Defined in
                       <a
-                        href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L693"
-                        >src/auth.ts:693</a
+                        href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L651"
+                        >src/auth.ts:651</a
                       >
                     </li>
                   </ul>
@@ -3861,8 +4041,8 @@
                     <li>
                       Defined in
                       <a
-                        href="https://github.com/vansergen/poloniex-node-api/blob/main/src/public.ts#L225"
-                        >src/public.ts:225</a
+                        href="https://github.com/vansergen/poloniex-node-api/blob/main/src/public.ts#L221"
+                        >src/public.ts:221</a
                       >
                     </li>
                   </ul>
@@ -3974,8 +4154,8 @@
                     <li>
                       Defined in
                       <a
-                        href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L633"
-                        >src/auth.ts:633</a
+                        href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L603"
+                        >src/auth.ts:603</a
                       >
                     </li>
                   </ul>
@@ -4061,8 +4241,8 @@
                     <li>
                       Defined in
                       <a
-                        href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L601"
-                        >src/auth.ts:601</a
+                        href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L574"
+                        >src/auth.ts:574</a
                       >
                     </li>
                   </ul>
@@ -4170,8 +4350,8 @@
                     <li>
                       Defined in
                       <a
-                        href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L431"
-                        >src/auth.ts:431</a
+                        href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L428"
+                        >src/auth.ts:428</a
                       >
                     </li>
                   </ul>
@@ -4258,8 +4438,8 @@
                     <li>
                       Defined in
                       <a
-                        href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L677"
-                        >src/auth.ts:677</a
+                        href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L637"
+                        >src/auth.ts:637</a
                       >
                     </li>
                   </ul>
@@ -4367,8 +4547,8 @@
                     <li>
                       Defined in
                       <a
-                        href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L453"
-                        >src/auth.ts:453</a
+                        href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L446"
+                        >src/auth.ts:446</a
                       >
                     </li>
                   </ul>
@@ -4594,8 +4774,8 @@
                     <li>
                       Defined in
                       <a
-                        href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L484"
-                        >src/auth.ts:484</a
+                        href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L474"
+                        >src/auth.ts:474</a
                       >
                     </li>
                   </ul>
@@ -4705,8 +4885,8 @@
                     <li>
                       Defined in
                       <a
-                        href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L475"
-                        >src/auth.ts:475</a
+                        href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L466"
+                        >src/auth.ts:466</a
                       >
                     </li>
                   </ul>
@@ -4803,8 +4983,8 @@
                     <li>
                       Defined in
                       <a
-                        href="https://github.com/vansergen/poloniex-node-api/blob/main/src/public.ts#L154"
-                        >src/public.ts:154</a
+                        href="https://github.com/vansergen/poloniex-node-api/blob/main/src/public.ts#L156"
+                        >src/public.ts:156</a
                       >
                     </li>
                   </ul>
@@ -4894,8 +5074,8 @@
                     <li>
                       Defined in
                       <a
-                        href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L582"
-                        >src/auth.ts:582</a
+                        href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L559"
+                        >src/auth.ts:559</a
                       >
                     </li>
                   </ul>
@@ -5018,8 +5198,8 @@
                     <li>
                       Defined in
                       <a
-                        href="https://github.com/vansergen/poloniex-node-api/blob/main/src/public.ts#L184"
-                        >src/public.ts:184</a
+                        href="https://github.com/vansergen/poloniex-node-api/blob/main/src/public.ts#L183"
+                        >src/public.ts:183</a
                       >
                     </li>
                   </ul>
@@ -5116,8 +5296,8 @@
                     <li>
                       Defined in
                       <a
-                        href="https://github.com/vansergen/poloniex-node-api/blob/main/src/public.ts#L163"
-                        >src/public.ts:163</a
+                        href="https://github.com/vansergen/poloniex-node-api/blob/main/src/public.ts#L164"
+                        >src/public.ts:164</a
                       >
                     </li>
                   </ul>
@@ -5153,14 +5333,15 @@
                 head<span class="tsd-signature-symbol">(</span>path<span
                   class="tsd-signature-symbol"
                   >?: </span
-                ><span class="tsd-signature-type">string</span>,
-                _fetchOptions<span class="tsd-signature-symbol">?: </span
-                ><span class="tsd-signature-type">RequestInit</span
+                ><span class="tsd-signature-type">string</span>, init<span
+                  class="tsd-signature-symbol"
+                  >?: </span
+                ><span class="tsd-signature-type">IFetchOptions</span
                 ><span class="tsd-signature-symbol">)</span
                 ><span class="tsd-signature-symbol">: </span
                 ><span class="tsd-signature-type">Promise</span
                 ><span class="tsd-signature-symbol">&lt;</span
-                ><span class="tsd-signature-type">unknown</span
+                ><span class="tsd-signature-type">Response</span
                 ><span class="tsd-signature-symbol">&gt;</span
                 ><a
                   href="#head.head-1"
@@ -5193,8 +5374,8 @@
                     <li>
                       <h5>
                         <code class="tsd-tag ts-flagOptional">Optional</code>
-                        _fetchOptions:
-                        <span class="tsd-signature-type">RequestInit</span>
+                        init:
+                        <span class="tsd-signature-type">IFetchOptions</span>
                       </h5>
                     </li>
                   </ul>
@@ -5202,7 +5383,7 @@
                 <h4 class="tsd-returns-title">
                   Returns <span class="tsd-signature-type">Promise</span
                   ><span class="tsd-signature-symbol">&lt;</span
-                  ><span class="tsd-signature-type">unknown</span
+                  ><span class="tsd-signature-type">Response</span
                   ><span class="tsd-signature-symbol">&gt;</span>
                 </h4>
                 <aside class="tsd-sources">
@@ -5215,7 +5396,7 @@
                   </p>
                   <ul>
                     <li>
-                      Defined in node_modules/rpc-request/build/index.d.ts:33
+                      Defined in node_modules/rpc-request/dist/index.d.ts:28
                     </li>
                   </ul>
                 </aside>
@@ -5321,8 +5502,8 @@
                     <li>
                       Defined in
                       <a
-                        href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L609"
-                        >src/auth.ts:609</a
+                        href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L581"
+                        >src/auth.ts:581</a
                       >
                     </li>
                   </ul>
@@ -5429,8 +5610,8 @@
                     <li>
                       Defined in
                       <a
-                        href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L621"
-                        >src/auth.ts:621</a
+                        href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L592"
+                        >src/auth.ts:592</a
                       >
                     </li>
                   </ul>
@@ -5540,8 +5721,8 @@
                     <li>
                       Defined in
                       <a
-                        href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L545"
-                        >src/auth.ts:545</a
+                        href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L526"
+                        >src/auth.ts:526</a
                       >
                     </li>
                   </ul>
@@ -5574,17 +5755,23 @@
               class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external"
             >
               <li class="tsd-signature tsd-anchor-link" id="options.options-1">
-                options<span class="tsd-signature-symbol">(</span>path<span
+                options<span class="tsd-signature-symbol">&lt;</span
+                ><span class="tsd-signature-type" data-tsd-kind="Type parameter"
+                  >T</span
+                ><span class="tsd-signature-symbol">&gt;</span
+                ><span class="tsd-signature-symbol">(</span>path<span
                   class="tsd-signature-symbol"
                   >?: </span
-                ><span class="tsd-signature-type">string</span>,
-                _fetchOptions<span class="tsd-signature-symbol">?: </span
-                ><span class="tsd-signature-type">RequestInit</span
+                ><span class="tsd-signature-type">string</span>, init<span
+                  class="tsd-signature-symbol"
+                  >?: </span
+                ><span class="tsd-signature-type">IFetchOptions</span
                 ><span class="tsd-signature-symbol">)</span
                 ><span class="tsd-signature-symbol">: </span
                 ><span class="tsd-signature-type">Promise</span
                 ><span class="tsd-signature-symbol">&lt;</span
-                ><span class="tsd-signature-type">unknown</span
+                ><span class="tsd-signature-type" data-tsd-kind="Type parameter"
+                  >T</span
                 ><span class="tsd-signature-symbol">&gt;</span
                 ><a
                   href="#options.options-1"
@@ -5605,6 +5792,16 @@
                 ></a>
               </li>
               <li class="tsd-description">
+                <section class="tsd-panel tsd-type-parameters">
+                  <h4>Type Parameters</h4>
+                  <ul class="tsd-type-parameters">
+                    <li>
+                      <h4>
+                        T = <span class="tsd-signature-type">unknown</span>
+                      </h4>
+                    </li>
+                  </ul>
+                </section>
                 <div class="tsd-parameters">
                   <h4 class="tsd-parameters-title">Parameters</h4>
                   <ul class="tsd-parameter-list">
@@ -5617,8 +5814,8 @@
                     <li>
                       <h5>
                         <code class="tsd-tag ts-flagOptional">Optional</code>
-                        _fetchOptions:
-                        <span class="tsd-signature-type">RequestInit</span>
+                        init:
+                        <span class="tsd-signature-type">IFetchOptions</span>
                       </h5>
                     </li>
                   </ul>
@@ -5626,7 +5823,10 @@
                 <h4 class="tsd-returns-title">
                   Returns <span class="tsd-signature-type">Promise</span
                   ><span class="tsd-signature-symbol">&lt;</span
-                  ><span class="tsd-signature-type">unknown</span
+                  ><span
+                    class="tsd-signature-type"
+                    data-tsd-kind="Type parameter"
+                    >T</span
                   ><span class="tsd-signature-symbol">&gt;</span>
                 </h4>
                 <aside class="tsd-sources">
@@ -5639,7 +5839,7 @@
                   </p>
                   <ul>
                     <li>
-                      Defined in node_modules/rpc-request/build/index.d.ts:37
+                      Defined in node_modules/rpc-request/dist/index.d.ts:32
                     </li>
                   </ul>
                 </aside>
@@ -5671,17 +5871,23 @@
               class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external"
             >
               <li class="tsd-signature tsd-anchor-link" id="patch.patch-1">
-                patch<span class="tsd-signature-symbol">(</span>path<span
+                patch<span class="tsd-signature-symbol">&lt;</span
+                ><span class="tsd-signature-type" data-tsd-kind="Type parameter"
+                  >T</span
+                ><span class="tsd-signature-symbol">&gt;</span
+                ><span class="tsd-signature-symbol">(</span>path<span
                   class="tsd-signature-symbol"
                   >?: </span
-                ><span class="tsd-signature-type">string</span>,
-                _fetchOptions<span class="tsd-signature-symbol">?: </span
-                ><span class="tsd-signature-type">RequestInit</span
+                ><span class="tsd-signature-type">string</span>, init<span
+                  class="tsd-signature-symbol"
+                  >?: </span
+                ><span class="tsd-signature-type">IFetchOptions</span
                 ><span class="tsd-signature-symbol">)</span
                 ><span class="tsd-signature-symbol">: </span
                 ><span class="tsd-signature-type">Promise</span
                 ><span class="tsd-signature-symbol">&lt;</span
-                ><span class="tsd-signature-type">unknown</span
+                ><span class="tsd-signature-type" data-tsd-kind="Type parameter"
+                  >T</span
                 ><span class="tsd-signature-symbol">&gt;</span
                 ><a
                   href="#patch.patch-1"
@@ -5702,6 +5908,16 @@
                 ></a>
               </li>
               <li class="tsd-description">
+                <section class="tsd-panel tsd-type-parameters">
+                  <h4>Type Parameters</h4>
+                  <ul class="tsd-type-parameters">
+                    <li>
+                      <h4>
+                        T = <span class="tsd-signature-type">unknown</span>
+                      </h4>
+                    </li>
+                  </ul>
+                </section>
                 <div class="tsd-parameters">
                   <h4 class="tsd-parameters-title">Parameters</h4>
                   <ul class="tsd-parameter-list">
@@ -5714,8 +5930,8 @@
                     <li>
                       <h5>
                         <code class="tsd-tag ts-flagOptional">Optional</code>
-                        _fetchOptions:
-                        <span class="tsd-signature-type">RequestInit</span>
+                        init:
+                        <span class="tsd-signature-type">IFetchOptions</span>
                       </h5>
                     </li>
                   </ul>
@@ -5723,7 +5939,10 @@
                 <h4 class="tsd-returns-title">
                   Returns <span class="tsd-signature-type">Promise</span
                   ><span class="tsd-signature-symbol">&lt;</span
-                  ><span class="tsd-signature-type">unknown</span
+                  ><span
+                    class="tsd-signature-type"
+                    data-tsd-kind="Type parameter"
+                    >T</span
                   ><span class="tsd-signature-symbol">&gt;</span>
                 </h4>
                 <aside class="tsd-sources">
@@ -5736,7 +5955,7 @@
                   </p>
                   <ul>
                     <li>
-                      Defined in node_modules/rpc-request/build/index.d.ts:39
+                      Defined in node_modules/rpc-request/dist/index.d.ts:33
                     </li>
                   </ul>
                 </aside>
@@ -5909,17 +6128,23 @@
               class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external"
             >
               <li class="tsd-signature tsd-anchor-link" id="put.put-1">
-                put<span class="tsd-signature-symbol">(</span>path<span
+                put<span class="tsd-signature-symbol">&lt;</span
+                ><span class="tsd-signature-type" data-tsd-kind="Type parameter"
+                  >T</span
+                ><span class="tsd-signature-symbol">&gt;</span
+                ><span class="tsd-signature-symbol">(</span>path<span
                   class="tsd-signature-symbol"
                   >?: </span
-                ><span class="tsd-signature-type">string</span>,
-                _fetchOptions<span class="tsd-signature-symbol">?: </span
-                ><span class="tsd-signature-type">RequestInit</span
+                ><span class="tsd-signature-type">string</span>, init<span
+                  class="tsd-signature-symbol"
+                  >?: </span
+                ><span class="tsd-signature-type">IFetchOptions</span
                 ><span class="tsd-signature-symbol">)</span
                 ><span class="tsd-signature-symbol">: </span
                 ><span class="tsd-signature-type">Promise</span
                 ><span class="tsd-signature-symbol">&lt;</span
-                ><span class="tsd-signature-type">unknown</span
+                ><span class="tsd-signature-type" data-tsd-kind="Type parameter"
+                  >T</span
                 ><span class="tsd-signature-symbol">&gt;</span
                 ><a
                   href="#put.put-1"
@@ -5940,6 +6165,16 @@
                 ></a>
               </li>
               <li class="tsd-description">
+                <section class="tsd-panel tsd-type-parameters">
+                  <h4>Type Parameters</h4>
+                  <ul class="tsd-type-parameters">
+                    <li>
+                      <h4>
+                        T = <span class="tsd-signature-type">unknown</span>
+                      </h4>
+                    </li>
+                  </ul>
+                </section>
                 <div class="tsd-parameters">
                   <h4 class="tsd-parameters-title">Parameters</h4>
                   <ul class="tsd-parameter-list">
@@ -5952,8 +6187,8 @@
                     <li>
                       <h5>
                         <code class="tsd-tag ts-flagOptional">Optional</code>
-                        _fetchOptions:
-                        <span class="tsd-signature-type">RequestInit</span>
+                        init:
+                        <span class="tsd-signature-type">IFetchOptions</span>
                       </h5>
                     </li>
                   </ul>
@@ -5961,7 +6196,10 @@
                 <h4 class="tsd-returns-title">
                   Returns <span class="tsd-signature-type">Promise</span
                   ><span class="tsd-signature-symbol">&lt;</span
-                  ><span class="tsd-signature-type">unknown</span
+                  ><span
+                    class="tsd-signature-type"
+                    data-tsd-kind="Type parameter"
+                    >T</span
                   ><span class="tsd-signature-symbol">&gt;</span>
                 </h4>
                 <aside class="tsd-sources">
@@ -5974,7 +6212,7 @@
                   </p>
                   <ul>
                     <li>
-                      Defined in node_modules/rpc-request/build/index.d.ts:35
+                      Defined in node_modules/rpc-request/dist/index.d.ts:30
                     </li>
                   </ul>
                 </aside>
@@ -6074,8 +6312,8 @@
                     <li>
                       Defined in
                       <a
-                        href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L505"
-                        >src/auth.ts:505</a
+                        href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L493"
+                        >src/auth.ts:493</a
                       >
                     </li>
                   </ul>
@@ -6185,8 +6423,8 @@
                     <li>
                       Defined in
                       <a
-                        href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L715"
-                        >src/auth.ts:715</a
+                        href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L669"
+                        >src/auth.ts:669</a
                       >
                     </li>
                   </ul>
@@ -6294,106 +6532,9 @@
                     <li>
                       Defined in
                       <a
-                        href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L706"
-                        >src/auth.ts:706</a
+                        href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L661"
+                        >src/auth.ts:661</a
                       >
-                    </li>
-                  </ul>
-                </aside>
-              </li>
-            </ul>
-          </section>
-          <section
-            class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external"
-          >
-            <a id="trace" class="tsd-anchor"></a>
-            <h3 class="tsd-anchor-link">
-              <span>trace</span
-              ><a href="#trace" aria-label="Permalink" class="tsd-anchor-icon"
-                ><svg
-                  class="icon icon-tabler icon-tabler-link"
-                  viewBox="0 0 24 24"
-                  stroke-width="2"
-                  stroke="currentColor"
-                  fill="none"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <use href="#icon-anchor-a"></use>
-                  <use href="#icon-anchor-b"></use>
-                  <use href="#icon-anchor-c"></use></svg
-              ></a>
-            </h3>
-            <ul
-              class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external"
-            >
-              <li class="tsd-signature tsd-anchor-link" id="trace.trace-1">
-                trace<span class="tsd-signature-symbol">(</span>path<span
-                  class="tsd-signature-symbol"
-                  >?: </span
-                ><span class="tsd-signature-type">string</span>,
-                _fetchOptions<span class="tsd-signature-symbol">?: </span
-                ><span class="tsd-signature-type">RequestInit</span
-                ><span class="tsd-signature-symbol">)</span
-                ><span class="tsd-signature-symbol">: </span
-                ><span class="tsd-signature-type">Promise</span
-                ><span class="tsd-signature-symbol">&lt;</span
-                ><span class="tsd-signature-type">unknown</span
-                ><span class="tsd-signature-symbol">&gt;</span
-                ><a
-                  href="#trace.trace-1"
-                  aria-label="Permalink"
-                  class="tsd-anchor-icon"
-                  ><svg
-                    class="icon icon-tabler icon-tabler-link"
-                    viewBox="0 0 24 24"
-                    stroke-width="2"
-                    stroke="currentColor"
-                    fill="none"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  >
-                    <use href="#icon-anchor-a"></use>
-                    <use href="#icon-anchor-b"></use>
-                    <use href="#icon-anchor-c"></use></svg
-                ></a>
-              </li>
-              <li class="tsd-description">
-                <div class="tsd-parameters">
-                  <h4 class="tsd-parameters-title">Parameters</h4>
-                  <ul class="tsd-parameter-list">
-                    <li>
-                      <h5>
-                        <code class="tsd-tag ts-flagOptional">Optional</code>
-                        path: <span class="tsd-signature-type">string</span>
-                      </h5>
-                    </li>
-                    <li>
-                      <h5>
-                        <code class="tsd-tag ts-flagOptional">Optional</code>
-                        _fetchOptions:
-                        <span class="tsd-signature-type">RequestInit</span>
-                      </h5>
-                    </li>
-                  </ul>
-                </div>
-                <h4 class="tsd-returns-title">
-                  Returns <span class="tsd-signature-type">Promise</span
-                  ><span class="tsd-signature-symbol">&lt;</span
-                  ><span class="tsd-signature-type">unknown</span
-                  ><span class="tsd-signature-symbol">&gt;</span>
-                </h4>
-                <aside class="tsd-sources">
-                  <p>
-                    Inherited from
-                    <a href="PublicClient.html">PublicClient</a>.<a
-                      href="PublicClient.html#trace"
-                      >trace</a
-                    >
-                  </p>
-                  <ul>
-                    <li>
-                      Defined in node_modules/rpc-request/build/index.d.ts:38
                     </li>
                   </ul>
                 </aside>
@@ -6499,8 +6640,8 @@
                     <li>
                       Defined in
                       <a
-                        href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L590"
-                        >src/auth.ts:590</a
+                        href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L566"
+                        >src/auth.ts:566</a
                       >
                     </li>
                   </ul>
@@ -6608,8 +6749,8 @@
                     <li>
                       Defined in
                       <a
-                        href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L554"
-                        >src/auth.ts:554</a
+                        href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L534"
+                        >src/auth.ts:534</a
                       >
                     </li>
                   </ul>
@@ -6735,8 +6876,8 @@
                     <li>
                       Defined in
                       <a
-                        href="https://github.com/vansergen/poloniex-node-api/blob/main/src/public.ts#L233"
-                        >src/public.ts:233</a
+                        href="https://github.com/vansergen/poloniex-node-api/blob/main/src/public.ts#L228"
+                        >src/public.ts:228</a
                       >
                     </li>
                   </ul>
@@ -7062,7 +7203,7 @@
                   class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited tsd-is-external"
                 >
                   <a
-                    href="AuthenticatedClient.html#fetchOptions"
+                    href="AuthenticatedClient.html#base_url"
                     class="tsd-index-link"
                     ><svg
                       class="tsd-kind-icon"
@@ -7072,7 +7213,22 @@
                     >
                       <use href="#icon-262144-path"></use>
                       <use href="#icon-262144-text"></use></svg
-                    >fetch<wbr />Options</a
+                    >base_<wbr />url</a
+                  >
+                </li>
+                <li
+                  class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited tsd-is-external"
+                >
+                  <a href="AuthenticatedClient.html#init" class="tsd-index-link"
+                    ><svg
+                      class="tsd-kind-icon"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                    >
+                      <use href="#icon-262144-path"></use>
+                      <use href="#icon-262144-text"></use></svg
+                    >init</a
                   >
                 </li>
                 <li class="tsd-kind-accessor tsd-parent-kind-class">
@@ -7088,6 +7244,40 @@
                       <use href="#icon-262144-path"></use>
                       <use href="#icon-262144-text"></use></svg
                     >nonce</a
+                  >
+                </li>
+                <li
+                  class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited tsd-is-external"
+                >
+                  <a
+                    href="AuthenticatedClient.html#reject"
+                    class="tsd-index-link"
+                    ><svg
+                      class="tsd-kind-icon"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                    >
+                      <use href="#icon-262144-path"></use>
+                      <use href="#icon-262144-text"></use></svg
+                    >reject</a
+                  >
+                </li>
+                <li
+                  class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited tsd-is-external"
+                >
+                  <a
+                    href="AuthenticatedClient.html#transform"
+                    class="tsd-index-link"
+                    ><svg
+                      class="tsd-kind-icon"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                    >
+                      <use href="#icon-262144-path"></use>
+                      <use href="#icon-262144-text"></use></svg
+                    >transform</a
                   >
                 </li>
                 <li class="tsd-kind-method tsd-parent-kind-class">
@@ -7764,23 +7954,6 @@
                       <use href="#icon-2048-path"></use>
                       <use href="#icon-2048-text"></use></svg
                     >toggle<wbr />Auto<wbr />Renew</a
-                  >
-                </li>
-                <li
-                  class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external"
-                >
-                  <a
-                    href="AuthenticatedClient.html#trace"
-                    class="tsd-index-link"
-                    ><svg
-                      class="tsd-kind-icon"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                    >
-                      <use href="#icon-2048-path"></use>
-                      <use href="#icon-2048-text"></use></svg
-                    >trace</a
                   >
                 </li>
                 <li class="tsd-kind-method tsd-parent-kind-class">
