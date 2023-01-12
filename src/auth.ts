@@ -380,12 +380,12 @@ export class AuthenticatedClient extends PublicClient {
       secret: this.#secret,
       body: body.toString(),
     });
-    const data = (await super.post(url, { headers: { key, sign }, body })) as {
+    const data = await super.post<{
       error?: string;
       success?: boolean | 0 | 1;
       result?: { error?: string };
       message?: string;
-    };
+    }>(url, { headers: { key, sign }, body });
 
     if (typeof data.error !== "undefined") {
       throw new Error(data.error);

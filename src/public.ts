@@ -1,4 +1,4 @@
-import { FetchClient } from "rpc-request";
+import { Fetch } from "rpc-request";
 
 export const ApiUri = "https://poloniex.com";
 export const DefaultPair = "USDT_BTC";
@@ -131,19 +131,21 @@ export interface Loans {
   demands: Loan[];
 }
 
-export class PublicClient extends FetchClient<unknown> {
+export class PublicClient extends Fetch {
   public readonly currencyPair: string;
 
   public constructor({ currencyPair = DefaultPair }: CurrencyPair = {}) {
-    super(
-      { headers: Headers },
-      { rejectNotOk: false, transform: "json", baseUrl: ApiUri }
-    );
+    super({
+      headers: Headers,
+      reject: false,
+      transform: "json",
+      base_url: ApiUri,
+    });
     this.currencyPair = currencyPair;
   }
 
   public async get<T = unknown>(url: string): Promise<T> {
-    const response = (await super.get(url)) as { error?: string };
+    const response = await super.get<{ error?: string }>(url);
     if (typeof response.error !== "undefined") {
       throw new Error(response.error);
     }
