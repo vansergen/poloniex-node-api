@@ -1,5 +1,6 @@
 import { deepStrictEqual, fail } from "node:assert";
-import nock from "nock";
+import { isDeepStrictEqual } from "node:util";
+import { MockAgent, getGlobalDispatcher, setGlobalDispatcher } from "undici";
 import {
   AuthenticatedClient,
   DefaultPair,
@@ -11,6 +12,7 @@ import {
   DepositsWithdrawals,
   Orders,
   TradesPrivate,
+  TransferOptions,
   OrderTrade,
   OrderStatus,
   OrderResult,
@@ -27,20 +29,45 @@ import {
   MarginPositionResult,
   ClosePositionResult,
   OfferResult,
+  OfferOptions,
   CancelLoanResponse,
   LoanOffers,
   ActiveLoans,
   LendingHistoryItem,
   AutoRenewResult,
+  SwapResult,
 } from "../index.js";
 
-const key = "poloniex-api-key";
-const secret = "poloniex-api-secret";
-const client = new AuthenticatedClient({ key, secret });
-const nonce = 1;
-client.nonce = (): number => nonce;
-
 suite("AuthenticatedClient", () => {
+  const api_url = new URL(ApiUri);
+  const key = "poloniex-api-key";
+  const secret = "poloniex-api-secret";
+  const client = new AuthenticatedClient({ key, secret });
+  const nonce = 1;
+  client.nonce = (): number => nonce;
+
+  const body =
+    (form: Record<string, unknown>) =>
+    (string: string): boolean =>
+      isDeepStrictEqual(
+        new URLSearchParams(string),
+        new URLSearchParams({ ...form, nonce: `${nonce}` })
+      );
+
+  const globalDispatcher = getGlobalDispatcher();
+  const mockAgent = new MockAgent();
+  const mockPool = mockAgent.get(api_url.origin);
+
+  suiteSetup(() => {
+    setGlobalDispatcher(mockAgent);
+    mockAgent.disableNetConnect();
+  });
+
+  suiteTeardown(() => {
+    mockAgent.enableNetConnect();
+    setGlobalDispatcher(globalDispatcher);
+  });
+
   test("constructor (default `currencyPair`)", () => {
     deepStrictEqual(client.currencyPair, DefaultPair);
   });
@@ -57,7 +84,11 @@ suite("AuthenticatedClient", () => {
 
   test(".post()", async () => {
     const response = { success: 1 };
-    nock(ApiUri).post("/", { nonce }).reply(200, response);
+    const path = "/";
+    const url = new URL(path, ApiUri);
+    mockPool
+      .intercept({ path: url.pathname, method: "POST" })
+      .reply(200, response);
 
     const data = await client.post();
     deepStrictEqual(data, response);
@@ -65,9 +96,11 @@ suite("AuthenticatedClient", () => {
 
   test(".post() (with error in the response)", async () => {
     const error = "Some error message";
+    const path = "/tradingApi";
+    const url = new URL(path, ApiUri);
     const form = { command: "returnBalances" };
-    nock(ApiUri)
-      .post("/tradingApi", { ...form, nonce })
+    mockPool
+      .intercept({ path: url.pathname, method: "POST", body: body(form) })
       .reply(200, { error });
 
     try {
@@ -81,9 +114,11 @@ suite("AuthenticatedClient", () => {
   test(".post() (with no success in the response)", async () => {
     const success = 0;
     const result = { error: "Some error message" };
+    const path = "/tradingApi";
+    const url = new URL(path, ApiUri);
     const form = { command: "returnBalances" };
-    nock(ApiUri)
-      .post("/tradingApi", { ...form, nonce })
+    mockPool
+      .intercept({ path: url.pathname, method: "POST", body: body(form) })
       .reply(200, { success, result });
 
     try {
@@ -97,9 +132,11 @@ suite("AuthenticatedClient", () => {
   test(".post() (with no success in the response and no result)", async () => {
     const success = false;
     const message = "Some message";
+    const path = "/tradingApi";
+    const url = new URL(path, ApiUri);
     const form = { command: "returnBalances" };
-    nock(ApiUri)
-      .post("/tradingApi", { ...form, nonce })
+    mockPool
+      .intercept({ path: url.pathname, method: "POST", body: body(form) })
       .reply(404, { success, message });
 
     try {
@@ -115,8 +152,12 @@ suite("AuthenticatedClient", () => {
       BTC: "1.23456789",
       DASH: "0.00000000",
     };
-    const command = "returnBalances";
-    nock(ApiUri).post("/tradingApi", { command, nonce }).reply(200, balances);
+    const path = "/tradingApi";
+    const url = new URL(path, ApiUri);
+    const form = { command: "returnBalances" };
+    mockPool
+      .intercept({ path: url.pathname, method: "POST", body: body(form) })
+      .reply(200, balances);
 
     const data = await client.getBalances();
     deepStrictEqual(data, balances);
@@ -135,11 +176,12 @@ suite("AuthenticatedClient", () => {
         btcValue: "0.00000000",
       },
     };
-    const command = "returnCompleteBalances";
+    const path = "/tradingApi";
+    const url = new URL(path, ApiUri);
     const account = "all";
-
-    nock(ApiUri)
-      .post("/tradingApi", { command, account, nonce })
+    const form = { command: "returnCompleteBalances", account };
+    mockPool
+      .intercept({ path: url.pathname, method: "POST", body: body(form) })
       .reply(200, balances);
 
     const data = await client.getCompleteBalances({ account });
@@ -159,9 +201,12 @@ suite("AuthenticatedClient", () => {
         btcValue: "0.00000000",
       },
     };
-    const command = "returnCompleteBalances";
-
-    nock(ApiUri).post("/tradingApi", { command, nonce }).reply(200, balances);
+    const path = "/tradingApi";
+    const url = new URL(path, ApiUri);
+    const form = { command: "returnCompleteBalances" };
+    mockPool
+      .intercept({ path: url.pathname, method: "POST", body: body(form) })
+      .reply(200, balances);
 
     const data = await client.getCompleteBalances();
     deepStrictEqual(data, balances);
@@ -173,24 +218,28 @@ suite("AuthenticatedClient", () => {
       USDC: "0x2a3279534a8fc3aab174628d5df28253bde6a95e",
       USDT: "1HDr6rDk4n8kzgbon4rXs1qtBtC9XUNAZ5",
     };
-    const command = "returnDepositAddresses";
-
-    nock(ApiUri).post("/tradingApi", { command, nonce }).reply(200, addresses);
+    const path = "/tradingApi";
+    const url = new URL(path, ApiUri);
+    const form = { command: "returnDepositAddresses" };
+    mockPool
+      .intercept({ path: url.pathname, method: "POST", body: body(form) })
+      .reply(200, addresses);
 
     const data = await client.getDepositAddresses();
     deepStrictEqual(data, addresses);
   });
 
   test(".getNewAddress()", async () => {
-    const currency = "ETH";
     const address: NewAddress = {
       success: 1,
       response: "0x2a3279534a8fc3aab174628d5df28253bde6a95e",
     };
-    const command = "generateNewAddress";
-
-    nock(ApiUri)
-      .post("/tradingApi", { command, nonce, currency })
+    const currency = "ETH";
+    const path = "/tradingApi";
+    const url = new URL(path, ApiUri);
+    const form = { command: "generateNewAddress", currency };
+    mockPool
+      .intercept({ path: url.pathname, method: "POST", body: body(form) })
       .reply(200, address);
 
     const data = await client.getNewAddress({ currency });
@@ -198,9 +247,6 @@ suite("AuthenticatedClient", () => {
   });
 
   test(".getDepositsWithdrawals()", async () => {
-    const start = 1529425667;
-    const end = 1560961667;
-    const command = "returnDepositsWithdrawals";
     const response: DepositsWithdrawals = {
       adjustments: [
         {
@@ -247,9 +293,13 @@ suite("AuthenticatedClient", () => {
         },
       ],
     };
-
-    nock(ApiUri)
-      .post("/tradingApi", { command, nonce, start, end })
+    const start = 1529425667;
+    const end = 1560961667;
+    const path = "/tradingApi";
+    const url = new URL(path, ApiUri);
+    const form = { command: "returnDepositsWithdrawals", start, end };
+    mockPool
+      .intercept({ path: url.pathname, method: "POST", body: body(form) })
       .reply(200, response);
 
     const data = await client.getDepositsWithdrawals({ start, end });
@@ -257,8 +307,6 @@ suite("AuthenticatedClient", () => {
   });
 
   test(".getOpenOrders()", async () => {
-    const currencyPair = "BTC_USDC";
-    const command = "returnOpenOrders";
     const response: Orders = [
       {
         orderNumber: "514514894224",
@@ -281,9 +329,12 @@ suite("AuthenticatedClient", () => {
         margin: 1,
       },
     ];
-
-    nock(ApiUri)
-      .post("/tradingApi", { command, nonce, currencyPair })
+    const currencyPair = "BTC_USDC";
+    const path = "/tradingApi";
+    const url = new URL(path, ApiUri);
+    const form = { command: "returnOpenOrders", currencyPair };
+    mockPool
+      .intercept({ path: url.pathname, method: "POST", body: body(form) })
       .reply(200, response);
 
     const data = await client.getOpenOrders({ currencyPair });
@@ -291,8 +342,6 @@ suite("AuthenticatedClient", () => {
   });
 
   test(".getOpenOrders() (with no `currencyPair`)", async () => {
-    const currencyPair = DefaultPair;
-    const command = "returnOpenOrders";
     const response: Orders = [
       {
         orderNumber: "514514894224",
@@ -315,9 +364,12 @@ suite("AuthenticatedClient", () => {
         margin: 1,
       },
     ];
-
-    nock(ApiUri)
-      .post("/tradingApi", { command, nonce, currencyPair })
+    const currencyPair = DefaultPair;
+    const path = "/tradingApi";
+    const url = new URL(path, ApiUri);
+    const form = { command: "returnOpenOrders", currencyPair };
+    mockPool
+      .intercept({ path: url.pathname, method: "POST", body: body(form) })
       .reply(200, response);
 
     const data = await client.getOpenOrders({});
@@ -325,8 +377,6 @@ suite("AuthenticatedClient", () => {
   });
 
   test(".getOpenOrders() (with no arguments)", async () => {
-    const currencyPair = DefaultPair;
-    const command = "returnOpenOrders";
     const response: Orders = [
       {
         orderNumber: "514514894224",
@@ -349,9 +399,12 @@ suite("AuthenticatedClient", () => {
         margin: 1,
       },
     ];
-
-    nock(ApiUri)
-      .post("/tradingApi", { command, nonce, currencyPair })
+    const currencyPair = DefaultPair;
+    const path = "/tradingApi";
+    const url = new URL(path, ApiUri);
+    const form = { command: "returnOpenOrders", currencyPair };
+    mockPool
+      .intercept({ path: url.pathname, method: "POST", body: body(form) })
       .reply(200, response);
 
     const data = await client.getOpenOrders();
@@ -359,11 +412,6 @@ suite("AuthenticatedClient", () => {
   });
 
   test(".getHistoryTrades()", async () => {
-    const currencyPair = "all";
-    const start = 1410158341;
-    const end = 1410499372;
-    const limit = 10;
-    const command = "returnTradeHistory";
     const response: TradesPrivate = {
       BTC_BCH: [
         {
@@ -418,9 +466,16 @@ suite("AuthenticatedClient", () => {
         },
       ],
     };
-
-    nock(ApiUri)
-      .post("/tradingApi", { command, nonce, currencyPair, start, end, limit })
+    const command = "returnTradeHistory";
+    const start = 1410158341;
+    const end = 1410499372;
+    const limit = 10;
+    const currencyPair = "all";
+    const path = "/tradingApi";
+    const url = new URL(path, ApiUri);
+    const form = { command, currencyPair, start, end, limit };
+    mockPool
+      .intercept({ path: url.pathname, method: "POST", body: body(form) })
       .reply(200, response);
 
     const data = await client.getHistoryTrades({
@@ -433,11 +488,6 @@ suite("AuthenticatedClient", () => {
   });
 
   test(".getHistoryTrades() (with no `currencyPair`)", async () => {
-    const currencyPair = DefaultPair;
-    const start = 1410158341;
-    const end = 1410499372;
-    const limit = 10;
-    const command = "returnTradeHistory";
     const response: TradesPrivate = [
       {
         globalTradeID: 394131412,
@@ -464,9 +514,16 @@ suite("AuthenticatedClient", () => {
         category: "exchange",
       },
     ];
-
-    nock(ApiUri)
-      .post("/tradingApi", { command, nonce, currencyPair, start, end, limit })
+    const command = "returnTradeHistory";
+    const start = 1410158341;
+    const end = 1410499372;
+    const limit = 10;
+    const currencyPair = DefaultPair;
+    const path = "/tradingApi";
+    const url = new URL(path, ApiUri);
+    const form = { command, currencyPair, start, end, limit };
+    mockPool
+      .intercept({ path: url.pathname, method: "POST", body: body(form) })
       .reply(200, response);
 
     const data = await client.getHistoryTrades({ start, end, limit });
@@ -474,8 +531,6 @@ suite("AuthenticatedClient", () => {
   });
 
   test(".getHistoryTrades() (with no arguments)", async () => {
-    const currencyPair = DefaultPair;
-    const command = "returnTradeHistory";
     const response: TradesPrivate = [
       {
         globalTradeID: 394131412,
@@ -502,9 +557,13 @@ suite("AuthenticatedClient", () => {
         category: "exchange",
       },
     ];
-
-    nock(ApiUri)
-      .post("/tradingApi", { command, nonce, currencyPair })
+    const command = "returnTradeHistory";
+    const currencyPair = DefaultPair;
+    const path = "/tradingApi";
+    const url = new URL(path, ApiUri);
+    const form = { command, currencyPair };
+    mockPool
+      .intercept({ path: url.pathname, method: "POST", body: body(form) })
       .reply(200, response);
 
     const data = await client.getHistoryTrades();
@@ -512,8 +571,6 @@ suite("AuthenticatedClient", () => {
   });
 
   test(".getOrderTrades()", async () => {
-    const orderNumber = 9623891284;
-    const command = "returnOrderTrades";
     const response: OrderTrade[] = [
       {
         globalTradeID: 394127362,
@@ -538,9 +595,13 @@ suite("AuthenticatedClient", () => {
         date: "2018-10-16 17:03:43",
       },
     ];
-
-    nock(ApiUri)
-      .post("/tradingApi", { command, nonce, orderNumber })
+    const command = "returnOrderTrades";
+    const orderNumber = 9623891284;
+    const path = "/tradingApi";
+    const url = new URL(path, ApiUri);
+    const form = { command, orderNumber };
+    mockPool
+      .intercept({ path: url.pathname, method: "POST", body: body(form) })
       .reply(200, response);
 
     const data = await client.getOrderTrades({ orderNumber });
@@ -548,8 +609,6 @@ suite("AuthenticatedClient", () => {
   });
 
   test(".getOrderStatus()", async () => {
-    const orderNumber = 96238912841;
-    const command = "returnOrderStatus";
     const response: OrderStatus = {
       result: {
         6071071: {
@@ -565,9 +624,13 @@ suite("AuthenticatedClient", () => {
       },
       success: 1,
     };
-
-    nock(ApiUri)
-      .post("/tradingApi", { command, nonce, orderNumber })
+    const command = "returnOrderStatus";
+    const orderNumber = 96238912841;
+    const path = "/tradingApi";
+    const url = new URL(path, ApiUri);
+    const form = { command, orderNumber };
+    mockPool
+      .intercept({ path: url.pathname, method: "POST", body: body(form) })
       .reply(200, response);
 
     const data = await client.getOrderStatus({ orderNumber });
@@ -575,9 +638,6 @@ suite("AuthenticatedClient", () => {
   });
 
   test(".buy()", async () => {
-    const currencyPair = "BTC_ETH";
-    const rate = 0.01;
-    const amount = 1;
     const response: OrderResult = {
       orderNumber: "514845991795",
       resultingTrades: [
@@ -595,10 +655,15 @@ suite("AuthenticatedClient", () => {
       tokenFeeCurrency: null,
       currencyPair: "BTC_ETH",
     };
+    const currencyPair = "BTC_ETH";
+    const rate = 0.01;
+    const amount = 1;
     const command = "buy";
-
-    nock(ApiUri)
-      .post("/tradingApi", { command, nonce, amount, rate, currencyPair })
+    const path = "/tradingApi";
+    const url = new URL(path, ApiUri);
+    const form = { command, currencyPair, rate, amount };
+    mockPool
+      .intercept({ path: url.pathname, method: "POST", body: body(form) })
       .reply(200, response);
 
     const data = await client.buy({ currencyPair, rate, amount });
@@ -607,8 +672,6 @@ suite("AuthenticatedClient", () => {
 
   test(".buy() (with no `currencyPair`)", async () => {
     const currencyPair = DefaultPair;
-    const rate = 0.01;
-    const amount = 1;
     const response: OrderResult = {
       orderNumber: "514845991795",
       resultingTrades: [
@@ -626,10 +689,14 @@ suite("AuthenticatedClient", () => {
       tokenFeeCurrency: null,
       currencyPair,
     };
+    const rate = 0.01;
+    const amount = 1;
     const command = "buy";
-
-    nock(ApiUri)
-      .post("/tradingApi", { command, nonce, amount, rate, currencyPair })
+    const path = "/tradingApi";
+    const url = new URL(path, ApiUri);
+    const form = { command, currencyPair, rate, amount };
+    mockPool
+      .intercept({ path: url.pathname, method: "POST", body: body(form) })
       .reply(200, response);
 
     const data = await client.buy({ rate, amount });
@@ -637,12 +704,6 @@ suite("AuthenticatedClient", () => {
   });
 
   test(".sell()", async () => {
-    const currencyPair = "BTC_ETH";
-    const rate = 0.01;
-    const amount = 1;
-    const clientOrderId = 12345;
-    const postOnly: 0 | 1 = 1;
-    const params = { currencyPair, rate, amount, clientOrderId, postOnly };
     const response: OrderResult = {
       orderNumber: "514845991795",
       resultingTrades: [
@@ -661,10 +722,18 @@ suite("AuthenticatedClient", () => {
       tokenFee: 0,
       tokenFeeCurrency: null,
     };
+    const currencyPair = "BTC_ETH";
+    const rate = 0.01;
+    const amount = 1;
+    const clientOrderId = 12345;
+    const postOnly: 0 | 1 = 1;
     const command = "sell";
-
-    nock(ApiUri)
-      .post("/tradingApi", { command, nonce, ...params })
+    const path = "/tradingApi";
+    const url = new URL(path, ApiUri);
+    const params = { currencyPair, rate, amount, clientOrderId, postOnly };
+    const form = { command, ...params };
+    mockPool
+      .intercept({ path: url.pathname, method: "POST", body: body(form) })
       .reply(200, response);
 
     const data = await client.sell(params);
@@ -673,11 +742,6 @@ suite("AuthenticatedClient", () => {
 
   test(".sell() (with no `currencyPair`)", async () => {
     const currencyPair = DefaultPair;
-    const rate = 0.01;
-    const amount = 1;
-    const clientOrderId = 12345;
-    const postOnly: 0 | 1 = 1;
-    const params = { rate, amount, clientOrderId, postOnly };
     const response: OrderResult = {
       orderNumber: "514845991795",
       resultingTrades: [
@@ -696,10 +760,17 @@ suite("AuthenticatedClient", () => {
       tokenFeeCurrency: null,
       clientOrderId: "12345",
     };
+    const rate = 0.01;
+    const amount = 1;
+    const clientOrderId = 12345;
+    const postOnly: 0 | 1 = 1;
     const command = "sell";
-
-    nock(ApiUri)
-      .post("/tradingApi", { command, nonce, currencyPair, ...params })
+    const path = "/tradingApi";
+    const url = new URL(path, ApiUri);
+    const params = { rate, amount, clientOrderId, postOnly };
+    const form = { command, currencyPair, ...params };
+    mockPool
+      .intercept({ path: url.pathname, method: "POST", body: body(form) })
       .reply(200, response);
 
     const data = await client.sell(params);
@@ -707,8 +778,6 @@ suite("AuthenticatedClient", () => {
   });
 
   test(".cancelOrder()", async () => {
-    const orderNumber = 96238912841;
-    const command = "cancelOrder";
     const response: CancelResponse = {
       success: 1,
       amount: "1.00000000",
@@ -716,9 +785,13 @@ suite("AuthenticatedClient", () => {
       fee: "0.00000000",
       currencyPair: "USDT_EOS",
     };
-
-    nock(ApiUri)
-      .post("/tradingApi", { command, nonce, orderNumber })
+    const command = "cancelOrder";
+    const orderNumber = 96238912841;
+    const path = "/tradingApi";
+    const url = new URL(path, ApiUri);
+    const form = { command, orderNumber };
+    mockPool
+      .intercept({ path: url.pathname, method: "POST", body: body(form) })
       .reply(200, response);
 
     const data = await client.cancelOrder({ orderNumber });
@@ -726,8 +799,6 @@ suite("AuthenticatedClient", () => {
   });
 
   test(".cancelOrder() (by `clientOrderId`)", async () => {
-    const clientOrderId = 12345;
-    const command = "cancelOrder";
     const response: CancelResponse = {
       success: 1,
       amount: "1.00000000",
@@ -736,9 +807,13 @@ suite("AuthenticatedClient", () => {
       currencyPair: "USDT_EOS",
       clientOrderId: "123456",
     };
-
-    nock(ApiUri)
-      .post("/tradingApi", { command, nonce, clientOrderId })
+    const command = "cancelOrder";
+    const clientOrderId = 12345;
+    const path = "/tradingApi";
+    const url = new URL(path, ApiUri);
+    const form = { command, clientOrderId };
+    mockPool
+      .intercept({ path: url.pathname, method: "POST", body: body(form) })
       .reply(200, response);
 
     const data = await client.cancelOrder({ clientOrderId });
@@ -746,16 +821,18 @@ suite("AuthenticatedClient", () => {
   });
 
   test(".cancelAllOrders()", async () => {
-    const currencyPair = "BTC_USDC";
-    const command = "cancelAllOrders";
     const response: CancelAllResponse = {
       success: 1,
       message: "Orders canceled",
       orderNumbers: [503749, 888321, 7315825, 7316824],
     };
-
-    nock(ApiUri)
-      .post("/tradingApi", { command, nonce, currencyPair })
+    const command = "cancelAllOrders";
+    const currencyPair = "BTC_USDC";
+    const path = "/tradingApi";
+    const url = new URL(path, ApiUri);
+    const form = { command, currencyPair };
+    mockPool
+      .intercept({ path: url.pathname, method: "POST", body: body(form) })
       .reply(200, response);
 
     const data = await client.cancelAllOrders({ currencyPair });
@@ -763,24 +840,24 @@ suite("AuthenticatedClient", () => {
   });
 
   test(".cancelAllOrders() (with no arguments)", async () => {
-    const command = "cancelAllOrders";
     const response: CancelAllResponse = {
       success: 1,
       message: "Orders canceled",
       orderNumbers: [503749, 888321, 7315825, 7316824],
     };
-
-    nock(ApiUri).post("/tradingApi", { command, nonce }).reply(200, response);
+    const command = "cancelAllOrders";
+    const path = "/tradingApi";
+    const url = new URL(path, ApiUri);
+    const form = { command };
+    mockPool
+      .intercept({ path: url.pathname, method: "POST", body: body(form) })
+      .reply(200, response);
 
     const data = await client.cancelAllOrders();
     deepStrictEqual(data, response);
   });
 
   test(".moveOrder()", async () => {
-    const orderNumber = 514851026755;
-    const rate = 0.00015;
-    // eslint-disable-next-line init-declarations
-    let clientOrderId: undefined;
     const response: MoveResponse = {
       success: 1,
       orderNumber: "514851232549",
@@ -789,13 +866,21 @@ suite("AuthenticatedClient", () => {
       currencyPair: "BTC_ETH",
       clientOrderId: "12345",
     };
+    const orderNumber = 514851026755;
+    const rate = 0.00015;
+    // eslint-disable-next-line init-declarations
+    let clientOrderId: undefined;
+    const params = { orderNumber, rate, clientOrderId };
     const command = "moveOrder";
-
-    nock(ApiUri)
-      .post("/tradingApi", { command, nonce, orderNumber, rate })
+    const path = "/tradingApi";
+    const url = new URL(path, ApiUri);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { clientOrderId: _clientOrderId, ...form } = { command, ...params };
+    mockPool
+      .intercept({ path: url.pathname, method: "POST", body: body(form) })
       .reply(200, response);
 
-    const data = await client.moveOrder({ orderNumber, rate, clientOrderId });
+    const data = await client.moveOrder(params);
     deepStrictEqual(data, response);
   });
 
@@ -804,13 +889,15 @@ suite("AuthenticatedClient", () => {
     const currency = "ETH";
     const amount = 0.000152;
     const address = "0x84a90e21d9d02e30ddcea56d618aa75ba90331ff";
-    const command = "withdraw";
-
-    nock(ApiUri)
-      .post("/tradingApi", { command, nonce, currency, amount, address })
+    const params = { currency, amount, address };
+    const form = { command: "withdraw", ...params };
+    const path = "/tradingApi";
+    const url = new URL(path, ApiUri);
+    mockPool
+      .intercept({ path: url.pathname, method: "POST", body: body(form) })
       .reply(200, response);
 
-    const data = await client.withdraw({ currency, amount, address });
+    const data = await client.withdraw(params);
     deepStrictEqual(data, response);
   });
 
@@ -823,8 +910,12 @@ suite("AuthenticatedClient", () => {
       thirtyDayVolume: "0.00000000",
       nextTier: 25000,
     };
-    const command = "returnFeeInfo";
-    nock(ApiUri).post("/tradingApi", { command, nonce }).reply(200, response);
+    const form = { command: "returnFeeInfo" };
+    const path = "/tradingApi";
+    const url = new URL(path, ApiUri);
+    mockPool
+      .intercept({ path: url.pathname, method: "POST", body: body(form) })
+      .reply(200, response);
 
     const data = await client.getFeeInfo();
     deepStrictEqual(data, response);
@@ -848,9 +939,12 @@ suite("AuthenticatedClient", () => {
         XMR: "5.25780982",
       },
     };
-    const command = "returnAvailableAccountBalances";
-
-    nock(ApiUri).post("/tradingApi", { command, nonce }).reply(200, balances);
+    const form = { command: "returnAvailableAccountBalances" };
+    const path = "/tradingApi";
+    const url = new URL(path, ApiUri);
+    mockPool
+      .intercept({ path: url.pathname, method: "POST", body: body(form) })
+      .reply(200, balances);
 
     const data = await client.getAccountBalances();
     deepStrictEqual(data, balances);
@@ -870,9 +964,12 @@ suite("AuthenticatedClient", () => {
       BTC_ETH: { BTC: "1.25000000", ETH: "39.96803109" },
       BTC_FCT: { BTC: "1.25000000", FCT: "1720.79314097" },
     };
-    const command = "returnTradableBalances";
-
-    nock(ApiUri).post("/tradingApi", { command, nonce }).reply(200, balances);
+    const form = { command: "returnTradableBalances" };
+    const path = "/tradingApi";
+    const url = new URL(path, ApiUri);
+    mockPool
+      .intercept({ path: url.pathname, method: "POST", body: body(form) })
+      .reply(200, balances);
 
     const data = await client.getTradableBalances();
     deepStrictEqual(data, balances);
@@ -883,15 +980,21 @@ suite("AuthenticatedClient", () => {
       success: 1,
       message: "Transferred 0.50000000 BTC from lending to exchange account.",
     };
-    const command = "transferBalance";
     const currency = "BTC";
     const amount = 0.5;
-    const fromAccount = "lending" as const;
-    const toAccount = "exchange" as const;
-    const params = { currency, amount, fromAccount, toAccount };
-
-    nock(ApiUri)
-      .post("/tradingApi", { command, nonce, ...params })
+    const fromAccount = "lending";
+    const toAccount = "exchange";
+    const params: TransferOptions = {
+      currency,
+      amount,
+      fromAccount,
+      toAccount,
+    };
+    const form = { command: "transferBalance", ...params };
+    const path = "/tradingApi";
+    const url = new URL(path, ApiUri);
+    mockPool
+      .intercept({ path: url.pathname, method: "POST", body: body(form) })
       .reply(200, response);
 
     const data = await client.transferBalance(params);
@@ -907,19 +1010,18 @@ suite("AuthenticatedClient", () => {
       totalBorrowedValue: "0.02534580",
       currentMargin: "3.94542646",
     };
-    const command = "returnMarginAccountSummary";
-
-    nock(ApiUri).post("/tradingApi", { command, nonce }).reply(200, response);
+    const form = { command: "returnMarginAccountSummary" };
+    const path = "/tradingApi";
+    const url = new URL(path, ApiUri);
+    mockPool
+      .intercept({ path: url.pathname, method: "POST", body: body(form) })
+      .reply(200, response);
 
     const data = await client.getMarginSummary();
     deepStrictEqual(data, response);
   });
 
   test(".marginBuy()", async () => {
-    const currencyPair = "BTC_EOS";
-    const clientOrderId = 123;
-    const rate = 0.0035;
-    const amount = 20;
     const response: MarginOrderResult = {
       orderNumber: "123321",
       resultingTrades: [],
@@ -930,11 +1032,16 @@ suite("AuthenticatedClient", () => {
       tokenFeeCurrency: null,
       currencyPair: "BTC_EOS",
     };
-    const command = "marginBuy";
+    const currencyPair = "BTC_EOS";
+    const rate = 0.0035;
+    const amount = 20;
+    const clientOrderId = 123;
     const params = { currencyPair, rate, amount, clientOrderId };
-
-    nock(ApiUri)
-      .post("/tradingApi", { command, nonce, ...params })
+    const form = { command: "marginBuy", ...params };
+    const path = "/tradingApi";
+    const url = new URL(path, ApiUri);
+    mockPool
+      .intercept({ path: url.pathname, method: "POST", body: body(form) })
       .reply(200, response);
 
     const data = await client.marginBuy(params);
@@ -943,9 +1050,6 @@ suite("AuthenticatedClient", () => {
 
   test(".marginBuy() (with no `currencyPair`)", async () => {
     const currencyPair = DefaultPair;
-    const clientOrderId = 123;
-    const rate = 0.0035;
-    const amount = 20;
     const response: MarginOrderResult = {
       orderNumber: "123321",
       resultingTrades: [],
@@ -956,11 +1060,15 @@ suite("AuthenticatedClient", () => {
       tokenFeeCurrency: null,
       currencyPair,
     };
-    const command = "marginBuy";
+    const rate = 0.0035;
+    const amount = 20;
+    const clientOrderId = 123;
     const params = { rate, amount, clientOrderId };
-
-    nock(ApiUri)
-      .post("/tradingApi", { command, nonce, currencyPair, ...params })
+    const form = { command: "marginBuy", currencyPair, ...params };
+    const path = "/tradingApi";
+    const url = new URL(path, ApiUri);
+    mockPool
+      .intercept({ path: url.pathname, method: "POST", body: body(form) })
       .reply(200, response);
 
     const data = await client.marginBuy(params);
@@ -968,11 +1076,6 @@ suite("AuthenticatedClient", () => {
   });
 
   test(".marginSell()", async () => {
-    const currencyPair = "BTC_EOS";
-    const clientOrderId = 123;
-    const rate = 0.0035;
-    const amount = 20;
-    const lendingRate = 0.001;
     const response: MarginOrderResult = {
       orderNumber: "123321",
       resultingTrades: [],
@@ -983,11 +1086,17 @@ suite("AuthenticatedClient", () => {
       tokenFeeCurrency: null,
       currencyPair: "BTC_EOS",
     };
-    const command = "marginSell";
+    const currencyPair = "BTC_EOS";
+    const rate = 0.0035;
+    const amount = 20;
+    const clientOrderId = 123;
+    const lendingRate = 0.001;
     const params = { currencyPair, rate, amount, clientOrderId, lendingRate };
-
-    nock(ApiUri)
-      .post("/tradingApi", { command, nonce, ...params })
+    const form = { command: "marginSell", ...params };
+    const path = "/tradingApi";
+    const url = new URL(path, ApiUri);
+    mockPool
+      .intercept({ path: url.pathname, method: "POST", body: body(form) })
       .reply(200, response);
 
     const data = await client.marginSell(params);
@@ -996,10 +1105,6 @@ suite("AuthenticatedClient", () => {
 
   test(".marginSell() (with no `currencyPair`)", async () => {
     const currencyPair = DefaultPair;
-    const clientOrderId = 123;
-    const rate = 0.0035;
-    const amount = 20;
-    const lendingRate = 0.001;
     const response: MarginOrderResult = {
       orderNumber: "123321",
       resultingTrades: [],
@@ -1010,11 +1115,16 @@ suite("AuthenticatedClient", () => {
       tokenFeeCurrency: null,
       currencyPair,
     };
-    const command = "marginSell";
+    const rate = 0.0035;
+    const amount = 20;
+    const clientOrderId = 123;
+    const lendingRate = 0.001;
     const params = { rate, amount, clientOrderId, lendingRate };
-
-    nock(ApiUri)
-      .post("/tradingApi", { command, nonce, currencyPair, ...params })
+    const form = { command: "marginSell", currencyPair, ...params };
+    const path = "/tradingApi";
+    const url = new URL(path, ApiUri);
+    mockPool
+      .intercept({ path: url.pathname, method: "POST", body: body(form) })
       .reply(200, response);
 
     const data = await client.marginSell(params);
@@ -1022,7 +1132,6 @@ suite("AuthenticatedClient", () => {
   });
 
   test(".getMarginPosition()", async () => {
-    const currencyPair = "USDT_BTC";
     const response: MarginPositionResult = {
       amount: "40.94717831",
       total: "-0.09671314",
@@ -1032,10 +1141,12 @@ suite("AuthenticatedClient", () => {
       lendingFees: "-0.00000038",
       type: "long",
     };
-    const command = "getMarginPosition";
-
-    nock(ApiUri)
-      .post("/tradingApi", { command, nonce, currencyPair })
+    const currencyPair = "USDT_BTC";
+    const form = { command: "getMarginPosition", currencyPair };
+    const path = "/tradingApi";
+    const url = new URL(path, ApiUri);
+    mockPool
+      .intercept({ path: url.pathname, method: "POST", body: body(form) })
       .reply(200, response);
 
     const data = await client.getMarginPosition({ currencyPair });
@@ -1043,7 +1154,6 @@ suite("AuthenticatedClient", () => {
   });
 
   test(".getMarginPosition() (with no `currencyPair`)", async () => {
-    const currencyPair = DefaultPair;
     const response: MarginPositionResult = {
       amount: "40.94717831",
       total: "-0.09671314",
@@ -1053,10 +1163,12 @@ suite("AuthenticatedClient", () => {
       lendingFees: "-0.00000038",
       type: "long",
     };
-    const command = "getMarginPosition";
-
-    nock(ApiUri)
-      .post("/tradingApi", { command, nonce, currencyPair })
+    const currencyPair = DefaultPair;
+    const form = { command: "getMarginPosition", currencyPair };
+    const path = "/tradingApi";
+    const url = new URL(path, ApiUri);
+    mockPool
+      .intercept({ path: url.pathname, method: "POST", body: body(form) })
       .reply(200, response);
 
     const data = await client.getMarginPosition({});
@@ -1064,7 +1176,6 @@ suite("AuthenticatedClient", () => {
   });
 
   test(".getMarginPosition() (with no arguments)", async () => {
-    const currencyPair = DefaultPair;
     const response: MarginPositionResult = {
       amount: "40.94717831",
       total: "-0.09671314",
@@ -1074,10 +1185,12 @@ suite("AuthenticatedClient", () => {
       lendingFees: "-0.00000038",
       type: "long",
     };
-    const command = "getMarginPosition";
-
-    nock(ApiUri)
-      .post("/tradingApi", { command, nonce, currencyPair })
+    const currencyPair = DefaultPair;
+    const form = { command: "getMarginPosition", currencyPair };
+    const path = "/tradingApi";
+    const url = new URL(path, ApiUri);
+    mockPool
+      .intercept({ path: url.pathname, method: "POST", body: body(form) })
       .reply(200, response);
 
     const data = await client.getMarginPosition();
@@ -1085,7 +1198,6 @@ suite("AuthenticatedClient", () => {
   });
 
   test(".closeMarginPosition()", async () => {
-    const currencyPair = "USDT_BTC";
     const response: ClosePositionResult = {
       success: 1,
       message: "Successfully closed margin position.",
@@ -1110,10 +1222,12 @@ suite("AuthenticatedClient", () => {
         ],
       },
     };
-    const command = "closeMarginPosition";
-
-    nock(ApiUri)
-      .post("/tradingApi", { command, nonce, currencyPair })
+    const currencyPair = "USDT_BTC";
+    const form = { command: "closeMarginPosition", currencyPair };
+    const path = "/tradingApi";
+    const url = new URL(path, ApiUri);
+    mockPool
+      .intercept({ path: url.pathname, method: "POST", body: body(form) })
       .reply(200, response);
 
     const data = await client.closeMarginPosition({ currencyPair });
@@ -1121,7 +1235,6 @@ suite("AuthenticatedClient", () => {
   });
 
   test(".closeMarginPosition() (with no `currencyPair`)", async () => {
-    const currencyPair = DefaultPair;
     const response: ClosePositionResult = {
       success: 1,
       message: "Successfully closed margin position.",
@@ -1146,10 +1259,12 @@ suite("AuthenticatedClient", () => {
         ],
       },
     };
-    const command = "closeMarginPosition";
-
-    nock(ApiUri)
-      .post("/tradingApi", { command, nonce, currencyPair })
+    const currencyPair = DefaultPair;
+    const form = { command: "closeMarginPosition", currencyPair };
+    const path = "/tradingApi";
+    const url = new URL(path, ApiUri);
+    mockPool
+      .intercept({ path: url.pathname, method: "POST", body: body(form) })
       .reply(200, response);
 
     const data = await client.closeMarginPosition({});
@@ -1157,7 +1272,6 @@ suite("AuthenticatedClient", () => {
   });
 
   test(".closeMarginPosition() (with no arguments)", async () => {
-    const currencyPair = DefaultPair;
     const response: ClosePositionResult = {
       success: 1,
       message: "Successfully closed margin position.",
@@ -1182,10 +1296,12 @@ suite("AuthenticatedClient", () => {
         ],
       },
     };
-    const command = "closeMarginPosition";
-
-    nock(ApiUri)
-      .post("/tradingApi", { command, nonce, currencyPair })
+    const currencyPair = DefaultPair;
+    const form = { command: "closeMarginPosition", currencyPair };
+    const path = "/tradingApi";
+    const url = new URL(path, ApiUri);
+    mockPool
+      .intercept({ path: url.pathname, method: "POST", body: body(form) })
       .reply(200, response);
 
     const data = await client.closeMarginPosition();
@@ -1193,21 +1309,28 @@ suite("AuthenticatedClient", () => {
   });
 
   test(".createLoanOffer()", async () => {
-    const currency = "BTC";
-    const amount = 0.1;
-    const duration = 2;
-    const autoRenew = 0 as const;
-    const lendingRate = 0.015;
     const response: OfferResult = {
       success: 1,
       message: "Loan order placed.",
       orderID: 1002013188,
     };
-    const command = "createLoanOffer";
-    const params = { amount, currency, duration, autoRenew, lendingRate };
-
-    nock(ApiUri)
-      .post("/tradingApi", { command, nonce, ...params })
+    const amount = 0.1;
+    const currency = "BTC";
+    const duration = 2;
+    const autoRenew = 0;
+    const lendingRate = 0.015;
+    const params: OfferOptions = {
+      amount,
+      currency,
+      duration,
+      autoRenew,
+      lendingRate,
+    };
+    const form = { command: "createLoanOffer", ...params };
+    const path = "/tradingApi";
+    const url = new URL(path, ApiUri);
+    mockPool
+      .intercept({ path: url.pathname, method: "POST", body: body(form) })
       .reply(200, response);
 
     const data = await client.createLoanOffer(params);
@@ -1215,16 +1338,17 @@ suite("AuthenticatedClient", () => {
   });
 
   test(".cancelLoanOffer()", async () => {
-    const orderNumber = 1002013188;
-    const command = "cancelLoanOffer";
     const response: CancelLoanResponse = {
       success: 1,
       message: "Loan offer canceled.",
       amount: "0.10000000",
     };
-
-    nock(ApiUri)
-      .post("/tradingApi", { command, nonce, orderNumber })
+    const orderNumber = 1002013188;
+    const form = { command: "cancelLoanOffer", orderNumber };
+    const path = "/tradingApi";
+    const url = new URL(path, ApiUri);
+    mockPool
+      .intercept({ path: url.pathname, method: "POST", body: body(form) })
       .reply(200, response);
 
     const data = await client.cancelLoanOffer({ orderNumber });
@@ -1244,9 +1368,12 @@ suite("AuthenticatedClient", () => {
         },
       ],
     };
-    const command = "returnOpenLoanOffers";
-
-    nock(ApiUri).post("/tradingApi", { command, nonce }).reply(200, response);
+    const form = { command: "returnOpenLoanOffers" };
+    const path = "/tradingApi";
+    const url = new URL(path, ApiUri);
+    mockPool
+      .intercept({ path: url.pathname, method: "POST", body: body(form) })
+      .reply(200, response);
 
     const data = await client.getOpenLoanOffers();
     deepStrictEqual(data, response);
@@ -1288,18 +1415,18 @@ suite("AuthenticatedClient", () => {
         },
       ],
     };
-    const command = "returnActiveLoans";
-
-    nock(ApiUri).post("/tradingApi", { command, nonce }).reply(200, response);
+    const form = { command: "returnActiveLoans" };
+    const path = "/tradingApi";
+    const url = new URL(path, ApiUri);
+    mockPool
+      .intercept({ path: url.pathname, method: "POST", body: body(form) })
+      .reply(200, response);
 
     const data = await client.getActiveLoans();
     deepStrictEqual(data, response);
   });
 
   test(".getLendingHistory()", async () => {
-    const start = 1483228800;
-    const end = 1483315200;
-    const limit = 100;
     const response: LendingHistoryItem[] = [
       {
         id: 246300115,
@@ -1326,13 +1453,18 @@ suite("AuthenticatedClient", () => {
         close: "2017-01-01 23:38:45",
       },
     ];
-    const command = "returnLendingHistory";
-
-    nock(ApiUri)
-      .post("/tradingApi", { command, nonce, start, end, limit })
+    const start = 1483228800;
+    const end = 1483315200;
+    const limit = 100;
+    const params = { start, end, limit };
+    const form = { command: "returnLendingHistory", ...params };
+    const path = "/tradingApi";
+    const url = new URL(path, ApiUri);
+    mockPool
+      .intercept({ path: url.pathname, method: "POST", body: body(form) })
       .reply(200, response);
 
-    const data = await client.getLendingHistory({ start, end, limit });
+    const data = await client.getLendingHistory(params);
     deepStrictEqual(data, response);
   });
 
@@ -1363,21 +1495,25 @@ suite("AuthenticatedClient", () => {
         close: "2017-01-01 23:38:45",
       },
     ];
-    const command = "returnLendingHistory";
-
-    nock(ApiUri).post("/tradingApi", { command, nonce }).reply(200, response);
+    const form = { command: "returnLendingHistory" };
+    const path = "/tradingApi";
+    const url = new URL(path, ApiUri);
+    mockPool
+      .intercept({ path: url.pathname, method: "POST", body: body(form) })
+      .reply(200, response);
 
     const data = await client.getLendingHistory();
     deepStrictEqual(data, response);
   });
 
   test(".toggleAutoRenew()", async () => {
-    const orderNumber = 1002013188;
-    const command = "toggleAutoRenew";
     const response: AutoRenewResult = { success: 1, message: 0 };
-
-    nock(ApiUri)
-      .post("/tradingApi", { command, nonce, orderNumber })
+    const orderNumber = 1002013188;
+    const form = { command: "toggleAutoRenew", orderNumber };
+    const path = "/tradingApi";
+    const url = new URL(path, ApiUri);
+    mockPool
+      .intercept({ path: url.pathname, method: "POST", body: body(form) })
       .reply(200, response);
 
     const data = await client.toggleAutoRenew({ orderNumber });
@@ -1385,24 +1521,22 @@ suite("AuthenticatedClient", () => {
   });
 
   test(".swapCurrencies()", async () => {
-    const command = "swapCurrencies";
-    const fromCurrency = "BTC";
-    const toCurrency = "WBTC";
-    const amount = 25;
-    const response = {
+    const response: SwapResult = {
       success: true,
       message: "Swap 24.998 from BTC to WBTC.",
     };
-
-    nock(ApiUri)
-      .post("/tradingApi", { command, nonce, fromCurrency, toCurrency, amount })
+    const fromCurrency = "BTC";
+    const toCurrency = "WBTC";
+    const amount = 25;
+    const params = { fromCurrency, toCurrency, amount };
+    const form = { command: "swapCurrencies", ...params };
+    const path = "/tradingApi";
+    const url = new URL(path, ApiUri);
+    mockPool
+      .intercept({ path: url.pathname, method: "POST", body: body(form) })
       .reply(200, response);
 
-    const data = await client.swapCurrencies({
-      fromCurrency,
-      toCurrency,
-      amount,
-    });
+    const data = await client.swapCurrencies(params);
     deepStrictEqual(data, response);
   });
 
