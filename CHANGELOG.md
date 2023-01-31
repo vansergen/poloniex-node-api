@@ -1,5 +1,26 @@
 # Changelog
 
+## [6.0.0](https://github.com/vansergen/poloniex-node-api/compare/v5.0.5...v6.0.0) (2023-01-31)
+
+### ⚠ BREAKING CHANGES
+
+- drop Node `<16.19.0` support
+- move legacy API to the `legacy` path
+
+### Features
+
+- add `AuthenticatedClient` ([975a126](https://github.com/vansergen/poloniex-node-api/commit/975a1263db5794cae9cdc4b2bb544280a5e74149))
+- add `PublicClient` ([7566a78](https://github.com/vansergen/poloniex-node-api/commit/7566a7826466d4fb912695eee1604ab1000d43a5))
+- add `WebSocketClient` ([e0412cb](https://github.com/vansergen/poloniex-node-api/commit/e0412cb7b01854a8b1f5043525115a2b86161960))
+
+### Performance Improvements
+
+- drop Node `<16.19.0` support ([5e692c9](https://github.com/vansergen/poloniex-node-api/commit/5e692c9714f6552ab889432c45d2f0451b14520f))
+
+### Code Refactoring
+
+- move legacy API to the `legacy` path ([c79a34f](https://github.com/vansergen/poloniex-node-api/commit/c79a34f90b856989d7db28f67d13bf83f76abdc3))
+
 ## [5.0.5](https://github.com/vansergen/poloniex-node-api/compare/v5.0.4...v5.0.5) (2023-01-23)
 
 ### Dependencies
