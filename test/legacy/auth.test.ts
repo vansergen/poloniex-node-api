@@ -36,7 +36,7 @@ import {
   LendingHistoryItem,
   AutoRenewResult,
   SwapResult,
-} from "../index.js";
+} from "../../src/legacy/index.js";
 
 suite("AuthenticatedClient", () => {
   const api_url = new URL(ApiUri);

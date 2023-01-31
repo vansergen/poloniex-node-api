@@ -1,240 +1,452 @@
-import { Fetch } from "rpc-request";
+import { Fetch, IFetchOptions } from "rpc-request";
 
-export const ApiUri = "https://poloniex.com";
-export const DefaultPair = "USDT_BTC";
-export const ApiLimit = 100;
-export const Headers = { "User-Agent": "poloniex-node-api-client" };
+export type IRecordType = Record<
+  string,
+  string[] | boolean | number | string | undefined
+>;
 
-export interface CurrencyPair {
-  currencyPair?: string | undefined;
+export interface IPoloniexGetOptions extends IPoloniexFetchOptions {
+  options?: IRecordType;
 }
 
-export interface BookFilter extends CurrencyPair {
-  depth?: number | undefined;
+export interface IPoloniexFetchOptions extends IFetchOptions {
+  options?: IRecordType | unknown[];
 }
 
-export interface TradesFilter extends CurrencyPair {
-  start?: number | undefined;
-  end?: number | undefined;
+export const ApiUrl = "https://api.poloniex.com/";
+export const DefaultSymbol = "BTC_USDT";
+
+export interface IOrderBookOptions {
+  symbol?: string;
+  scale?: number;
+  limit?: 5 | 10 | 20 | 50 | 100 | 150;
 }
 
-export interface TimeFilter {
-  start: number;
-  end: number;
+export interface ICandlesOptions {
+  symbol?: string;
+  interval:
+    | "DAY_1"
+    | "DAY_3"
+    | "HOUR_1"
+    | "HOUR_2"
+    | "HOUR_4"
+    | "HOUR_6"
+    | "HOUR_12"
+    | "MINUTE_1"
+    | "MINUTE_5"
+    | "MINUTE_10"
+    | "MINUTE_15"
+    | "MINUTE_30"
+    | "MONTH_1"
+    | "WEEK_1";
+  limit?: number;
+  startTime?: number;
+  endTime?: number;
 }
 
-export type Period = 300 | 900 | 1800 | 7200 | 14400 | 86400;
-
-export interface ChartFilter extends CurrencyPair {
-  period: Period;
-  start: number;
-  end: number;
+export interface IPublicTradeOptions {
+  symbol?: string;
+  limit?: number;
 }
 
-export interface CurrencyFilter {
+/** Reference Data */
+
+export interface ISymbolInformation {
+  symbol: string;
+  baseCurrencyName: string;
+  quoteCurrencyName: string;
+  displayName: string;
+  state: string;
+  visibleStartTime: number;
+  tradableStartTime: number;
+  symbolTradeLimit: {
+    symbol: string;
+    priceScale: number;
+    quantityScale: number;
+    amountScale: number;
+    minQuantity: string;
+    minAmount: string;
+    highestBid: string;
+    lowestAsk: string;
+  };
+  crossMargin: { supportCrossMargin: boolean; maxLeverage: number };
+}
+
+export interface ICurrency {
   currency: string;
-}
-
-export interface TickerInfo {
-  id: number;
-  last: string;
-  lowestAsk: string;
-  highestBid: string;
-  percentChange: string;
-  baseVolume: string;
-  quoteVolume: string;
-  isFrozen: string | 0 | 1;
-  high24hr: string;
-  low24hr: string;
-}
-
-export type Tickers = Record<string, TickerInfo>;
-
-export type Volume = Record<string, string>;
-
-export type Volumes = Record<string, Volume | string>;
-
-export interface OrderBookInfo {
-  asks: [string, number][];
-  bids: [string, number][];
-  isFrozen: string;
-  seq: number;
-}
-
-export type OrderBooksInfo = Record<string, OrderBookInfo>;
-
-export type OrderBook = OrderBookInfo | OrderBooksInfo;
-
-export type Side = "buy" | "sell";
-
-export interface BaseTrade {
-  type: Side;
-  amount: string;
-  date: string;
-  rate: string;
-  total: string;
-  tradeID: number | string;
-}
-
-export interface Trade extends BaseTrade {
-  globalTradeID: number;
-  orderNumber: number | string;
-}
-
-export interface Candle {
-  date: number;
-  high: number;
-  low: number;
-  open: number;
-  close: number;
-  volume: number;
-  quoteVolume: number;
-  weightedAverage: number;
-}
-
-export interface CurrencyInfo {
   id: number;
   name: string;
-  humanType: string;
-  currencyType: string;
-  txFee: string;
+  description: string;
+  type: string;
+  withdrawalFee: string;
   minConf: number;
-  depositAddress: string | null;
-  disabled: 0 | 1;
-  delisted: 0 | 1;
-  frozen: 0 | 1;
-  hexColor: string;
-  blockchain: string | null;
-  isGeofenced: 0 | 1;
+  depositAddress: null;
+  blockchain: string;
+  delisted: boolean;
+  tradingState: "NORMAL" | "OFFLINE";
+  walletState: "DISABLED" | "ENABLED";
+  supportCollateral: boolean;
+  supportBorrow: boolean;
 }
 
-export interface ExtendedCurrencyInfo extends CurrencyInfo {
+export interface IExtendedCurrency extends ICurrency {
   parentChain: string | null;
-  isMultiChain: 0 | 1;
-  isChildChain: 0 | 1;
+  isMultiChain: boolean;
+  isChildChain: boolean;
   childChains: string[];
 }
 
-export type ICurrencies = Record<string, CurrencyInfo>;
-
-export type ExtendedCurrencies = Record<string, ExtendedCurrencyInfo>;
-
-export interface Loan {
-  rate: string;
-  amount: string;
-  rangeMin: number;
-  rangeMax: number;
+export interface ISystemTimestamp {
+  serverTime: number;
 }
 
-export interface Loans {
-  offers: Loan[];
-  demands: Loan[];
+export interface IPrice {
+  symbol: string;
+  price: string;
+  time: number;
+  dailyChange: string;
+  ts: number;
+}
+
+export interface IMarkPrice {
+  symbol: string;
+  markPrice: string;
+  time: number;
+}
+
+export interface IMarkPriceComponents extends Omit<IMarkPrice, "time"> {
+  ts: number;
+  components: {
+    symbol: string;
+    symbolPrice: string;
+    weight: string;
+    convertPrice: string;
+    exchange: string;
+  }[];
+}
+
+export interface IOrderBook {
+  time: number;
+  scale: string;
+  asks: string[];
+  bids: string[];
+  ts: number;
+}
+
+export type IRawCandle = [
+  low: string,
+  high: string,
+  open: string,
+  close: string,
+  amount: string,
+  quantity: string,
+  buyTakerAmount: string,
+  buyTakerQuantity: string,
+  tradeCount: number,
+  ts: number,
+  weightedAverage: string,
+  interval: ICandlesOptions["interval"],
+  startTime: number,
+  closeTime: number
+];
+
+export interface ICandle {
+  low: string;
+  high: string;
+  open: string;
+  close: string;
+  amount: string;
+  quantity: string;
+  buyTakerAmount: string;
+  buyTakerQuantity: string;
+  tradeCount: number;
+  ts: number;
+  weightedAverage: string;
+  interval: ICandlesOptions["interval"];
+  startTime: number;
+  closeTime: number;
+}
+
+export interface IPublicTrade {
+  id: string;
+  price: string;
+  quantity: string;
+  amount: string;
+  takerSide: "BUY" | "SELL";
+  ts: number;
+  createTime: number;
+}
+
+export interface ITicker {
+  symbol: string;
+  open: string;
+  low: string;
+  high: string;
+  close: string;
+  quantity: string;
+  amount: string;
+  tradeCount: number;
+  startTime: number;
+  closeTime: number;
+  displayName: string;
+  dailyChange: string;
+  ts: number;
+  markPrice: string;
+}
+
+export interface ICollateral {
+  currency: string;
+  collateralRate: string;
+  initialMarginRate: string;
+  maintenanceMarginRate: string;
+}
+
+export interface IBorrowRate {
+  tier: string;
+  rates: {
+    currency: string;
+    dailyBorrowRate: string;
+    hourlyBorrowRate: string;
+    borrowLimit: string;
+  }[];
+}
+
+export interface IPublicClientOptions {
+  url?: URL | string | undefined;
+  symbol?: string;
 }
 
 export class PublicClient extends Fetch {
-  public readonly currencyPair: string;
+  readonly #symbol: string;
 
-  public constructor({ currencyPair = DefaultPair }: CurrencyPair = {}) {
-    super({
-      headers: Headers,
-      reject: false,
-      transform: "json",
-      base_url: ApiUri,
-    });
-    this.currencyPair = currencyPair;
+  public constructor({
+    url = ApiUrl,
+    symbol = DefaultSymbol,
+  }: IPublicClientOptions = {}) {
+    super({ base_url: new URL(url), transform: "json" });
+    this.#symbol = symbol;
   }
 
-  public async get<T = unknown>(url: string): Promise<T> {
-    const response = await super.get<{ error?: string }>(url);
-    if (typeof response.error !== "undefined") {
-      throw new Error(response.error);
-    }
-    return response as T;
+  public get base_url(): URL {
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    return super.base_url!;
   }
 
-  /** Retrieves summary information for each currency pair listed on the exchange. */
-  public getTickers(): Promise<Tickers> {
-    const command = "returnTicker";
-    const url = new URL("/public", ApiUri);
-    PublicClient.addOptions(url, { command });
-    return this.get<Tickers>(url.toString());
+  public get symbol(): string {
+    return this.#symbol;
   }
 
-  /** Retrieves the 24-hour volume for all markets as well as totals for primary currencies. */
-  public getVolume(): Promise<Volumes> {
-    const command = "return24hVolume";
-    const url = new URL("/public", ApiUri);
-    PublicClient.addOptions(url, { command });
-    return this.get<Volumes>(url.toString());
+  public get<T = unknown>(
+    path = "",
+    {
+      options,
+      ...init
+    }: Exclude<IPoloniexGetOptions, { options: unknown[] }> = {}
+  ): Promise<T> {
+    const searchParams = new URLSearchParams();
+    PublicClient.setQuery(searchParams, options);
+    const url = new URL(path, this.base_url);
+    url.search = searchParams.toString();
+
+    return super.get(url.toString(), init);
   }
 
-  /** Get the order book for a given market. */
-  public getOrderBook({
-    currencyPair = this.currencyPair,
-    depth = ApiLimit,
-  }: BookFilter = {}): Promise<OrderBook> {
-    const command = "returnOrderBook";
-    const url = new URL("/public", ApiUri);
-    PublicClient.addOptions(url, { command, currencyPair, depth });
-    return this.get<OrderBook>(url.toString());
+  /** Get all symbols and their trade limit info. */
+  public getMarkets(): Promise<ISymbolInformation[]> {
+    return this.get<ISymbolInformation[]>("/markets");
   }
 
-  /** Get the past 200 trades for a given market, or up to 1,000 trades between a range `start` and `end`. */
-  public getTradeHistory({
-    currencyPair = this.currencyPair,
-    ...rest
-  }: TradesFilter = {}): Promise<Trade[]> {
-    const command = "returnTradeHistory";
-    const url = new URL("/public", ApiUri);
-    PublicClient.addOptions(url, { command, currencyPair, ...rest });
-    return this.get<Trade[]>(url.toString());
-  }
-
-  /** Get candlestick chart data. */
-  public getChartData({
-    currencyPair = this.currencyPair,
-    ...rest
-  }: ChartFilter): Promise<Candle[]> {
-    const command = "returnChartData";
-    const url = new URL("/public", ApiUri);
-    PublicClient.addOptions(url, { command, currencyPair, ...rest });
-    return this.get<Candle[]>(url.toString());
-  }
-
-  /** Get information about currencies. */
-  public getCurrencies(params: {
-    includeMultiChainCurrencies: true;
-  }): Promise<ExtendedCurrencies>;
-  public getCurrencies(params?: {
-    includeMultiChainCurrencies?: boolean;
-  }): Promise<ICurrencies>;
-  public getCurrencies({ includeMultiChainCurrencies = false } = {}): Promise<
-    ExtendedCurrencies | ICurrencies
+  /** Get a single symbol and its trade limit info. */
+  public getMarket({ symbol = this.#symbol } = {}): Promise<
+    [ISymbolInformation]
   > {
-    const command = "returnCurrencies";
-    const url = new URL("/public", ApiUri);
-    PublicClient.addOptions(url, { command, includeMultiChainCurrencies });
-    return this.get<ICurrencies>(url.toString());
+    return this.get<[ISymbolInformation]>(`/markets/${symbol}`);
   }
 
-  /**  Get the list of loan offers and demands for a given currency. */
-  public getLoanOrders(qs: CurrencyFilter): Promise<Loans> {
-    const command = "returnLoanOrders";
-    const url = new URL("/public", ApiUri);
-    PublicClient.addOptions(url, { command, ...qs });
-    return this.get<Loans>(url.toString());
+  /** Get data for a supported currency all supported currencies. */
+  public async getCurrency(query: {
+    includeMultiChainCurrencies: true;
+    currency: string;
+  }): Promise<IExtendedCurrency>;
+  public async getCurrency(query: {
+    includeMultiChainCurrencies: true;
+    currency?: undefined;
+  }): Promise<IExtendedCurrency[]>;
+  public async getCurrency(query: {
+    includeMultiChainCurrencies?: false | undefined;
+    currency: string;
+  }): Promise<ICurrency>;
+  public async getCurrency(query?: {
+    includeMultiChainCurrencies?: false | undefined;
+    currency?: string | undefined;
+  }): Promise<ICurrency[]>;
+  public async getCurrency({
+    currency,
+    ...options
+  }: {
+    includeMultiChainCurrencies?: boolean | undefined;
+    currency?: string | undefined;
+  } = {}): Promise<
+    ICurrency | ICurrency[] | IExtendedCurrency | IExtendedCurrency[]
+  > {
+    if (typeof currency === "undefined") {
+      const all = await this.get<Record<string, Omit<ICurrency, "currency">>[]>(
+        "/currencies",
+        { options }
+      );
+
+      return all.map((c) => PublicClient.#formatCurrency(c));
+    }
+
+    const info = await this.get<Record<string, Omit<ICurrency, "currency">>>(
+      `/currencies/${currency}`,
+      { options }
+    );
+
+    return PublicClient.#formatCurrency(info);
   }
 
-  protected static addOptions(
-    target: URL | URLSearchParams,
-    data: Record<string, boolean | number | string | undefined>
-  ): void {
-    const searchParams = target instanceof URL ? target.searchParams : target;
-    for (const key in data) {
-      const value = data[key];
+  /** Get current server time. */
+  public getSystemTime(): Promise<ISystemTimestamp> {
+    return this.get<ISystemTimestamp>("/timestamp");
+  }
+
+  /** Get the latest trade price for all symbols. */
+  public getPrices(): Promise<IPrice[]> {
+    return this.get<IPrice[]>("/markets/price");
+  }
+
+  /** Get the latest trade price for a symbol. */
+  public getPrice({ symbol = this.#symbol } = {}): Promise<IPrice> {
+    return this.get<IPrice>(`/markets/${symbol}/price`);
+  }
+
+  /** Get latest mark price for all cross margin symbols. */
+  public getMarkPrices(): Promise<IMarkPrice[]> {
+    return this.get<IMarkPrice[]>("/markets/markPrice");
+  }
+
+  /** Get latest mark price for a single cross margin symbol. */
+  public getMarkPrice({ symbol = this.#symbol } = {}): Promise<IMarkPrice> {
+    return this.get<IMarkPrice>(`/markets/${symbol}/markPrice`);
+  }
+
+  /** Get components of the mark price for a given symbol. */
+  public getMarkPriceComponents({
+    symbol = this.#symbol,
+  } = {}): Promise<IMarkPriceComponents> {
+    return this.get<IMarkPriceComponents>(
+      `/markets/${symbol}/markPriceComponents`
+    );
+  }
+
+  /** Get the order book for a given symbol. */
+  public getOrderBook({
+    symbol = this.#symbol,
+    ...options
+  }: IOrderBookOptions = {}): Promise<IOrderBook> {
+    return this.get<IOrderBook>(`/markets/${symbol}/orderBook`, { options });
+  }
+
+  /** Get OHLC for a symbol at given timeframe (interval). */
+  public async getCandles({
+    symbol = this.#symbol,
+    ...options
+  }: ICandlesOptions): Promise<ICandle[]> {
+    const raw = await this.get<IRawCandle[]>(`/markets/${symbol}/candles`, {
+      options,
+    });
+
+    return raw.map((candle) => PublicClient.#formatCandle(candle));
+  }
+
+  /** Get a list of recent trades. */
+  public async getPublicTrades({
+    symbol = this.#symbol,
+    ...options
+  }: IPublicTradeOptions = {}): Promise<IPublicTrade[]> {
+    return this.get<IPublicTrade[]>(`/markets/${symbol}/trades`, { options });
+  }
+
+  /** Get ticker in last 24 hours for all symbols. */
+  public getTickers(): Promise<ITicker[]> {
+    return this.get<ITicker[]>("/markets/ticker24h");
+  }
+
+  /** Get ticker in last 24 hours for a given symbol. */
+  public getTicker({ symbol = this.#symbol } = {}): Promise<ITicker> {
+    return this.get<ITicker>(`/markets/${symbol}/ticker24h`);
+  }
+
+  /** Get collateral information for all currencies or a single currency.. */
+  public getCollateral(options: { currency: string }): Promise<ICollateral>;
+  public getCollateral(options?: {
+    currency?: undefined;
+  }): Promise<ICollateral[]>;
+  public getCollateral({
+    currency,
+  }: { currency?: string | undefined } = {}): Promise<
+    ICollateral | ICollateral[]
+  > {
+    return this.get<ICollateral | ICollateral[]>(
+      typeof currency === "undefined"
+        ? "/markets/collateralInfo"
+        : `/markets/${currency}/collateralInfo`
+    );
+  }
+
+  /** Get borrow rates information for all tiers and currencies. */
+  public getBorrowRates(): Promise<IBorrowRate[]> {
+    return this.get<IBorrowRate[]>("/markets/borrowRatesInfo");
+  }
+
+  public static setQuery(query: URLSearchParams, object?: IRecordType): void {
+    for (const key in object) {
+      const value = object[key];
       if (typeof value !== "undefined") {
-        searchParams.append(key, value.toString());
+        query.set(key, value.toString());
       }
     }
+  }
+
+  static #formatCurrency(
+    currency: Record<string, Omit<ICurrency, "currency">>
+  ): ICurrency {
+    const [key] = Object.keys(currency);
+    return { ...currency[key], currency: key };
+  }
+
+  static #formatCandle([
+    low,
+    high,
+    open,
+    close,
+    amount,
+    quantity,
+    buyTakerAmount,
+    buyTakerQuantity,
+    tradeCount,
+    ts,
+    weightedAverage,
+    interval,
+    startTime,
+    closeTime,
+  ]: IRawCandle): ICandle {
+    return {
+      low,
+      high,
+      open,
+      close,
+      amount,
+      quantity,
+      buyTakerAmount,
+      buyTakerQuantity,
+      tradeCount,
+      ts,
+      weightedAverage,
+      interval,
+      startTime,
+      closeTime,
+    };
   }
 }

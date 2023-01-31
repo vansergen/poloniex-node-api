@@ -13,7 +13,7 @@ import {
   ICurrencies,
   ExtendedCurrencies,
   Loans,
-} from "../index.js";
+} from "../../src/legacy/index.js";
 
 suite("PublicClient", () => {
   const api_url = new URL(ApiUri);

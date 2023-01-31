@@ -2,13 +2,16 @@
   "name": "poloniex-node-api",
   "version": "5.0.5",
   "description": "Poloniex Node.js API",
-  "main": "dist/index.js",
+  "exports": {
+    ".": "./dist/index.js",
+    "./legacy": "./dist/src/legacy/index.js"
+  },
   "directories": {
     "test": "test"
   },
   "engines": {
-    "node": ">=16.13.0",
-    "npm": ">=8.1.0"
+    "node": ">=16.19.0",
+    "npm": ">=8.19.3"
   },
   "type": "module",
   "types": "build/index.d.ts",

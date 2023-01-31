@@ -1,683 +1,821 @@
 import {
   PublicClient,
-  CurrencyFilter,
-  TimeFilter,
-  CurrencyPair,
-  Side,
-  TradesFilter,
-  Trade,
-  BaseTrade,
+  IPublicClientOptions,
+  IPoloniexGetOptions,
+  IPoloniexFetchOptions,
+  IRecordType,
 } from "./public.js";
-import { SignRequest as signRequest } from "./signer.js";
+import { signature } from "./signature.js";
 
-export interface AccountFilter {
-  account?: string | undefined;
+type IActivityType = "deposits" | "withdrawals";
+
+export interface IActivityOptions
+  extends Record<string, Date | number | string | undefined> {
+  start: Date | number | string;
+  end: Date | number | string;
+  activityType?: IActivityType;
 }
 
-export interface HistoryTradesFilter extends TradesFilter {
-  limit?: number | undefined;
-}
-
-export interface OrderFilter {
-  orderNumber: number;
-}
-
-export interface OrderOptions extends CurrencyPair {
-  rate: number;
-  amount: number;
-  fillOrKill?: 0 | 1 | undefined;
-  immediateOrCancel?: 0 | 1 | undefined;
-  postOnly?: 0 | 1 | undefined;
-  clientOrderId?: number | undefined;
-}
-
-export type ClientOrderFilter = OrderFilter | { clientOrderId: number };
-
-export interface MoveOrderOptions extends OrderFilter {
-  rate: number;
-  amount?: number | undefined;
-  postOnly?: 0 | 1 | undefined;
-  immediateOrCancel?: 0 | 1 | undefined;
-  clientOrderId?: number | undefined;
-}
-
-export interface WithdrawOptions {
+export interface IWithdrawOptions extends IRecordType {
   currency: string;
-  amount: number;
+  amount: string;
   address: string;
-  paymentId?: number | string | undefined;
+  paymentId?: string;
+  allowBorrow?: boolean;
 }
 
-export interface TransferOptions {
+export type ISide = "BUY" | "SELL";
+export type ITimeInForce = "FOK" | "GTC" | "IOC";
+export type IOrderType = "LIMIT_MAKER" | "LIMIT" | "MARKET";
+
+export interface IOrderOptions extends IRecordType {
+  symbol: string;
+  side: ISide;
+  timeInForce?: ITimeInForce;
+  type?: IOrderType;
+  accountType?: IAccountType;
+  price?: string;
+  quantity?: string;
+  amount?: string;
+  clientOrderId?: string;
+  allowBorrow?: boolean;
+}
+
+type IDirection = "NEXT" | "PRE";
+
+export interface IReplaceOrderOptions
+  extends Omit<IOrderOptions, "accountType" | "side" | "symbol"> {
+  allowBorrow?: boolean;
+  proceedOnFailure?: boolean;
+}
+
+export interface IOpenOrdersOptions extends IRecordType {
+  symbol?: string | undefined;
+  side?: ISide | undefined;
+  from?: number | string | undefined;
+  direction?: IDirection | undefined;
+  limit?: number | string | undefined;
+}
+
+type ISmartOrderType = "STOP_LIMIT" | "STOP";
+
+export interface ISmartOrderOptions
+  extends Omit<IOrderOptions, "allowBorrow" | "type"> {
+  stopPrice: string;
+  type?: ISmartOrderType | undefined;
+}
+
+export interface IReplaceSmartOrderOptions
+  extends Omit<
+    ISmartOrderOptions,
+    "accountType" | "side" | "stopPrice" | "symbol"
+  > {
+  stopPrice?: string;
+  proceedOnFailure?: boolean;
+}
+
+type IHistoryOrderState =
+  | "CANCELED"
+  | "FAILED"
+  | "FILLED"
+  | "PARTIALLY_CANCELED";
+
+export interface IOrdersOptions extends IOpenOrdersOptions {
+  accountType?: IAccountType;
+  type?: IOrderType | IOrderType[] | undefined;
+  states?: IHistoryOrderState | IHistoryOrderState[] | undefined;
+  hideCancel?: boolean | undefined;
+  startTime?: number | undefined;
+  endTime?: number | undefined;
+}
+
+export interface ITradeOptions {
+  limit?: number | string | undefined;
+  endTime?: number | string | undefined;
+  startTime?: number | string | undefined;
+  from?: number | string | undefined;
+  direction?: IDirection;
+  symbols?: string[] | string | undefined;
+}
+
+export type IAccountType = "FUTURES" | "SPOT";
+type IAccountState = "LOCKED" | "NORMAL";
+
+export interface IAccount {
+  accountId: string;
+  accountType: IAccountType;
+  accountState: IAccountState;
+}
+
+export interface IAccountBalanceOptions extends IRecordType {
+  accountType?: IAccountType | undefined;
+  id?: string | undefined;
+}
+
+export interface IBalance {
+  currencyId: string;
   currency: string;
-  amount: number;
-  fromAccount: "exchange" | "futures" | "lending" | "margin";
-  toAccount: "exchange" | "futures" | "lending" | "margin";
-}
-
-export interface MarginOrderOptions extends CurrencyPair {
-  rate: number;
-  amount: number;
-  lendingRate?: number | undefined;
-  clientOrderId?: number | undefined;
-}
-
-export interface OfferOptions {
-  currency: string;
-  amount: number;
-  duration: number;
-  autoRenew: 0 | 1;
-  lendingRate: number;
-}
-
-export interface LendingHistoryOptions {
-  start?: number | undefined;
-  end?: number | undefined;
-  limit?: number | undefined;
-}
-
-export interface SwapCurrenciesOptions {
-  fromCurrency: string;
-  toCurrency: string;
-  amount: number;
-}
-
-export type Balances = Record<string, string>;
-
-export interface CompleteBalance {
   available: string;
-  onOrders: string;
-  btcValue: string;
+  hold: string;
 }
 
-export type CompleteBalances = Record<string, CompleteBalance>;
-
-export type Adresses = Record<string, string>;
-
-export interface NewAddress {
-  success: 0 | 1;
-  response: string;
+export interface IAccountBalance extends Omit<IAccount, "accountState"> {
+  balances: IBalance[];
 }
 
-export interface Adjustment {
+export enum AccountActivities {
+  ALL = 200,
+  AIRDROP = 201,
+  COMMISSION_REBATE = 202,
+  STAKING = 203,
+  REFERAL_REBATE = 204,
+  CREDIT_ADJUSTMENT = 104,
+  DEBIT_ADJUSTMENT = 105,
+  OTHER = 199,
+}
+
+export interface IAccountActivityOptions extends IRecordType {
+  startTime?: number | string | undefined;
+  endTime?: number | string | undefined;
+  activityType?: AccountActivities | undefined;
+  limit?: number | string | undefined;
+  from?: number | string | undefined;
+  direction?: IDirection | undefined;
+  currency?: string | undefined;
+}
+
+export interface ITransferOptions extends IRecordType {
   currency: string;
   amount: string;
-  timestamp: number;
-  status: string;
-  category: "adjustment";
-  adjustmentTitle: string;
-  adjustmentDesc: string;
-  adjustmentHelp: string;
+  fromAccount: IAccountType;
+  toAccount: IAccountType;
 }
 
-export interface Withdrawal {
-  withdrawalNumber: number;
+export type IAccountTransferOptions = Omit<
+  IAccountActivityOptions,
+  "activityType"
+>;
+
+export interface IBaseWalletActivity {
   currency: string;
   address: string;
   amount: string;
-  fee: string;
-  timestamp: number;
-  status: string;
-  ipAddress: string;
-  canCancel: 0 | 1;
-  canResendEmail: 0 | 1;
-  paymentID: string | null;
-  fiatAccountId?: string | null;
-  scope?: string | null;
-}
-
-export interface Deposit {
-  currency: string;
-  address: string;
-  amount: string;
-  confirmations: number;
   txid: string;
   timestamp: number;
-  status: "COMPLETE" | "PENDING";
+}
+
+type IDepositStatus = "COMPLETED" | "PENDING";
+
+export interface IDeposit extends IBaseWalletActivity {
   depositNumber: number;
-  category: "deposit";
-  fiatAccountId?: string | null;
-  scope?: string | null;
+  confirmations: number;
+  status: IDepositStatus;
 }
 
-export interface DepositsWithdrawals {
-  deposits: Deposit[];
-  withdrawals: Withdrawal[];
-  adjustments: Adjustment[];
-}
+type IWithdrawalStatus =
+  | "AWAITING APPROVAL"
+  | "COMPLETE ERROR"
+  | "COMPLETED"
+  | "PENDING";
 
-export interface Order {
-  type: Side;
-  orderNumber: string;
-  rate: string;
-  startingAmount: string;
-  amount: string;
-  total: string;
-  date: string;
-  margin: 0 | 1;
-  clientOrderId?: string;
-}
-
-export type Orders = Order[] | Record<string, Order[]>;
-
-export interface TradePrivate extends Trade {
+export interface IWithdrawal extends IBaseWalletActivity {
+  withdrawalRequestsId: number;
   fee: string;
-  category: "exchange" | "margin";
+  status: IWithdrawalStatus;
+  ipAddress: string;
+  paymentID: string | null;
 }
 
-export type TradesPrivate = Record<string, TradePrivate[]> | TradePrivate[];
-
-export interface OrderTrade extends BaseTrade {
-  globalTradeID: number;
-  currencyPair: string;
-  fee: string;
+export interface IActivity {
+  deposits: IDeposit[];
+  withdrawals: IWithdrawal[];
 }
 
-export interface OrderStatus {
-  result: Record<
-    string,
-    {
-      currencyPair: string;
-      rate: string;
-      amount: string;
-      total: string;
-      startingAmount: string;
-      type: "buy" | "sell";
-      status: "Open" | "Partially filled";
-      date: string;
-      fee?: string;
-    }
-  >;
-  success: 0 | 1;
+export interface IMarginInfo {
+  totalAccountValue: string;
+  totalMargin: string;
+  usedMargin: string;
+  freeMargin: string;
+  maintenanceMargin: string;
+  marginRatio: string;
+  time: number;
 }
 
-export interface ResultingTrade extends BaseTrade {
-  takerAdjustment?: string;
-}
-
-export interface OrderResult {
-  orderNumber: string;
-  resultingTrades: ResultingTrade[];
-  tokenFee: number;
-  tokenFeeCurrency: string | null;
-  fee: string;
-  currencyPair: string;
-  clientOrderId?: string;
-}
-
-export interface CancelResponse {
-  success: 0 | 1;
-  amount: string;
-  message: string;
-  fee?: string;
-  clientOrderId?: string;
-  currencyPair?: string;
-}
-
-export interface CancelAllResponse {
-  success: 0 | 1;
-  message: string;
-  orderNumbers: number[];
-}
-
-export interface MoveResponse {
-  success: 0 | 1;
-  orderNumber: string;
-  fee: string;
-  currencyPair: string;
-  resultingTrades: Record<string, ResultingTrade[]>;
-  clientOrderId?: string;
-}
-
-export interface WithdrawResponse {
-  response: string;
-  email2FA?: boolean;
-  withdrawalNumber?: number;
-}
-
-export interface FeesInfo {
-  makerFee: string;
-  takerFee: string;
-  marginMakerFee?: string;
-  marginTakerFee?: string;
-  thirtyDayVolume: string;
-  nextTier: number;
-}
-
-export interface AccountBalances {
-  exchange?: Balances | [];
-  margin?: Balances | [];
-  lending?: Balances | [];
-}
-
-export type TradableBalances = Record<string, Balances>;
-
-export interface TransferResponse {
-  success: 0 | 1;
-  message: string;
-}
-
-export interface MarginSummary {
-  totalValue: string;
-  pl: string;
-  lendingFees: string;
-  netValue: string;
-  totalBorrowedValue: string;
-  currentMargin: string;
-}
-
-export interface MarginOrderResult extends OrderResult {
-  message: string;
-}
-
-export interface MarginPosition {
-  amount: string;
-  total: string;
-  basePrice: string;
-  liquidationPrice: number;
-  pl: string;
-  lendingFees: string;
-  type: "long" | "none" | "short";
-}
-
-export type MarginPositionResult =
-  | MarginPosition
-  | Record<string, MarginPosition>;
-
-export interface ClosePositionResult {
-  success: 0 | 1;
-  message: string;
-  resultingTrades: Record<string, ResultingTrade[]>;
-}
-
-export interface OfferResult {
-  success: 0 | 1;
-  message: string;
-  orderID?: number;
-}
-
-export interface CancelLoanResponse {
-  success: 0 | 1;
-  message: string;
-  amount?: string;
-}
-
-export interface LoanOffer {
-  id: number;
-  rate: string;
-  amount: string;
-  duration: number;
-  autoRenew: 0 | 1;
-  date: string;
-}
-
-export type LoanOffers = LoanOffer[] | Record<string, LoanOffer[]>;
-
-export interface ActiveLoan {
-  id: number;
+export interface IBorrow {
   currency: string;
-  rate: string;
+  available: string;
+  borrowed: string;
+  hold: string;
+  maxAvailable: string;
+  hourlyBorrowRate: string;
+  version: string;
+}
+
+export interface IMaxSize {
+  symbol: string;
+  maxLeverage: number;
+  availableBuy: string;
+  maxAvailableBuy: string;
+  availableSell: string;
+  maxAvailableSell: string;
+}
+
+export interface IOrderId {
+  id: string;
+  clientOrderId: string;
+}
+
+export type IOrderIds = ({ clientOrderId: string } & (
+  | { code: number; message: string }
+  | { id: string }
+))[];
+
+type IOpenOrderState = "NEW" | "PARTIALLY_FILLED";
+export type IOrderState =
+  | IHistoryOrderState
+  | IOpenOrderState
+  | "PENDING_CANCEL";
+export type IOrderSource = "API" | "APP" | "SMART" | "WEB";
+
+export interface IOrder {
+  id: string;
+  clientOrderId: string;
+  symbol: string;
+  state: IOrderState;
+  accountType: IAccountType;
+  side: ISide;
+  type: IOrderType;
+  timeInForce: ITimeInForce;
+  quantity: string;
+  price: string;
+  avgPrice: string;
   amount: string;
-  range: number;
-  autoRenew?: 0 | 1;
-  date: string;
-  fees: string;
+  filledQuantity: string;
+  filledAmount: string;
+  createTime: number;
+  updateTime: number;
+  orderSource?: IOrderSource;
+  loan?: boolean;
+  cancelReason?: number;
 }
 
-export interface ActiveLoans {
-  provided: ActiveLoan[];
-  used: ActiveLoan[];
+export interface IOpenOrder extends Omit<IOrder, "cancelReason"> {
+  state: IOpenOrderState;
 }
 
-export interface LendingHistoryItem {
-  id: number;
-  currency: string;
-  rate: string;
-  amount: string;
-  duration: string;
-  interest: string;
-  fee: string;
-  earned: string;
-  open: string;
-  close: string;
+type ICanceledOrderState = "PENDING_CANCEL";
+type ISmartOrderState =
+  | ICanceledOrderState
+  | "CANCELED"
+  | "FAILED"
+  | "PENDING_NEW"
+  | "TRIGGERED";
+
+export interface ISmartOrder
+  extends Omit<
+    IOrder,
+    | "avgPrice"
+    | "cancelReason"
+    | "filledAmount"
+    | "filledQuantity"
+    | "loan"
+    | "orderSource"
+    | "state"
+    | "type"
+  > {
+  type: ISmartOrderType;
+  state: ISmartOrderState;
+  stopPrice: string;
+  triggeredOrder?: IOrder;
 }
 
-export interface AutoRenewResult {
-  success: 0 | 1;
-  message: string | 0 | 1;
-}
-
-export interface SwapResult {
-  success: boolean;
+export interface ICanceledOrder {
+  orderId: string;
+  clientOrderId: string;
+  state: ICanceledOrderState;
+  code: number;
   message: string;
 }
 
-export interface AuthenticatedClientOptions extends CurrencyPair {
+export interface IKillSwitch {
+  startTime: string;
+  cancellationTime: string;
+}
+
+export interface IOpenSmartOrder extends Omit<ISmartOrder, "triggeredOrder"> {
+  state: "PENDING_NEW";
+}
+
+type ICanceledSmartOrderState = "CANCELED";
+
+export interface ICanceledSmartOrder extends Omit<ICanceledOrder, "state"> {
+  state: ICanceledSmartOrderState;
+}
+
+export interface IHistoricalOrder extends IOrder {
+  state: IHistoryOrderState;
+}
+
+export type IMatchRole = "MAKER" | "TAKER";
+
+export interface ITrade {
+  id: string;
+  symbol: string;
+  accountType: IAccountType;
+  orderId: string;
+  side: ISide;
+  type: IOrderType;
+  matchRole: IMatchRole;
+  createTime: number;
+  price: string;
+  quantity: string;
+  amount: string;
+  feeCurrency: string;
+  feeAmount: string;
+  pageId: string;
+  clientOrderId: string;
+  loan?: boolean;
+}
+
+type IActivityState = "FAILED" | "PROCESSSING" | "SUCCESS";
+
+export interface IBaseAccountActivity {
+  id: string;
+  currency: string;
+  amount: string;
+  state: IActivityState;
+  createTime: number;
+}
+
+export interface IAccountActivity extends IBaseAccountActivity {
+  description: string;
+  activityType: AccountActivities;
+}
+
+export interface IAccountTransfer extends IBaseAccountActivity {
+  fromAccount: IAccountType;
+  toAccount: IAccountType;
+}
+
+export interface IFee {
+  trxDiscount: boolean;
+  makerRate: string;
+  takerRate: string;
+  volume30D: string;
+  specialFeeRates: { symbol: string; makerRate: string; takerRate: string }[];
+}
+
+export interface AuthenticatedClientOptions extends IPublicClientOptions {
   key: string;
   secret: string;
+  signTimestamp?: (() => string) | undefined;
 }
 
 export class AuthenticatedClient extends PublicClient {
   readonly #key: string;
   readonly #secret: string;
-  #nonce: () => number;
+  readonly #signTimestamp: () => string;
 
-  public constructor({ key, secret, ...rest }: AuthenticatedClientOptions) {
+  public constructor({
+    key,
+    secret,
+    signTimestamp = (): string => Date.now().toString(),
+    ...rest
+  }: AuthenticatedClientOptions) {
     super(rest);
     this.#key = key;
     this.#secret = secret;
-    this.#nonce = (): number => Date.now();
+    this.#signTimestamp = signTimestamp;
   }
 
-  public async post<T = unknown>(
-    url?: string,
-    { body = new URLSearchParams() }: { body?: URLSearchParams } = {}
+  public get<T = unknown>(
+    path = "",
+    init: IPoloniexGetOptions = {}
   ): Promise<T> {
-    const nonce = this.nonce();
-    body.set("nonce", `${nonce}`);
-    const { key, sign } = signRequest({
+    return this.fetch<T>(path, { ...init, method: "GET" });
+  }
+
+  public post<T = unknown>(
+    path = "",
+    init: IPoloniexFetchOptions = {}
+  ): Promise<T> {
+    return this.fetch<T>(path, { ...init, method: "POST" });
+  }
+
+  public delete<T = unknown>(
+    path = "",
+    init: IPoloniexFetchOptions = {}
+  ): Promise<T> {
+    return this.fetch<T>(path, { ...init, method: "DELETE" });
+  }
+
+  public put<T = unknown>(
+    path = "",
+    init: IPoloniexFetchOptions = {}
+  ): Promise<T> {
+    return this.fetch<T>(path, { ...init, method: "PUT" });
+  }
+
+  public async fetch<T = unknown>(
+    path = "",
+    { method = "GET", options = {}, ...init }: IPoloniexFetchOptions = {}
+  ): Promise<T> {
+    const signTimestamp = this.#signTimestamp();
+    const searchParams = new URLSearchParams();
+    const has_body = method !== "GET" && Object.keys(options).length > 0;
+
+    if (method === "GET") {
+      if (Array.isArray(options)) {
+        return Promise.reject(new TypeError("`options` shoud not be an array"));
+      }
+      PublicClient.setQuery(searchParams, options);
+    } else if (has_body) {
+      searchParams.set("requestBody", JSON.stringify(options));
+    }
+
+    searchParams.set("signTimestamp", signTimestamp);
+
+    if (method === "GET") {
+      searchParams.sort();
+    }
+
+    const { ...headers } = signature({
+      method,
+      searchParams,
+      signTimestamp,
+      path,
       key: this.#key,
       secret: this.#secret,
-      body: body.toString(),
     });
-    const data = await super.post<{
-      error?: string;
-      success?: boolean | 0 | 1;
-      result?: { error?: string };
-      message?: string;
-    }>(url, { headers: { key, sign }, body });
+    init.headers = init.headers ? { ...init.headers, ...headers } : headers;
 
-    if (typeof data.error !== "undefined") {
-      throw new Error(data.error);
-    } else if (
-      "success" in data &&
-      data.success !== true &&
-      data.success !== 1
+    const url = new URL(path, this.base_url);
+    if (method === "GET") {
+      url.search = searchParams.toString();
+    } else if (has_body) {
+      init.headers["Content-Type"] = "application/json";
+      init.body = JSON.stringify(options);
+    }
+
+    return super.fetch<T>(url.toString(), { method, ...init });
+  }
+
+  /** Get a list of all accounts. */
+  public getAccounts(): Promise<IAccount[]> {
+    return this.get<IAccount[]>("/accounts");
+  }
+
+  /** Get a list of all accounts. */
+  public getAccountBalances(options: {
+    id: string;
+  }): Promise<[IAccountBalance]>;
+  public getAccountBalances(options?: {
+    accountType?: IAccountBalanceOptions["accountType"];
+  }): Promise<IAccountBalance[]>;
+  public getAccountBalances({
+    id,
+    ...options
+  }: IAccountBalanceOptions = {}): Promise<IAccountBalance[]> {
+    if (typeof id === "string") {
+      return this.get<IAccountBalance[]>(`/accounts/${id}/balances`);
+    }
+    return this.get<IAccountBalance[]>("/accounts/balances", { options });
+  }
+
+  /** Get a list of activities such as airdrop, rebates, staking, credit/debit adjustments, and other (historical adjustments). */
+  public getAccountActivity(
+    options: IAccountActivityOptions = {}
+  ): Promise<IAccountActivity[]> {
+    return this.get<IAccountActivity[]>("/accounts/activity", { options });
+  }
+
+  /** Transfer amount of currency from an account to another account  */
+  public transfer(options: ITransferOptions): Promise<{ transferId: string }> {
+    return this.post<{ transferId: string }>("/accounts/transfer", { options });
+  }
+
+  /** Get a list of transfer records. */
+  public getAccountTransfers(
+    options: IAccountTransferOptions = {}
+  ): Promise<IAccountTransfer[]> {
+    return this.get<IAccountTransfer[]>("/accounts/transfer", { options });
+  }
+
+  /** Get fee rate. */
+  public getFeeInfo(): Promise<IFee> {
+    return this.get<IFee>("/feeinfo");
+  }
+
+  /** Get deposit addresses. */
+  public getWallets(
+    options: { currency?: string } = {}
+  ): Promise<Record<string, string>> {
+    return this.get<Record<string, string>>("/wallets/addresses", { options });
+  }
+
+  /** Get deposit and withdrawal activity history within a range window. */
+  public getWalletsActivity({
+    start,
+    end,
+    ...options
+  }: IActivityOptions): Promise<IActivity> {
+    return this.get<IActivity>("/wallets/activity", {
+      options: {
+        ...options,
+        start: start instanceof Date ? start.getTime() : start,
+        end: end instanceof Date ? end.getTime() : end,
+      },
+    });
+  }
+
+  /** Create a new address for a currency. */
+  public newAddress(options: {
+    currency: string;
+  }): Promise<{ address: string }> {
+    return this.post<{ address: string }>("/wallets/address", { options });
+  }
+
+  /** Immediately place a withdrawal for a given currency, with no email confirmation. */
+  public withdraw(
+    options: IWithdrawOptions
+  ): Promise<{ withdrawalRequestsId: number }> {
+    return this.post<{ withdrawalRequestsId: number }>("/wallets/withdraw", {
+      options,
+    });
+  }
+
+  /** Get account margin information. */
+  public getMargin({
+    accountType = "SPOT",
+  }: { accountType?: IAccountType } = {}): Promise<IMarginInfo> {
+    return this.get<IMarginInfo>("/margin/accountMargin", {
+      options: { accountType },
+    });
+  }
+
+  /** Get borrow status of currencies. */
+  public getBorrowStatus(
+    options: { currency?: string } = {}
+  ): Promise<IBorrow> {
+    return this.get<IBorrow>("/margin/borrowStatus", { options });
+  }
+
+  /** Get maximum and available buy/sell amount for a given symbol. */
+  public getMaxSize({ symbol = this.symbol } = {}): Promise<IMaxSize> {
+    return this.get<IMaxSize>("/margin/maxSize", { options: { symbol } });
+  }
+
+  /** Create an order. */
+  public createOrder(options: IOrderOptions): Promise<IOrderId> {
+    return this.post<IOrderId>("/orders", { options });
+  }
+
+  /** Create multiple orders via a single request. */
+  public createOrders(options: IOrderOptions[]): Promise<IOrderIds> {
+    if (!options.length) {
+      return Promise.reject(new TypeError("Empty arrays are not allowed"));
+    }
+    return this.post<IOrderIds>("/orders/batch", { options });
+  }
+
+  /** Cancel an existing active order, new or partially filled, and place a new order on the same symbol with details from existing order unless amended by new parameters. */
+  public replaceOrder(
+    id: { clientOrderId: string } | { id: string },
+    options?: IReplaceOrderOptions
+  ): Promise<IOrderId>;
+  public replaceOrder(
+    { id, clientOrderId }: Partial<IOrderId>,
+    options: IReplaceOrderOptions = {}
+  ): Promise<IOrderId> {
+    return typeof id !== "string" && typeof clientOrderId !== "string"
+      ? Promise.reject(
+          new TypeError("Either `id` or `clientOrderId` is missing")
+        )
+      : this.put<IOrderId>(
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+          `/orders/${typeof id === "string" ? id : `cid:${clientOrderId!}`}`,
+          { options }
+        );
+  }
+
+  /** Get a list of active orders. */
+  public getOpenOrders(
+    options: IOpenOrdersOptions = {}
+  ): Promise<IOpenOrder[]> {
+    return this.get<IOpenOrder[]>("/orders", { options });
+  }
+
+  /** Get an order’s status. */
+  public getOrder(
+    options: { clientOrderId: string } | { id: string }
+  ): Promise<IOrder>;
+  public getOrder({ id, clientOrderId }: Partial<IOrderId>): Promise<IOrder> {
+    return typeof id !== "string" && typeof clientOrderId !== "string"
+      ? Promise.reject(
+          new TypeError("Either `id` or `clientOrderId` is missing")
+        )
+      : this.get<IOrder>(
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+          `/orders/${typeof id === "string" ? id : `cid:${clientOrderId!}`}`
+        );
+  }
+
+  /** Cancel an active order. */
+  public cancelOrder(
+    options: { clientOrderId: string } | { id: string }
+  ): Promise<ICanceledOrder>;
+  public cancelOrder({
+    id,
+    clientOrderId,
+  }: Partial<IOrderId>): Promise<ICanceledOrder> {
+    return typeof id !== "string" && typeof clientOrderId !== "string"
+      ? Promise.reject(
+          new TypeError("Either `id` or `clientOrderId` is missing")
+        )
+      : this.delete<ICanceledOrder>(
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+          `/orders/${typeof id === "string" ? id : `cid:${clientOrderId!}`}`
+        );
+  }
+
+  /** Batch cancel one or many active orders. */
+  public cancelOrders(
+    orders: ({ clientOrderId: string } | { id: string })[]
+  ): Promise<ICanceledOrder[]> {
+    const options = orders.reduce(
+      (previousValue, currentValue) => {
+        if ("id" in currentValue) {
+          previousValue.orderIds.push(currentValue.id);
+        } else if ("clientOrderId" in currentValue) {
+          previousValue.clientOrderIds.push(currentValue.clientOrderId);
+        }
+        return previousValue;
+      },
+      { orderIds: [] as string[], clientOrderIds: [] as string[] }
+    );
+
+    if (!options.orderIds.length && !options.clientOrderIds.length) {
+      return Promise.reject(new TypeError("No orders to cancel"));
+    }
+
+    return this.delete<ICanceledOrder[]>("/orders/cancelByIds", { options });
+  }
+
+  /** Batch cancel all orders. */
+  public cancelAllOrders(
+    options: { symbols?: string[]; accountTypes?: IAccountType[] } = {}
+  ): Promise<ICanceledOrder[]> {
+    return this.delete<ICanceledOrder[]>("/orders", { options });
+  }
+
+  public killSwitch(options: {
+    timeout: number | string;
+  }): Promise<IKillSwitch> {
+    const timeout = Number(options.timeout);
+    if (
+      timeout !== -1 &&
+      (!Number.isInteger(timeout) || timeout < 10 || timeout > 600)
     ) {
-      throw new Error(data.result?.error ?? data.message);
+      return Promise.reject(new TypeError("Invalid timeout value"));
+    }
+    return this.post<IKillSwitch>("/orders/killSwitch", {
+      options: { timeout: `${timeout}` },
+    });
+  }
+
+  /** Get status of kill switch. */
+  public getKillSwitch(): Promise<IKillSwitch> {
+    return this.get<IKillSwitch>("/orders/killSwitchStatus");
+  }
+
+  /** Create a smart order. */
+  public createSmartOrder(options: ISmartOrderOptions): Promise<IOrderId> {
+    return this.post<IOrderId>("/smartorders", { options });
+  }
+
+  /** Cancel an existing untriggered smart order and place a new smart order on the same symbol with details from existing smart order unless amended by new parameters. */
+  public replaceSmartOrder(
+    id: { clientOrderId: string } | { id: string },
+    options: IReplaceSmartOrderOptions
+  ): Promise<IOrderId>;
+  public replaceSmartOrder(
+    { id, clientOrderId }: Partial<IOrderId>,
+    options: IReplaceSmartOrderOptions
+  ): Promise<IOrderId> {
+    return typeof id !== "string" && typeof clientOrderId !== "string"
+      ? Promise.reject(
+          new TypeError("Either `id` or `clientOrderId` is missing")
+        )
+      : this.put<IOrderId>(
+          `/smartorders/${
+            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+            typeof id === "string" ? id : `cid:${clientOrderId!}`
+          }`,
+          { options }
+        );
+  }
+
+  /** Get a list of (pending) smart orders. */
+  public getOpenSmartOrders(
+    options: { limit?: number } = {}
+  ): Promise<IOpenSmartOrder[]> {
+    return this.get<IOpenSmartOrder[]>("/smartorders", { options });
+  }
+
+  /** Get a smart order’s status. */
+  public getSmartOrder(
+    options: { clientOrderId: string } | { id: string }
+  ): Promise<ISmartOrder | null>;
+  public async getSmartOrder({
+    id,
+    clientOrderId,
+  }: Partial<IOrderId>): Promise<ISmartOrder | null> {
+    if (typeof id !== "string" && typeof clientOrderId !== "string") {
+      throw new TypeError("Either `id` or `clientOrderId` is missing");
     }
 
-    return data as T;
+    const [order] = await this.get<[ISmartOrder | undefined]>(
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      `/smartorders/${typeof id === "string" ? id : `cid:${clientOrderId!}`}`
+    );
+
+    return order ?? null;
   }
 
-  /** Get all of your balances available for trade after having deducted all open orders. */
-  public getBalances(): Promise<Balances> {
-    const command = "returnBalances";
-    const body = new URLSearchParams({ command });
-    return this.post<Balances>("/tradingApi", { body });
+  /** Cancel an active smart order. */
+  public cancelSmartOrder(
+    options: { clientOrderId: string } | { id: string }
+  ): Promise<ICanceledSmartOrder>;
+  public cancelSmartOrder({
+    id,
+    clientOrderId,
+  }: Partial<IOrderId>): Promise<ICanceledSmartOrder> {
+    return typeof id !== "string" && typeof clientOrderId !== "string"
+      ? Promise.reject(
+          new TypeError("Either `id` or `clientOrderId` is missing")
+        )
+      : this.delete<ICanceledSmartOrder>(
+          `/smartorders/${
+            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+            typeof id === "string" ? id : `cid:${clientOrderId!}`
+          }`
+        );
   }
 
-  /** Get all of your balances, including available balance, balance on orders, and the estimated BTC value of your balance. */
-  public getCompleteBalances(
-    form: AccountFilter = {}
-  ): Promise<CompleteBalances> {
-    const command = "returnCompleteBalances";
-    const body = new URLSearchParams({ command });
-    PublicClient.addOptions(body, { ...form });
-    return this.post<CompleteBalances>("/tradingApi", { body });
-  }
+  /** Batch cancel one or many active smart orders. */
+  public cancelSmartOrders(
+    orders: ({ clientOrderId: string } | { id: string })[]
+  ): Promise<ICanceledSmartOrder[]> {
+    const options = orders.reduce(
+      (previousValue, currentValue) => {
+        if ("id" in currentValue) {
+          previousValue.orderIds.push(currentValue.id);
+        } else if ("clientOrderId" in currentValue) {
+          previousValue.clientOrderIds.push(currentValue.clientOrderId);
+        }
+        return previousValue;
+      },
+      { orderIds: [] as string[], clientOrderIds: [] as string[] }
+    );
 
-  /** Get all of your deposit addresses. */
-  public getDepositAddresses(): Promise<Adresses> {
-    const command = "returnDepositAddresses";
-    const body = new URLSearchParams({ command });
-    return this.post<Adresses>("/tradingApi", { body });
-  }
-
-  /** Generate a new deposit address. */
-  public getNewAddress(form: CurrencyFilter): Promise<NewAddress> {
-    const command = "generateNewAddress";
-    const body = new URLSearchParams({ command });
-    PublicClient.addOptions(body, { ...form });
-    return this.post<NewAddress>("/tradingApi", { body });
-  }
-
-  /** Get your adjustment, deposit, and withdrawal history within a range window. */
-  public getDepositsWithdrawals(
-    form: TimeFilter
-  ): Promise<DepositsWithdrawals> {
-    const command = "returnDepositsWithdrawals";
-    const body = new URLSearchParams({ command });
-    PublicClient.addOptions(body, { ...form });
-    return this.post<DepositsWithdrawals>("/tradingApi", { body });
-  }
-
-  /** Get your open orders for a given market. */
-  public getOpenOrders({
-    currencyPair = this.currencyPair,
-  }: CurrencyPair = {}): Promise<Orders> {
-    const command = "returnOpenOrders";
-    const body = new URLSearchParams({ command, currencyPair });
-    return this.post<Orders>("/tradingApi", { body });
-  }
-
-  /** Get your trade history for a given market. */
-  public getHistoryTrades({
-    currencyPair = this.currencyPair,
-    ...form
-  }: HistoryTradesFilter = {}): Promise<TradesPrivate> {
-    const command = "returnTradeHistory";
-    const body = new URLSearchParams({ command, currencyPair });
-    PublicClient.addOptions(body, { ...form });
-    return this.post<TradesPrivate>("/tradingApi", { body });
-  }
-
-  /** Get all trades involving a given order. */
-  public getOrderTrades(form: OrderFilter): Promise<OrderTrade[]> {
-    const command = "returnOrderTrades";
-    const body = new URLSearchParams({ command });
-    PublicClient.addOptions(body, { ...form });
-    return this.post<OrderTrade[]>("/tradingApi", { body });
-  }
-
-  /** Get the status of a given order. */
-  public getOrderStatus(form: OrderFilter): Promise<OrderStatus> {
-    const command = "returnOrderStatus";
-    const body = new URLSearchParams({ command });
-    PublicClient.addOptions(body, { ...form });
-    return this.post<OrderStatus>("/tradingApi", { body });
-  }
-
-  /** Places a limit buy order. */
-  public buy({
-    currencyPair = this.currencyPair,
-    ...form
-  }: OrderOptions): Promise<OrderResult> {
-    const command = "buy";
-    const body = new URLSearchParams({ command, currencyPair });
-    PublicClient.addOptions(body, { ...form });
-    return this.post<OrderResult>("/tradingApi", { body });
-  }
-
-  /** Places a limit sell order. */
-  public sell({
-    currencyPair = this.currencyPair,
-    ...form
-  }: OrderOptions): Promise<OrderResult> {
-    const command = "sell";
-    const body = new URLSearchParams({ command, currencyPair });
-    PublicClient.addOptions(body, { ...form });
-    return this.post<OrderResult>("/tradingApi", { body });
-  }
-
-  /** Cancel an order you have placed in a given market. */
-  public cancelOrder(form: ClientOrderFilter): Promise<CancelResponse> {
-    const command = "cancelOrder";
-    const body = new URLSearchParams({ command });
-    if ("clientOrderId" in form) {
-      const { clientOrderId } = form;
-      PublicClient.addOptions(body, { clientOrderId });
-    } else {
-      const { orderNumber } = form;
-      PublicClient.addOptions(body, { orderNumber });
+    if (!options.orderIds.length && !options.clientOrderIds.length) {
+      return Promise.reject(new TypeError("No smart orders to cancel"));
     }
-    return this.post<CancelResponse>("/tradingApi", { body });
+    return this.delete<ICanceledSmartOrder[]>("/smartorders/cancelByIds", {
+      options,
+    });
   }
 
-  /** Cancel all open orders in a given market or, if no market is provided, all open orders in all markets. */
-  public cancelAllOrders(form: CurrencyPair = {}): Promise<CancelAllResponse> {
-    const command = "cancelAllOrders";
-    const body = new URLSearchParams({ command });
-    PublicClient.addOptions(body, { ...form });
-    return this.post<CancelAllResponse>("/tradingApi", { body });
+  /** Batch cancel all orders. */
+  public cancelAllSmartOrders(
+    options: { symbols?: string[]; accountTypes?: IAccountType[] } = {}
+  ): Promise<ICanceledSmartOrder[]> {
+    return this.delete<ICanceledSmartOrder[]>("/smartorders", { options });
   }
 
-  /** Cancels an order and places a new one of the same type in a single atomic transaction. */
-  public moveOrder(form: MoveOrderOptions): Promise<MoveResponse> {
-    const command = "moveOrder";
-    const body = new URLSearchParams({ command });
-    PublicClient.addOptions(body, { ...form });
-    return this.post<MoveResponse>("/tradingApi", { body });
+  /** Get a list of historical orders. */
+  public getOrders({ ...options }: IOrdersOptions = {}): Promise<
+    IHistoricalOrder[]
+  > {
+    if (Array.isArray(options.states)) {
+      options.states = options.states.join(",") as IHistoryOrderState;
+    }
+    if (Array.isArray(options.type)) {
+      options.type = options.type.join(",") as IOrderType;
+    }
+    return this.get<IHistoricalOrder[]>("/orders/history", { options });
   }
 
-  /** Immediately place a withdrawal for a given currency. */
-  public withdraw(form: WithdrawOptions): Promise<WithdrawResponse> {
-    const command = "withdraw";
-    const body = new URLSearchParams({ command });
-    PublicClient.addOptions(body, { ...form });
-    return this.post<WithdrawResponse>("/tradingApi", { body });
+  /** Get a list of all trades. */
+  public getTrades({ ...options }: ITradeOptions = {}): Promise<ITrade[]> {
+    if (Array.isArray(options.symbols)) {
+      options.symbols = options.symbols.join(",");
+    }
+    return this.get<ITrade[]>("/trades", { options });
   }
 
-  /** Get your current trading fees and trailing 30-day volume in BTC. */
-  public getFeeInfo(): Promise<FeesInfo> {
-    const command = "returnFeeInfo";
-    const body = new URLSearchParams({ command });
-    return this.post<FeesInfo>("/tradingApi", { body });
-  }
-
-  /** Get your balances sorted by account. */
-  public getAccountBalances(
-    form: AccountFilter = {}
-  ): Promise<AccountBalances> {
-    const command = "returnAvailableAccountBalances";
-    const body = new URLSearchParams({ command });
-    PublicClient.addOptions(body, { ...form });
-    return this.post<AccountBalances>("/tradingApi", { body });
-  }
-
-  /** Get your current tradable balances for each currency in each market for which margin trading is enabled. */
-  public getTradableBalances(): Promise<TradableBalances> {
-    const command = "returnTradableBalances";
-    const body = new URLSearchParams({ command });
-    return this.post<TradableBalances>("/tradingApi", { body });
-  }
-
-  /** Transfer funds from one account to another. */
-  public transferBalance(form: TransferOptions): Promise<TransferResponse> {
-    const command = "transferBalance";
-    const body = new URLSearchParams({ command });
-    PublicClient.addOptions(body, { ...form });
-    return this.post<TransferResponse>("/tradingApi", { body });
-  }
-
-  /** Get a summary of your entire margin account. */
-  public getMarginSummary(): Promise<MarginSummary> {
-    const command = "returnMarginAccountSummary";
-    const body = new URLSearchParams({ command });
-    return this.post<MarginSummary>("/tradingApi", { body });
-  }
-
-  /** Place a margin buy order in a given market. */
-  public marginBuy({
-    currencyPair = this.currencyPair,
-    ...form
-  }: MarginOrderOptions): Promise<MarginOrderResult> {
-    const command = "marginBuy";
-    const body = new URLSearchParams({ command, currencyPair });
-    PublicClient.addOptions(body, { ...form });
-    return this.post<MarginOrderResult>("/tradingApi", { body });
-  }
-
-  /** Place a margin sell order in a given market. */
-  public marginSell({
-    currencyPair = this.currencyPair,
-    ...form
-  }: MarginOrderOptions): Promise<MarginOrderResult> {
-    const command = "marginSell";
-    const body = new URLSearchParams({ command, currencyPair });
-    PublicClient.addOptions(body, { ...form });
-    return this.post<MarginOrderResult>("/tradingApi", { body });
-  }
-
-  /** Get information about your margin position in a given market. */
-  public getMarginPosition({
-    currencyPair = this.currencyPair,
-  }: CurrencyPair = {}): Promise<MarginPositionResult> {
-    const command = "getMarginPosition";
-    const body = new URLSearchParams({ command, currencyPair });
-    return this.post<MarginPositionResult>("/tradingApi", { body });
-  }
-
-  /** Close your margin position in a given market using a market order. */
-  public closeMarginPosition({
-    currencyPair = this.currencyPair,
-  }: CurrencyPair = {}): Promise<ClosePositionResult> {
-    const command = "closeMarginPosition";
-    const body = new URLSearchParams({ command, currencyPair });
-    return this.post<ClosePositionResult>("/tradingApi", { body });
-  }
-
-  /** Create a loan offer for a given currency. */
-  public createLoanOffer(form: OfferOptions): Promise<OfferResult> {
-    const command = "createLoanOffer";
-    const body = new URLSearchParams({ command });
-    PublicClient.addOptions(body, { ...form });
-    return this.post<OfferResult>("/tradingApi", { body });
-  }
-
-  /** Cancel a loan offer. */
-  public cancelLoanOffer(form: OrderFilter): Promise<CancelLoanResponse> {
-    const command = "cancelLoanOffer";
-    const body = new URLSearchParams({ command });
-    PublicClient.addOptions(body, { ...form });
-    return this.post<CancelLoanResponse>("/tradingApi", { body });
-  }
-
-  /** Get your open loan offers for each currency. */
-  public getOpenLoanOffers(): Promise<LoanOffers> {
-    const command = "returnOpenLoanOffers";
-    const body = new URLSearchParams({ command });
-    return this.post<LoanOffers>("/tradingApi", { body });
-  }
-
-  /** Get your active loans for each currency. */
-  public getActiveLoans(): Promise<ActiveLoans> {
-    const command = "returnActiveLoans";
-    const body = new URLSearchParams({ command });
-    return this.post<ActiveLoans>("/tradingApi", { body });
-  }
-
-  /** Get your lending history. */
-  public getLendingHistory(
-    form: LendingHistoryOptions = {}
-  ): Promise<LendingHistoryItem[]> {
-    const command = "returnLendingHistory";
-    const body = new URLSearchParams({ command });
-    PublicClient.addOptions(body, { ...form });
-    return this.post<LendingHistoryItem[]>("/tradingApi", { body });
-  }
-
-  /** Toggle the autoRenew setting on an active loan. */
-  public toggleAutoRenew(form: OrderFilter): Promise<AutoRenewResult> {
-    const command = "toggleAutoRenew";
-    const body = new URLSearchParams({ command });
-    PublicClient.addOptions(body, { ...form });
-    return this.post<AutoRenewResult>("/tradingApi", { body });
-  }
-
-  /** Swap `fromCurrency` to `toCurrency` if the currency pair is available. */
-  public swapCurrencies(form: SwapCurrenciesOptions): Promise<SwapResult> {
-    const command = "swapCurrencies";
-    const body = new URLSearchParams({ command });
-    PublicClient.addOptions(body, { ...form });
-    return this.post<SwapResult>("/tradingApi", { body });
-  }
-
-  public get nonce(): () => number {
-    return this.#nonce;
-  }
-
-  public set nonce(nonce: () => number) {
-    this.#nonce = nonce;
+  /** Get a list of all trades for an order specified by its orderId. */
+  public getOrderTrades({ id }: { id: string }): Promise<ITrade[]> {
+    return this.get<ITrade[]>(`/orders/${id}/trades`);
   }
 }
