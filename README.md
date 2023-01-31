@@ -154,6 +154,429 @@ const symbol = "ETH_BTC";
 const ticker = await client.getTicker({ symbol });
 ```
 
+### [AuthenticatedClient](https://docs.poloniex.com/#authenticated-endpoints)
+
+```typescript
+import { AuthenticatedClient } from "poloniex-node-api";
+const key = "poloniex-api-key";
+const secret = "poloniex-api-secret";
+const client = new AuthenticatedClient({ key, secret });
+```
+
+#### [Accounts](https://docs.poloniex.com/#authenticated-endpoints-accounts)
+
+- [`getAccounts`](https://docs.poloniex.com/#authenticated-endpoints-accounts-account-information)
+
+```typescript
+const accounts = await client.getAccounts();
+```
+
+- [`getAccountBalances`](https://docs.poloniex.com/#authenticated-endpoints-accounts-all-account-balances)
+
+```typescript
+const balances = await client.getAccountBalances();
+```
+
+- [`getAccountActivity`](https://docs.poloniex.com/#authenticated-endpoints-accounts-account-activity)
+
+```typescript
+const activity = await client.getAccountActivity();
+```
+
+- [`transfer`](https://docs.poloniex.com/#authenticated-endpoints-accounts-accounts-transfer)
+
+```typescript
+const currency = "USDT";
+const amount = "10.5";
+const fromAccount = "SPOT";
+const toAccount = "FUTURES";
+const { transferId } = await client.transfer({
+  currency,
+  amout,
+  fromAccount,
+  toAccount,
+});
+```
+
+- [`getAccountTransfers`](https://docs.poloniex.com/#authenticated-endpoints-accounts-accounts-transfer-records)
+
+```typescript
+const transfers = await client.getAccountTransfers();
+```
+
+- [`getFeeInfo`](https://docs.poloniex.com/#authenticated-endpoints-accounts-fee-info)
+
+```typescript
+const fee_info = await client.getFeeInfo();
+```
+
+#### [Wallets](https://docs.poloniex.com/#authenticated-endpoints-wallets)
+
+- [`getWallets`](https://docs.poloniex.com/#authenticated-endpoints-wallets-deposit-addresses)
+
+```typescript
+const wallets = await client.getWallets();
+```
+
+- [`getWalletsActivity`](https://docs.poloniex.com/#authenticated-endpoints-wallets-wallets-activity-records)
+
+```typescript
+const { deposits, withdrawals } = await client.getWalletsActivity();
+```
+
+- [`newAddress`](https://docs.poloniex.com/#authenticated-endpoints-wallets-new-currency-address)
+
+```typescript
+const { address } = await client.newAddress();
+```
+
+- [`withdraw`](https://docs.poloniex.com/#authenticated-endpoints-wallets-withdraw-currency)
+
+```typescript
+const { withdrawalRequestsId } = await client.withdraw();
+```
+
+#### [Margin](https://docs.poloniex.com/#authenticated-endpoints-margin)
+
+- [`getMargin`](https://docs.poloniex.com/#authenticated-endpoints-margin-account-margin)
+
+```typescript
+const info = await client.getMargin();
+```
+
+- [`getBorrowStatus`](https://docs.poloniex.com/#authenticated-endpoints-margin-borrow-status)
+
+```typescript
+const status = await client.getBorrowStatus();
+```
+
+- [`getMaxSize`](https://docs.poloniex.com/#authenticated-endpoints-margin-maximum-buy-sell-amount)
+
+```typescript
+const size = await client.getMaxSize();
+```
+
+#### [Orders](https://docs.poloniex.com/#authenticated-endpoints-orders)
+
+- [`createOrder`](https://docs.poloniex.com/#authenticated-endpoints-orders-create-order)
+
+```typescript
+const symbol = "BTC_USDT";
+const type = "LIMIT";
+const quantity = "100";
+const side = "BUY";
+const price = "40000.50000";
+const timeInForce = "IOC";
+const clientOrderId = "1234Abc";
+const { id, clientOrderId } = await client.createOrder({
+  symbol,
+  type,
+  quantity,
+  side,
+  price,
+  timeInForce,
+  clientOrderId,
+});
+```
+
+or
+
+```typescript
+const symbol = "BTC_USDT";
+const quantity = "100";
+const side = "BUY";
+const { id } = await client.createOrder({ symbol, quantity, side });
+```
+
+- [`createOrders`](https://docs.poloniex.com/#authenticated-endpoints-orders-create-multiple-orders)
+
+```typescript
+const orders = [
+  { symbol: "BTC_USDT", amount: "100", side: "BUY" },
+  {
+    symbol: "BTC_USDT",
+    type: "LIMIT",
+    quantity: "100",
+    side: "BUY",
+    price: "40000.50000",
+    timeInForce: "IOC",
+    clientOrderId: "1234Abc",
+  },
+  { symbol: "ETH_USDT", amount: "1000", side: "BUY" },
+  {
+    symbol: "TRX_USDT",
+    type: "LIMIT",
+    quantity: "15000",
+    side: "SELL",
+    price: "0.0623423423",
+    timeInForce: "IOC",
+    clientOrderId: "456Xyz",
+  },
+];
+const response = await client.createOrders(orders);
+```
+
+- [`replaceOrder`](https://docs.poloniex.com/#authenticated-endpoints-orders-cancel-replace-order
+
+```typescript
+const id = "234235233423";
+const price = "18000";
+const clientOrderId = "1234";
+const response = await client.replaceOrder({ id }, { price, clientOrderId });
+```
+
+or
+
+```typescript
+const clientOrderId = "1234Abc";
+const price = "18000";
+const quantity = "20";
+const response = await client.replaceOrder(
+  { clientOrderId },
+  { price, quantity }
+);
+```
+
+- [`getOpenOrders`](https://docs.poloniex.com/#authenticated-endpoints-orders-open-orders)
+
+```typescript
+const symbol = "ELON_USDC";
+const side = "SELL";
+const direction = "PRE";
+const limit = 10;
+const orders = await client.getOpenOrders({ symbol, side, direction, limit });
+```
+
+or
+
+```typescript
+const orders = await client.getOpenOrders();
+```
+
+- [`getOrder`](https://docs.poloniex.com/#authenticated-endpoints-orders-order-details)
+
+```typescript
+const id = "21934611974062080";
+const order = await client.getOrder({ id });
+```
+
+or by `clientOrderId`
+
+```typescript
+const clientOrderId = "123";
+const order = await client.getOrder({ clientOrderId });
+```
+
+- [`cancelOrder`](https://docs.poloniex.com/#authenticated-endpoints-orders-cancel-order-by-id)
+
+```typescript
+const id = "21934611974062080";
+const order = await client.cancelOrder({ id });
+```
+
+or by `clientOrderId`
+
+```typescript
+const clientOrderId = "123";
+const order = await client.cancelOrder({ clientOrderId });
+```
+
+- [`cancelOrders`](https://docs.poloniex.com/#authenticated-endpoints-orders-cancel-multiple-orders-by-ids)
+
+```typescript
+const orders = [{ id: "12345" }, { clientOrderId: "myId-1" }];
+const results = await client.cancelOrders(orders);
+```
+
+- [`cancelAllOrders`](https://docs.poloniex.com/#authenticated-endpoints-orders-cancel-all-orders)
+
+```typescript
+const symbols = ["BTC_USDT", "ETH_USDT"];
+const accountTypes = ["SPOT"];
+const results = await client.cancelAllOrders({ symbols, accountTypes });
+```
+
+or (to cancel all orders)
+
+```typescript
+const results = await client.cancelAllOrders();
+```
+
+- [`killSwitch`](https://docs.poloniex.com/#authenticated-endpoints-orders-kill-switch)
+
+```typescript
+const timeout = 60;
+const status = await client.killSwitch({ timeout });
+```
+
+- [`getKillSwitch`](https://docs.poloniex.com/#authenticated-endpoints-orders-kill-switch-status)
+
+```typescript
+const status = await client.getKillSwitch();
+```
+
+#### [Smart Orders](https://docs.poloniex.com/#authenticated-endpoints-smart-orders)
+
+- [`createSmartOrder`](https://docs.poloniex.com/#authenticated-endpoints-smart-orders-create-order)
+
+```typescript
+const symbol = "BTC_USDT";
+const side = "BUY";
+const type = "STOP_LIMIT";
+const quantity = "100";
+const price = "60100.00";
+const timeInForce = "FOK";
+const stopPrice = "60000.00";
+const clientOrderId = "999999910";
+const { id, clientOrderId } = await client.createSmartOrder({
+  symbol,
+  side,
+  type,
+  quantity,
+  price,
+  timeInForce,
+  stopPrice,
+  clientOrderId,
+});
+```
+
+- [`replaceSmartOrder`](https://docs.poloniex.com/#authenticated-endpoints-smart-orders-cancel-replace-order
+
+```typescript
+const id = "234235233423";
+const stopPrice = "18000";
+const clientOrderId = "1234Abc";
+const response = await client.replaceOrder(
+  { id },
+  { stopPrice, clientOrderId }
+);
+```
+
+or by `clientOrderId`
+
+```typescript
+const clientOrderId = "1234Abc";
+const price = "18000";
+const quantity = "20";
+const response = await client.replaceOrder(
+  { clientOrderId },
+  { stopPrice, quantity }
+);
+```
+
+- [`getOpenSmartOrders`](https://docs.poloniex.com/#authenticated-endpoints-smart-orders-open-orders)
+
+```typescript
+const limit = 10;
+const orders = await client.getOpenSmartOrders({ limit });
+```
+
+or
+
+```typescript
+const orders = await client.getOpenSmartOrders();
+```
+
+- [`getSmartOrder`](https://docs.poloniex.com/#authenticated-endpoints-smart-orders-cancel-order-by-id)
+
+```typescript
+const id = "14368195657859072";
+const order = await client.getSmartOrder({ id });
+```
+
+or by `clientOrderId`
+
+```typescript
+const clientOrderId = "18113";
+const order = await client.getSmartOrder({ clientOrderId });
+```
+
+- [`cancelSmartOrder`](https://docs.poloniex.com/#authenticated-endpoints-smart-orders-cancel-order-by-id)
+
+```typescript
+const id = "9876543";
+const order = await client.cancelSmartOrder({ id });
+```
+
+or by `clientOrderId`
+
+```typescript
+const clientOrderId = "88888";
+const order = await client.cancelSmartOrder({ clientOrderId });
+```
+
+- [`cancelSmartOrders`](https://docs.poloniex.com/#authenticated-endpoints-smart-orders-cancel-multiple-orders-by-id)
+
+```typescript
+const orders = [{ id: "12345" }, { clientOrderId: "myId-1" }];
+const results = await client.cancelSmartOrders(orders);
+```
+
+- [`cancelAllSmartOrders`](https://docs.poloniex.com/#authenticated-endpoints-smart-orders-cancel-all-orders)
+
+```typescript
+const symbols = ["BTC_USDT", "ETH_USDT"];
+const accountTypes = ["SPOT"];
+const results = await client.cancelAllSmartOrders({ symbols, accountTypes });
+```
+
+or (to cancel all orders)
+
+```typescript
+const results = await client.cancelAllSmartOrders();
+```
+
+#### [Order history](https://docs.poloniex.com/#authenticated-endpoints-order-history)
+
+- [`getOrders`](https://docs.poloniex.com/#authenticated-endpoints-order-history-orders-history)
+
+```typescript
+const type = ["MARKET", "LIMIT"];
+const side = "BUY";
+const symbol = "TRX_USDC";
+const states = ["FILLED", "PARTIALLY_CANCELED"];
+const limit = 10;
+const hideCancel = true;
+const startTime = 1649106321040;
+const endTime = 1649427963598;
+const orders = await client.getOrders({
+  type,
+  side,
+  symbol,
+  states,
+  limit,
+  hideCancel,
+  startTime,
+  endTime,
+});
+```
+
+#### [Trades](https://docs.poloniex.com/#authenticated-endpoints-trades)
+
+- [`getTrades`](https://docs.poloniex.com/#authenticated-endpoints-trades-trade-history)
+
+```typescript
+const limit = 10;
+const endTime = 1648635115535;
+const startTime = endTime - 1000 * 60 * 60;
+const direction = "PRE";
+const symbols = ["BTC_USDT", "ETH_USDT"];
+const trades = await client.getTrades({
+  limit,
+  startTime,
+  endTime,
+  direction,
+  symbols,
+});
+```
+
+- [`getOrderTrades`](https://docs.poloniex.com/#authenticated-endpoints-trades-trades-by-order-id)
+
+```typescript
+const id = "30249408733945856";
+const trades = await client.getOrderTrades({ id });
+```
+
 ### Test
 
 ```bash
