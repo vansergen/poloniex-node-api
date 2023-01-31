@@ -13,7 +13,7 @@ npm install poloniex-node-api
 ### [PublicClient](https://docs.legacy.poloniex.com/#public-http-api-methods)
 
 ```typescript
-import { PublicClient } from "poloniex-node-api";
+import { PublicClient } from "poloniex-node-api/legacy";
 const client = new PublicClient();
 ```
 
@@ -73,7 +73,7 @@ const loans = await client.getLoanOrders({ currency });
 ### [AuthenticatedClient](https://docs.legacy.poloniex.com/#private-http-api-methods)
 
 ```typescript
-import { AuthenticatedClient } from "poloniex-node-api";
+import { AuthenticatedClient } from "poloniex-node-api/legacy";
 const key = "poloniexapikey";
 const secret = "poloniexapisecret";
 const client = new AuthenticatedClient({ key, secret });
@@ -370,7 +370,7 @@ const result = await client.swapCurrencies({
 ### [WebsocketClient](https://docs.legacy.poloniex.com/#websocket-api)
 
 ```typescript
-import { WebsocketClient } from "poloniex-node-api";
+import { WebsocketClient } from "poloniex-node-api/legacy";
 const key = "poloniexapikey";
 const secret = "poloniexapisecret";
 const channels = [1000, "BTC_DOGE"];
