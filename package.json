@@ -10,8 +10,8 @@
     "test": "test"
   },
   "engines": {
-    "node": ">=16.13.0",
-    "npm": ">=8.1.0"
+    "node": ">=16.19.0",
+    "npm": ">=8.19.3"
   },
   "type": "module",
   "types": "build/index.d.ts",
