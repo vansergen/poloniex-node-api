@@ -577,6 +577,277 @@ const id = "30249408733945856";
 const trades = await client.getOrderTrades({ id });
 ```
 
+### [WebSocketClient](https://docs.poloniex.com/#overview-websockets)
+
+```typescript
+const key = "<POLONIEX API KEY>";
+const secret = "<POLONIEX API SECRET>";
+const client = new WebSocketClient({ key, secret })
+  .on("message", (msg) => {
+    console.log("Message:\t", msg);
+  })
+  .on("error", (error) => {
+    console.log("Error:\t", error);
+  });
+```
+
+- [connectPublicWS](https://docs.poloniex.com/#public-channels)
+
+```typescript
+await client.connectPublicWS();
+```
+
+- [connectPrivateWS](https://docs.poloniex.com/#authenticated-channels)
+
+```typescript
+await client.connectPrivateWS();
+```
+
+- [disconnectPublicWS](https://docs.poloniex.com/#public-channels)
+
+```typescript
+await client.disconnectPublicWS();
+```
+
+- [disconnectPrivateWS](https://docs.poloniex.com/#authenticated-channels)
+
+```typescript
+await client.disconnectPrivateWS();
+```
+
+- [auth](https://docs.poloniex.com/#authenticated-channels-subscriptions-authentication)
+
+```typescript
+await client.auth();
+```
+
+- [pingPublic](https://docs.poloniex.com/#overview-div-style-display-none-websockets-div-heartbeats)
+
+```typescript
+const ac = new AbortController();
+setTimeout(() => {
+  ac.abort();
+}, 10000).unref();
+await client.pingPublic({ signal: ac.signal });
+```
+
+- [pingPrivate](https://docs.poloniex.com/#overview-div-style-display-none-websockets-div-heartbeats)
+
+```typescript
+await client.pingPrivate();
+```
+
+- [unsubscribePublic](https://docs.poloniex.com/#overview-div-style-display-none-websockets-div-subscriptions-unsubscribe)
+
+```typescript
+await client.unsubscribePublic();
+```
+
+- [unsubscribePrivate](https://docs.poloniex.com/#overview-div-style-display-none-websockets-div-subscriptions-unsubscribe)
+
+```typescript
+await client.unsubscribePrivate();
+```
+
+- [getPublicSubscriptions](https://docs.poloniex.com/#overview-div-style-display-none-websockets-div-subscriptions-list-subscriptions)
+
+```typescript
+const { subscriptions } = await client.getPublicSubscriptions();
+```
+
+- [getPrivateSubscriptions](https://docs.poloniex.com/#overview-div-style-display-none-websockets-div-subscriptions-list-subscriptions)
+
+```typescript
+const { subscriptions } = await client.getPrivateSubscriptions();
+```
+
+- [`send`](https://docs.poloniex.com/#overview-div-style-display-none-websockets-div-subscriptions-list-subscriptions)
+
+```typescript
+const payload = {
+  event: "subscribe",
+  channel: ["candles_minute_1", "ticker"],
+  symbols: ["BTC_USDT", "ETH_USDT"],
+};
+await client.send(payload, "public");
+```
+
+or
+
+```typescript
+const payload = {
+  event: "subscribe",
+  channel: ["orders", "balances"],
+  symbols: ["all"],
+};
+await client.send(payload, "private");
+```
+
+#### [Candlesticks](https://docs.poloniex.com/#public-channels-subscriptions-candlesticks)
+
+- `subscribeCandles`
+
+```typescript
+await client.subscribeCandles();
+```
+
+- `unsubscribeCandles`
+
+```typescript
+await client.unsubscribeCandles();
+```
+
+- `candles`
+
+```typescript
+const channel = "candles_day_1";
+for await (const candle of client.candles()) {
+  console.log(candle);
+}
+```
+
+#### [Trades](https://docs.poloniex.com/#public-channels-subscriptions-trades)
+
+- `subscribeTrades`
+
+```typescript
+const symbols = ["BTC_USDT", "ETH_USDT"];
+await client.subscribeTrades({ symbols });
+```
+
+- `unsubscribeTrades`
+
+```typescript
+const symbols = ["BTC_USDT"];
+await client.unsubscribeTrades({ symbols });
+```
+
+- `trades`
+
+```typescript
+for await (const trade of client.trades()) {
+  console.log(trade);
+}
+```
+
+#### [Ticker](https://docs.poloniex.com/#public-channels-subscriptions-ticker)
+
+- `subscribeTicker`
+
+```typescript
+const symbols = "all";
+await client.subscribeTicker({ symbols });
+```
+
+- `unsubscribeTicker`
+
+```typescript
+const symbols = "all";
+await client.unsubscribeTicker({ symbols });
+```
+
+- `tickers`
+
+```typescript
+for await (const ticker of client.tickers()) {
+  console.log(ticker);
+}
+```
+
+#### [Book](https://docs.poloniex.com/#public-channels-subscriptions-book)
+
+- `subscribeBook`
+
+```typescript
+await client.subscribeBook();
+```
+
+- `unsubscribeBook`
+
+```typescript
+const symbols = "all";
+await client.unsubscribeBook({ symbols });
+```
+
+- `books`
+
+```typescript
+const depth = 10;
+for await (const book of client.books({ depth })) {
+  console.log(book);
+}
+```
+
+#### [Book Level 2](https://docs.poloniex.com/#public-channels-subscriptions-book-level-2)
+
+- `subscribeLv2Book`
+
+```typescript
+const symbols = ["BTC_USDT"];
+await client.subscribeLv2Book({ symbols });
+```
+
+- `unsubscribeLv2Book`
+
+```typescript
+const symbols = "all";
+await client.unsubscribeLv2Book({ symbols });
+```
+
+- `booksLv2`
+
+```typescript
+for await (const book of client.booksLv2()) {
+  console.log(book);
+}
+```
+
+#### [Orders](https://docs.poloniex.com/#authenticated-channels-subscriptions-orders)
+
+- `subscribeOrders`
+
+```typescript
+const symbols = "all";
+await client.subscribeOrders({ symbols });
+```
+
+- `unsubscribeOrders`
+
+```typescript
+const symbols = "all";
+await client.unsubscribeOrders({ symbols });
+```
+
+- `orders`
+
+```typescript
+for await (const order of client.orders()) {
+  console.log(order);
+}
+```
+
+#### [Balances](https://docs.poloniex.com/#authenticated-channels-subscriptions-balances)
+
+- `subscribeBalances`
+
+```typescript
+await client.subscribeBalances();
+```
+
+- `unsubscribeBalances`
+
+```typescript
+await client.unsubscribeBalances();
+```
+
+- `balances`
+
+```typescript
+for await (const balance of client.balances()) {
+  console.log(balance);
+}
+```
+
 ### Test
 
 ```bash
