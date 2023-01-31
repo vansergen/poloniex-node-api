@@ -37,7 +37,7 @@ import {
   RawAccountMessage,
   WsAccountMessage,
   Currencies,
-} from "../index.js";
+} from "../../src/legacy/index.js";
 import { WebSocketServer, WebSocket } from "ws";
 
 const port = 10010;

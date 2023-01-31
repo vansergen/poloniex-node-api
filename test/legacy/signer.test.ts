@@ -1,5 +1,5 @@
 import { deepStrictEqual } from "node:assert";
-import { SignRequest as signRequest } from "../index.js";
+import { SignRequest as signRequest } from "../../src/legacy/index.js";
 
 suite("SignRequest", () => {
   test("correct signature", () => {
