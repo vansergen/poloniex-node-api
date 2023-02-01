@@ -1,5 +1,12 @@
 # Changelog
 
+## [6.0.1](https://github.com/vansergen/poloniex-node-api/compare/v6.0.0...v6.0.1) (2023-02-01)
+
+### Bug Fixes
+
+- **types:** update the `types` path ([9c50469](https://github.com/vansergen/poloniex-node-api/commit/9c5046967962551232f07c82ce7b7b9ae18fe592))
+- **types:** update WebSocket events ([7a282f1](https://github.com/vansergen/poloniex-node-api/commit/7a282f11e799cafa3e485f0a6bb03fb524934044))
+
 ## [6.0.0](https://github.com/vansergen/poloniex-node-api/compare/v5.0.5...v6.0.0) (2023-01-31)
 
 ### ⚠ BREAKING CHANGES
