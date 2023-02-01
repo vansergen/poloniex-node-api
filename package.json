@@ -14,7 +14,7 @@
     "npm": ">=8.19.3"
   },
   "type": "module",
-  "types": "build/index.d.ts",
+  "types": "./dist/index.d.ts",
   "scripts": {
     "build": "tsc",
     "build:remove": "rm -rf dist",

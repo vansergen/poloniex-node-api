@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-declaration-merging, @typescript-eslint/method-signature-style */
 import { EventEmitter } from "node:events";
 import { WebSocket } from "ws";
 import { DefaultSymbol } from "./public.js";
@@ -314,6 +315,71 @@ export interface IWebSocketClientOptions {
   key?: string | undefined;
   secret?: string | undefined;
   signTimestamp?: () => string;
+}
+
+export interface WebSocketClient {
+  addListener(
+    event: "close" | "open",
+    eventListener: (type: IWSType) => void
+  ): this;
+  addListener(
+    event: "error",
+    eventListener: (error: unknown, type: IWSType) => void
+  ): this;
+  addListener(
+    event: "message",
+    eventListener: (message: IMessage, type: IWSType) => void
+  ): this;
+
+  emit(event: "close" | "open", type: IWSType): boolean;
+  emit(event: "error", error: unknown, type: IWSType): boolean;
+  emit(event: "message", message: IMessage, type: IWSType): boolean;
+
+  on(event: "close" | "open", eventListener: (type: IWSType) => void): this;
+  on(
+    event: "error",
+    eventListener: (error: unknown, type: IWSType) => void
+  ): this;
+  on(
+    event: "message",
+    eventListener: (message: IMessage, type: IWSType) => void
+  ): this;
+
+  once(event: "close" | "open", eventListener: (type: IWSType) => void): this;
+  once(
+    event: "error",
+    eventListener: (error: unknown, type: IWSType) => void
+  ): this;
+  once(
+    event: "message",
+    eventListener: (message: IMessage, type: IWSType) => void
+  ): this;
+
+  prependListener(
+    event: "close" | "open",
+    eventListener: (type: IWSType) => void
+  ): this;
+  prependListener(
+    event: "error",
+    eventListener: (error: unknown, type: IWSType) => void
+  ): this;
+  prependListener(
+    event: "message",
+    eventListener: (message: IMessage, type: IWSType) => void
+  ): this;
+
+  prependOnceListener(
+    event: "close" | "open",
+    eventListener: (type: IWSType) => void
+  ): this;
+  prependOnceListener(
+    event: "error",
+    eventListener: (error: unknown, type: IWSType) => void
+  ): this;
+  prependOnceListener(
+    event: "message",
+    eventListener: (message: IMessage, type: IWSType) => void
+  ): this;
 }
 
 export class WebSocketClient extends EventEmitter {
@@ -932,7 +998,7 @@ export class WebSocketClient extends EventEmitter {
               return;
             }
 
-            this.emit("message", jsondata, type);
+            this.emit("message", jsondata as IMessage, type);
           } catch (error) {
             this.emit(
               "error",
