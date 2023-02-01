@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-declaration-merging */
 import { EventEmitter } from "node:events";
 import { WebSocket } from "ws";
 import { Currencies } from "./currencies.js";
@@ -308,7 +309,7 @@ export interface WebSocketClientOptions {
   secret?: string;
 }
 
-export interface IWebSocketClient {
+export declare interface WebSocketClient {
   on: ((event: "close" | "open", eventListener: () => void) => this) &
     ((event: "error", eventListener: (error: unknown) => void) => this) &
     ((event: "message", eventListener: (data: WsMessage) => void) => this) &
@@ -320,7 +321,7 @@ export interface IWebSocketClient {
     ((event: "rawMessage", eventListener: (data: RawMessage) => void) => this);
 }
 
-export class WebSocketClient extends EventEmitter implements IWebSocketClient {
+export class WebSocketClient extends EventEmitter {
   readonly #key?: string;
   readonly #secret?: string;
   #nonce: () => number;
