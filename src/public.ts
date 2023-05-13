@@ -190,6 +190,10 @@ export interface ITicker {
   closeTime: number;
   displayName: string;
   dailyChange: string;
+  bid: string;
+  bidQuantity: string;
+  ask: string;
+  askQuantity: string;
   ts: number;
   markPrice: string;
 }
