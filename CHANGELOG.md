@@ -1,5 +1,16 @@
 # Changelog
 
+## [6.0.3](https://github.com/vansergen/poloniex-node-api/compare/v6.0.2...v6.0.3) (2023-05-13)
+
+### Bug Fixes
+
+- update the `ITicker` interface ([c32f942](https://github.com/vansergen/poloniex-node-api/commit/c32f94287ee2b024a51c1ba915ab48b771efb3f4))
+
+### Dependencies
+
+- bump `rpc-request` from `7.1.0` to `7.1.1` ([eed93f3](https://github.com/vansergen/poloniex-node-api/commit/eed93f3903a02a0ab90aaaf2ccc0ca8edd962711))
+- bump `ws` from `8.12.1` to `8.13.0` ([afa791d](https://github.com/vansergen/poloniex-node-api/commit/afa791d52f52ac8471d91181f5f50125f99165d2))
+
 ## [6.0.2](https://github.com/vansergen/poloniex-node-api/compare/v6.0.1...v6.0.2) (2023-03-09)
 
 ### Dependencies
