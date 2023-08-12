@@ -63,7 +63,7 @@
     "@types/ws": "^8.5.4"
   },
   "devDependencies": {
-    "@binden/commitlint-config": "^1.0.1",
+    "@binden/commitlint-config": "^1.0.2",
     "@binden/semantic-release-config": "^2.0.0",
     "@binden/tsconfig": "^1.0.2",
     "@types/mocha": "^10.0.1",
