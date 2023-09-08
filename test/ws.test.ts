@@ -101,7 +101,7 @@ suite("WebSocketClient", () => {
   test(".connectPublicWS() (when `readyState` is `CONNECTING`)", async () => {
     const connect = client.connectPublicWS();
     const error = new Error(
-      `Could not connect. State: ${WebSocket.CONNECTING}`
+      `Could not connect. State: ${WebSocket.CONNECTING}`,
     );
     deepStrictEqual(client.public_ws?.readyState, WebSocket.CONNECTING);
     await rejects(() => client.connectPublicWS(), error);
@@ -153,7 +153,7 @@ suite("WebSocketClient", () => {
   test(".disconnectPublicWS() (when `readyState` is `CONNECTING`)", async () => {
     const connect = client.connectPublicWS();
     const error = new Error(
-      `Could not disconnect. State: ${WebSocket.CONNECTING}`
+      `Could not disconnect. State: ${WebSocket.CONNECTING}`,
     );
     deepStrictEqual(client.public_ws?.readyState, WebSocket.CONNECTING);
     await rejects(client.disconnectPublicWS(), error);
@@ -166,7 +166,7 @@ suite("WebSocketClient", () => {
     deepStrictEqual(client.public_ws?.readyState, WebSocket.OPEN);
     const disconnect = client.disconnectPublicWS();
     const error = new Error(
-      `Could not disconnect. State: ${WebSocket.CLOSING}`
+      `Could not disconnect. State: ${WebSocket.CLOSING}`,
     );
     deepStrictEqual(client.public_ws.readyState, WebSocket.CLOSING);
     await rejects(client.disconnectPublicWS(), error);
@@ -483,7 +483,7 @@ suite("WebSocketClient", () => {
 
     await rejects(
       () => client.unsubscribePublic({ signal: ac.signal }),
-      abort_error
+      abort_error,
     );
 
     await connection;
@@ -596,7 +596,7 @@ suite("WebSocketClient", () => {
 
     await rejects(
       () => client.unsubscribePrivate({ signal: ac.signal }),
-      abort_error
+      abort_error,
     );
 
     await connection;
@@ -709,7 +709,7 @@ suite("WebSocketClient", () => {
 
     await rejects(
       () => client.getPublicSubscriptions({ signal: ac.signal }),
-      abort_error
+      abort_error,
     );
 
     await connection;
@@ -823,7 +823,7 @@ suite("WebSocketClient", () => {
 
     await rejects(
       () => client.getPrivateSubscriptions({ signal: ac.signal }),
-      abort_error
+      abort_error,
     );
 
     await connection;
@@ -1090,7 +1090,7 @@ suite("WebSocketClient", () => {
     await client.connectPublicWS();
     await rejects(
       client.unsubscribeCandles({ channel }),
-      new Error(res.message, { cause: res })
+      new Error(res.message, { cause: res }),
     );
     await connection;
   });
@@ -1426,7 +1426,7 @@ suite("WebSocketClient", () => {
     await client.connectPublicWS();
     await rejects(
       client.unsubscribeTrades(),
-      new Error(res.message, { cause: res })
+      new Error(res.message, { cause: res }),
     );
     await connection;
   });
@@ -1755,7 +1755,7 @@ suite("WebSocketClient", () => {
     await client.connectPublicWS();
     await rejects(
       client.unsubscribeTicker(),
-      new Error(res.message, { cause: res })
+      new Error(res.message, { cause: res }),
     );
     await connection;
   });
@@ -2093,7 +2093,7 @@ suite("WebSocketClient", () => {
     await client.connectPublicWS();
     await rejects(
       client.unsubscribeBook(),
-      new Error(res.message, { cause: res })
+      new Error(res.message, { cause: res }),
     );
     await connection;
   });
@@ -2424,7 +2424,7 @@ suite("WebSocketClient", () => {
     await client.connectPublicWS();
     await rejects(
       client.unsubscribeLv2Book(),
-      new Error(res.message, { cause: res })
+      new Error(res.message, { cause: res }),
     );
     await connection;
   });
@@ -2704,7 +2704,7 @@ suite("WebSocketClient", () => {
     await auth_client.connectPrivateWS();
     await rejects(
       auth_client.auth(),
-      new Error(res.data.message, { cause: 1 })
+      new Error(res.data.message, { cause: 1 }),
     );
     await connection;
   });
@@ -2713,7 +2713,7 @@ suite("WebSocketClient", () => {
     const auth_client = new WebSocketClient({ key, ws_url });
     await rejects(
       auth_client.auth(),
-      new Error("Auth credintials are missing")
+      new Error("Auth credintials are missing"),
     );
   });
 
@@ -2903,7 +2903,7 @@ suite("WebSocketClient", () => {
     await client.connectPrivateWS();
     await rejects(
       client.unsubscribeOrders(),
-      new Error(res.message, { cause: res })
+      new Error(res.message, { cause: res }),
     );
     await connection;
   });
@@ -3255,7 +3255,7 @@ suite("WebSocketClient", () => {
     await client.connectPrivateWS();
     await rejects(
       client.unsubscribeBalances(),
-      new Error(res.message, { cause: res })
+      new Error(res.message, { cause: res }),
     );
     await connection;
   });
@@ -3459,7 +3459,7 @@ suite("WebSocketClient", () => {
   test(".send() (when WebSocket is not connected)", async () => {
     await rejects(
       client.send({}, "private"),
-      new Error("Websocket is not connected")
+      new Error("Websocket is not connected"),
     );
   });
 
@@ -3474,8 +3474,8 @@ suite("WebSocketClient", () => {
     await rejects(
       client.send(payload, "private"),
       new Error(
-        `WebSocket is not open: readyState ${WebSocket.CLOSING} (CLOSING)`
-      )
+        `WebSocket is not open: readyState ${WebSocket.CLOSING} (CLOSING)`,
+      ),
     );
   });
 
@@ -3484,7 +3484,7 @@ suite("WebSocketClient", () => {
       const auth_client = new WebSocketClient({ ws_url, key, secret });
       await rejects(
         auth_client.auth(),
-        new Error("Websocket is not connected")
+        new Error("Websocket is not connected"),
       );
     });
 
@@ -3524,7 +3524,7 @@ suite("WebSocketClient", () => {
             deepStrictEqual(type, "public");
             deepStrictEqual(
               error,
-              new Error("Message count not be parsed by `JSON.parse`")
+              new Error("Message count not be parsed by `JSON.parse`"),
             );
             resolve();
           } catch (err) {

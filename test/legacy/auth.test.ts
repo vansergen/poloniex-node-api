@@ -51,7 +51,7 @@ suite("AuthenticatedClient", () => {
     (string: string): boolean =>
       isDeepStrictEqual(
         new URLSearchParams(string),
-        new URLSearchParams({ ...form, nonce: `${nonce}` })
+        new URLSearchParams({ ...form, nonce: `${nonce}` }),
       );
 
   const globalDispatcher = getGlobalDispatcher();

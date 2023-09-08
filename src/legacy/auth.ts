@@ -371,7 +371,7 @@ export class AuthenticatedClient extends PublicClient {
 
   public async post<T = unknown>(
     url?: string,
-    { body = new URLSearchParams() }: { body?: URLSearchParams } = {}
+    { body = new URLSearchParams() }: { body?: URLSearchParams } = {},
   ): Promise<T> {
     const nonce = this.nonce();
     body.set("nonce", `${nonce}`);
@@ -409,7 +409,7 @@ export class AuthenticatedClient extends PublicClient {
 
   /** Get all of your balances, including available balance, balance on orders, and the estimated BTC value of your balance. */
   public getCompleteBalances(
-    form: AccountFilter = {}
+    form: AccountFilter = {},
   ): Promise<CompleteBalances> {
     const command = "returnCompleteBalances";
     const body = new URLSearchParams({ command });
@@ -434,7 +434,7 @@ export class AuthenticatedClient extends PublicClient {
 
   /** Get your adjustment, deposit, and withdrawal history within a range window. */
   public getDepositsWithdrawals(
-    form: TimeFilter
+    form: TimeFilter,
   ): Promise<DepositsWithdrawals> {
     const command = "returnDepositsWithdrawals";
     const body = new URLSearchParams({ command });
@@ -547,7 +547,7 @@ export class AuthenticatedClient extends PublicClient {
 
   /** Get your balances sorted by account. */
   public getAccountBalances(
-    form: AccountFilter = {}
+    form: AccountFilter = {},
   ): Promise<AccountBalances> {
     const command = "returnAvailableAccountBalances";
     const body = new URLSearchParams({ command });
@@ -649,7 +649,7 @@ export class AuthenticatedClient extends PublicClient {
 
   /** Get your lending history. */
   public getLendingHistory(
-    form: LendingHistoryOptions = {}
+    form: LendingHistoryOptions = {},
   ): Promise<LendingHistoryItem[]> {
     const command = "returnLendingHistory";
     const body = new URLSearchParams({ command });

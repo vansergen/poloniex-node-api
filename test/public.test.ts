@@ -242,7 +242,7 @@ suite("PublicClient", () => {
       currencies.map<ICurrency>((object) => {
         const [currency] = Object.keys(object);
         return { ...object[currency], currency };
-      })
+      }),
     );
   });
 

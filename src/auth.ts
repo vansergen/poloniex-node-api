@@ -390,35 +390,35 @@ export class AuthenticatedClient extends PublicClient {
 
   public get<T = unknown>(
     path = "",
-    init: IPoloniexGetOptions = {}
+    init: IPoloniexGetOptions = {},
   ): Promise<T> {
     return this.fetch<T>(path, { ...init, method: "GET" });
   }
 
   public post<T = unknown>(
     path = "",
-    init: IPoloniexFetchOptions = {}
+    init: IPoloniexFetchOptions = {},
   ): Promise<T> {
     return this.fetch<T>(path, { ...init, method: "POST" });
   }
 
   public delete<T = unknown>(
     path = "",
-    init: IPoloniexFetchOptions = {}
+    init: IPoloniexFetchOptions = {},
   ): Promise<T> {
     return this.fetch<T>(path, { ...init, method: "DELETE" });
   }
 
   public put<T = unknown>(
     path = "",
-    init: IPoloniexFetchOptions = {}
+    init: IPoloniexFetchOptions = {},
   ): Promise<T> {
     return this.fetch<T>(path, { ...init, method: "PUT" });
   }
 
   public async fetch<T = unknown>(
     path = "",
-    { method = "GET", options = {}, ...init }: IPoloniexFetchOptions = {}
+    { method = "GET", options = {}, ...init }: IPoloniexFetchOptions = {},
   ): Promise<T> {
     const signTimestamp = this.#signTimestamp();
     const searchParams = new URLSearchParams();
@@ -484,7 +484,7 @@ export class AuthenticatedClient extends PublicClient {
 
   /** Get a list of activities such as airdrop, rebates, staking, credit/debit adjustments, and other (historical adjustments). */
   public getAccountActivity(
-    options: IAccountActivityOptions = {}
+    options: IAccountActivityOptions = {},
   ): Promise<IAccountActivity[]> {
     return this.get<IAccountActivity[]>("/accounts/activity", { options });
   }
@@ -496,7 +496,7 @@ export class AuthenticatedClient extends PublicClient {
 
   /** Get a list of transfer records. */
   public getAccountTransfers(
-    options: IAccountTransferOptions = {}
+    options: IAccountTransferOptions = {},
   ): Promise<IAccountTransfer[]> {
     return this.get<IAccountTransfer[]>("/accounts/transfer", { options });
   }
@@ -508,7 +508,7 @@ export class AuthenticatedClient extends PublicClient {
 
   /** Get deposit addresses. */
   public getWallets(
-    options: { currency?: string } = {}
+    options: { currency?: string } = {},
   ): Promise<Record<string, string>> {
     return this.get<Record<string, string>>("/wallets/addresses", { options });
   }
@@ -537,7 +537,7 @@ export class AuthenticatedClient extends PublicClient {
 
   /** Immediately place a withdrawal for a given currency, with no email confirmation. */
   public withdraw(
-    options: IWithdrawOptions
+    options: IWithdrawOptions,
   ): Promise<{ withdrawalRequestsId: number }> {
     return this.post<{ withdrawalRequestsId: number }>("/wallets/withdraw", {
       options,
@@ -555,7 +555,7 @@ export class AuthenticatedClient extends PublicClient {
 
   /** Get borrow status of currencies. */
   public getBorrowStatus(
-    options: { currency?: string } = {}
+    options: { currency?: string } = {},
   ): Promise<IBorrow> {
     return this.get<IBorrow>("/margin/borrowStatus", { options });
   }
@@ -581,48 +581,48 @@ export class AuthenticatedClient extends PublicClient {
   /** Cancel an existing active order, new or partially filled, and place a new order on the same symbol with details from existing order unless amended by new parameters. */
   public replaceOrder(
     id: { clientOrderId: string } | { id: string },
-    options?: IReplaceOrderOptions
+    options?: IReplaceOrderOptions,
   ): Promise<IOrderId>;
   public replaceOrder(
     { id, clientOrderId }: Partial<IOrderId>,
-    options: IReplaceOrderOptions = {}
+    options: IReplaceOrderOptions = {},
   ): Promise<IOrderId> {
     return typeof id !== "string" && typeof clientOrderId !== "string"
       ? Promise.reject(
-          new TypeError("Either `id` or `clientOrderId` is missing")
+          new TypeError("Either `id` or `clientOrderId` is missing"),
         )
       : this.put<IOrderId>(
           // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
           `/orders/${typeof id === "string" ? id : `cid:${clientOrderId!}`}`,
-          { options }
+          { options },
         );
   }
 
   /** Get a list of active orders. */
   public getOpenOrders(
-    options: IOpenOrdersOptions = {}
+    options: IOpenOrdersOptions = {},
   ): Promise<IOpenOrder[]> {
     return this.get<IOpenOrder[]>("/orders", { options });
   }
 
   /** Get an order’s status. */
   public getOrder(
-    options: { clientOrderId: string } | { id: string }
+    options: { clientOrderId: string } | { id: string },
   ): Promise<IOrder>;
   public getOrder({ id, clientOrderId }: Partial<IOrderId>): Promise<IOrder> {
     return typeof id !== "string" && typeof clientOrderId !== "string"
       ? Promise.reject(
-          new TypeError("Either `id` or `clientOrderId` is missing")
+          new TypeError("Either `id` or `clientOrderId` is missing"),
         )
       : this.get<IOrder>(
           // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-          `/orders/${typeof id === "string" ? id : `cid:${clientOrderId!}`}`
+          `/orders/${typeof id === "string" ? id : `cid:${clientOrderId!}`}`,
         );
   }
 
   /** Cancel an active order. */
   public cancelOrder(
-    options: { clientOrderId: string } | { id: string }
+    options: { clientOrderId: string } | { id: string },
   ): Promise<ICanceledOrder>;
   public cancelOrder({
     id,
@@ -630,17 +630,17 @@ export class AuthenticatedClient extends PublicClient {
   }: Partial<IOrderId>): Promise<ICanceledOrder> {
     return typeof id !== "string" && typeof clientOrderId !== "string"
       ? Promise.reject(
-          new TypeError("Either `id` or `clientOrderId` is missing")
+          new TypeError("Either `id` or `clientOrderId` is missing"),
         )
       : this.delete<ICanceledOrder>(
           // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-          `/orders/${typeof id === "string" ? id : `cid:${clientOrderId!}`}`
+          `/orders/${typeof id === "string" ? id : `cid:${clientOrderId!}`}`,
         );
   }
 
   /** Batch cancel one or many active orders. */
   public cancelOrders(
-    orders: ({ clientOrderId: string } | { id: string })[]
+    orders: ({ clientOrderId: string } | { id: string })[],
   ): Promise<ICanceledOrder[]> {
     const options = orders.reduce(
       (previousValue, currentValue) => {
@@ -651,7 +651,7 @@ export class AuthenticatedClient extends PublicClient {
         }
         return previousValue;
       },
-      { orderIds: [] as string[], clientOrderIds: [] as string[] }
+      { orderIds: [] as string[], clientOrderIds: [] as string[] },
     );
 
     if (!options.orderIds.length && !options.clientOrderIds.length) {
@@ -663,7 +663,7 @@ export class AuthenticatedClient extends PublicClient {
 
   /** Batch cancel all orders. */
   public cancelAllOrders(
-    options: { symbols?: string[]; accountTypes?: IAccountType[] } = {}
+    options: { symbols?: string[]; accountTypes?: IAccountType[] } = {},
   ): Promise<ICanceledOrder[]> {
     return this.delete<ICanceledOrder[]>("/orders", { options });
   }
@@ -696,35 +696,35 @@ export class AuthenticatedClient extends PublicClient {
   /** Cancel an existing untriggered smart order and place a new smart order on the same symbol with details from existing smart order unless amended by new parameters. */
   public replaceSmartOrder(
     id: { clientOrderId: string } | { id: string },
-    options: IReplaceSmartOrderOptions
+    options: IReplaceSmartOrderOptions,
   ): Promise<IOrderId>;
   public replaceSmartOrder(
     { id, clientOrderId }: Partial<IOrderId>,
-    options: IReplaceSmartOrderOptions
+    options: IReplaceSmartOrderOptions,
   ): Promise<IOrderId> {
     return typeof id !== "string" && typeof clientOrderId !== "string"
       ? Promise.reject(
-          new TypeError("Either `id` or `clientOrderId` is missing")
+          new TypeError("Either `id` or `clientOrderId` is missing"),
         )
       : this.put<IOrderId>(
           `/smartorders/${
             // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
             typeof id === "string" ? id : `cid:${clientOrderId!}`
           }`,
-          { options }
+          { options },
         );
   }
 
   /** Get a list of (pending) smart orders. */
   public getOpenSmartOrders(
-    options: { limit?: number } = {}
+    options: { limit?: number } = {},
   ): Promise<IOpenSmartOrder[]> {
     return this.get<IOpenSmartOrder[]>("/smartorders", { options });
   }
 
   /** Get a smart order’s status. */
   public getSmartOrder(
-    options: { clientOrderId: string } | { id: string }
+    options: { clientOrderId: string } | { id: string },
   ): Promise<ISmartOrder | null>;
   public async getSmartOrder({
     id,
@@ -736,7 +736,7 @@ export class AuthenticatedClient extends PublicClient {
 
     const [order] = await this.get<[ISmartOrder | undefined]>(
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      `/smartorders/${typeof id === "string" ? id : `cid:${clientOrderId!}`}`
+      `/smartorders/${typeof id === "string" ? id : `cid:${clientOrderId!}`}`,
     );
 
     return order ?? null;
@@ -744,7 +744,7 @@ export class AuthenticatedClient extends PublicClient {
 
   /** Cancel an active smart order. */
   public cancelSmartOrder(
-    options: { clientOrderId: string } | { id: string }
+    options: { clientOrderId: string } | { id: string },
   ): Promise<ICanceledSmartOrder>;
   public cancelSmartOrder({
     id,
@@ -752,19 +752,19 @@ export class AuthenticatedClient extends PublicClient {
   }: Partial<IOrderId>): Promise<ICanceledSmartOrder> {
     return typeof id !== "string" && typeof clientOrderId !== "string"
       ? Promise.reject(
-          new TypeError("Either `id` or `clientOrderId` is missing")
+          new TypeError("Either `id` or `clientOrderId` is missing"),
         )
       : this.delete<ICanceledSmartOrder>(
           `/smartorders/${
             // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
             typeof id === "string" ? id : `cid:${clientOrderId!}`
-          }`
+          }`,
         );
   }
 
   /** Batch cancel one or many active smart orders. */
   public cancelSmartOrders(
-    orders: ({ clientOrderId: string } | { id: string })[]
+    orders: ({ clientOrderId: string } | { id: string })[],
   ): Promise<ICanceledSmartOrder[]> {
     const options = orders.reduce(
       (previousValue, currentValue) => {
@@ -775,7 +775,7 @@ export class AuthenticatedClient extends PublicClient {
         }
         return previousValue;
       },
-      { orderIds: [] as string[], clientOrderIds: [] as string[] }
+      { orderIds: [] as string[], clientOrderIds: [] as string[] },
     );
 
     if (!options.orderIds.length && !options.clientOrderIds.length) {
@@ -788,7 +788,7 @@ export class AuthenticatedClient extends PublicClient {
 
   /** Batch cancel all orders. */
   public cancelAllSmartOrders(
-    options: { symbols?: string[]; accountTypes?: IAccountType[] } = {}
+    options: { symbols?: string[]; accountTypes?: IAccountType[] } = {},
   ): Promise<ICanceledSmartOrder[]> {
     return this.delete<ICanceledSmartOrder[]>("/smartorders", { options });
   }
