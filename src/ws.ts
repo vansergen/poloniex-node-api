@@ -139,7 +139,7 @@ export interface IWSCandle {
       close: string;
       open: string;
       ts: number;
-    }
+    },
   ];
 }
 
@@ -155,7 +155,7 @@ export interface IWSTrade {
       price: string;
       id: number;
       ts: number;
-    }
+    },
   ];
 }
 
@@ -176,7 +176,7 @@ export interface IWSTicker {
       open: string;
       ts: number;
       markPrice: string;
-    }
+    },
   ];
 }
 
@@ -199,7 +199,7 @@ export interface IBook {
       bids: [string, string][];
       id: number;
       ts: number;
-    }
+    },
   ];
 }
 
@@ -265,7 +265,7 @@ export interface IWSOrder {
       tradePrice: string;
       tradeId: string;
       ts: number;
-    }
+    },
   ];
 }
 
@@ -292,7 +292,7 @@ export interface IWSBalance {
       userId: number;
       hold: string;
       ts: number;
-    }
+    },
   ];
 }
 
@@ -320,15 +320,15 @@ export interface IWebSocketClientOptions {
 export interface WebSocketClient {
   addListener(
     event: "close" | "open",
-    eventListener: (type: IWSType) => void
+    eventListener: (type: IWSType) => void,
   ): this;
   addListener(
     event: "error",
-    eventListener: (error: unknown, type: IWSType) => void
+    eventListener: (error: unknown, type: IWSType) => void,
   ): this;
   addListener(
     event: "message",
-    eventListener: (message: IMessage, type: IWSType) => void
+    eventListener: (message: IMessage, type: IWSType) => void,
   ): this;
 
   emit(event: "close" | "open", type: IWSType): boolean;
@@ -338,47 +338,47 @@ export interface WebSocketClient {
   on(event: "close" | "open", eventListener: (type: IWSType) => void): this;
   on(
     event: "error",
-    eventListener: (error: unknown, type: IWSType) => void
+    eventListener: (error: unknown, type: IWSType) => void,
   ): this;
   on(
     event: "message",
-    eventListener: (message: IMessage, type: IWSType) => void
+    eventListener: (message: IMessage, type: IWSType) => void,
   ): this;
 
   once(event: "close" | "open", eventListener: (type: IWSType) => void): this;
   once(
     event: "error",
-    eventListener: (error: unknown, type: IWSType) => void
+    eventListener: (error: unknown, type: IWSType) => void,
   ): this;
   once(
     event: "message",
-    eventListener: (message: IMessage, type: IWSType) => void
+    eventListener: (message: IMessage, type: IWSType) => void,
   ): this;
 
   prependListener(
     event: "close" | "open",
-    eventListener: (type: IWSType) => void
+    eventListener: (type: IWSType) => void,
   ): this;
   prependListener(
     event: "error",
-    eventListener: (error: unknown, type: IWSType) => void
+    eventListener: (error: unknown, type: IWSType) => void,
   ): this;
   prependListener(
     event: "message",
-    eventListener: (message: IMessage, type: IWSType) => void
+    eventListener: (message: IMessage, type: IWSType) => void,
   ): this;
 
   prependOnceListener(
     event: "close" | "open",
-    eventListener: (type: IWSType) => void
+    eventListener: (type: IWSType) => void,
   ): this;
   prependOnceListener(
     event: "error",
-    eventListener: (error: unknown, type: IWSType) => void
+    eventListener: (error: unknown, type: IWSType) => void,
   ): this;
   prependOnceListener(
     event: "message",
-    eventListener: (message: IMessage, type: IWSType) => void
+    eventListener: (message: IMessage, type: IWSType) => void,
   ): this;
 }
 
@@ -503,7 +503,7 @@ export class WebSocketClient extends EventEmitter {
   }: ISubscribeCandlesOptions): Promise<IUnsubscribeEvent<ICandlesChannel>> {
     return this.#sendSubscription<IUnsubscribeEvent<ICandlesChannel>>(
       "public",
-      { event: "unsubscribe", signal, symbols, channel }
+      { event: "unsubscribe", signal, symbols, channel },
     );
   }
 
@@ -635,7 +635,7 @@ export class WebSocketClient extends EventEmitter {
 
     const payload = { event: "subscribe", channel: ["auth"], params };
     const predicate = (
-      message: IMessage
+      message: IMessage,
     ): message is IFailedAuth | ISuccessAuth =>
       "channel" in message && message.channel === "auth";
 
@@ -823,7 +823,7 @@ export class WebSocketClient extends EventEmitter {
   #send<T extends IMessage = IMessage>(
     type: IWSType,
     payload: Record<string, unknown> | null,
-    { predicate, signal }: IListenersOptions<T>
+    { predicate, signal }: IListenersOptions<T>,
   ): Promise<T> {
     return new Promise<T>((resolve, reject): void => {
       const ws = type === "private" ? this.#private_ws : this.#public_ws;
@@ -908,7 +908,7 @@ export class WebSocketClient extends EventEmitter {
 
   #sendSubscription<T extends ISubscription = ISubscription>(
     type: IWSType,
-    { event, channel, signal, symbols, data = {} }: ISubscriptionOptions
+    { event, channel, signal, symbols, data = {} }: ISubscriptionOptions,
   ): Promise<T> {
     const predicate = (message: IMessage): message is T =>
       "event" in message &&
@@ -938,7 +938,7 @@ export class WebSocketClient extends EventEmitter {
 
   #unsubscribeAll(
     type: IWSType,
-    { signal }: ISignal = {}
+    { signal }: ISignal = {},
   ): Promise<IUnsubscribeAll> {
     const msg = { event: "unsubscribe_all" };
     const predicate = (message: IMessage): message is IUnsubscribeAll =>
@@ -949,7 +949,7 @@ export class WebSocketClient extends EventEmitter {
 
   #getSubscriptions(
     type: IWSType,
-    { signal }: ISignal = {}
+    { signal }: ISignal = {},
   ): Promise<ISubscriptions> {
     const msg = { event: "list_subscriptions" };
     const predicate = (message: IMessage): message is ISubscriptions =>
@@ -966,7 +966,7 @@ export class WebSocketClient extends EventEmitter {
       case WebSocket.CLOSING:
       case WebSocket.CONNECTING:
         return Promise.reject(
-          new Error(`Could not connect. State: ${ws.readyState}`)
+          new Error(`Could not connect. State: ${ws.readyState}`),
         );
       case WebSocket.OPEN:
         return Promise.resolve();
@@ -992,7 +992,7 @@ export class WebSocketClient extends EventEmitter {
               this.emit(
                 "error",
                 new Error(jsondata.message, { cause: jsondata }),
-                type
+                type,
               );
 
               return;
@@ -1005,7 +1005,7 @@ export class WebSocketClient extends EventEmitter {
               new Error("Message count not be parsed by `JSON.parse`", {
                 cause: error,
               }),
-              type
+              type,
             );
           }
         })
@@ -1034,7 +1034,7 @@ export class WebSocketClient extends EventEmitter {
       case WebSocket.CLOSING:
       case WebSocket.CONNECTING:
         return Promise.reject(
-          new Error(`Could not disconnect. State: ${ws.readyState}`)
+          new Error(`Could not disconnect. State: ${ws.readyState}`),
         );
       default:
         break;

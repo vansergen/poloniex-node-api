@@ -27,7 +27,7 @@
       e || !t || !t.__esModule
         ? re(r, "default", { value: t, enumerable: !0 })
         : r,
-      t
+      t,
     )
   );
   var ae = Pe((se, oe) => {
@@ -73,7 +73,7 @@
               continue;
             }
             throw new TypeError(
-              "clone is not deep and does not support nested objects"
+              "clone is not deep and does not support nested objects",
             );
           }
           return r;
@@ -151,7 +151,7 @@
             : e === t.Set.empty
             ? this
             : new t.Set(
-                Object.keys(this.elements).concat(Object.keys(e.elements))
+                Object.keys(this.elements).concat(Object.keys(e.elements)),
               );
         }),
         (t.idf = function (e, r) {
@@ -185,7 +185,7 @@
           return e.map(function (m) {
             return new t.Token(
               t.utils.asString(m).toLowerCase(),
-              t.utils.clone(r)
+              t.utils.clone(r),
             );
           });
         for (
@@ -228,7 +228,7 @@
             t.utils.warn(
               `Function is not registered with pipeline. This may cause problems when serialising the index.
 `,
-              e
+              e,
             );
         }),
         (t.Pipeline.load = function (e) {
@@ -1021,7 +1021,7 @@
                 t.version +
                 "' does not match serialized index '" +
                 e.version +
-                "'"
+                "'",
             );
           for (var u = 0; u < i.length; u++) {
             var d = i[u],
@@ -1067,7 +1067,7 @@
         (t.Builder.prototype.field = function (e, r) {
           if (/\//.test(e))
             throw new RangeError(
-              "Field '" + e + "' contains illegal character '/'"
+              "Field '" + e + "' contains illegal character '/'",
             );
           this._fields[e] = r || {};
         }),
@@ -1190,7 +1190,7 @@
         }),
         (t.Builder.prototype.createTokenSet = function () {
           this.tokenSet = t.TokenSet.fromArray(
-            Object.keys(this.invertedIndex).sort()
+            Object.keys(this.invertedIndex).sort(),
           );
         }),
         (t.Builder.prototype.build = function () {
@@ -1241,7 +1241,7 @@
                 this.metadata[i][a][d] == null
                   ? (this.metadata[i][a][d] = e.metadata[i][a][d])
                   : (this.metadata[i][a][d] = this.metadata[i][a][d].concat(
-                      e.metadata[i][a][d]
+                      e.metadata[i][a][d],
                     ));
               }
             }
@@ -1651,7 +1651,7 @@
         this.ensureFocusedElementVisible(),
         this.listenForCodeCopies(),
         window.addEventListener("hashchange", () =>
-          this.ensureFocusedElementVisible()
+          this.ensureFocusedElementVisible(),
         );
     }
     createComponents(e) {
@@ -1706,7 +1706,7 @@
         e.addEventListener("click", () => {
           e.previousElementSibling instanceof HTMLElement &&
             navigator.clipboard.writeText(
-              e.previousElementSibling.innerText.trim()
+              e.previousElementSibling.innerText.trim(),
             ),
             (e.textContent = "Copied!"),
             e.classList.add("visible"),
@@ -1745,7 +1745,7 @@
       n = document.querySelector("#tsd-search .results");
     if (!r || !n)
       throw new Error(
-        "The input field or the result list wrapper was not found"
+        "The input field or the result list wrapper was not found",
       );
     let i = !1;
     n.addEventListener("mousedown", () => (i = !0)),
@@ -1764,7 +1764,7 @@
       "input",
       ie(() => {
         Re(t, e, r, n);
-      }, 200)
+      }, 200),
     );
     let i = !1;
     r.addEventListener("keydown", (s) => {
@@ -1888,7 +1888,7 @@
     De = !1,
     D = !1,
     pe = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-      navigator.userAgent
+      navigator.userAgent,
     );
   document.documentElement.classList.add(pe ? "is-mobile" : "not-mobile");
   pe &&
@@ -1994,7 +1994,7 @@
         document.querySelectorAll(".tsd-index-section").forEach((r) => {
           r.style.display = "block";
           let n = Array.from(r.querySelectorAll(".tsd-index-link")).every(
-            (i) => i.offsetParent == null
+            (i) => i.offsetParent == null,
           );
           r.style.display = n ? "none" : "block";
         });

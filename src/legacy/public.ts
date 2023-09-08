@@ -227,7 +227,7 @@ export class PublicClient extends Fetch {
 
   protected static addOptions(
     target: URL | URLSearchParams,
-    data: Record<string, boolean | number | string | undefined>
+    data: Record<string, boolean | number | string | undefined>,
   ): void {
     const searchParams = target instanceof URL ? target.searchParams : target;
     for (const key in data) {

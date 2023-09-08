@@ -333,7 +333,7 @@ const price = "18000";
 const quantity = "20";
 const response = await client.replaceOrder(
   { clientOrderId },
-  { price, quantity }
+  { price, quantity },
 );
 ```
 
@@ -448,7 +448,7 @@ const stopPrice = "18000";
 const clientOrderId = "1234Abc";
 const response = await client.replaceOrder(
   { id },
-  { stopPrice, clientOrderId }
+  { stopPrice, clientOrderId },
 );
 ```
 
@@ -460,7 +460,7 @@ const price = "18000";
 const quantity = "20";
 const response = await client.replaceOrder(
   { clientOrderId },
-  { stopPrice, quantity }
+  { stopPrice, quantity },
 );
 ```
 

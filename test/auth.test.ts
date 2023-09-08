@@ -49,7 +49,7 @@ suite("AuthenticatedClient", () => {
     );
   }
   function body(
-    options: Record<string, unknown> | unknown[]
+    options: Record<string, unknown> | unknown[],
   ): (string: string) => boolean {
     return (string: string | null): boolean => {
       if (Object.keys(options).length === 0) {
@@ -94,7 +94,7 @@ suite("AuthenticatedClient", () => {
     const other_client = new AuthenticatedClient({ key, secret });
     await rejects(
       () => other_client.fetch("/", { options: [] }),
-      new TypeError("`options` shoud not be an array")
+      new TypeError("`options` shoud not be an array"),
     );
   });
 
@@ -1009,7 +1009,7 @@ suite("AuthenticatedClient", () => {
   test(".createOrders() (with an empty array)", async () => {
     await rejects(
       () => client.createOrders([]),
-      new TypeError("Empty arrays are not allowed")
+      new TypeError("Empty arrays are not allowed"),
     );
   });
 
@@ -1053,7 +1053,7 @@ suite("AuthenticatedClient", () => {
   test(".replaceOrder() (with no `id ` and `clientOrderId`)", async () => {
     await rejects(
       () => client.replaceOrder({} as { id: string }),
-      new TypeError("Either `id` or `clientOrderId` is missing")
+      new TypeError("Either `id` or `clientOrderId` is missing"),
     );
   });
 
@@ -1216,7 +1216,7 @@ suite("AuthenticatedClient", () => {
   test(".getOrder() (with no `id ` and `clientOrderId`)", async () => {
     await rejects(
       () => client.getOrder({} as { id: string }),
-      new TypeError("Either `id` or `clientOrderId` is missing")
+      new TypeError("Either `id` or `clientOrderId` is missing"),
     );
   });
 
@@ -1265,7 +1265,7 @@ suite("AuthenticatedClient", () => {
   test(".cancelOrder() (with no `id ` and `clientOrderId`)", async () => {
     await rejects(
       () => client.cancelOrder({} as { id: string }),
-      new TypeError("Either `id` or `clientOrderId` is missing")
+      new TypeError("Either `id` or `clientOrderId` is missing"),
     );
   });
 
@@ -1302,7 +1302,7 @@ suite("AuthenticatedClient", () => {
   test(".cancelOrders() (with no `id ` and `clientOrderId`)", async () => {
     await rejects(
       () => client.cancelOrders([]),
-      new TypeError("No orders to cancel")
+      new TypeError("No orders to cancel"),
     );
   });
 
@@ -1386,15 +1386,15 @@ suite("AuthenticatedClient", () => {
   test(".killSwitch() (with invalid `timeout`)", async () => {
     await rejects(
       () => client.killSwitch({ timeout: 40.2 }),
-      new TypeError("Invalid timeout value")
+      new TypeError("Invalid timeout value"),
     );
     await rejects(
       () => client.killSwitch({ timeout: 9 }),
-      new TypeError("Invalid timeout value")
+      new TypeError("Invalid timeout value"),
     );
     await rejects(
       () => client.killSwitch({ timeout: 601 }),
-      new TypeError("Invalid timeout value")
+      new TypeError("Invalid timeout value"),
     );
   });
 
@@ -1521,7 +1521,7 @@ suite("AuthenticatedClient", () => {
   test(".replaceSmartOrder() (with no `id ` and `clientOrderId`)", async () => {
     await rejects(
       () => client.replaceSmartOrder({} as { id: string }, {}),
-      new TypeError("Either `id` or `clientOrderId` is missing")
+      new TypeError("Either `id` or `clientOrderId` is missing"),
     );
   });
 
@@ -1686,7 +1686,7 @@ suite("AuthenticatedClient", () => {
   test(".getSmartOrder() (with no `id ` and `clientOrderId`)", async () => {
     await rejects(
       () => client.getSmartOrder({} as { id: string }),
-      new TypeError("Either `id` or `clientOrderId` is missing")
+      new TypeError("Either `id` or `clientOrderId` is missing"),
     );
   });
 
@@ -1713,7 +1713,7 @@ suite("AuthenticatedClient", () => {
   test(".cancelSmartOrder() (with no `id ` and `clientOrderId`)", async () => {
     await rejects(
       () => client.cancelSmartOrder({} as { id: string }),
-      new TypeError("Either `id` or `clientOrderId` is missing")
+      new TypeError("Either `id` or `clientOrderId` is missing"),
     );
   });
 
@@ -1750,7 +1750,7 @@ suite("AuthenticatedClient", () => {
   test(".cancelSmartOrders() (with no `id ` and `clientOrderId`)", async () => {
     await rejects(
       () => client.cancelSmartOrders([]),
-      new TypeError("No smart orders to cancel")
+      new TypeError("No smart orders to cancel"),
     );
   });
 

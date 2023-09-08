@@ -36,14 +36,14 @@ export type RawTickerMessage = [
     string,
     0 | 1,
     string,
-    string
-  ]
+    string,
+  ],
 ];
 
 export type RawVolumeMessage = [
   1003,
   null,
-  [string, number, Record<string, string>]
+  [string, number, Record<string, string>],
 ];
 
 export type RawSnapshot = [
@@ -52,7 +52,7 @@ export type RawSnapshot = [
     currencyPair: string;
     orderBook: [Record<string, string>, Record<string, string>];
   },
-  string
+  string,
 ];
 
 export type RawPublicTrade = [
@@ -62,7 +62,7 @@ export type RawPublicTrade = [
   string,
   string,
   number,
-  string
+  string,
 ];
 
 export type RawBookUpdate = ["o", 0 | 1, string, string, string];
@@ -70,7 +70,7 @@ export type RawBookUpdate = ["o", 0 | 1, string, string, string];
 export type RawPriceAggregatedBook = [
   Channel,
   number,
-  (RawBookUpdate | RawPublicTrade | RawSnapshot)[]
+  (RawBookUpdate | RawPublicTrade | RawSnapshot)[],
 ];
 
 export type RawPendingOrder = [
@@ -81,7 +81,7 @@ export type RawPendingOrder = [
   string,
   string,
   string | null,
-  string
+  string,
 ];
 
 export type RawNewOrder = [
@@ -93,7 +93,7 @@ export type RawNewOrder = [
   string,
   string,
   string,
-  string | null
+  string | null,
 ];
 
 export type RawBalance = ["b", number, "e" | "l" | "m", string];
@@ -114,7 +114,7 @@ export type RawTrade = [
   string,
   string | null,
   string,
-  string
+  string,
 ];
 
 export type RawKill = ["k", number, string | null];
@@ -130,7 +130,7 @@ export type RawAccountMessage = [
     | RawOrder
     | RawPendingOrder
     | RawTrade
-  )[]
+  )[],
 ];
 
 export type RawMessage =

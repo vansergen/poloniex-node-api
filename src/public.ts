@@ -147,7 +147,7 @@ export type IRawCandle = [
   weightedAverage: string,
   interval: ICandlesOptions["interval"],
   startTime: number,
-  closeTime: number
+  closeTime: number,
 ];
 
 export interface ICandle {
@@ -245,7 +245,7 @@ export class PublicClient extends Fetch {
     {
       options,
       ...init
-    }: Exclude<IPoloniexGetOptions, { options: unknown[] }> = {}
+    }: Exclude<IPoloniexGetOptions, { options: unknown[] }> = {},
   ): Promise<T> {
     const searchParams = new URLSearchParams();
     PublicClient.setQuery(searchParams, options);
@@ -296,7 +296,7 @@ export class PublicClient extends Fetch {
     if (typeof currency === "undefined") {
       const all = await this.get<Record<string, Omit<ICurrency, "currency">>[]>(
         "/currencies",
-        { options }
+        { options },
       );
 
       return all.map((c) => PublicClient.#formatCurrency(c));
@@ -304,7 +304,7 @@ export class PublicClient extends Fetch {
 
     const info = await this.get<Record<string, Omit<ICurrency, "currency">>>(
       `/currencies/${currency}`,
-      { options }
+      { options },
     );
 
     return PublicClient.#formatCurrency(info);
@@ -340,7 +340,7 @@ export class PublicClient extends Fetch {
     symbol = this.#symbol,
   } = {}): Promise<IMarkPriceComponents> {
     return this.get<IMarkPriceComponents>(
-      `/markets/${symbol}/markPriceComponents`
+      `/markets/${symbol}/markPriceComponents`,
     );
   }
 
@@ -395,7 +395,7 @@ export class PublicClient extends Fetch {
     return this.get<ICollateral | ICollateral[]>(
       typeof currency === "undefined"
         ? "/markets/collateralInfo"
-        : `/markets/${currency}/collateralInfo`
+        : `/markets/${currency}/collateralInfo`,
     );
   }
 
@@ -414,7 +414,7 @@ export class PublicClient extends Fetch {
   }
 
   static #formatCurrency(
-    currency: Record<string, Omit<ICurrency, "currency">>
+    currency: Record<string, Omit<ICurrency, "currency">>,
   ): ICurrency {
     const [key] = Object.keys(currency);
     return { ...currency[key], currency: key };
