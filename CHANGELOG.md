@@ -1,5 +1,11 @@
 # Changelog
 
+## [6.0.8](https://github.com/vansergen/poloniex-node-api/compare/v6.0.7...v6.0.8) (2023-09-21)
+
+### Dependencies
+
+- bump ws from 8.14.1 to 8.14.2 ([a224429](https://github.com/vansergen/poloniex-node-api/commit/a22442968d53b1c431b37b4582911889f414a899))
+
 ## [6.0.7](https://github.com/vansergen/poloniex-node-api/compare/v6.0.6...v6.0.7) (2023-09-17)
 
 ### Dependencies
