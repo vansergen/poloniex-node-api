@@ -1,5 +1,20 @@
 # Changelog
 
+## [7.0.0](https://github.com/vansergen/poloniex-node-api/compare/v6.0.10...v7.0.0) (2023-10-22)
+
+### ⚠ BREAKING CHANGES
+
+- drop Node `<18.18.2` support
+- remove legacy API
+
+### Performance Improvements
+
+- drop Node `<18.18.2` support ([c6b9a4e](https://github.com/vansergen/poloniex-node-api/commit/c6b9a4e270b85ab4491e00ffc07c96a8a8c9db09))
+
+### Code Refactoring
+
+- remove legacy API ([e5e9a42](https://github.com/vansergen/poloniex-node-api/commit/e5e9a42313e989e5068bf5928850c268cfd1ea2c))
+
 ## [6.0.10](https://github.com/vansergen/poloniex-node-api/compare/v6.0.9...v6.0.10) (2023-09-27)
 
 ### Dependencies
