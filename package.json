@@ -9,8 +9,8 @@
     "test": "test"
   },
   "engines": {
-    "node": ">=16.19.0",
-    "npm": ">=8.19.3"
+    "node": ">=18.18.2",
+    "npm": ">=9.8.1"
   },
   "type": "module",
   "types": "./dist/index.d.ts",
