@@ -3,8 +3,7 @@
   "version": "6.0.10",
   "description": "Poloniex Node.js API",
   "exports": {
-    ".": "./dist/index.js",
-    "./legacy": "./dist/src/legacy/index.js"
+    ".": "./dist/index.js"
   },
   "directories": {
     "test": "test"
