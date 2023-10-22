@@ -1,6 +1,6 @@
 {
   "out": "docs",
-  "entryPoints": ["./index.ts", "./src/legacy/index.ts"],
+  "entryPoints": ["./index.ts"],
   "name": "poloniex-node-api",
   "exclude": ["test/**/*"],
   "hideGenerator": true,
