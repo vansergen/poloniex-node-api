@@ -65,7 +65,7 @@
     "@binden/commitlint-config": "^1.0.2",
     "@binden/semantic-release-config": "^2.0.0",
     "@binden/tsconfig": "^1.0.2",
-    "@types/mocha": "^10.0.4",
+    "@types/mocha": "^10.0.5",
     "c8": "^8.0.1",
     "eslint-config-binden-ts": "^2.0.0",
     "husky": "^8.0.3",
