@@ -1,6 +1,6 @@
 {
   "name": "poloniex-node-api",
-  "version": "7.0.0",
+  "version": "7.0.1",
   "description": "Poloniex Node.js API",
   "exports": {
     ".": "./dist/index.js"

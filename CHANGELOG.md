@@ -1,5 +1,11 @@
 # Changelog
 
+## [7.0.1](https://github.com/vansergen/poloniex-node-api/compare/v7.0.0...v7.0.1) (2023-11-27)
+
+### Dependencies
+
+- bump rpc-request from 7.1.7 to 7.1.8 ([a2b2778](https://github.com/vansergen/poloniex-node-api/commit/a2b277858f6c8e3534f2f6923419e3025d09be34))
+
 ## [7.0.0](https://github.com/vansergen/poloniex-node-api/compare/v6.0.10...v7.0.0) (2023-10-22)
 
 ### ⚠ BREAKING CHANGES
