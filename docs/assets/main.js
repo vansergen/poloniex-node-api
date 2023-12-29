@@ -149,10 +149,10 @@
           return e === t.Set.complete
             ? t.Set.complete
             : e === t.Set.empty
-            ? this
-            : new t.Set(
-                Object.keys(this.elements).concat(Object.keys(e.elements)),
-              );
+              ? this
+              : new t.Set(
+                  Object.keys(this.elements).concat(Object.keys(e.elements)),
+                );
         }),
         (t.idf = function (e, n) {
           var r = 0;
@@ -350,8 +350,8 @@
               a < l
                 ? (u += 2)
                 : a > l
-                ? (d += 2)
-                : a == l && ((n += r[u + 1] * i[d + 1]), (u += 2), (d += 2));
+                  ? (d += 2)
+                  : a == l && ((n += r[u + 1] * i[d + 1]), (u += 2), (d += 2));
           return n;
         }),
         (t.Vector.prototype.similarity = function (e) {
@@ -461,8 +461,8 @@
                   x.test(c)
                     ? (c = c + "e")
                     : O.test(c)
-                    ? ((h = w), (c = c.replace(h, "")))
-                    : M.test(c) && (c = c + "e"));
+                      ? ((h = w), (c = c.replace(h, "")))
+                      : M.test(c) && (c = c + "e"));
             }
             if (((h = A), h.test(c))) {
               var E = h.exec(c);
@@ -1632,8 +1632,8 @@
           typeof define == "function" && define.amd
             ? define(n)
             : typeof se == "object"
-            ? (oe.exports = n())
-            : (e.lunr = n());
+              ? (oe.exports = n())
+              : (e.lunr = n());
         })(this, function () {
           return t;
         });
@@ -1784,12 +1784,12 @@
         s.key == "Enter"
           ? Ve(e, n)
           : s.key == "Escape"
-          ? n.blur()
-          : s.key == "ArrowUp"
-          ? ue(e, -1)
-          : s.key === "ArrowDown"
-          ? ue(e, 1)
-          : (i = !1);
+            ? n.blur()
+            : s.key == "ArrowUp"
+              ? ue(e, -1)
+              : s.key === "ArrowDown"
+                ? ue(e, 1)
+                : (i = !1);
     }),
       n.addEventListener("keypress", (s) => {
         i && s.preventDefault();
