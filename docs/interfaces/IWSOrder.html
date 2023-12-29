@@ -56,12 +56,168 @@
           </ul>
           <h1>Interface IWSOrder</h1>
         </div>
-        <section class="tsd-panel tsd-hierarchy">
-          <h4>Hierarchy</h4>
-          <ul class="tsd-hierarchy">
-            <li><span class="target">IWSOrder</span></li>
-          </ul>
-        </section>
+        <div class="tsd-signature">
+          <span class="tsd-signature-keyword">interface </span
+          ><span class="tsd-kind-interface">IWSOrder </span
+          ><span class="tsd-signature-symbol">{ </span><br /><span>    </span
+          ><a class="tsd-kind-property" href="IWSOrder.html#channel">channel</a
+          ><span class="tsd-signature-symbol">: </span
+          ><span class="tsd-signature-type">&quot;orders&quot;</span
+          ><span class="tsd-signature-symbol">; </span><br /><span>    </span
+          ><a class="tsd-kind-property" href="IWSOrder.html#data">data</a
+          ><span class="tsd-signature-symbol">: </span
+          ><span class="tsd-signature-symbol">[</span
+          ><span class="tsd-signature-symbol">{ </span><br /><span
+            >        </span
+          ><span class="tsd-kind-property">accountType</span
+          ><span class="tsd-signature-symbol">: </span
+          ><a
+            href="../types/IAccountType.html"
+            class="tsd-signature-type tsd-kind-type-alias"
+            >IAccountType</a
+          ><span class="tsd-signature-symbol">; </span><br /><span
+            >        </span
+          ><span class="tsd-kind-property">clientOrderId</span
+          ><span class="tsd-signature-symbol">: </span
+          ><span class="tsd-signature-type">string</span
+          ><span class="tsd-signature-symbol">; </span><br /><span
+            >        </span
+          ><span class="tsd-kind-property">createTime</span
+          ><span class="tsd-signature-symbol">: </span
+          ><span class="tsd-signature-type">number</span
+          ><span class="tsd-signature-symbol">; </span><br /><span
+            >        </span
+          ><span class="tsd-kind-property">eventType</span
+          ><span class="tsd-signature-symbol">: </span
+          ><a
+            href="../types/IOrderEventType.html"
+            class="tsd-signature-type tsd-kind-type-alias"
+            >IOrderEventType</a
+          ><span class="tsd-signature-symbol">; </span><br /><span
+            >        </span
+          ><span class="tsd-kind-property">feeCurrency</span
+          ><span class="tsd-signature-symbol">: </span
+          ><span class="tsd-signature-type">string</span
+          ><span class="tsd-signature-symbol">; </span><br /><span
+            >        </span
+          ><span class="tsd-kind-property">filledAmount</span
+          ><span class="tsd-signature-symbol">: </span
+          ><span class="tsd-signature-type">string</span
+          ><span class="tsd-signature-symbol">; </span><br /><span
+            >        </span
+          ><span class="tsd-kind-property">filledQuantity</span
+          ><span class="tsd-signature-symbol">: </span
+          ><span class="tsd-signature-type">string</span
+          ><span class="tsd-signature-symbol">; </span><br /><span
+            >        </span
+          ><span class="tsd-kind-property">matchRole</span
+          ><span class="tsd-signature-symbol">: </span
+          ><span class="tsd-signature-type">&quot;&quot;</span
+          ><span class="tsd-signature-symbol"> | </span
+          ><a
+            href="../types/IMatchRole.html"
+            class="tsd-signature-type tsd-kind-type-alias"
+            >IMatchRole</a
+          ><span class="tsd-signature-symbol">; </span><br /><span
+            >        </span
+          ><span class="tsd-kind-property">orderAmount</span
+          ><span class="tsd-signature-symbol">: </span
+          ><span class="tsd-signature-type">string</span
+          ><span class="tsd-signature-symbol">; </span><br /><span
+            >        </span
+          ><span class="tsd-kind-property">orderId</span
+          ><span class="tsd-signature-symbol">: </span
+          ><span class="tsd-signature-type">string</span
+          ><span class="tsd-signature-symbol">; </span><br /><span
+            >        </span
+          ><span class="tsd-kind-property">price</span
+          ><span class="tsd-signature-symbol">: </span
+          ><span class="tsd-signature-type">string</span
+          ><span class="tsd-signature-symbol">; </span><br /><span
+            >        </span
+          ><span class="tsd-kind-property">quantity</span
+          ><span class="tsd-signature-symbol">: </span
+          ><span class="tsd-signature-type">string</span
+          ><span class="tsd-signature-symbol">; </span><br /><span
+            >        </span
+          ><span class="tsd-kind-property">side</span
+          ><span class="tsd-signature-symbol">: </span
+          ><a
+            href="../types/ISide.html"
+            class="tsd-signature-type tsd-kind-type-alias"
+            >ISide</a
+          ><span class="tsd-signature-symbol">; </span><br /><span
+            >        </span
+          ><span class="tsd-kind-property">source</span
+          ><span class="tsd-signature-symbol">: </span
+          ><a
+            href="../types/IOrderSource.html"
+            class="tsd-signature-type tsd-kind-type-alias"
+            >IOrderSource</a
+          ><span class="tsd-signature-symbol">; </span><br /><span
+            >        </span
+          ><span class="tsd-kind-property">state</span
+          ><span class="tsd-signature-symbol">: </span
+          ><a
+            href="../types/IOrderState.html"
+            class="tsd-signature-type tsd-kind-type-alias"
+            >IOrderState</a
+          ><span class="tsd-signature-symbol">; </span><br /><span
+            >        </span
+          ><span class="tsd-kind-property">symbol</span
+          ><span class="tsd-signature-symbol">: </span
+          ><span class="tsd-signature-type">string</span
+          ><span class="tsd-signature-symbol">; </span><br /><span
+            >        </span
+          ><span class="tsd-kind-property">tradeAmount</span
+          ><span class="tsd-signature-symbol">: </span
+          ><span class="tsd-signature-type">string</span
+          ><span class="tsd-signature-symbol">; </span><br /><span
+            >        </span
+          ><span class="tsd-kind-property">tradeFee</span
+          ><span class="tsd-signature-symbol">: </span
+          ><span class="tsd-signature-type">string</span
+          ><span class="tsd-signature-symbol">; </span><br /><span
+            >        </span
+          ><span class="tsd-kind-property">tradeId</span
+          ><span class="tsd-signature-symbol">: </span
+          ><span class="tsd-signature-type">string</span
+          ><span class="tsd-signature-symbol">; </span><br /><span
+            >        </span
+          ><span class="tsd-kind-property">tradePrice</span
+          ><span class="tsd-signature-symbol">: </span
+          ><span class="tsd-signature-type">string</span
+          ><span class="tsd-signature-symbol">; </span><br /><span
+            >        </span
+          ><span class="tsd-kind-property">tradeQty</span
+          ><span class="tsd-signature-symbol">: </span
+          ><span class="tsd-signature-type">string</span
+          ><span class="tsd-signature-symbol">; </span><br /><span
+            >        </span
+          ><span class="tsd-kind-property">tradeTime</span
+          ><span class="tsd-signature-symbol">: </span
+          ><span class="tsd-signature-type">number</span
+          ><span class="tsd-signature-symbol">; </span><br /><span
+            >        </span
+          ><span class="tsd-kind-property">ts</span
+          ><span class="tsd-signature-symbol">: </span
+          ><span class="tsd-signature-type">number</span
+          ><span class="tsd-signature-symbol">; </span><br /><span
+            >        </span
+          ><span class="tsd-kind-property">type</span
+          ><span class="tsd-signature-symbol">: </span
+          ><a
+            href="../types/IOrderType.html"
+            class="tsd-signature-type tsd-kind-type-alias"
+            >IOrderType</a
+          ><span class="tsd-signature-symbol">; </span><br /><span>    </span
+          ><span class="tsd-signature-symbol">}</span
+          ><span class="tsd-signature-symbol">]</span
+          ><span class="tsd-signature-symbol">; </span><br /><span
+            class="tsd-signature-symbol"
+            >}</span
+          >
+        </div>
         <aside class="tsd-sources">
           <ul>
             <li>
