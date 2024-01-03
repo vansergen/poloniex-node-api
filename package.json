@@ -66,7 +66,7 @@
     "@binden/semantic-release-config": "^2.0.0",
     "@binden/tsconfig": "^1.0.2",
     "@types/mocha": "^10.0.6",
-    "c8": "^8.0.1",
+    "c8": "^9.0.0",
     "eslint-config-binden-ts": "^2.0.0",
     "husky": "^8.0.3",
     "lint-staged": "^15.2.0",
