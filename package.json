@@ -65,15 +65,15 @@
     "@binden/commitlint-config": "^2.1.0",
     "@binden/semantic-release-config": "^3.0.0",
     "@binden/tsconfig": "^2.0.0",
-    "@types/mocha": "^10.0.6",
+    "@types/mocha": "^10.0.10",
     "c8": "^10.1.2",
     "eslint-config-binden-ts": "^2.0.0",
     "husky": "^9.1.7",
-    "lint-staged": "^15.2.0",
-    "mocha": "^10.4.0",
+    "lint-staged": "^15.2.10",
+    "mocha": "^11.0.1",
     "prettier": "^3.2.4",
     "ts-node": "^10.9.2",
-    "typedoc": "^0.25.7"
+    "typedoc": "^0.27.3"
   },
   "funding": {
     "type": "Coinbase Commerce",
