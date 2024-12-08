@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unnecessary-type-assertion */
 import { deepStrictEqual } from "node:assert";
 import { MockAgent, getGlobalDispatcher, setGlobalDispatcher } from "undici";
 import {
@@ -589,7 +590,7 @@ suite("PublicClient", () => {
 
   test(".getOrderBook()", async () => {
     const symbol = "ETH_BTC";
-    const limit = 5;
+    const limit = 5 as const;
     const scale = 0.01;
     const query = { limit, scale };
     const book: IOrderBook = {
@@ -633,7 +634,7 @@ suite("PublicClient", () => {
 
   test(".getOrderBook() (with no `symbol`)", async () => {
     const symbol = DefaultSymbol;
-    const limit = 5;
+    const limit = 5 as const;
     const scale = 100;
     const query = { limit, scale };
     const book: IOrderBook = {
@@ -677,7 +678,7 @@ suite("PublicClient", () => {
 
   test(".getCandles()", async () => {
     const symbol = "ETH_BTC";
-    const interval = "HOUR_1";
+    const interval = "HOUR_1" as const;
     const limit = 2;
     const endTime = Date.now();
     const startTime = endTime - 1000 * 60 * 60 * 24;
@@ -830,7 +831,7 @@ suite("PublicClient", () => {
         closeTime: 1673621999999,
       },
     ];
-    const interval = "HOUR_1";
+    const interval = "HOUR_1" as const;
     const query = { interval };
     const path = `markets/${symbol}/candles`;
     const url = new URL(path, ApiUrl);

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unnecessary-type-assertion */
 import { deepStrictEqual, rejects } from "node:assert";
 import { isDeepStrictEqual } from "node:util";
 import { MockAgent, getGlobalDispatcher, setGlobalDispatcher } from "undici";
@@ -198,7 +199,7 @@ suite("AuthenticatedClient", () => {
         ],
       },
     ];
-    const accountType = "SPOT";
+    const accountType = "SPOT" as const;
     const options = { accountType };
 
     const uri = "/accounts/balances";
@@ -325,8 +326,8 @@ suite("AuthenticatedClient", () => {
     const transferId = { transferId: "2977" };
     const currency = "USDT";
     const amount = "10.5";
-    const fromAccount = "SPOT";
-    const toAccount = "FUTURES";
+    const fromAccount = "SPOT" as const;
+    const toAccount = "FUTURES" as const;
     const options = { currency, amount, fromAccount, toAccount };
 
     const uri = "/accounts/transfer";
@@ -765,7 +766,7 @@ suite("AuthenticatedClient", () => {
       time: 1668542860395,
     };
 
-    const accountType = "SPOT";
+    const accountType = "SPOT" as const;
     const options = { accountType };
 
     const uri = "/margin/accountMargin";
@@ -915,11 +916,11 @@ suite("AuthenticatedClient", () => {
   test(".createOrder()", async () => {
     const response = { id: "29772698821328896", clientOrderId: "1234Abc" };
     const symbol = "BTC_USDT";
-    const type = "LIMIT";
+    const type = "LIMIT" as const;
     const quantity = "100";
-    const side = "BUY";
+    const side = "BUY" as const;
     const price = "40000.50000";
-    const timeInForce = "IOC";
+    const timeInForce = "IOC" as const;
     const clientOrderId = "1234Abc";
     const options = {
       symbol,
@@ -945,7 +946,7 @@ suite("AuthenticatedClient", () => {
     const response = { id: "2977269882132774", clientOrderId: "" };
     const symbol = "BTC_USDT";
     const quantity = "100";
-    const side = "BUY";
+    const side = "BUY" as const;
     const options = { symbol, quantity, side };
 
     const uri = "/orders";
@@ -1080,9 +1081,9 @@ suite("AuthenticatedClient", () => {
     ];
 
     const symbol = "ELON_USDC";
-    const side = "SELL";
+    const side = "SELL" as const;
     const from = 0;
-    const direction = "PRE";
+    const direction = "PRE" as const;
     const limit = 10;
 
     const options = { symbol, side, from, direction, limit };
@@ -1419,9 +1420,9 @@ suite("AuthenticatedClient", () => {
     const clientOrderId = "999999910";
     const response = { id: "10000009", clientOrderId };
     const symbol = "BTC_USDT";
-    const type = "STOP_LIMIT";
+    const type = "STOP_LIMIT" as const;
     const quantity = "100";
-    const side = "BUY";
+    const side = "BUY" as const;
     const price = "60100.00";
     const timeInForce = "FOK";
     const stopPrice = "60000.00";
@@ -1854,12 +1855,12 @@ suite("AuthenticatedClient", () => {
         updateTime: 1649106321041,
       },
     ];
-    const accountType = "SPOT";
+    const accountType = "SPOT" as const;
     const type = ["MARKET" as const, "LIMIT" as const];
-    const side = "BUY";
+    const side = "BUY" as const;
     const symbol = "TRX_USDC";
     const from = "0";
-    const direction = "PRE";
+    const direction = "PRE" as const;
     const states = ["FILLED" as const, "PARTIALLY_CANCELED" as const];
     const limit = 10;
     const hideCancel = true;
@@ -1972,7 +1973,7 @@ suite("AuthenticatedClient", () => {
     const limit = 10;
     const endTime = 1648635115535;
     const startTime = 1648635115515;
-    const direction = "PRE";
+    const direction = "PRE" as const;
     const symbols = ["BTC_USDT", "ETH_USDT"];
     const options = { limit, endTime, startTime, direction, symbols };
 
