@@ -67,7 +67,7 @@
     "@binden/tsconfig": "^2.0.0",
     "@types/mocha": "^10.0.10",
     "c8": "^10.1.2",
-    "eslint-config-binden-ts": "^2.0.0",
+    "eslint-config-binden-ts": "^5.0.0",
     "husky": "^9.1.7",
     "lint-staged": "^15.2.10",
     "mocha": "^11.0.1",
