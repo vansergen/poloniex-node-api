@@ -1,4 +1,4 @@
-import { Fetch, IFetchOptions } from "rpc-request";
+import { Fetch, type IFetchOptions } from "rpc-request";
 
 export type IRecordType = Record<
   string,

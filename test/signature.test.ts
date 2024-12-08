@@ -1,7 +1,7 @@
 import { deepStrictEqual } from "node:assert";
 import {
+  type ISignedHeaders,
   signature,
-  ISignedHeaders,
   signatureMethod,
   signatureVersion,
 } from "../index.js";

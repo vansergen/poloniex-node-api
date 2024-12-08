@@ -1,33 +1,34 @@
+/* eslint-disable @typescript-eslint/no-unnecessary-type-assertion */
 import { deepStrictEqual, rejects } from "node:assert";
 import { isDeepStrictEqual } from "node:util";
 import { MockAgent, getGlobalDispatcher, setGlobalDispatcher } from "undici";
 import {
-  AuthenticatedClient,
-  ApiUrl,
-  DefaultSymbol,
-  IActivity,
-  IAccount,
-  IAccountBalance,
-  IAccountActivity,
   AccountActivities,
-  IAccountTransfer,
-  IAccountTransferOptions,
-  IFee,
-  IMarginInfo,
-  IBorrow,
-  IMaxSize,
-  IOpenOrder,
-  IOrder,
-  IOrderId,
-  IOrderIds,
-  ICanceledOrder,
-  IKillSwitch,
+  ApiUrl,
+  AuthenticatedClient,
+  DefaultSymbol,
+  type IAccount,
+  type IAccountActivity,
+  type IAccountBalance,
+  type IAccountTransfer,
+  type IAccountTransferOptions,
+  type IActivity,
+  type IBorrow,
+  type ICanceledOrder,
+  type ICanceledSmartOrder,
+  type IFee,
+  type IHistoricalOrder,
+  type IKillSwitch,
+  type IMarginInfo,
+  type IMaxSize,
+  type IOpenOrder,
+  type IOpenSmartOrder,
+  type IOrder,
+  type IOrderId,
+  type IOrderIds,
+  type ISmartOrder,
+  type ITrade,
   signatureVersion,
-  ITrade,
-  IHistoricalOrder,
-  ICanceledSmartOrder,
-  ISmartOrder,
-  IOpenSmartOrder,
 } from "../index.js";
 
 suite("AuthenticatedClient", () => {
@@ -1423,7 +1424,7 @@ suite("AuthenticatedClient", () => {
     const quantity = "100";
     const side = "BUY" as const;
     const price = "60100.00";
-    const timeInForce = "FOK" as const;
+    const timeInForce = "FOK";
     const stopPrice = "60000.00";
     const options = {
       symbol,
@@ -1451,7 +1452,7 @@ suite("AuthenticatedClient", () => {
     const symbol = "BTC_USDT";
     const quantity = "100";
     const stopPrice = "60000.00";
-    const side = "BUY" as const;
+    const side = "BUY";
     const options = { symbol, quantity, side, stopPrice };
 
     const uri = "/smartorders";

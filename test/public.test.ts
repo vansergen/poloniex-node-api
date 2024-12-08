@@ -1,23 +1,24 @@
+/* eslint-disable @typescript-eslint/no-unnecessary-type-assertion */
 import { deepStrictEqual } from "node:assert";
 import { MockAgent, getGlobalDispatcher, setGlobalDispatcher } from "undici";
 import {
-  PublicClient,
   ApiUrl,
   DefaultSymbol,
-  ISymbolInformation,
-  ICurrency,
-  IExtendedCurrency,
-  ISystemTimestamp,
-  IPrice,
-  IMarkPrice,
-  IMarkPriceComponents,
-  IOrderBook,
-  ICandle,
-  IRawCandle,
-  IPublicTrade,
-  ITicker,
-  ICollateral,
-  IBorrowRate,
+  type IBorrowRate,
+  type ICandle,
+  type ICollateral,
+  type ICurrency,
+  type IExtendedCurrency,
+  type IMarkPrice,
+  type IMarkPriceComponents,
+  type IOrderBook,
+  type IPrice,
+  type IPublicTrade,
+  type IRawCandle,
+  type ISymbolInformation,
+  type ISystemTimestamp,
+  type ITicker,
+  PublicClient,
 } from "../index.js";
 
 suite("PublicClient", () => {
@@ -678,7 +679,7 @@ suite("PublicClient", () => {
   test(".getCandles()", async () => {
     const symbol = "ETH_BTC";
     const interval = "HOUR_1" as const;
-    const limit = 2 as const;
+    const limit = 2;
     const endTime = Date.now();
     const startTime = endTime - 1000 * 60 * 60 * 24;
     const query = { interval, limit, startTime, endTime };
