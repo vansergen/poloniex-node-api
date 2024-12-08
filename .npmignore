@@ -15,10 +15,7 @@ docs/*
 .commitlintrc.json
 
 # ESLint config - https://eslint.org/
-.eslintrc.json
-
-# ESLint ignore - https://eslint.org/docs/user-guide/configuring#eslintignore
-.eslintignore
+eslint.config.js
 
 # husky config - https://github.com/typicode/husky
 .husky
