@@ -1,23 +1,23 @@
 import { deepStrictEqual } from "node:assert";
 import { MockAgent, getGlobalDispatcher, setGlobalDispatcher } from "undici";
 import {
-  PublicClient,
   ApiUrl,
   DefaultSymbol,
-  ISymbolInformation,
-  ICurrency,
-  IExtendedCurrency,
-  ISystemTimestamp,
-  IPrice,
-  IMarkPrice,
-  IMarkPriceComponents,
-  IOrderBook,
-  ICandle,
-  IRawCandle,
-  IPublicTrade,
-  ITicker,
-  ICollateral,
-  IBorrowRate,
+  type IBorrowRate,
+  type ICandle,
+  type ICollateral,
+  type ICurrency,
+  type IExtendedCurrency,
+  type IMarkPrice,
+  type IMarkPriceComponents,
+  type IOrderBook,
+  type IPrice,
+  type IPublicTrade,
+  type IRawCandle,
+  type ISymbolInformation,
+  type ISystemTimestamp,
+  type ITicker,
+  PublicClient,
 } from "../index.js";
 
 suite("PublicClient", () => {
@@ -589,7 +589,7 @@ suite("PublicClient", () => {
 
   test(".getOrderBook()", async () => {
     const symbol = "ETH_BTC";
-    const limit = 5 as const;
+    const limit = 5;
     const scale = 0.01;
     const query = { limit, scale };
     const book: IOrderBook = {
@@ -633,7 +633,7 @@ suite("PublicClient", () => {
 
   test(".getOrderBook() (with no `symbol`)", async () => {
     const symbol = DefaultSymbol;
-    const limit = 5 as const;
+    const limit = 5;
     const scale = 100;
     const query = { limit, scale };
     const book: IOrderBook = {
@@ -677,8 +677,8 @@ suite("PublicClient", () => {
 
   test(".getCandles()", async () => {
     const symbol = "ETH_BTC";
-    const interval = "HOUR_1" as const;
-    const limit = 2 as const;
+    const interval = "HOUR_1";
+    const limit = 2;
     const endTime = Date.now();
     const startTime = endTime - 1000 * 60 * 60 * 24;
     const query = { interval, limit, startTime, endTime };
@@ -830,7 +830,7 @@ suite("PublicClient", () => {
         closeTime: 1673621999999,
       },
     ];
-    const interval = "HOUR_1" as const;
+    const interval = "HOUR_1";
     const query = { interval };
     const path = `markets/${symbol}/candles`;
     const url = new URL(path, ApiUrl);

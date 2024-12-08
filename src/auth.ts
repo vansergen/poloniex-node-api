@@ -1,9 +1,9 @@
 import {
+  type IPoloniexFetchOptions,
+  type IPoloniexGetOptions,
+  type IPublicClientOptions,
+  type IRecordType,
   PublicClient,
-  IPublicClientOptions,
-  IPoloniexGetOptions,
-  IPoloniexFetchOptions,
-  IRecordType,
 } from "./public.js";
 import { signature } from "./signature.js";
 

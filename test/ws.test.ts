@@ -1,31 +1,32 @@
+/* eslint-disable @typescript-eslint/prefer-promise-reject-errors */
 import { deepStrictEqual, ok, rejects } from "node:assert";
 import {
-  WebSocketClient,
   DefaultSymbol,
-  IPong,
+  type IBook,
+  type IBookLv2,
+  type IBookLv2Snapshot,
+  type IBookLv2Update,
+  type ICandlesChannel,
+  type IErrorMessage,
+  type IFailedAuth,
+  type IPong,
+  type ISignedHeaders,
+  type ISubscribeEvent,
+  type ISubscriptions,
+  type ISuccessAuth,
+  type IUnsubscribeAll,
+  type IUnsubscribeEvent,
+  type IWSBalance,
+  type IWSCandle,
+  type IWSOrder,
+  type IWSTicker,
+  type IWSTrade,
   WSAbort,
-  IUnsubscribeAll,
-  ISubscriptions,
-  ISubscribeEvent,
-  ICandlesChannel,
-  IUnsubscribeEvent,
-  IErrorMessage,
-  IWSCandle,
-  IWSTrade,
-  IWSTicker,
-  IBook,
-  IBookLv2,
-  IBookLv2Snapshot,
-  IBookLv2Update,
-  ISignedHeaders,
+  WebSocketClient,
   signatureMethod,
   signatureVersion,
-  ISuccessAuth,
-  IFailedAuth,
-  IWSOrder,
-  IWSBalance,
 } from "../index.js";
-import { WebSocketServer, WebSocket } from "ws";
+import { WebSocket, WebSocketServer } from "ws";
 
 const port = 10010;
 const ws_url = new URL(`ws://localhost:${port}/ws/`);

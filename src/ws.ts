@@ -1,15 +1,15 @@
 /* eslint-disable @typescript-eslint/no-unsafe-declaration-merging, @typescript-eslint/method-signature-style */
 import { EventEmitter } from "node:events";
 import { WebSocket } from "ws";
-import { DefaultSymbol } from "./public.js";
-import {
-  ISide,
-  IOrderType,
+import type {
   IAccountType,
-  IOrderSource,
   IMatchRole,
+  IOrderSource,
   IOrderState,
+  IOrderType,
+  ISide,
 } from "./auth.js";
+import { DefaultSymbol } from "./public.js";
 import { signature } from "./signature.js";
 
 export class WSAbort extends Error {
@@ -962,6 +962,7 @@ export class WebSocketClient extends EventEmitter {
     const ws = type === "private" ? this.#private_ws : this.#public_ws;
     const url = new URL(type, this.#ws_url.toString());
 
+    // eslint-disable-next-line @typescript-eslint/switch-exhaustiveness-check
     switch (ws?.readyState) {
       case WebSocket.CLOSING:
       case WebSocket.CONNECTING:
@@ -1028,6 +1029,7 @@ export class WebSocketClient extends EventEmitter {
       return Promise.resolve();
     }
 
+    // eslint-disable-next-line @typescript-eslint/switch-exhaustiveness-check
     switch (ws.readyState) {
       case WebSocket.CLOSED:
         return Promise.resolve();
