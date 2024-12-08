@@ -1,5 +1,19 @@
 # Changelog
 
+## [8.0.0](https://github.com/vansergen/poloniex-node-api/compare/v7.0.3...v8.0.0) (2024-12-08)
+
+### ⚠ BREAKING CHANGES
+
+- drop `Node.js<22` support
+
+### Performance Improvements
+
+- drop `Node.js<22` support ([7d72e0b](https://github.com/vansergen/poloniex-node-api/commit/7d72e0b8c26f2d0c9769d2b26633958222f7bfc2))
+
+### Dependencies
+
+- bump `rpc-request` to `v8.0.0` ([cac8d52](https://github.com/vansergen/poloniex-node-api/commit/cac8d525298f8e2298149b94c14e118e08eab5ad))
+
 ## [7.0.3](https://github.com/vansergen/poloniex-node-api/compare/v7.0.2...v7.0.3) (2023-12-30)
 
 ### Dependencies
