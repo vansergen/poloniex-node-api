@@ -730,7 +730,7 @@
               </div>
               <aside class="tsd-sources">
                 <ul>
-                  <li>Defined in node_modules/@types/node/events.d.ts:409</li>
+                  <li>Defined in node_modules/@types/node/events.d.ts:459</li>
                 </ul>
               </aside>
             </section>
@@ -778,7 +778,7 @@
               </div>
               <aside class="tsd-sources">
                 <ul>
-                  <li>Defined in node_modules/@types/node/events.d.ts:402</li>
+                  <li>Defined in node_modules/@types/node/events.d.ts:452</li>
                 </ul>
               </aside>
             </section>
@@ -807,14 +807,14 @@
                   individual <code>EventEmitter</code> instances using the
                   <code>emitter.setMaxListeners(n)</code> method. To change the
                   default for <em>all</em><code>EventEmitter</code> instances,
-                  the <code>events.defaultMaxListeners</code>property can be
+                  the <code>events.defaultMaxListeners</code> property can be
                   used. If this value is not a positive number, a
-                  <code>RangeError</code>is thrown.
+                  <code>RangeError</code> is thrown.
                 </p>
                 <p>
                   Take caution when setting the
                   <code>events.defaultMaxListeners</code> because the change
-                  affects <em>all</em><code>EventEmitter</code> instances,
+                  affects <em>all</em> <code>EventEmitter</code> instances,
                   including those created before the change is made. However,
                   calling <code>emitter.setMaxListeners(n)</code> still has
                   precedence over <code>events.defaultMaxListeners</code>.
@@ -824,10 +824,10 @@
                   <code>EventEmitter</code> instance will allow more listeners
                   to be added but will output a trace warning to stderr
                   indicating that a &quot;possible EventEmitter memory
-                  leak&quot; has been detected. For any
-                  single<code>EventEmitter</code>, the
+                  leak&quot; has been detected. For any single
+                  <code>EventEmitter</code>, the
                   <code>emitter.getMaxListeners()</code> and
-                  <code>emitter.setMaxListeners()</code>methods can be used to
+                  <code>emitter.setMaxListeners()</code> methods can be used to
                   temporarily avoid this warning:
                 </p>
                 <pre><code class="js"><span class="hl-3">import</span><span class="hl-1"> { </span><span class="hl-4">EventEmitter</span><span class="hl-1"> } </span><span class="hl-3">from</span><span class="hl-1"> </span><span class="hl-2">&#39;node:events&#39;</span><span class="hl-1">;</span><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">emitter</span><span class="hl-1"> = </span><span class="hl-5">new</span><span class="hl-1"> </span><span class="hl-0">EventEmitter</span><span class="hl-1">();</span><br/><span class="hl-4">emitter</span><span class="hl-1">.</span><span class="hl-0">setMaxListeners</span><span class="hl-1">(</span><span class="hl-4">emitter</span><span class="hl-1">.</span><span class="hl-0">getMaxListeners</span><span class="hl-1">() + </span><span class="hl-7">1</span><span class="hl-1">);</span><br/><span class="hl-4">emitter</span><span class="hl-1">.</span><span class="hl-0">once</span><span class="hl-1">(</span><span class="hl-2">&#39;event&#39;</span><span class="hl-1">, () </span><span class="hl-5">=&gt;</span><span class="hl-1"> {</span><br/><span class="hl-1">  </span><span class="hl-9">// do stuff</span><br/><span class="hl-1">  </span><span class="hl-4">emitter</span><span class="hl-1">.</span><span class="hl-0">setMaxListeners</span><span class="hl-1">(</span><span class="hl-4">Math</span><span class="hl-1">.</span><span class="hl-0">max</span><span class="hl-1">(</span><span class="hl-4">emitter</span><span class="hl-1">.</span><span class="hl-0">getMaxListeners</span><span class="hl-1">() - </span><span class="hl-7">1</span><span class="hl-1">, </span><span class="hl-7">0</span><span class="hl-1">));</span><br/><span class="hl-1">});</span>
@@ -863,7 +863,7 @@
               </div>
               <aside class="tsd-sources">
                 <ul>
-                  <li>Defined in node_modules/@types/node/events.d.ts:446</li>
+                  <li>Defined in node_modules/@types/node/events.d.ts:498</li>
                 </ul>
               </aside>
             </section>
@@ -894,15 +894,13 @@
               <div class="tsd-comment tsd-typography">
                 <p>
                   This symbol shall be used to install a listener for only
-                  monitoring <code>'error'</code>events. Listeners installed
-                  using this symbol are called before the regular<code
-                    >'error'</code
-                  >
-                  listeners are called.
+                  monitoring <code>'error'</code> events. Listeners installed
+                  using this symbol are called before the regular
+                  <code>'error'</code> listeners are called.
                 </p>
                 <p>
                   Installing a listener using this symbol does not change the
-                  behavior once an<code>'error'</code> event is emitted.
+                  behavior once an <code>'error'</code> event is emitted.
                   Therefore, the process will still crash if no regular
                   <code>'error'</code> listener is installed.
                 </p>
@@ -923,7 +921,7 @@
               </div>
               <aside class="tsd-sources">
                 <ul>
-                  <li>Defined in node_modules/@types/node/events.d.ts:395</li>
+                  <li>Defined in node_modules/@types/node/events.d.ts:445</li>
                 </ul>
               </aside>
             </section>
@@ -1099,21 +1097,33 @@
                   <a id="capturerejectionsymbol-2" class="tsd-anchor"></a
                   ><span class="tsd-kind-call-signature"
                     >&quot;[captureRejectionSymbol]&quot;</span
-                  ><span class="tsd-signature-symbol">(</span
-                  ><span class="tsd-kind-parameter">error</span
+                  ><span class="tsd-signature-symbol">&lt;</span
+                  ><a
+                    class="tsd-signature-type tsd-kind-type-parameter"
+                    href="WebSocketClient.html#capturerejectionsymbolk"
+                    >K</a
+                  ><span class="tsd-signature-symbol">&gt;</span
+                  ><span class="tsd-signature-symbol">(</span><br />    <span
+                    class="tsd-kind-parameter"
+                    >error</span
                   ><span class="tsd-signature-symbol">:</span>
                   <span class="tsd-signature-type">Error</span
-                  ><span class="tsd-signature-symbol">,</span>
-                  <span class="tsd-kind-parameter">event</span
+                  ><span class="tsd-signature-symbol">,</span><br />    <span
+                    class="tsd-kind-parameter"
+                    >event</span
                   ><span class="tsd-signature-symbol">:</span>
-                  <span class="tsd-signature-type">string</span
-                  ><span class="tsd-signature-symbol">,</span>
-                  <span class="tsd-signature-symbol">...</span
+                  <span class="tsd-signature-type">string</span>
+                  <span class="tsd-signature-symbol">|</span>
+                  <span class="tsd-signature-type">symbol</span
+                  ><span class="tsd-signature-symbol">,</span><br />    <span
+                    class="tsd-signature-symbol"
+                    >...</span
                   ><span class="tsd-kind-parameter">args</span
                   ><span class="tsd-signature-symbol">:</span>
-                  <span class="tsd-signature-type">any</span
-                  ><span class="tsd-signature-symbol">[]</span
-                  ><span class="tsd-signature-symbol">)</span
+                  <span class="tsd-signature-type">AnyRest</span
+                  ><span class="tsd-signature-symbol">,</span><br /><span
+                    class="tsd-signature-symbol"
+                    >)</span
                   ><span class="tsd-signature-symbol">:</span>
                   <span class="tsd-signature-type">void</span
                   ><a
@@ -1125,6 +1135,20 @@
                   ></a>
                 </li>
                 <li class="tsd-description">
+                  <section class="tsd-panel">
+                    <h4>Type Parameters</h4>
+                    <ul class="tsd-type-parameter-list">
+                      <li>
+                        <span
+                          ><a
+                            id="capturerejectionsymbolk"
+                            class="tsd-anchor"
+                          ></a
+                          ><span class="tsd-kind-type-parameter">K</span></span
+                        >
+                      </li>
+                    </ul>
+                  </section>
                   <div class="tsd-parameters">
                     <h4 class="tsd-parameters-title">Parameters</h4>
                     <ul class="tsd-parameter-list">
@@ -1137,15 +1161,16 @@
                       <li>
                         <span
                           ><span class="tsd-kind-parameter">event</span>:
-                          <span class="tsd-signature-type">string</span></span
+                          <span class="tsd-signature-type">string</span>
+                          <span class="tsd-signature-symbol">|</span>
+                          <span class="tsd-signature-type">symbol</span></span
                         >
                       </li>
                       <li>
                         <span
                           ><span class="tsd-signature-symbol">...</span
                           ><span class="tsd-kind-parameter">args</span>:
-                          <span class="tsd-signature-type">any</span
-                          ><span class="tsd-signature-symbol">[]</span></span
+                          <span class="tsd-signature-type">AnyRest</span></span
                         >
                       </li>
                     </ul>
@@ -1156,7 +1181,7 @@
                   <aside class="tsd-sources">
                     <ul>
                       <li>
-                        Defined in node_modules/@types/node/events.d.ts:112
+                        Defined in node_modules/@types/node/events.d.ts:136
                       </li>
                     </ul>
                   </aside>
@@ -1549,7 +1574,7 @@
                   ><span class="tsd-signature-symbol">,</span>
                   <span class="tsd-signature-type">any</span
                   ><span class="tsd-signature-symbol">,</span>
-                  <span class="tsd-signature-type">unknown</span
+                  <span class="tsd-signature-type">any</span
                   ><span class="tsd-signature-symbol">&gt;</span
                   ><a
                     href="#balances-1"
@@ -1584,7 +1609,7 @@
                     ><span class="tsd-signature-symbol">,</span>
                     <span class="tsd-signature-type">any</span
                     ><span class="tsd-signature-symbol">,</span>
-                    <span class="tsd-signature-type">unknown</span
+                    <span class="tsd-signature-type">any</span
                     ><span class="tsd-signature-symbol">&gt;</span>
                   </h4>
                   <aside class="tsd-sources">
@@ -1629,7 +1654,7 @@
                   ><span class="tsd-signature-symbol">,</span>
                   <span class="tsd-signature-type">any</span
                   ><span class="tsd-signature-symbol">,</span>
-                  <span class="tsd-signature-type">unknown</span
+                  <span class="tsd-signature-type">any</span
                   ><span class="tsd-signature-symbol">&gt;</span
                   ><a
                     href="#books-1"
@@ -1664,7 +1689,7 @@
                     ><span class="tsd-signature-symbol">,</span>
                     <span class="tsd-signature-type">any</span
                     ><span class="tsd-signature-symbol">,</span>
-                    <span class="tsd-signature-type">unknown</span
+                    <span class="tsd-signature-type">any</span
                     ><span class="tsd-signature-symbol">&gt;</span>
                   </h4>
                   <aside class="tsd-sources">
@@ -1697,14 +1722,11 @@
                 <li class="tsd-signature tsd-anchor-link">
                   <a id="bookslv2-1" class="tsd-anchor"></a
                   ><span class="tsd-kind-call-signature">booksLv2</span
-                  ><span class="tsd-signature-symbol">(</span><br />    <span
-                    class="tsd-kind-parameter"
-                    >__namedParameters</span
+                  ><span class="tsd-signature-symbol">(</span
+                  ><span class="tsd-kind-parameter">__namedParameters</span
                   ><span class="tsd-signature-symbol">?:</span>
                   <span class="tsd-signature-type">IBookOptions</span
-                  ><span class="tsd-signature-symbol">,</span><br /><span
-                    class="tsd-signature-symbol"
-                    >)</span
+                  ><span class="tsd-signature-symbol">)</span
                   ><span class="tsd-signature-symbol">:</span>
                   <span class="tsd-signature-type">AsyncGenerator</span
                   ><span class="tsd-signature-symbol">&lt;</span
@@ -1715,7 +1737,7 @@
                   ><span class="tsd-signature-symbol">,</span>
                   <span class="tsd-signature-type">any</span
                   ><span class="tsd-signature-symbol">,</span>
-                  <span class="tsd-signature-type">unknown</span
+                  <span class="tsd-signature-type">any</span
                   ><span class="tsd-signature-symbol">&gt;</span
                   ><a
                     href="#bookslv2-1"
@@ -1750,7 +1772,7 @@
                     ><span class="tsd-signature-symbol">,</span>
                     <span class="tsd-signature-type">any</span
                     ><span class="tsd-signature-symbol">,</span>
-                    <span class="tsd-signature-type">unknown</span
+                    <span class="tsd-signature-type">any</span
                     ><span class="tsd-signature-symbol">&gt;</span>
                   </h4>
                   <aside class="tsd-sources">
@@ -1802,7 +1824,7 @@
                   ><span class="tsd-signature-symbol">,</span>
                   <span class="tsd-signature-type">any</span
                   ><span class="tsd-signature-symbol">,</span>
-                  <span class="tsd-signature-type">unknown</span
+                  <span class="tsd-signature-type">any</span
                   ><span class="tsd-signature-symbol">&gt;</span
                   ><a
                     href="#candles-1"
@@ -1839,7 +1861,7 @@
                     ><span class="tsd-signature-symbol">,</span>
                     <span class="tsd-signature-type">any</span
                     ><span class="tsd-signature-symbol">,</span>
-                    <span class="tsd-signature-type">unknown</span
+                    <span class="tsd-signature-type">any</span
                     ><span class="tsd-signature-symbol">&gt;</span>
                   </h4>
                   <aside class="tsd-sources">
@@ -2385,7 +2407,7 @@
                   <aside class="tsd-sources">
                     <ul>
                       <li>
-                        Defined in node_modules/@types/node/events.d.ts:870
+                        Defined in node_modules/@types/node/events.d.ts:922
                       </li>
                     </ul>
                   </aside>
@@ -2454,7 +2476,7 @@
                   <aside class="tsd-sources">
                     <ul>
                       <li>
-                        Defined in node_modules/@types/node/events.d.ts:722
+                        Defined in node_modules/@types/node/events.d.ts:774
                       </li>
                     </ul>
                   </aside>
@@ -2635,6 +2657,12 @@
                 <li class="tsd-signature tsd-anchor-link">
                   <a id="listenercount-1" class="tsd-anchor"></a
                   ><span class="tsd-kind-call-signature">listenerCount</span
+                  ><span class="tsd-signature-symbol">&lt;</span
+                  ><a
+                    class="tsd-signature-type tsd-kind-type-parameter"
+                    href="WebSocketClient.html#listenercountk"
+                    >K</a
+                  ><span class="tsd-signature-symbol">&gt;</span
                   ><span class="tsd-signature-symbol">(</span
                   ><span class="tsd-kind-parameter">eventName</span
                   ><span class="tsd-signature-symbol">:</span>
@@ -2665,6 +2693,17 @@
                       found in the list of the listeners of the event.
                     </p>
                   </div>
+                  <section class="tsd-panel">
+                    <h4>Type Parameters</h4>
+                    <ul class="tsd-type-parameter-list">
+                      <li>
+                        <span
+                          ><a id="listenercountk" class="tsd-anchor"></a
+                          ><span class="tsd-kind-type-parameter">K</span></span
+                        >
+                      </li>
+                    </ul>
+                  </section>
                   <div class="tsd-parameters">
                     <h4 class="tsd-parameters-title">Parameters</h4>
                     <ul class="tsd-parameter-list">
@@ -2715,7 +2754,7 @@
                   <aside class="tsd-sources">
                     <ul>
                       <li>
-                        Defined in node_modules/@types/node/events.d.ts:816
+                        Defined in node_modules/@types/node/events.d.ts:868
                       </li>
                     </ul>
                   </aside>
@@ -2738,6 +2777,12 @@
                 <li class="tsd-signature tsd-anchor-link">
                   <a id="listeners-1" class="tsd-anchor"></a
                   ><span class="tsd-kind-call-signature">listeners</span
+                  ><span class="tsd-signature-symbol">&lt;</span
+                  ><a
+                    class="tsd-signature-type tsd-kind-type-parameter"
+                    href="WebSocketClient.html#listenersk"
+                    >K</a
+                  ><span class="tsd-signature-symbol">&gt;</span
                   ><span class="tsd-signature-symbol">(</span
                   ><span class="tsd-kind-parameter">eventName</span
                   ><span class="tsd-signature-symbol">:</span>
@@ -2765,6 +2810,17 @@
                     <pre><code class="js"><span class="hl-4">server</span><span class="hl-1">.</span><span class="hl-0">on</span><span class="hl-1">(</span><span class="hl-2">&#39;connection&#39;</span><span class="hl-1">, (</span><span class="hl-4">stream</span><span class="hl-1">) </span><span class="hl-5">=&gt;</span><span class="hl-1"> {</span><br/><span class="hl-1">  </span><span class="hl-4">console</span><span class="hl-1">.</span><span class="hl-0">log</span><span class="hl-1">(</span><span class="hl-2">&#39;someone connected!&#39;</span><span class="hl-1">);</span><br/><span class="hl-1">});</span><br/><span class="hl-4">console</span><span class="hl-1">.</span><span class="hl-0">log</span><span class="hl-1">(</span><span class="hl-4">util</span><span class="hl-1">.</span><span class="hl-0">inspect</span><span class="hl-1">(</span><span class="hl-4">server</span><span class="hl-1">.</span><span class="hl-0">listeners</span><span class="hl-1">(</span><span class="hl-2">&#39;connection&#39;</span><span class="hl-1">)));</span><br/><span class="hl-9">// Prints: [ [Function] ]</span>
 </code><button type="button">Copy</button></pre>
                   </div>
+                  <section class="tsd-panel">
+                    <h4>Type Parameters</h4>
+                    <ul class="tsd-type-parameter-list">
+                      <li>
+                        <span
+                          ><a id="listenersk" class="tsd-anchor"></a
+                          ><span class="tsd-kind-type-parameter">K</span></span
+                        >
+                      </li>
+                    </ul>
+                  </section>
                   <div class="tsd-parameters">
                     <h4 class="tsd-parameters-title">Parameters</h4>
                     <ul class="tsd-parameter-list">
@@ -2801,7 +2857,7 @@
                   <aside class="tsd-sources">
                     <ul>
                       <li>
-                        Defined in node_modules/@types/node/events.d.ts:735
+                        Defined in node_modules/@types/node/events.d.ts:787
                       </li>
                     </ul>
                   </aside>
@@ -2821,6 +2877,12 @@
                 <li class="tsd-signature tsd-anchor-link">
                   <a id="off-1" class="tsd-anchor"></a
                   ><span class="tsd-kind-call-signature">off</span
+                  ><span class="tsd-signature-symbol">&lt;</span
+                  ><a
+                    class="tsd-signature-type tsd-kind-type-parameter"
+                    href="WebSocketClient.html#offk"
+                    >K</a
+                  ><span class="tsd-signature-symbol">&gt;</span
                   ><span class="tsd-signature-symbol">(</span
                   ><span class="tsd-kind-parameter">eventName</span
                   ><span class="tsd-signature-symbol">:</span>
@@ -2854,6 +2916,17 @@
                   <div class="tsd-comment tsd-typography">
                     <p>Alias for <code>emitter.removeListener()</code>.</p>
                   </div>
+                  <section class="tsd-panel">
+                    <h4>Type Parameters</h4>
+                    <ul class="tsd-type-parameter-list">
+                      <li>
+                        <span
+                          ><a id="offk" class="tsd-anchor"></a
+                          ><span class="tsd-kind-type-parameter">K</span></span
+                        >
+                      </li>
+                    </ul>
+                  </section>
                   <div class="tsd-parameters">
                     <h4 class="tsd-parameters-title">Parameters</h4>
                     <ul class="tsd-parameter-list">
@@ -2903,7 +2976,7 @@
                   <aside class="tsd-sources">
                     <ul>
                       <li>
-                        Defined in node_modules/@types/node/events.d.ts:695
+                        Defined in node_modules/@types/node/events.d.ts:747
                       </li>
                     </ul>
                   </aside>
@@ -3483,7 +3556,7 @@
                   ><span class="tsd-signature-symbol">,</span>
                   <span class="tsd-signature-type">any</span
                   ><span class="tsd-signature-symbol">,</span>
-                  <span class="tsd-signature-type">unknown</span
+                  <span class="tsd-signature-type">any</span
                   ><span class="tsd-signature-symbol">&gt;</span
                   ><a
                     href="#orders-1"
@@ -3518,7 +3591,7 @@
                     ><span class="tsd-signature-symbol">,</span>
                     <span class="tsd-signature-type">any</span
                     ><span class="tsd-signature-symbol">,</span>
-                    <span class="tsd-signature-type">unknown</span
+                    <span class="tsd-signature-type">any</span
                     ><span class="tsd-signature-symbol">&gt;</span>
                   </h4>
                   <aside class="tsd-sources">
@@ -4270,6 +4343,12 @@
                 <li class="tsd-signature tsd-anchor-link">
                   <a id="rawlisteners-1" class="tsd-anchor"></a
                   ><span class="tsd-kind-call-signature">rawListeners</span
+                  ><span class="tsd-signature-symbol">&lt;</span
+                  ><a
+                    class="tsd-signature-type tsd-kind-type-parameter"
+                    href="WebSocketClient.html#rawlistenersk"
+                    >K</a
+                  ><span class="tsd-signature-symbol">&gt;</span
                   ><span class="tsd-signature-symbol">(</span
                   ><span class="tsd-kind-parameter">eventName</span
                   ><span class="tsd-signature-symbol">:</span>
@@ -4298,6 +4377,17 @@
                     <pre><code class="js"><span class="hl-3">import</span><span class="hl-1"> { </span><span class="hl-4">EventEmitter</span><span class="hl-1"> } </span><span class="hl-3">from</span><span class="hl-1"> </span><span class="hl-2">&#39;node:events&#39;</span><span class="hl-1">;</span><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">emitter</span><span class="hl-1"> = </span><span class="hl-5">new</span><span class="hl-1"> </span><span class="hl-0">EventEmitter</span><span class="hl-1">();</span><br/><span class="hl-4">emitter</span><span class="hl-1">.</span><span class="hl-0">once</span><span class="hl-1">(</span><span class="hl-2">&#39;log&#39;</span><span class="hl-1">, () </span><span class="hl-5">=&gt;</span><span class="hl-1"> </span><span class="hl-4">console</span><span class="hl-1">.</span><span class="hl-0">log</span><span class="hl-1">(</span><span class="hl-2">&#39;log once&#39;</span><span class="hl-1">));</span><br/><br/><span class="hl-9">// Returns a new Array with a function `onceWrapper` which has a property</span><br/><span class="hl-9">// `listener` which contains the original listener bound above</span><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">listeners</span><span class="hl-1"> = </span><span class="hl-4">emitter</span><span class="hl-1">.</span><span class="hl-0">rawListeners</span><span class="hl-1">(</span><span class="hl-2">&#39;log&#39;</span><span class="hl-1">);</span><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">logFnWrapper</span><span class="hl-1"> = </span><span class="hl-4">listeners</span><span class="hl-1">[</span><span class="hl-7">0</span><span class="hl-1">];</span><br/><br/><span class="hl-9">// Logs &quot;log once&quot; to the console and does not unbind the `once` event</span><br/><span class="hl-4">logFnWrapper</span><span class="hl-1">.</span><span class="hl-0">listener</span><span class="hl-1">();</span><br/><br/><span class="hl-9">// Logs &quot;log once&quot; to the console and removes the listener</span><br/><span class="hl-0">logFnWrapper</span><span class="hl-1">();</span><br/><br/><span class="hl-4">emitter</span><span class="hl-1">.</span><span class="hl-0">on</span><span class="hl-1">(</span><span class="hl-2">&#39;log&#39;</span><span class="hl-1">, () </span><span class="hl-5">=&gt;</span><span class="hl-1"> </span><span class="hl-4">console</span><span class="hl-1">.</span><span class="hl-0">log</span><span class="hl-1">(</span><span class="hl-2">&#39;log persistently&#39;</span><span class="hl-1">));</span><br/><span class="hl-9">// Will return a new Array with a single function bound by `.on()` above</span><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">newListeners</span><span class="hl-1"> = </span><span class="hl-4">emitter</span><span class="hl-1">.</span><span class="hl-0">rawListeners</span><span class="hl-1">(</span><span class="hl-2">&#39;log&#39;</span><span class="hl-1">);</span><br/><br/><span class="hl-9">// Logs &quot;log persistently&quot; twice</span><br/><span class="hl-4">newListeners</span><span class="hl-1">[</span><span class="hl-7">0</span><span class="hl-1">]();</span><br/><span class="hl-4">emitter</span><span class="hl-1">.</span><span class="hl-0">emit</span><span class="hl-1">(</span><span class="hl-2">&#39;log&#39;</span><span class="hl-1">);</span>
 </code><button type="button">Copy</button></pre>
                   </div>
+                  <section class="tsd-panel">
+                    <h4>Type Parameters</h4>
+                    <ul class="tsd-type-parameter-list">
+                      <li>
+                        <span
+                          ><a id="rawlistenersk" class="tsd-anchor"></a
+                          ><span class="tsd-kind-type-parameter">K</span></span
+                        >
+                      </li>
+                    </ul>
+                  </section>
                   <div class="tsd-parameters">
                     <h4 class="tsd-parameters-title">Parameters</h4>
                     <ul class="tsd-parameter-list">
@@ -4334,7 +4424,7 @@
                   <aside class="tsd-sources">
                     <ul>
                       <li>
-                        Defined in node_modules/@types/node/events.d.ts:766
+                        Defined in node_modules/@types/node/events.d.ts:818
                       </li>
                     </ul>
                   </aside>
@@ -4359,7 +4449,7 @@
                   ><span class="tsd-kind-call-signature"
                     >removeAllListeners</span
                   ><span class="tsd-signature-symbol">(</span
-                  ><span class="tsd-kind-parameter">event</span
+                  ><span class="tsd-kind-parameter">eventName</span
                   ><span class="tsd-signature-symbol">?:</span>
                   <span class="tsd-signature-type">string</span>
                   <span class="tsd-signature-symbol">|</span>
@@ -4398,7 +4488,7 @@
                       <li>
                         <span
                           ><code class="tsd-tag">Optional</code
-                          ><span class="tsd-kind-parameter">event</span>:
+                          ><span class="tsd-kind-parameter">eventName</span>:
                           <span class="tsd-signature-type">string</span>
                           <span class="tsd-signature-symbol">|</span>
                           <span class="tsd-signature-type">symbol</span></span
@@ -4428,7 +4518,7 @@
                   <aside class="tsd-sources">
                     <ul>
                       <li>
-                        Defined in node_modules/@types/node/events.d.ts:706
+                        Defined in node_modules/@types/node/events.d.ts:758
                       </li>
                     </ul>
                   </aside>
@@ -4451,6 +4541,12 @@
                 <li class="tsd-signature tsd-anchor-link">
                   <a id="removelistener-1" class="tsd-anchor"></a
                   ><span class="tsd-kind-call-signature">removeListener</span
+                  ><span class="tsd-signature-symbol">&lt;</span
+                  ><a
+                    class="tsd-signature-type tsd-kind-type-parameter"
+                    href="WebSocketClient.html#removelistenerk"
+                    >K</a
+                  ><span class="tsd-signature-symbol">&gt;</span
                   ><span class="tsd-signature-symbol">(</span><br />    <span
                     class="tsd-kind-parameter"
                     >eventName</span
@@ -4488,7 +4584,7 @@
                   <div class="tsd-comment tsd-typography">
                     <p>
                       Removes the specified <code>listener</code> from the
-                      listener array for the event named<code>eventName</code>.
+                      listener array for the event named <code>eventName</code>.
                     </p>
                     <pre><code class="js"><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-0">callback</span><span class="hl-1"> = (</span><span class="hl-4">stream</span><span class="hl-1">) </span><span class="hl-5">=&gt;</span><span class="hl-1"> {</span><br/><span class="hl-1">  </span><span class="hl-4">console</span><span class="hl-1">.</span><span class="hl-0">log</span><span class="hl-1">(</span><span class="hl-2">&#39;someone connected!&#39;</span><span class="hl-1">);</span><br/><span class="hl-1">};</span><br/><span class="hl-4">server</span><span class="hl-1">.</span><span class="hl-0">on</span><span class="hl-1">(</span><span class="hl-2">&#39;connection&#39;</span><span class="hl-1">, </span><span class="hl-4">callback</span><span class="hl-1">);</span><br/><span class="hl-9">// ...</span><br/><span class="hl-4">server</span><span class="hl-1">.</span><span class="hl-0">removeListener</span><span class="hl-1">(</span><span class="hl-2">&#39;connection&#39;</span><span class="hl-1">, </span><span class="hl-4">callback</span><span class="hl-1">);</span>
 </code><button type="button">Copy</button></pre>
@@ -4504,7 +4600,7 @@
                     <p>
                       Once an event is emitted, all listeners attached to it at
                       the time of emitting are called in order. This implies
-                      that any<code>removeListener()</code> or
+                      that any <code>removeListener()</code> or
                       <code>removeAllListeners()</code> calls
                       <em>after</em> emitting and <em>before</em> the last
                       listener finishes execution will not remove them from<code
@@ -4530,7 +4626,7 @@
                       multiple times for a single event (as in the example
                       below), <code>removeListener()</code> will remove the most
                       recently added instance. In the example the
-                      <code>once('ping')</code>listener is removed:
+                      <code>once('ping')</code> listener is removed:
                     </p>
                     <pre><code class="js"><span class="hl-3">import</span><span class="hl-1"> { </span><span class="hl-4">EventEmitter</span><span class="hl-1"> } </span><span class="hl-3">from</span><span class="hl-1"> </span><span class="hl-2">&#39;node:events&#39;</span><span class="hl-1">;</span><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">ee</span><span class="hl-1"> = </span><span class="hl-5">new</span><span class="hl-1"> </span><span class="hl-0">EventEmitter</span><span class="hl-1">();</span><br/><br/><span class="hl-5">function</span><span class="hl-1"> </span><span class="hl-0">pong</span><span class="hl-1">() {</span><br/><span class="hl-1">  </span><span class="hl-4">console</span><span class="hl-1">.</span><span class="hl-0">log</span><span class="hl-1">(</span><span class="hl-2">&#39;pong&#39;</span><span class="hl-1">);</span><br/><span class="hl-1">}</span><br/><br/><span class="hl-4">ee</span><span class="hl-1">.</span><span class="hl-0">on</span><span class="hl-1">(</span><span class="hl-2">&#39;ping&#39;</span><span class="hl-1">, </span><span class="hl-4">pong</span><span class="hl-1">);</span><br/><span class="hl-4">ee</span><span class="hl-1">.</span><span class="hl-0">once</span><span class="hl-1">(</span><span class="hl-2">&#39;ping&#39;</span><span class="hl-1">, </span><span class="hl-4">pong</span><span class="hl-1">);</span><br/><span class="hl-4">ee</span><span class="hl-1">.</span><span class="hl-0">removeListener</span><span class="hl-1">(</span><span class="hl-2">&#39;ping&#39;</span><span class="hl-1">, </span><span class="hl-4">pong</span><span class="hl-1">);</span><br/><br/><span class="hl-4">ee</span><span class="hl-1">.</span><span class="hl-0">emit</span><span class="hl-1">(</span><span class="hl-2">&#39;ping&#39;</span><span class="hl-1">);</span><br/><span class="hl-4">ee</span><span class="hl-1">.</span><span class="hl-0">emit</span><span class="hl-1">(</span><span class="hl-2">&#39;ping&#39;</span><span class="hl-1">);</span>
 </code><button type="button">Copy</button></pre>
@@ -4540,6 +4636,17 @@
                       that calls can be chained.
                     </p>
                   </div>
+                  <section class="tsd-panel">
+                    <h4>Type Parameters</h4>
+                    <ul class="tsd-type-parameter-list">
+                      <li>
+                        <span
+                          ><a id="removelistenerk" class="tsd-anchor"></a
+                          ><span class="tsd-kind-type-parameter">K</span></span
+                        >
+                      </li>
+                    </ul>
+                  </section>
                   <div class="tsd-parameters">
                     <h4 class="tsd-parameters-title">Parameters</h4>
                     <ul class="tsd-parameter-list">
@@ -4589,7 +4696,7 @@
                   <aside class="tsd-sources">
                     <ul>
                       <li>
-                        Defined in node_modules/@types/node/events.d.ts:690
+                        Defined in node_modules/@types/node/events.d.ts:742
                       </li>
                     </ul>
                   </aside>
@@ -4731,8 +4838,8 @@
                       <code>emitter.setMaxListeners()</code> method allows the
                       limit to be modified for this specific
                       <code>EventEmitter</code> instance. The value can be set
-                      to<code>Infinity</code> (or <code>0</code>) to indicate an
-                      unlimited number of listeners.
+                      to <code>Infinity</code> (or <code>0</code>) to indicate
+                      an unlimited number of listeners.
                     </p>
                     <p>
                       Returns a reference to the <code>EventEmitter</code>, so
@@ -4772,7 +4879,7 @@
                   <aside class="tsd-sources">
                     <ul>
                       <li>
-                        Defined in node_modules/@types/node/events.d.ts:716
+                        Defined in node_modules/@types/node/events.d.ts:768
                       </li>
                     </ul>
                   </aside>
@@ -5428,7 +5535,7 @@
                   ><span class="tsd-signature-symbol">,</span>
                   <span class="tsd-signature-type">any</span
                   ><span class="tsd-signature-symbol">,</span>
-                  <span class="tsd-signature-type">unknown</span
+                  <span class="tsd-signature-type">any</span
                   ><span class="tsd-signature-symbol">&gt;</span
                   ><a
                     href="#tickers-1"
@@ -5463,7 +5570,7 @@
                     ><span class="tsd-signature-symbol">,</span>
                     <span class="tsd-signature-type">any</span
                     ><span class="tsd-signature-symbol">,</span>
-                    <span class="tsd-signature-type">unknown</span
+                    <span class="tsd-signature-type">any</span
                     ><span class="tsd-signature-symbol">&gt;</span>
                   </h4>
                   <aside class="tsd-sources">
@@ -5511,7 +5618,7 @@
                   ><span class="tsd-signature-symbol">,</span>
                   <span class="tsd-signature-type">any</span
                   ><span class="tsd-signature-symbol">,</span>
-                  <span class="tsd-signature-type">unknown</span
+                  <span class="tsd-signature-type">any</span
                   ><span class="tsd-signature-symbol">&gt;</span
                   ><a
                     href="#trades-1"
@@ -5546,7 +5653,7 @@
                     ><span class="tsd-signature-symbol">,</span>
                     <span class="tsd-signature-type">any</span
                     ><span class="tsd-signature-symbol">,</span>
-                    <span class="tsd-signature-type">unknown</span
+                    <span class="tsd-signature-type">any</span
                     ><span class="tsd-signature-symbol">&gt;</span>
                   </h4>
                   <aside class="tsd-sources">
@@ -6467,7 +6574,7 @@
                   <aside class="tsd-sources">
                     <ul>
                       <li>
-                        Defined in node_modules/@types/node/events.d.ts:387
+                        Defined in node_modules/@types/node/events.d.ts:437
                       </li>
                     </ul>
                   </aside>
@@ -6495,9 +6602,12 @@
                     class="tsd-kind-parameter"
                     >emitter</span
                   ><span class="tsd-signature-symbol">:</span>
-                  <span class="tsd-signature-type">EventEmitter</span>
+                  <span class="tsd-signature-type">EventTarget</span>
                   <span class="tsd-signature-symbol">|</span>
-                  <span class="tsd-signature-type">_DOMEventTarget</span
+                  <span class="tsd-signature-type">EventEmitter</span
+                  ><span class="tsd-signature-symbol">&lt;</span
+                  ><span class="tsd-signature-type">DefaultEventMap</span
+                  ><span class="tsd-signature-symbol">&gt;</span
                   ><span class="tsd-signature-symbol">,</span><br />    <span
                     class="tsd-kind-parameter"
                     >name</span
@@ -6543,11 +6653,13 @@
                       <li>
                         <span
                           ><span class="tsd-kind-parameter">emitter</span>:
-                          <span class="tsd-signature-type">EventEmitter</span>
+                          <span class="tsd-signature-type">EventTarget</span>
                           <span class="tsd-signature-symbol">|</span>
-                          <span class="tsd-signature-type"
-                            >_DOMEventTarget</span
-                          ></span
+                          <span class="tsd-signature-type">EventEmitter</span
+                          ><span class="tsd-signature-symbol">&lt;</span
+                          ><span class="tsd-signature-type"
+                            >DefaultEventMap</span
+                          ><span class="tsd-signature-symbol">&gt;</span></span
                         >
                       </li>
                       <li>
@@ -6583,7 +6695,7 @@
                   <aside class="tsd-sources">
                     <ul>
                       <li>
-                        Defined in node_modules/@types/node/events.d.ts:308
+                        Defined in node_modules/@types/node/events.d.ts:358
                       </li>
                     </ul>
                   </aside>
@@ -6610,9 +6722,12 @@
                   ><span class="tsd-signature-symbol">(</span
                   ><span class="tsd-kind-parameter">emitter</span
                   ><span class="tsd-signature-symbol">:</span>
-                  <span class="tsd-signature-type">EventEmitter</span>
+                  <span class="tsd-signature-type">EventTarget</span>
                   <span class="tsd-signature-symbol">|</span>
-                  <span class="tsd-signature-type">_DOMEventTarget</span
+                  <span class="tsd-signature-type">EventEmitter</span
+                  ><span class="tsd-signature-symbol">&lt;</span
+                  ><span class="tsd-signature-type">DefaultEventMap</span
+                  ><span class="tsd-signature-symbol">&gt;</span
                   ><span class="tsd-signature-symbol">)</span
                   ><span class="tsd-signature-symbol">:</span>
                   <span class="tsd-signature-type">number</span
@@ -6647,11 +6762,13 @@
                       <li>
                         <span
                           ><span class="tsd-kind-parameter">emitter</span>:
-                          <span class="tsd-signature-type">EventEmitter</span>
+                          <span class="tsd-signature-type">EventTarget</span>
                           <span class="tsd-signature-symbol">|</span>
-                          <span class="tsd-signature-type"
-                            >_DOMEventTarget</span
-                          ></span
+                          <span class="tsd-signature-type">EventEmitter</span
+                          ><span class="tsd-signature-symbol">&lt;</span
+                          ><span class="tsd-signature-type"
+                            >DefaultEventMap</span
+                          ><span class="tsd-signature-symbol">&gt;</span></span
                         >
                       </li>
                     </ul>
@@ -6678,7 +6795,7 @@
                   <aside class="tsd-sources">
                     <ul>
                       <li>
-                        Defined in node_modules/@types/node/events.d.ts:337
+                        Defined in node_modules/@types/node/events.d.ts:387
                       </li>
                     </ul>
                   </aside>
@@ -6702,17 +6819,24 @@
                 <li class="tsd-signature tsd-anchor-link">
                   <a id="listenercount-3" class="tsd-anchor"></a
                   ><span class="tsd-kind-call-signature">listenerCount</span
-                  ><span class="tsd-signature-symbol">(</span
-                  ><span class="tsd-kind-parameter">emitter</span
+                  ><span class="tsd-signature-symbol">(</span><br />    <span
+                    class="tsd-kind-parameter"
+                    >emitter</span
                   ><span class="tsd-signature-symbol">:</span>
                   <span class="tsd-signature-type">EventEmitter</span
-                  ><span class="tsd-signature-symbol">,</span>
-                  <span class="tsd-kind-parameter">eventName</span
+                  ><span class="tsd-signature-symbol">&lt;</span
+                  ><span class="tsd-signature-type">DefaultEventMap</span
+                  ><span class="tsd-signature-symbol">&gt;</span
+                  ><span class="tsd-signature-symbol">,</span><br />    <span
+                    class="tsd-kind-parameter"
+                    >eventName</span
                   ><span class="tsd-signature-symbol">:</span>
                   <span class="tsd-signature-type">string</span>
                   <span class="tsd-signature-symbol">|</span>
                   <span class="tsd-signature-type">symbol</span
-                  ><span class="tsd-signature-symbol">)</span
+                  ><span class="tsd-signature-symbol">,</span><br /><span
+                    class="tsd-signature-symbol"
+                    >)</span
                   ><span class="tsd-signature-symbol">:</span>
                   <span class="tsd-signature-type">number</span
                   ><a
@@ -6727,7 +6851,7 @@
                   <div class="tsd-comment tsd-typography">
                     <p>
                       A class method that returns the number of listeners for
-                      the given <code>eventName</code>registered on the given
+                      the given <code>eventName</code> registered on the given
                       <code>emitter</code>.
                     </p>
                     <pre><code class="js"><span class="hl-3">import</span><span class="hl-1"> { </span><span class="hl-4">EventEmitter</span><span class="hl-1">, </span><span class="hl-4">listenerCount</span><span class="hl-1"> } </span><span class="hl-3">from</span><span class="hl-1"> </span><span class="hl-2">&#39;node:events&#39;</span><span class="hl-1">;</span><br/><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">myEmitter</span><span class="hl-1"> = </span><span class="hl-5">new</span><span class="hl-1"> </span><span class="hl-0">EventEmitter</span><span class="hl-1">();</span><br/><span class="hl-4">myEmitter</span><span class="hl-1">.</span><span class="hl-0">on</span><span class="hl-1">(</span><span class="hl-2">&#39;event&#39;</span><span class="hl-1">, () </span><span class="hl-5">=&gt;</span><span class="hl-1"> {});</span><br/><span class="hl-4">myEmitter</span><span class="hl-1">.</span><span class="hl-0">on</span><span class="hl-1">(</span><span class="hl-2">&#39;event&#39;</span><span class="hl-1">, () </span><span class="hl-5">=&gt;</span><span class="hl-1"> {});</span><br/><span class="hl-4">console</span><span class="hl-1">.</span><span class="hl-0">log</span><span class="hl-1">(</span><span class="hl-0">listenerCount</span><span class="hl-1">(</span><span class="hl-4">myEmitter</span><span class="hl-1">, </span><span class="hl-2">&#39;event&#39;</span><span class="hl-1">));</span><br/><span class="hl-9">// Prints: 2</span>
@@ -6739,9 +6863,11 @@
                       <li>
                         <span
                           ><span class="tsd-kind-parameter">emitter</span>:
-                          <span class="tsd-signature-type"
-                            >EventEmitter</span
-                          ></span
+                          <span class="tsd-signature-type">EventEmitter</span
+                          ><span class="tsd-signature-symbol">&lt;</span
+                          ><span class="tsd-signature-type"
+                            >DefaultEventMap</span
+                          ><span class="tsd-signature-symbol">&gt;</span></span
                         >
                         <div class="tsd-comment tsd-typography">
                           <p>The emitter to query</p>
@@ -6800,7 +6926,7 @@
                   <aside class="tsd-sources">
                     <ul>
                       <li>
-                        Defined in node_modules/@types/node/events.d.ts:280
+                        Defined in node_modules/@types/node/events.d.ts:330
                       </li>
                     </ul>
                   </aside>
@@ -6825,24 +6951,34 @@
                     >emitter</span
                   ><span class="tsd-signature-symbol">:</span>
                   <span class="tsd-signature-type">EventEmitter</span
+                  ><span class="tsd-signature-symbol">&lt;</span
+                  ><span class="tsd-signature-type">DefaultEventMap</span
+                  ><span class="tsd-signature-symbol">&gt;</span
                   ><span class="tsd-signature-symbol">,</span><br />    <span
                     class="tsd-kind-parameter"
                     >eventName</span
                   ><span class="tsd-signature-symbol">:</span>
-                  <span class="tsd-signature-type">string</span
+                  <span class="tsd-signature-type">string</span>
+                  <span class="tsd-signature-symbol">|</span>
+                  <span class="tsd-signature-type">symbol</span
                   ><span class="tsd-signature-symbol">,</span><br />    <span
                     class="tsd-kind-parameter"
                     >options</span
                   ><span class="tsd-signature-symbol">?:</span>
                   <span class="tsd-signature-type"
-                    >StaticEventEmitterOptions</span
+                    >StaticEventEmitterIteratorOptions</span
                   ><span class="tsd-signature-symbol">,</span><br /><span
                     class="tsd-signature-symbol"
                     >)</span
                   ><span class="tsd-signature-symbol">:</span>
-                  <span class="tsd-signature-type">AsyncIterableIterator</span
+                  <span class="tsd-signature-type">AsyncIterator</span
                   ><span class="tsd-signature-symbol">&lt;</span
                   ><span class="tsd-signature-type">any</span
+                  ><span class="tsd-signature-symbol">[]</span
+                  ><span class="tsd-signature-symbol">,</span>
+                  <span class="tsd-signature-type">any</span
+                  ><span class="tsd-signature-symbol">,</span>
+                  <span class="tsd-signature-type">any</span
                   ><span class="tsd-signature-symbol">&gt;</span
                   ><a
                     href="#on-5"
@@ -6871,6 +7007,13 @@
                     </p>
                     <pre><code class="js"><span class="hl-3">import</span><span class="hl-1"> { </span><span class="hl-4">on</span><span class="hl-1">, </span><span class="hl-4">EventEmitter</span><span class="hl-1"> } </span><span class="hl-3">from</span><span class="hl-1"> </span><span class="hl-2">&#39;node:events&#39;</span><span class="hl-1">;</span><br/><span class="hl-3">import</span><span class="hl-1"> </span><span class="hl-4">process</span><span class="hl-1"> </span><span class="hl-3">from</span><span class="hl-1"> </span><span class="hl-2">&#39;node:process&#39;</span><span class="hl-1">;</span><br/><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">ac</span><span class="hl-1"> = </span><span class="hl-5">new</span><span class="hl-1"> </span><span class="hl-0">AbortController</span><span class="hl-1">();</span><br/><br/><span class="hl-1">(</span><span class="hl-5">async</span><span class="hl-1"> () </span><span class="hl-5">=&gt;</span><span class="hl-1"> {</span><br/><span class="hl-1">  </span><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">ee</span><span class="hl-1"> = </span><span class="hl-5">new</span><span class="hl-1"> </span><span class="hl-0">EventEmitter</span><span class="hl-1">();</span><br/><br/><span class="hl-1">  </span><span class="hl-9">// Emit later on</span><br/><span class="hl-1">  </span><span class="hl-4">process</span><span class="hl-1">.</span><span class="hl-0">nextTick</span><span class="hl-1">(() </span><span class="hl-5">=&gt;</span><span class="hl-1"> {</span><br/><span class="hl-1">    </span><span class="hl-4">ee</span><span class="hl-1">.</span><span class="hl-0">emit</span><span class="hl-1">(</span><span class="hl-2">&#39;foo&#39;</span><span class="hl-1">, </span><span class="hl-2">&#39;bar&#39;</span><span class="hl-1">);</span><br/><span class="hl-1">    </span><span class="hl-4">ee</span><span class="hl-1">.</span><span class="hl-0">emit</span><span class="hl-1">(</span><span class="hl-2">&#39;foo&#39;</span><span class="hl-1">, </span><span class="hl-7">42</span><span class="hl-1">);</span><br/><span class="hl-1">  });</span><br/><br/><span class="hl-1">  </span><span class="hl-3">for</span><span class="hl-1"> </span><span class="hl-3">await</span><span class="hl-1"> (</span><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">event</span><span class="hl-1"> </span><span class="hl-5">of</span><span class="hl-1"> </span><span class="hl-0">on</span><span class="hl-1">(</span><span class="hl-4">ee</span><span class="hl-1">, </span><span class="hl-2">&#39;foo&#39;</span><span class="hl-1">, { </span><span class="hl-4">signal:</span><span class="hl-1"> </span><span class="hl-4">ac</span><span class="hl-1">.</span><span class="hl-4">signal</span><span class="hl-1"> })) {</span><br/><span class="hl-1">    </span><span class="hl-9">// The execution of this inner block is synchronous and it</span><br/><span class="hl-1">    </span><span class="hl-9">// processes one event at a time (even with await). Do not use</span><br/><span class="hl-1">    </span><span class="hl-9">// if concurrent execution is required.</span><br/><span class="hl-1">    </span><span class="hl-4">console</span><span class="hl-1">.</span><span class="hl-0">log</span><span class="hl-1">(</span><span class="hl-4">event</span><span class="hl-1">); </span><span class="hl-9">// prints [&#39;bar&#39;] [42]</span><br/><span class="hl-1">  }</span><br/><span class="hl-1">  </span><span class="hl-9">// Unreachable here</span><br/><span class="hl-1">})();</span><br/><br/><span class="hl-4">process</span><span class="hl-1">.</span><span class="hl-0">nextTick</span><span class="hl-1">(() </span><span class="hl-5">=&gt;</span><span class="hl-1"> </span><span class="hl-4">ac</span><span class="hl-1">.</span><span class="hl-0">abort</span><span class="hl-1">());</span>
 </code><button type="button">Copy</button></pre>
+
+                    <p>
+                      Use the <code>close</code> option to specify an array of
+                      event names that will end the iteration:
+                    </p>
+                    <pre><code class="js"><span class="hl-3">import</span><span class="hl-1"> { </span><span class="hl-4">on</span><span class="hl-1">, </span><span class="hl-4">EventEmitter</span><span class="hl-1"> } </span><span class="hl-3">from</span><span class="hl-1"> </span><span class="hl-2">&#39;node:events&#39;</span><span class="hl-1">;</span><br/><span class="hl-3">import</span><span class="hl-1"> </span><span class="hl-4">process</span><span class="hl-1"> </span><span class="hl-3">from</span><span class="hl-1"> </span><span class="hl-2">&#39;node:process&#39;</span><span class="hl-1">;</span><br/><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">ee</span><span class="hl-1"> = </span><span class="hl-5">new</span><span class="hl-1"> </span><span class="hl-0">EventEmitter</span><span class="hl-1">();</span><br/><br/><span class="hl-9">// Emit later on</span><br/><span class="hl-4">process</span><span class="hl-1">.</span><span class="hl-0">nextTick</span><span class="hl-1">(() </span><span class="hl-5">=&gt;</span><span class="hl-1"> {</span><br/><span class="hl-1">  </span><span class="hl-4">ee</span><span class="hl-1">.</span><span class="hl-0">emit</span><span class="hl-1">(</span><span class="hl-2">&#39;foo&#39;</span><span class="hl-1">, </span><span class="hl-2">&#39;bar&#39;</span><span class="hl-1">);</span><br/><span class="hl-1">  </span><span class="hl-4">ee</span><span class="hl-1">.</span><span class="hl-0">emit</span><span class="hl-1">(</span><span class="hl-2">&#39;foo&#39;</span><span class="hl-1">, </span><span class="hl-7">42</span><span class="hl-1">);</span><br/><span class="hl-1">  </span><span class="hl-4">ee</span><span class="hl-1">.</span><span class="hl-0">emit</span><span class="hl-1">(</span><span class="hl-2">&#39;close&#39;</span><span class="hl-1">);</span><br/><span class="hl-1">});</span><br/><br/><span class="hl-3">for</span><span class="hl-1"> </span><span class="hl-3">await</span><span class="hl-1"> (</span><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">event</span><span class="hl-1"> </span><span class="hl-5">of</span><span class="hl-1"> </span><span class="hl-0">on</span><span class="hl-1">(</span><span class="hl-4">ee</span><span class="hl-1">, </span><span class="hl-2">&#39;foo&#39;</span><span class="hl-1">, { </span><span class="hl-4">close:</span><span class="hl-1"> [</span><span class="hl-2">&#39;close&#39;</span><span class="hl-1">] })) {</span><br/><span class="hl-1">  </span><span class="hl-4">console</span><span class="hl-1">.</span><span class="hl-0">log</span><span class="hl-1">(</span><span class="hl-4">event</span><span class="hl-1">); </span><span class="hl-9">// prints [&#39;bar&#39;] [42]</span><br/><span class="hl-1">}</span><br/><span class="hl-9">// the loop will exit after &#39;close&#39; is emitted</span><br/><span class="hl-4">console</span><span class="hl-1">.</span><span class="hl-0">log</span><span class="hl-1">(</span><span class="hl-2">&#39;done&#39;</span><span class="hl-1">); </span><span class="hl-9">// prints &#39;done&#39;</span>
+</code><button type="button">Copy</button></pre>
                   </div>
                   <div class="tsd-parameters">
                     <h4 class="tsd-parameters-title">Parameters</h4>
@@ -6878,41 +7021,46 @@
                       <li>
                         <span
                           ><span class="tsd-kind-parameter">emitter</span>:
-                          <span class="tsd-signature-type"
-                            >EventEmitter</span
-                          ></span
+                          <span class="tsd-signature-type">EventEmitter</span
+                          ><span class="tsd-signature-symbol">&lt;</span
+                          ><span class="tsd-signature-type"
+                            >DefaultEventMap</span
+                          ><span class="tsd-signature-symbol">&gt;</span></span
                         >
                       </li>
                       <li>
                         <span
                           ><span class="tsd-kind-parameter">eventName</span>:
-                          <span class="tsd-signature-type">string</span></span
+                          <span class="tsd-signature-type">string</span>
+                          <span class="tsd-signature-symbol">|</span>
+                          <span class="tsd-signature-type">symbol</span></span
                         >
-                        <div class="tsd-comment tsd-typography">
-                          <p>The name of the event being listened for</p>
-                        </div>
-                        <div class="tsd-comment tsd-typography"></div>
                       </li>
                       <li>
                         <span
                           ><code class="tsd-tag">Optional</code
                           ><span class="tsd-kind-parameter">options</span>:
                           <span class="tsd-signature-type"
-                            >StaticEventEmitterOptions</span
+                            >StaticEventEmitterIteratorOptions</span
                           ></span
                         >
                       </li>
                     </ul>
                   </div>
                   <h4 class="tsd-returns-title">
-                    Returns
-                    <span class="tsd-signature-type">AsyncIterableIterator</span
+                    Returns <span class="tsd-signature-type">AsyncIterator</span
                     ><span class="tsd-signature-symbol">&lt;</span
                     ><span class="tsd-signature-type">any</span
+                    ><span class="tsd-signature-symbol">[]</span
+                    ><span class="tsd-signature-symbol">,</span>
+                    <span class="tsd-signature-type">any</span
+                    ><span class="tsd-signature-symbol">,</span>
+                    <span class="tsd-signature-type">any</span
                     ><span class="tsd-signature-symbol">&gt;</span>
                   </h4>
                   <p>
-                    that iterates <code>eventName</code> events emitted by the
+                    An <code>AsyncIterator</code> that iterates
+                    <code>eventName</code> events emitted by the
                     <code>emitter</code>
                   </p>
                   <div class="tsd-comment tsd-typography">
@@ -6934,7 +7082,142 @@
                   <aside class="tsd-sources">
                     <ul>
                       <li>
-                        Defined in node_modules/@types/node/events.d.ts:258
+                        Defined in node_modules/@types/node/events.d.ts:303
+                      </li>
+                    </ul>
+                  </aside>
+                </li>
+                <li class="tsd-signature tsd-anchor-link">
+                  <a id="on-6" class="tsd-anchor"></a
+                  ><span class="tsd-kind-call-signature">on</span
+                  ><span class="tsd-signature-symbol">(</span><br />    <span
+                    class="tsd-kind-parameter"
+                    >emitter</span
+                  ><span class="tsd-signature-symbol">:</span>
+                  <span class="tsd-signature-type">EventTarget</span
+                  ><span class="tsd-signature-symbol">,</span><br />    <span
+                    class="tsd-kind-parameter"
+                    >eventName</span
+                  ><span class="tsd-signature-symbol">:</span>
+                  <span class="tsd-signature-type">string</span
+                  ><span class="tsd-signature-symbol">,</span><br />    <span
+                    class="tsd-kind-parameter"
+                    >options</span
+                  ><span class="tsd-signature-symbol">?:</span>
+                  <span class="tsd-signature-type"
+                    >StaticEventEmitterIteratorOptions</span
+                  ><span class="tsd-signature-symbol">,</span><br /><span
+                    class="tsd-signature-symbol"
+                    >)</span
+                  ><span class="tsd-signature-symbol">:</span>
+                  <span class="tsd-signature-type">AsyncIterator</span
+                  ><span class="tsd-signature-symbol">&lt;</span
+                  ><span class="tsd-signature-type">any</span
+                  ><span class="tsd-signature-symbol">[]</span
+                  ><span class="tsd-signature-symbol">,</span>
+                  <span class="tsd-signature-type">any</span
+                  ><span class="tsd-signature-symbol">,</span>
+                  <span class="tsd-signature-type">any</span
+                  ><span class="tsd-signature-symbol">&gt;</span
+                  ><a
+                    href="#on-6"
+                    aria-label="Permalink"
+                    class="tsd-anchor-icon"
+                    ><svg viewBox="0 0 24 24">
+                      <use href="../assets/icons.svg#icon-anchor"></use></svg
+                  ></a>
+                </li>
+                <li class="tsd-description">
+                  <div class="tsd-comment tsd-typography">
+                    <pre><code class="js"><span class="hl-3">import</span><span class="hl-1"> { </span><span class="hl-4">on</span><span class="hl-1">, </span><span class="hl-4">EventEmitter</span><span class="hl-1"> } </span><span class="hl-3">from</span><span class="hl-1"> </span><span class="hl-2">&#39;node:events&#39;</span><span class="hl-1">;</span><br/><span class="hl-3">import</span><span class="hl-1"> </span><span class="hl-4">process</span><span class="hl-1"> </span><span class="hl-3">from</span><span class="hl-1"> </span><span class="hl-2">&#39;node:process&#39;</span><span class="hl-1">;</span><br/><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">ee</span><span class="hl-1"> = </span><span class="hl-5">new</span><span class="hl-1"> </span><span class="hl-0">EventEmitter</span><span class="hl-1">();</span><br/><br/><span class="hl-9">// Emit later on</span><br/><span class="hl-4">process</span><span class="hl-1">.</span><span class="hl-0">nextTick</span><span class="hl-1">(() </span><span class="hl-5">=&gt;</span><span class="hl-1"> {</span><br/><span class="hl-1">  </span><span class="hl-4">ee</span><span class="hl-1">.</span><span class="hl-0">emit</span><span class="hl-1">(</span><span class="hl-2">&#39;foo&#39;</span><span class="hl-1">, </span><span class="hl-2">&#39;bar&#39;</span><span class="hl-1">);</span><br/><span class="hl-1">  </span><span class="hl-4">ee</span><span class="hl-1">.</span><span class="hl-0">emit</span><span class="hl-1">(</span><span class="hl-2">&#39;foo&#39;</span><span class="hl-1">, </span><span class="hl-7">42</span><span class="hl-1">);</span><br/><span class="hl-1">});</span><br/><br/><span class="hl-3">for</span><span class="hl-1"> </span><span class="hl-3">await</span><span class="hl-1"> (</span><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">event</span><span class="hl-1"> </span><span class="hl-5">of</span><span class="hl-1"> </span><span class="hl-0">on</span><span class="hl-1">(</span><span class="hl-4">ee</span><span class="hl-1">, </span><span class="hl-2">&#39;foo&#39;</span><span class="hl-1">)) {</span><br/><span class="hl-1">  </span><span class="hl-9">// The execution of this inner block is synchronous and it</span><br/><span class="hl-1">  </span><span class="hl-9">// processes one event at a time (even with await). Do not use</span><br/><span class="hl-1">  </span><span class="hl-9">// if concurrent execution is required.</span><br/><span class="hl-1">  </span><span class="hl-4">console</span><span class="hl-1">.</span><span class="hl-0">log</span><span class="hl-1">(</span><span class="hl-4">event</span><span class="hl-1">); </span><span class="hl-9">// prints [&#39;bar&#39;] [42]</span><br/><span class="hl-1">}</span><br/><span class="hl-9">// Unreachable here</span>
+</code><button type="button">Copy</button></pre>
+
+                    <p>
+                      Returns an <code>AsyncIterator</code> that iterates
+                      <code>eventName</code> events. It will throw if the
+                      <code>EventEmitter</code> emits <code>'error'</code>. It
+                      removes all listeners when exiting the loop. The
+                      <code>value</code> returned by each iteration is an array
+                      composed of the emitted event arguments.
+                    </p>
+                    <p>
+                      An <code>AbortSignal</code> can be used to cancel waiting
+                      on events:
+                    </p>
+                    <pre><code class="js"><span class="hl-3">import</span><span class="hl-1"> { </span><span class="hl-4">on</span><span class="hl-1">, </span><span class="hl-4">EventEmitter</span><span class="hl-1"> } </span><span class="hl-3">from</span><span class="hl-1"> </span><span class="hl-2">&#39;node:events&#39;</span><span class="hl-1">;</span><br/><span class="hl-3">import</span><span class="hl-1"> </span><span class="hl-4">process</span><span class="hl-1"> </span><span class="hl-3">from</span><span class="hl-1"> </span><span class="hl-2">&#39;node:process&#39;</span><span class="hl-1">;</span><br/><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">ac</span><span class="hl-1"> = </span><span class="hl-5">new</span><span class="hl-1"> </span><span class="hl-0">AbortController</span><span class="hl-1">();</span><br/><br/><span class="hl-1">(</span><span class="hl-5">async</span><span class="hl-1"> () </span><span class="hl-5">=&gt;</span><span class="hl-1"> {</span><br/><span class="hl-1">  </span><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">ee</span><span class="hl-1"> = </span><span class="hl-5">new</span><span class="hl-1"> </span><span class="hl-0">EventEmitter</span><span class="hl-1">();</span><br/><br/><span class="hl-1">  </span><span class="hl-9">// Emit later on</span><br/><span class="hl-1">  </span><span class="hl-4">process</span><span class="hl-1">.</span><span class="hl-0">nextTick</span><span class="hl-1">(() </span><span class="hl-5">=&gt;</span><span class="hl-1"> {</span><br/><span class="hl-1">    </span><span class="hl-4">ee</span><span class="hl-1">.</span><span class="hl-0">emit</span><span class="hl-1">(</span><span class="hl-2">&#39;foo&#39;</span><span class="hl-1">, </span><span class="hl-2">&#39;bar&#39;</span><span class="hl-1">);</span><br/><span class="hl-1">    </span><span class="hl-4">ee</span><span class="hl-1">.</span><span class="hl-0">emit</span><span class="hl-1">(</span><span class="hl-2">&#39;foo&#39;</span><span class="hl-1">, </span><span class="hl-7">42</span><span class="hl-1">);</span><br/><span class="hl-1">  });</span><br/><br/><span class="hl-1">  </span><span class="hl-3">for</span><span class="hl-1"> </span><span class="hl-3">await</span><span class="hl-1"> (</span><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">event</span><span class="hl-1"> </span><span class="hl-5">of</span><span class="hl-1"> </span><span class="hl-0">on</span><span class="hl-1">(</span><span class="hl-4">ee</span><span class="hl-1">, </span><span class="hl-2">&#39;foo&#39;</span><span class="hl-1">, { </span><span class="hl-4">signal:</span><span class="hl-1"> </span><span class="hl-4">ac</span><span class="hl-1">.</span><span class="hl-4">signal</span><span class="hl-1"> })) {</span><br/><span class="hl-1">    </span><span class="hl-9">// The execution of this inner block is synchronous and it</span><br/><span class="hl-1">    </span><span class="hl-9">// processes one event at a time (even with await). Do not use</span><br/><span class="hl-1">    </span><span class="hl-9">// if concurrent execution is required.</span><br/><span class="hl-1">    </span><span class="hl-4">console</span><span class="hl-1">.</span><span class="hl-0">log</span><span class="hl-1">(</span><span class="hl-4">event</span><span class="hl-1">); </span><span class="hl-9">// prints [&#39;bar&#39;] [42]</span><br/><span class="hl-1">  }</span><br/><span class="hl-1">  </span><span class="hl-9">// Unreachable here</span><br/><span class="hl-1">})();</span><br/><br/><span class="hl-4">process</span><span class="hl-1">.</span><span class="hl-0">nextTick</span><span class="hl-1">(() </span><span class="hl-5">=&gt;</span><span class="hl-1"> </span><span class="hl-4">ac</span><span class="hl-1">.</span><span class="hl-0">abort</span><span class="hl-1">());</span>
+</code><button type="button">Copy</button></pre>
+
+                    <p>
+                      Use the <code>close</code> option to specify an array of
+                      event names that will end the iteration:
+                    </p>
+                    <pre><code class="js"><span class="hl-3">import</span><span class="hl-1"> { </span><span class="hl-4">on</span><span class="hl-1">, </span><span class="hl-4">EventEmitter</span><span class="hl-1"> } </span><span class="hl-3">from</span><span class="hl-1"> </span><span class="hl-2">&#39;node:events&#39;</span><span class="hl-1">;</span><br/><span class="hl-3">import</span><span class="hl-1"> </span><span class="hl-4">process</span><span class="hl-1"> </span><span class="hl-3">from</span><span class="hl-1"> </span><span class="hl-2">&#39;node:process&#39;</span><span class="hl-1">;</span><br/><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">ee</span><span class="hl-1"> = </span><span class="hl-5">new</span><span class="hl-1"> </span><span class="hl-0">EventEmitter</span><span class="hl-1">();</span><br/><br/><span class="hl-9">// Emit later on</span><br/><span class="hl-4">process</span><span class="hl-1">.</span><span class="hl-0">nextTick</span><span class="hl-1">(() </span><span class="hl-5">=&gt;</span><span class="hl-1"> {</span><br/><span class="hl-1">  </span><span class="hl-4">ee</span><span class="hl-1">.</span><span class="hl-0">emit</span><span class="hl-1">(</span><span class="hl-2">&#39;foo&#39;</span><span class="hl-1">, </span><span class="hl-2">&#39;bar&#39;</span><span class="hl-1">);</span><br/><span class="hl-1">  </span><span class="hl-4">ee</span><span class="hl-1">.</span><span class="hl-0">emit</span><span class="hl-1">(</span><span class="hl-2">&#39;foo&#39;</span><span class="hl-1">, </span><span class="hl-7">42</span><span class="hl-1">);</span><br/><span class="hl-1">  </span><span class="hl-4">ee</span><span class="hl-1">.</span><span class="hl-0">emit</span><span class="hl-1">(</span><span class="hl-2">&#39;close&#39;</span><span class="hl-1">);</span><br/><span class="hl-1">});</span><br/><br/><span class="hl-3">for</span><span class="hl-1"> </span><span class="hl-3">await</span><span class="hl-1"> (</span><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">event</span><span class="hl-1"> </span><span class="hl-5">of</span><span class="hl-1"> </span><span class="hl-0">on</span><span class="hl-1">(</span><span class="hl-4">ee</span><span class="hl-1">, </span><span class="hl-2">&#39;foo&#39;</span><span class="hl-1">, { </span><span class="hl-4">close:</span><span class="hl-1"> [</span><span class="hl-2">&#39;close&#39;</span><span class="hl-1">] })) {</span><br/><span class="hl-1">  </span><span class="hl-4">console</span><span class="hl-1">.</span><span class="hl-0">log</span><span class="hl-1">(</span><span class="hl-4">event</span><span class="hl-1">); </span><span class="hl-9">// prints [&#39;bar&#39;] [42]</span><br/><span class="hl-1">}</span><br/><span class="hl-9">// the loop will exit after &#39;close&#39; is emitted</span><br/><span class="hl-4">console</span><span class="hl-1">.</span><span class="hl-0">log</span><span class="hl-1">(</span><span class="hl-2">&#39;done&#39;</span><span class="hl-1">); </span><span class="hl-9">// prints &#39;done&#39;</span>
+</code><button type="button">Copy</button></pre>
+                  </div>
+                  <div class="tsd-parameters">
+                    <h4 class="tsd-parameters-title">Parameters</h4>
+                    <ul class="tsd-parameter-list">
+                      <li>
+                        <span
+                          ><span class="tsd-kind-parameter">emitter</span>:
+                          <span class="tsd-signature-type"
+                            >EventTarget</span
+                          ></span
+                        >
+                      </li>
+                      <li>
+                        <span
+                          ><span class="tsd-kind-parameter">eventName</span>:
+                          <span class="tsd-signature-type">string</span></span
+                        >
+                      </li>
+                      <li>
+                        <span
+                          ><code class="tsd-tag">Optional</code
+                          ><span class="tsd-kind-parameter">options</span>:
+                          <span class="tsd-signature-type"
+                            >StaticEventEmitterIteratorOptions</span
+                          ></span
+                        >
+                      </li>
+                    </ul>
+                  </div>
+                  <h4 class="tsd-returns-title">
+                    Returns <span class="tsd-signature-type">AsyncIterator</span
+                    ><span class="tsd-signature-symbol">&lt;</span
+                    ><span class="tsd-signature-type">any</span
+                    ><span class="tsd-signature-symbol">[]</span
+                    ><span class="tsd-signature-symbol">,</span>
+                    <span class="tsd-signature-type">any</span
+                    ><span class="tsd-signature-symbol">,</span>
+                    <span class="tsd-signature-type">any</span
+                    ><span class="tsd-signature-symbol">&gt;</span>
+                  </h4>
+                  <p>
+                    An <code>AsyncIterator</code> that iterates
+                    <code>eventName</code> events emitted by the
+                    <code>emitter</code>
+                  </p>
+                  <div class="tsd-comment tsd-typography">
+                    <div class="tsd-tag-since">
+                      <h4 class="tsd-anchor-link">
+                        <a id="since-18" class="tsd-anchor"></a>Since<a
+                          href="#since-18"
+                          aria-label="Permalink"
+                          class="tsd-anchor-icon"
+                          ><svg viewBox="0 0 24 24">
+                            <use
+                              href="../assets/icons.svg#icon-anchor"
+                            ></use></svg
+                        ></a>
+                      </h4>
+                      <p>v13.6.0, v12.16.0</p>
+                    </div>
+                  </div>
+                  <aside class="tsd-sources">
+                    <ul>
+                      <li>
+                        Defined in node_modules/@types/node/events.d.ts:308
                       </li>
                     </ul>
                   </aside>
@@ -6961,7 +7244,10 @@
                     class="tsd-kind-parameter"
                     >emitter</span
                   ><span class="tsd-signature-symbol">:</span>
-                  <span class="tsd-signature-type">_NodeEventTarget</span
+                  <span class="tsd-signature-type">EventEmitter</span
+                  ><span class="tsd-signature-symbol">&lt;</span
+                  ><span class="tsd-signature-type">DefaultEventMap</span
+                  ><span class="tsd-signature-symbol">&gt;</span
                   ><span class="tsd-signature-symbol">,</span><br />    <span
                     class="tsd-kind-parameter"
                     >eventName</span
@@ -7020,7 +7306,7 @@
 
                     <p>
                       The special handling of the <code>'error'</code> event is
-                      only used when <code>events.once()</code>is used to wait
+                      only used when <code>events.once()</code> is used to wait
                       for another event. If <code>events.once()</code> is used
                       to wait for the '<code>error'</code> event itself, then it
                       is treated as any other kind of event without special
@@ -7042,9 +7328,11 @@
                       <li>
                         <span
                           ><span class="tsd-kind-parameter">emitter</span>:
-                          <span class="tsd-signature-type"
-                            >_NodeEventTarget</span
-                          ></span
+                          <span class="tsd-signature-type">EventEmitter</span
+                          ><span class="tsd-signature-symbol">&lt;</span
+                          ><span class="tsd-signature-type"
+                            >DefaultEventMap</span
+                          ><span class="tsd-signature-symbol">&gt;</span></span
                         >
                       </li>
                       <li>
@@ -7076,8 +7364,8 @@
                   <div class="tsd-comment tsd-typography">
                     <div class="tsd-tag-since">
                       <h4 class="tsd-anchor-link">
-                        <a id="since-18" class="tsd-anchor"></a>Since<a
-                          href="#since-18"
+                        <a id="since-19" class="tsd-anchor"></a>Since<a
+                          href="#since-19"
                           aria-label="Permalink"
                           class="tsd-anchor-icon"
                           ><svg viewBox="0 0 24 24">
@@ -7092,7 +7380,7 @@
                   <aside class="tsd-sources">
                     <ul>
                       <li>
-                        Defined in node_modules/@types/node/events.d.ts:193
+                        Defined in node_modules/@types/node/events.d.ts:217
                       </li>
                     </ul>
                   </aside>
@@ -7104,7 +7392,7 @@
                     class="tsd-kind-parameter"
                     >emitter</span
                   ><span class="tsd-signature-symbol">:</span>
-                  <span class="tsd-signature-type">_DOMEventTarget</span
+                  <span class="tsd-signature-type">EventTarget</span
                   ><span class="tsd-signature-symbol">,</span><br />    <span
                     class="tsd-kind-parameter"
                     >eventName</span
@@ -7161,7 +7449,7 @@
 
                     <p>
                       The special handling of the <code>'error'</code> event is
-                      only used when <code>events.once()</code>is used to wait
+                      only used when <code>events.once()</code> is used to wait
                       for another event. If <code>events.once()</code> is used
                       to wait for the '<code>error'</code> event itself, then it
                       is treated as any other kind of event without special
@@ -7184,7 +7472,7 @@
                         <span
                           ><span class="tsd-kind-parameter">emitter</span>:
                           <span class="tsd-signature-type"
-                            >_DOMEventTarget</span
+                            >EventTarget</span
                           ></span
                         >
                       </li>
@@ -7215,8 +7503,8 @@
                   <div class="tsd-comment tsd-typography">
                     <div class="tsd-tag-since">
                       <h4 class="tsd-anchor-link">
-                        <a id="since-19" class="tsd-anchor"></a>Since<a
-                          href="#since-19"
+                        <a id="since-20" class="tsd-anchor"></a>Since<a
+                          href="#since-20"
                           aria-label="Permalink"
                           class="tsd-anchor-icon"
                           ><svg viewBox="0 0 24 24">
@@ -7231,7 +7519,7 @@
                   <aside class="tsd-sources">
                     <ul>
                       <li>
-                        Defined in node_modules/@types/node/events.d.ts:198
+                        Defined in node_modules/@types/node/events.d.ts:222
                       </li>
                     </ul>
                   </aside>
@@ -7266,10 +7554,13 @@
                   ><span class="tsd-kind-parameter">eventTargets</span
                   ><span class="tsd-signature-symbol">:</span> (<span
                     class="tsd-signature-type"
-                    >EventEmitter</span
+                    >EventTarget</span
                   >
                   <span class="tsd-signature-symbol">|</span>
-                  <span class="tsd-signature-type">_DOMEventTarget</span>)<span
+                  <span class="tsd-signature-type">EventEmitter</span
+                  ><span class="tsd-signature-symbol">&lt;</span
+                  ><span class="tsd-signature-type">DefaultEventMap</span
+                  ><span class="tsd-signature-symbol">&gt;</span>)<span
                     class="tsd-signature-symbol"
                     >[]</span
                   ><span class="tsd-signature-symbol">,</span><br /><span
@@ -7311,11 +7602,26 @@
                         <span
                           ><span class="tsd-signature-symbol">...</span
                           ><span class="tsd-kind-parameter">eventTargets</span>:
-                          (<span class="tsd-signature-type">EventEmitter</span>
+                          (<span class="tsd-signature-type">EventTarget</span>
                           <span class="tsd-signature-symbol">|</span>
-                          <span class="tsd-signature-type">_DOMEventTarget</span
-                          >)<span class="tsd-signature-symbol">[]</span></span
+                          <span class="tsd-signature-type">EventEmitter</span
+                          ><span class="tsd-signature-symbol">&lt;</span
+                          ><span class="tsd-signature-type"
+                            >DefaultEventMap</span
+                          ><span class="tsd-signature-symbol">&gt;</span>)<span
+                            class="tsd-signature-symbol"
+                            >[]</span
+                          ></span
                         >
+                        <div class="tsd-comment tsd-typography">
+                          <p>
+                            Zero or more {EventTarget} or {EventEmitter}
+                            instances. If none are specified, <code>n</code> is
+                            set as the default max for all newly created
+                            {EventTarget} and {EventEmitter} objects.
+                          </p>
+                        </div>
+                        <div class="tsd-comment tsd-typography"></div>
                       </li>
                     </ul>
                   </div>
@@ -7325,8 +7631,8 @@
                   <div class="tsd-comment tsd-typography">
                     <div class="tsd-tag-since">
                       <h4 class="tsd-anchor-link">
-                        <a id="since-20" class="tsd-anchor"></a>Since<a
-                          href="#since-20"
+                        <a id="since-21" class="tsd-anchor"></a>Since<a
+                          href="#since-21"
                           aria-label="Permalink"
                           class="tsd-anchor-icon"
                           ><svg viewBox="0 0 24 24">
@@ -7341,7 +7647,7 @@
                   <aside class="tsd-sources">
                     <ul>
                       <li>
-                        Defined in node_modules/@types/node/events.d.ts:352
+                        Defined in node_modules/@types/node/events.d.ts:402
                       </li>
                     </ul>
                   </aside>
