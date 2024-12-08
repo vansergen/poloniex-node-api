@@ -1,4 +1,4 @@
-import { deepStrictEqual, rejects } from "node:assert";
+import { deepStrictEqual, ok, rejects } from "node:assert";
 import {
   WebSocketClient,
   DefaultSymbol,
@@ -3522,10 +3522,9 @@ suite("WebSocketClient", () => {
         client.once("error", (error, type) => {
           try {
             deepStrictEqual(type, "public");
-            deepStrictEqual(
-              error,
-              new Error("Message count not be parsed by `JSON.parse`"),
-            );
+            ok(error instanceof Error);
+            ok(error.message === "Message cound not be parsed by `JSON.parse`");
+            ok(error.cause instanceof SyntaxError);
             resolve();
           } catch (err) {
             reject(err);

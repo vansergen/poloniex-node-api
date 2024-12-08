@@ -1002,7 +1002,7 @@ export class WebSocketClient extends EventEmitter {
           } catch (error) {
             this.emit(
               "error",
-              new Error("Message count not be parsed by `JSON.parse`", {
+              new Error("Message cound not be parsed by `JSON.parse`", {
                 cause: error,
               }),
               type,
