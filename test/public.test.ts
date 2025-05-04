@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unnecessary-type-assertion */
 import { deepStrictEqual } from "node:assert";
 import { MockAgent, getGlobalDispatcher, setGlobalDispatcher } from "undici";
 import {

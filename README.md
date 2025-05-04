@@ -10,10 +10,6 @@ npm install poloniex-node-api
 
 ## Usage
 
-### [Legacy API](https://docs.legacy.poloniex.com/)
-
-See [here](./README.legacy.md)
-
 ### [PublicClient](https://docs.poloniex.com/#public-endpoints)
 
 ```typescript
