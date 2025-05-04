@@ -59,7 +59,7 @@
     "ws": "^8.18.2"
   },
   "peerDependencies": {
-    "@types/ws": "^8.5.13"
+    "@types/ws": "^8.18.1"
   },
   "devDependencies": {
     "@binden/commitlint-config": "^2.1.0",
