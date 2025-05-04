@@ -1,5 +1,5 @@
 <!doctype html>
-<html class="default" lang="en" data-base="..">
+<html class="default" lang="en" data-base="../">
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="x-ua-compatible" content="IE=edge" />
@@ -25,46 +25,66 @@
       document.body.style.display = "none";
       setTimeout(
         () =>
-          app ? app.showPage() : document.body.style.removeProperty("display"),
+          window.app
+            ? app.showPage()
+            : document.body.style.removeProperty("display"),
         500,
       );
     </script>
     <header class="tsd-page-toolbar">
       <div class="tsd-toolbar-contents container">
-        <div class="table-cell" id="tsd-search">
-          <div class="field">
-            <label
-              for="tsd-search-field"
-              class="tsd-widget tsd-toolbar-icon search no-caption"
-              ><svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                <use href="../assets/icons.svg#icon-search"></use></svg></label
-            ><input type="text" id="tsd-search-field" aria-label="Search" />
+        <a href="../index.html" class="title">poloniex-node-api</a>
+        <div id="tsd-toolbar-links"></div>
+        <button id="tsd-search-trigger" class="tsd-widget" aria-label="Search">
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 16 16"
+            fill="none"
+            aria-hidden="true"
+          >
+            <use href="../assets/icons.svg#icon-search"></use>
+          </svg>
+        </button>
+        <dialog id="tsd-search" aria-label="Search">
+          <input
+            role="combobox"
+            id="tsd-search-input"
+            aria-controls="tsd-search-results"
+            aria-autocomplete="list"
+            aria-expanded="true"
+            autocapitalize="off"
+            autocomplete="off"
+            placeholder="Search the docs"
+            maxlength="100"
+          />
+          <ul role="listbox" id="tsd-search-results"></ul>
+          <div id="tsd-search-status" aria-live="polite" aria-atomic="true">
+            <div>Preparing search index...</div>
           </div>
-          <div class="field"><div id="tsd-toolbar-links"></div></div>
-          <ul class="results">
-            <li class="state loading">Preparing search index...</li>
-            <li class="state failure">The search index is not available</li>
-          </ul>
-          <a href="../index.html" class="title">poloniex-node-api</a>
-        </div>
-        <div class="table-cell" id="tsd-widgets">
-          <a
-            href="#"
-            class="tsd-widget tsd-toolbar-icon menu no-caption"
-            data-toggle="menu"
-            aria-label="Menu"
-            ><svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <use href="../assets/icons.svg#icon-menu"></use></svg
-          ></a>
-        </div>
+        </dialog>
+        <a
+          href="#"
+          class="tsd-widget menu"
+          id="tsd-toolbar-menu-trigger"
+          data-toggle="menu"
+          aria-label="Menu"
+          ><svg
+            width="16"
+            height="16"
+            viewBox="0 0 16 16"
+            fill="none"
+            aria-hidden="true"
+          >
+            <use href="../assets/icons.svg#icon-menu"></use></svg
+        ></a>
       </div>
     </header>
     <div class="container container-main">
       <div class="col-content">
         <div class="tsd-page-title">
-          <ul class="tsd-breadcrumb">
-            <li><a href="../modules.html">poloniex-node-api</a></li>
-            <li><a href="IWithdrawal.html">IWithdrawal</a></li>
+          <ul class="tsd-breadcrumb" aria-label="Breadcrumb">
+            <li><a href="" aria-current="page">IWithdrawal</a></li>
           </ul>
           <h1>Interface IWithdrawal</h1>
         </div>
@@ -73,37 +93,37 @@
           <span class="tsd-kind-interface">IWithdrawal</span>
           <span class="tsd-signature-symbol">{</span><br />    <a
             class="tsd-kind-property"
-            href="IWithdrawal.html#address"
+            href="#address"
             >address</a
           ><span class="tsd-signature-symbol">:</span>
           <span class="tsd-signature-type">string</span
           ><span class="tsd-signature-symbol">;</span><br />    <a
             class="tsd-kind-property"
-            href="IWithdrawal.html#amount"
+            href="#amount"
             >amount</a
           ><span class="tsd-signature-symbol">:</span>
           <span class="tsd-signature-type">string</span
           ><span class="tsd-signature-symbol">;</span><br />    <a
             class="tsd-kind-property"
-            href="IWithdrawal.html#currency"
+            href="#currency"
             >currency</a
           ><span class="tsd-signature-symbol">:</span>
           <span class="tsd-signature-type">string</span
           ><span class="tsd-signature-symbol">;</span><br />    <a
             class="tsd-kind-property"
-            href="IWithdrawal.html#fee"
+            href="#fee"
             >fee</a
           ><span class="tsd-signature-symbol">:</span>
           <span class="tsd-signature-type">string</span
           ><span class="tsd-signature-symbol">;</span><br />    <a
             class="tsd-kind-property"
-            href="IWithdrawal.html#ipaddress"
+            href="#ipaddress"
             >ipAddress</a
           ><span class="tsd-signature-symbol">:</span>
           <span class="tsd-signature-type">string</span
           ><span class="tsd-signature-symbol">;</span><br />    <a
             class="tsd-kind-property"
-            href="IWithdrawal.html#paymentid"
+            href="#paymentid"
             >paymentID</a
           ><span class="tsd-signature-symbol">:</span>
           <span class="tsd-signature-type">null</span>
@@ -111,25 +131,25 @@
           <span class="tsd-signature-type">string</span
           ><span class="tsd-signature-symbol">;</span><br />    <a
             class="tsd-kind-property"
-            href="IWithdrawal.html#status"
+            href="#status"
             >status</a
           ><span class="tsd-signature-symbol">:</span>
           <span class="tsd-signature-type">IWithdrawalStatus</span
           ><span class="tsd-signature-symbol">;</span><br />    <a
             class="tsd-kind-property"
-            href="IWithdrawal.html#timestamp"
+            href="#timestamp"
             >timestamp</a
           ><span class="tsd-signature-symbol">:</span>
           <span class="tsd-signature-type">number</span
           ><span class="tsd-signature-symbol">;</span><br />    <a
             class="tsd-kind-property"
-            href="IWithdrawal.html#txid"
+            href="#txid"
             >txid</a
           ><span class="tsd-signature-symbol">:</span>
           <span class="tsd-signature-type">string</span
           ><span class="tsd-signature-symbol">;</span><br />    <a
             class="tsd-kind-property"
-            href="IWithdrawal.html#withdrawalrequestsid"
+            href="#withdrawalrequestsid"
             >withdrawalRequestsId</a
           ><span class="tsd-signature-symbol">:</span>
           <span class="tsd-signature-type">number</span
@@ -172,81 +192,108 @@
           <section class="tsd-panel tsd-index-panel">
             <details class="tsd-index-content tsd-accordion" open>
               <summary class="tsd-accordion-summary tsd-index-summary">
-                <h5
-                  class="tsd-index-heading uppercase"
-                  role="button"
-                  aria-expanded="false"
-                  tabindex="0"
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  aria-hidden="true"
                 >
-                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                    <use href="../assets/icons.svg#icon-chevronSmall"></use>
-                  </svg>
-                  Index
-                </h5>
+                  <use href="../assets/icons.svg#icon-chevronDown"></use>
+                </svg>
+                <h5 class="tsd-index-heading uppercase">Index</h5>
               </summary>
               <div class="tsd-accordion-details">
                 <section class="tsd-index-section">
                   <h3 class="tsd-index-heading">Properties</h3>
                   <div class="tsd-index-list">
-                    <a
-                      href="IWithdrawal.html#address"
-                      class="tsd-index-link tsd-is-inherited"
-                      ><svg class="tsd-kind-icon" viewBox="0 0 24 24">
+                    <a href="#address" class="tsd-index-link tsd-is-inherited"
+                      ><svg
+                        class="tsd-kind-icon"
+                        viewBox="0 0 24 24"
+                        aria-label="Property"
+                      >
                         <use href="../assets/icons.svg#icon-1024"></use></svg
                       ><span>address</span></a
                     >
-                    <a
-                      href="IWithdrawal.html#amount"
-                      class="tsd-index-link tsd-is-inherited"
-                      ><svg class="tsd-kind-icon" viewBox="0 0 24 24">
+                    <a href="#amount" class="tsd-index-link tsd-is-inherited"
+                      ><svg
+                        class="tsd-kind-icon"
+                        viewBox="0 0 24 24"
+                        aria-label="Property"
+                      >
                         <use href="../assets/icons.svg#icon-1024"></use></svg
                       ><span>amount</span></a
                     >
-                    <a
-                      href="IWithdrawal.html#currency"
-                      class="tsd-index-link tsd-is-inherited"
-                      ><svg class="tsd-kind-icon" viewBox="0 0 24 24">
+                    <a href="#currency" class="tsd-index-link tsd-is-inherited"
+                      ><svg
+                        class="tsd-kind-icon"
+                        viewBox="0 0 24 24"
+                        aria-label="Property"
+                      >
                         <use href="../assets/icons.svg#icon-1024"></use></svg
                       ><span>currency</span></a
                     >
-                    <a href="IWithdrawal.html#fee" class="tsd-index-link"
-                      ><svg class="tsd-kind-icon" viewBox="0 0 24 24">
+                    <a href="#fee" class="tsd-index-link"
+                      ><svg
+                        class="tsd-kind-icon"
+                        viewBox="0 0 24 24"
+                        aria-label="Property"
+                      >
                         <use href="../assets/icons.svg#icon-1024"></use></svg
                       ><span>fee</span></a
                     >
-                    <a href="IWithdrawal.html#ipaddress" class="tsd-index-link"
-                      ><svg class="tsd-kind-icon" viewBox="0 0 24 24">
+                    <a href="#ipaddress" class="tsd-index-link"
+                      ><svg
+                        class="tsd-kind-icon"
+                        viewBox="0 0 24 24"
+                        aria-label="Property"
+                      >
                         <use href="../assets/icons.svg#icon-1024"></use></svg
                       ><span>ip<wbr />Address</span></a
                     >
-                    <a href="IWithdrawal.html#paymentid" class="tsd-index-link"
-                      ><svg class="tsd-kind-icon" viewBox="0 0 24 24">
+                    <a href="#paymentid" class="tsd-index-link"
+                      ><svg
+                        class="tsd-kind-icon"
+                        viewBox="0 0 24 24"
+                        aria-label="Property"
+                      >
                         <use href="../assets/icons.svg#icon-1024"></use></svg
-                      ><span>paymentID</span></a
+                      ><span>payment<wbr />ID</span></a
                     >
-                    <a href="IWithdrawal.html#status" class="tsd-index-link"
-                      ><svg class="tsd-kind-icon" viewBox="0 0 24 24">
+                    <a href="#status" class="tsd-index-link"
+                      ><svg
+                        class="tsd-kind-icon"
+                        viewBox="0 0 24 24"
+                        aria-label="Property"
+                      >
                         <use href="../assets/icons.svg#icon-1024"></use></svg
                       ><span>status</span></a
                     >
-                    <a
-                      href="IWithdrawal.html#timestamp"
-                      class="tsd-index-link tsd-is-inherited"
-                      ><svg class="tsd-kind-icon" viewBox="0 0 24 24">
+                    <a href="#timestamp" class="tsd-index-link tsd-is-inherited"
+                      ><svg
+                        class="tsd-kind-icon"
+                        viewBox="0 0 24 24"
+                        aria-label="Property"
+                      >
                         <use href="../assets/icons.svg#icon-1024"></use></svg
                       ><span>timestamp</span></a
                     >
-                    <a
-                      href="IWithdrawal.html#txid"
-                      class="tsd-index-link tsd-is-inherited"
-                      ><svg class="tsd-kind-icon" viewBox="0 0 24 24">
+                    <a href="#txid" class="tsd-index-link tsd-is-inherited"
+                      ><svg
+                        class="tsd-kind-icon"
+                        viewBox="0 0 24 24"
+                        aria-label="Property"
+                      >
                         <use href="../assets/icons.svg#icon-1024"></use></svg
                       ><span>txid</span></a
                     >
-                    <a
-                      href="IWithdrawal.html#withdrawalrequestsid"
-                      class="tsd-index-link"
-                      ><svg class="tsd-kind-icon" viewBox="0 0 24 24">
+                    <a href="#withdrawalrequestsid" class="tsd-index-link"
+                      ><svg
+                        class="tsd-kind-icon"
+                        viewBox="0 0 24 24"
+                        aria-label="Property"
+                      >
                         <use href="../assets/icons.svg#icon-1024"></use></svg
                       ><span>withdrawal<wbr />Requests<wbr />Id</span></a
                     >
@@ -258,23 +305,26 @@
         </section>
         <details class="tsd-panel-group tsd-member-group tsd-accordion" open>
           <summary class="tsd-accordion-summary" data-key="section-Properties">
-            <h2>
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                <use href="../assets/icons.svg#icon-chevronDown"></use>
-              </svg>
-              Properties
-            </h2>
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              aria-hidden="true"
+            >
+              <use href="../assets/icons.svg#icon-chevronDown"></use>
+            </svg>
+            <h2>Properties</h2>
           </summary>
           <section>
             <section class="tsd-panel tsd-member tsd-is-inherited">
-              <a id="address" class="tsd-anchor"></a>
-              <h3 class="tsd-anchor-link">
+              <h3 class="tsd-anchor-link" id="address">
                 <span>address</span
                 ><a
                   href="#address"
                   aria-label="Permalink"
                   class="tsd-anchor-icon"
-                  ><svg viewBox="0 0 24 24">
+                  ><svg viewBox="0 0 24 24" aria-hidden="true">
                     <use href="../assets/icons.svg#icon-anchor"></use></svg
                 ></a>
               </h3>
@@ -303,14 +353,13 @@
               </aside>
             </section>
             <section class="tsd-panel tsd-member tsd-is-inherited">
-              <a id="amount" class="tsd-anchor"></a>
-              <h3 class="tsd-anchor-link">
+              <h3 class="tsd-anchor-link" id="amount">
                 <span>amount</span
                 ><a
                   href="#amount"
                   aria-label="Permalink"
                   class="tsd-anchor-icon"
-                  ><svg viewBox="0 0 24 24">
+                  ><svg viewBox="0 0 24 24" aria-hidden="true">
                     <use href="../assets/icons.svg#icon-anchor"></use></svg
                 ></a>
               </h3>
@@ -339,14 +388,13 @@
               </aside>
             </section>
             <section class="tsd-panel tsd-member tsd-is-inherited">
-              <a id="currency" class="tsd-anchor"></a>
-              <h3 class="tsd-anchor-link">
+              <h3 class="tsd-anchor-link" id="currency">
                 <span>currency</span
                 ><a
                   href="#currency"
                   aria-label="Permalink"
                   class="tsd-anchor-icon"
-                  ><svg viewBox="0 0 24 24">
+                  ><svg viewBox="0 0 24 24" aria-hidden="true">
                     <use href="../assets/icons.svg#icon-anchor"></use></svg
                 ></a>
               </h3>
@@ -375,11 +423,10 @@
               </aside>
             </section>
             <section class="tsd-panel tsd-member">
-              <a id="fee" class="tsd-anchor"></a>
-              <h3 class="tsd-anchor-link">
+              <h3 class="tsd-anchor-link" id="fee">
                 <span>fee</span
                 ><a href="#fee" aria-label="Permalink" class="tsd-anchor-icon"
-                  ><svg viewBox="0 0 24 24">
+                  ><svg viewBox="0 0 24 24" aria-hidden="true">
                     <use href="../assets/icons.svg#icon-anchor"></use></svg
                 ></a>
               </h3>
@@ -401,14 +448,13 @@
               </aside>
             </section>
             <section class="tsd-panel tsd-member">
-              <a id="ipaddress" class="tsd-anchor"></a>
-              <h3 class="tsd-anchor-link">
+              <h3 class="tsd-anchor-link" id="ipaddress">
                 <span>ip<wbr />Address</span
                 ><a
                   href="#ipaddress"
                   aria-label="Permalink"
                   class="tsd-anchor-icon"
-                  ><svg viewBox="0 0 24 24">
+                  ><svg viewBox="0 0 24 24" aria-hidden="true">
                     <use href="../assets/icons.svg#icon-anchor"></use></svg
                 ></a>
               </h3>
@@ -430,14 +476,13 @@
               </aside>
             </section>
             <section class="tsd-panel tsd-member">
-              <a id="paymentid" class="tsd-anchor"></a>
-              <h3 class="tsd-anchor-link">
-                <span>paymentID</span
+              <h3 class="tsd-anchor-link" id="paymentid">
+                <span>payment<wbr />ID</span
                 ><a
                   href="#paymentid"
                   aria-label="Permalink"
                   class="tsd-anchor-icon"
-                  ><svg viewBox="0 0 24 24">
+                  ><svg viewBox="0 0 24 24" aria-hidden="true">
                     <use href="../assets/icons.svg#icon-anchor"></use></svg
                 ></a>
               </h3>
@@ -461,14 +506,13 @@
               </aside>
             </section>
             <section class="tsd-panel tsd-member">
-              <a id="status" class="tsd-anchor"></a>
-              <h3 class="tsd-anchor-link">
+              <h3 class="tsd-anchor-link" id="status">
                 <span>status</span
                 ><a
                   href="#status"
                   aria-label="Permalink"
                   class="tsd-anchor-icon"
-                  ><svg viewBox="0 0 24 24">
+                  ><svg viewBox="0 0 24 24" aria-hidden="true">
                     <use href="../assets/icons.svg#icon-anchor"></use></svg
                 ></a>
               </h3>
@@ -490,14 +534,13 @@
               </aside>
             </section>
             <section class="tsd-panel tsd-member tsd-is-inherited">
-              <a id="timestamp" class="tsd-anchor"></a>
-              <h3 class="tsd-anchor-link">
+              <h3 class="tsd-anchor-link" id="timestamp">
                 <span>timestamp</span
                 ><a
                   href="#timestamp"
                   aria-label="Permalink"
                   class="tsd-anchor-icon"
-                  ><svg viewBox="0 0 24 24">
+                  ><svg viewBox="0 0 24 24" aria-hidden="true">
                     <use href="../assets/icons.svg#icon-anchor"></use></svg
                 ></a>
               </h3>
@@ -526,11 +569,10 @@
               </aside>
             </section>
             <section class="tsd-panel tsd-member tsd-is-inherited">
-              <a id="txid" class="tsd-anchor"></a>
-              <h3 class="tsd-anchor-link">
+              <h3 class="tsd-anchor-link" id="txid">
                 <span>txid</span
                 ><a href="#txid" aria-label="Permalink" class="tsd-anchor-icon"
-                  ><svg viewBox="0 0 24 24">
+                  ><svg viewBox="0 0 24 24" aria-hidden="true">
                     <use href="../assets/icons.svg#icon-anchor"></use></svg
                 ></a>
               </h3>
@@ -559,14 +601,13 @@
               </aside>
             </section>
             <section class="tsd-panel tsd-member">
-              <a id="withdrawalrequestsid" class="tsd-anchor"></a>
-              <h3 class="tsd-anchor-link">
+              <h3 class="tsd-anchor-link" id="withdrawalrequestsid">
                 <span>withdrawal<wbr />Requests<wbr />Id</span
                 ><a
                   href="#withdrawalrequestsid"
                   aria-label="Permalink"
                   class="tsd-anchor-icon"
-                  ><svg viewBox="0 0 24 24">
+                  ><svg viewBox="0 0 24 24" aria-hidden="true">
                     <use href="../assets/icons.svg#icon-anchor"></use></svg
                 ></a>
               </h3>
@@ -595,11 +636,16 @@
           <div class="tsd-navigation settings">
             <details class="tsd-accordion">
               <summary class="tsd-accordion-summary">
-                <h3>
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                    <use href="../assets/icons.svg#icon-chevronDown"></use></svg
-                  >Settings
-                </h3>
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  aria-hidden="true"
+                >
+                  <use href="../assets/icons.svg#icon-chevronDown"></use>
+                </svg>
+                <h3>Settings</h3>
               </summary>
               <div class="tsd-accordion-details">
                 <div class="tsd-filter-visibility">
@@ -717,11 +763,16 @@
           </div>
           <details open class="tsd-accordion tsd-page-navigation">
             <summary class="tsd-accordion-summary">
-              <h3>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                  <use href="../assets/icons.svg#icon-chevronDown"></use></svg
-                >On This Page
-              </h3>
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                aria-hidden="true"
+              >
+                <use href="../assets/icons.svg#icon-chevronDown"></use>
+              </svg>
+              <h3>On This Page</h3>
             </summary>
             <div class="tsd-accordion-details">
               <details open class="tsd-accordion tsd-page-navigation-section">
@@ -729,49 +780,95 @@
                   class="tsd-accordion-summary"
                   data-key="section-Properties"
                 >
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    aria-hidden="true"
+                  >
                     <use href="../assets/icons.svg#icon-chevronDown"></use></svg
                   >Properties
                 </summary>
                 <div>
                   <a href="#address" class="tsd-is-inherited"
-                    ><svg class="tsd-kind-icon" viewBox="0 0 24 24">
+                    ><svg
+                      class="tsd-kind-icon"
+                      viewBox="0 0 24 24"
+                      aria-label="Property"
+                    >
                       <use href="../assets/icons.svg#icon-1024"></use></svg
                     ><span>address</span></a
                   ><a href="#amount" class="tsd-is-inherited"
-                    ><svg class="tsd-kind-icon" viewBox="0 0 24 24">
+                    ><svg
+                      class="tsd-kind-icon"
+                      viewBox="0 0 24 24"
+                      aria-label="Property"
+                    >
                       <use href="../assets/icons.svg#icon-1024"></use></svg
                     ><span>amount</span></a
                   ><a href="#currency" class="tsd-is-inherited"
-                    ><svg class="tsd-kind-icon" viewBox="0 0 24 24">
+                    ><svg
+                      class="tsd-kind-icon"
+                      viewBox="0 0 24 24"
+                      aria-label="Property"
+                    >
                       <use href="../assets/icons.svg#icon-1024"></use></svg
                     ><span>currency</span></a
-                  ><a href="#fee" class=""
-                    ><svg class="tsd-kind-icon" viewBox="0 0 24 24">
+                  ><a href="#fee"
+                    ><svg
+                      class="tsd-kind-icon"
+                      viewBox="0 0 24 24"
+                      aria-label="Property"
+                    >
                       <use href="../assets/icons.svg#icon-1024"></use></svg
                     ><span>fee</span></a
-                  ><a href="#ipaddress" class=""
-                    ><svg class="tsd-kind-icon" viewBox="0 0 24 24">
+                  ><a href="#ipaddress"
+                    ><svg
+                      class="tsd-kind-icon"
+                      viewBox="0 0 24 24"
+                      aria-label="Property"
+                    >
                       <use href="../assets/icons.svg#icon-1024"></use></svg
                     ><span>ip<wbr />Address</span></a
-                  ><a href="#paymentid" class=""
-                    ><svg class="tsd-kind-icon" viewBox="0 0 24 24">
+                  ><a href="#paymentid"
+                    ><svg
+                      class="tsd-kind-icon"
+                      viewBox="0 0 24 24"
+                      aria-label="Property"
+                    >
                       <use href="../assets/icons.svg#icon-1024"></use></svg
-                    ><span>paymentID</span></a
-                  ><a href="#status" class=""
-                    ><svg class="tsd-kind-icon" viewBox="0 0 24 24">
+                    ><span>payment<wbr />ID</span></a
+                  ><a href="#status"
+                    ><svg
+                      class="tsd-kind-icon"
+                      viewBox="0 0 24 24"
+                      aria-label="Property"
+                    >
                       <use href="../assets/icons.svg#icon-1024"></use></svg
                     ><span>status</span></a
                   ><a href="#timestamp" class="tsd-is-inherited"
-                    ><svg class="tsd-kind-icon" viewBox="0 0 24 24">
+                    ><svg
+                      class="tsd-kind-icon"
+                      viewBox="0 0 24 24"
+                      aria-label="Property"
+                    >
                       <use href="../assets/icons.svg#icon-1024"></use></svg
                     ><span>timestamp</span></a
                   ><a href="#txid" class="tsd-is-inherited"
-                    ><svg class="tsd-kind-icon" viewBox="0 0 24 24">
+                    ><svg
+                      class="tsd-kind-icon"
+                      viewBox="0 0 24 24"
+                      aria-label="Property"
+                    >
                       <use href="../assets/icons.svg#icon-1024"></use></svg
                     ><span>txid</span></a
-                  ><a href="#withdrawalrequestsid" class=""
-                    ><svg class="tsd-kind-icon" viewBox="0 0 24 24">
+                  ><a href="#withdrawalrequestsid"
+                    ><svg
+                      class="tsd-kind-icon"
+                      viewBox="0 0 24 24"
+                      aria-label="Property"
+                    >
                       <use href="../assets/icons.svg#icon-1024"></use></svg
                     ><span>withdrawal<wbr />Requests<wbr />Id</span></a
                   >

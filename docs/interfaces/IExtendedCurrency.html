@@ -1,5 +1,5 @@
 <!doctype html>
-<html class="default" lang="en" data-base="..">
+<html class="default" lang="en" data-base="../">
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="x-ua-compatible" content="IE=edge" />
@@ -25,46 +25,66 @@
       document.body.style.display = "none";
       setTimeout(
         () =>
-          app ? app.showPage() : document.body.style.removeProperty("display"),
+          window.app
+            ? app.showPage()
+            : document.body.style.removeProperty("display"),
         500,
       );
     </script>
     <header class="tsd-page-toolbar">
       <div class="tsd-toolbar-contents container">
-        <div class="table-cell" id="tsd-search">
-          <div class="field">
-            <label
-              for="tsd-search-field"
-              class="tsd-widget tsd-toolbar-icon search no-caption"
-              ><svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                <use href="../assets/icons.svg#icon-search"></use></svg></label
-            ><input type="text" id="tsd-search-field" aria-label="Search" />
+        <a href="../index.html" class="title">poloniex-node-api</a>
+        <div id="tsd-toolbar-links"></div>
+        <button id="tsd-search-trigger" class="tsd-widget" aria-label="Search">
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 16 16"
+            fill="none"
+            aria-hidden="true"
+          >
+            <use href="../assets/icons.svg#icon-search"></use>
+          </svg>
+        </button>
+        <dialog id="tsd-search" aria-label="Search">
+          <input
+            role="combobox"
+            id="tsd-search-input"
+            aria-controls="tsd-search-results"
+            aria-autocomplete="list"
+            aria-expanded="true"
+            autocapitalize="off"
+            autocomplete="off"
+            placeholder="Search the docs"
+            maxlength="100"
+          />
+          <ul role="listbox" id="tsd-search-results"></ul>
+          <div id="tsd-search-status" aria-live="polite" aria-atomic="true">
+            <div>Preparing search index...</div>
           </div>
-          <div class="field"><div id="tsd-toolbar-links"></div></div>
-          <ul class="results">
-            <li class="state loading">Preparing search index...</li>
-            <li class="state failure">The search index is not available</li>
-          </ul>
-          <a href="../index.html" class="title">poloniex-node-api</a>
-        </div>
-        <div class="table-cell" id="tsd-widgets">
-          <a
-            href="#"
-            class="tsd-widget tsd-toolbar-icon menu no-caption"
-            data-toggle="menu"
-            aria-label="Menu"
-            ><svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <use href="../assets/icons.svg#icon-menu"></use></svg
-          ></a>
-        </div>
+        </dialog>
+        <a
+          href="#"
+          class="tsd-widget menu"
+          id="tsd-toolbar-menu-trigger"
+          data-toggle="menu"
+          aria-label="Menu"
+          ><svg
+            width="16"
+            height="16"
+            viewBox="0 0 16 16"
+            fill="none"
+            aria-hidden="true"
+          >
+            <use href="../assets/icons.svg#icon-menu"></use></svg
+        ></a>
       </div>
     </header>
     <div class="container container-main">
       <div class="col-content">
         <div class="tsd-page-title">
-          <ul class="tsd-breadcrumb">
-            <li><a href="../modules.html">poloniex-node-api</a></li>
-            <li><a href="IExtendedCurrency.html">IExtendedCurrency</a></li>
+          <ul class="tsd-breadcrumb" aria-label="Breadcrumb">
+            <li><a href="" aria-current="page">IExtendedCurrency</a></li>
           </ul>
           <h1>Interface IExtendedCurrency</h1>
         </div>
@@ -73,74 +93,74 @@
           <span class="tsd-kind-interface">IExtendedCurrency</span>
           <span class="tsd-signature-symbol">{</span><br />    <a
             class="tsd-kind-property"
-            href="IExtendedCurrency.html#blockchain"
+            href="#blockchain"
             >blockchain</a
           ><span class="tsd-signature-symbol">:</span>
           <span class="tsd-signature-type">string</span
           ><span class="tsd-signature-symbol">;</span><br />    <a
             class="tsd-kind-property"
-            href="IExtendedCurrency.html#childchains"
+            href="#childchains"
             >childChains</a
           ><span class="tsd-signature-symbol">:</span>
           <span class="tsd-signature-type">string</span
           ><span class="tsd-signature-symbol">[]</span
           ><span class="tsd-signature-symbol">;</span><br />    <a
             class="tsd-kind-property"
-            href="IExtendedCurrency.html#currency"
+            href="#currency"
             >currency</a
           ><span class="tsd-signature-symbol">:</span>
           <span class="tsd-signature-type">string</span
           ><span class="tsd-signature-symbol">;</span><br />    <a
             class="tsd-kind-property"
-            href="IExtendedCurrency.html#delisted"
+            href="#delisted"
             >delisted</a
           ><span class="tsd-signature-symbol">:</span>
           <span class="tsd-signature-type">boolean</span
           ><span class="tsd-signature-symbol">;</span><br />    <a
             class="tsd-kind-property"
-            href="IExtendedCurrency.html#depositaddress"
+            href="#depositaddress"
             >depositAddress</a
           ><span class="tsd-signature-symbol">:</span>
           <span class="tsd-signature-type">null</span
           ><span class="tsd-signature-symbol">;</span><br />    <a
             class="tsd-kind-property"
-            href="IExtendedCurrency.html#description"
+            href="#description"
             >description</a
           ><span class="tsd-signature-symbol">:</span>
           <span class="tsd-signature-type">string</span
           ><span class="tsd-signature-symbol">;</span><br />    <a
             class="tsd-kind-property"
-            href="IExtendedCurrency.html#id"
+            href="#id"
             >id</a
           ><span class="tsd-signature-symbol">:</span>
           <span class="tsd-signature-type">number</span
           ><span class="tsd-signature-symbol">;</span><br />    <a
             class="tsd-kind-property"
-            href="IExtendedCurrency.html#ischildchain"
+            href="#ischildchain"
             >isChildChain</a
           ><span class="tsd-signature-symbol">:</span>
           <span class="tsd-signature-type">boolean</span
           ><span class="tsd-signature-symbol">;</span><br />    <a
             class="tsd-kind-property"
-            href="IExtendedCurrency.html#ismultichain"
+            href="#ismultichain"
             >isMultiChain</a
           ><span class="tsd-signature-symbol">:</span>
           <span class="tsd-signature-type">boolean</span
           ><span class="tsd-signature-symbol">;</span><br />    <a
             class="tsd-kind-property"
-            href="IExtendedCurrency.html#minconf"
+            href="#minconf"
             >minConf</a
           ><span class="tsd-signature-symbol">:</span>
           <span class="tsd-signature-type">number</span
           ><span class="tsd-signature-symbol">;</span><br />    <a
             class="tsd-kind-property"
-            href="IExtendedCurrency.html#name"
+            href="#name"
             >name</a
           ><span class="tsd-signature-symbol">:</span>
           <span class="tsd-signature-type">string</span
           ><span class="tsd-signature-symbol">;</span><br />    <a
             class="tsd-kind-property"
-            href="IExtendedCurrency.html#parentchain"
+            href="#parentchain"
             >parentChain</a
           ><span class="tsd-signature-symbol">:</span>
           <span class="tsd-signature-type">null</span>
@@ -148,19 +168,19 @@
           <span class="tsd-signature-type">string</span
           ><span class="tsd-signature-symbol">;</span><br />    <a
             class="tsd-kind-property"
-            href="IExtendedCurrency.html#supportborrow"
+            href="#supportborrow"
             >supportBorrow</a
           ><span class="tsd-signature-symbol">:</span>
           <span class="tsd-signature-type">boolean</span
           ><span class="tsd-signature-symbol">;</span><br />    <a
             class="tsd-kind-property"
-            href="IExtendedCurrency.html#supportcollateral"
+            href="#supportcollateral"
             >supportCollateral</a
           ><span class="tsd-signature-symbol">:</span>
           <span class="tsd-signature-type">boolean</span
           ><span class="tsd-signature-symbol">;</span><br />    <a
             class="tsd-kind-property"
-            href="IExtendedCurrency.html#tradingstate"
+            href="#tradingstate"
             >tradingState</a
           ><span class="tsd-signature-symbol">:</span>
           <span class="tsd-signature-type">&quot;NORMAL&quot;</span>
@@ -168,13 +188,13 @@
           <span class="tsd-signature-type">&quot;OFFLINE&quot;</span
           ><span class="tsd-signature-symbol">;</span><br />    <a
             class="tsd-kind-property"
-            href="IExtendedCurrency.html#type"
+            href="#type"
             >type</a
           ><span class="tsd-signature-symbol">:</span>
           <span class="tsd-signature-type">string</span
           ><span class="tsd-signature-symbol">;</span><br />    <a
             class="tsd-kind-property"
-            href="IExtendedCurrency.html#walletstate"
+            href="#walletstate"
             >walletState</a
           ><span class="tsd-signature-symbol">:</span>
           <span class="tsd-signature-type">&quot;DISABLED&quot;</span>
@@ -182,7 +202,7 @@
           <span class="tsd-signature-type">&quot;ENABLED&quot;</span
           ><span class="tsd-signature-symbol">;</span><br />    <a
             class="tsd-kind-property"
-            href="IExtendedCurrency.html#withdrawalfee"
+            href="#withdrawalfee"
             >withdrawalFee</a
           ><span class="tsd-signature-symbol">:</span>
           <span class="tsd-signature-type">string</span
@@ -227,145 +247,196 @@
           <section class="tsd-panel tsd-index-panel">
             <details class="tsd-index-content tsd-accordion" open>
               <summary class="tsd-accordion-summary tsd-index-summary">
-                <h5
-                  class="tsd-index-heading uppercase"
-                  role="button"
-                  aria-expanded="false"
-                  tabindex="0"
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  aria-hidden="true"
                 >
-                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                    <use href="../assets/icons.svg#icon-chevronSmall"></use>
-                  </svg>
-                  Index
-                </h5>
+                  <use href="../assets/icons.svg#icon-chevronDown"></use>
+                </svg>
+                <h5 class="tsd-index-heading uppercase">Index</h5>
               </summary>
               <div class="tsd-accordion-details">
                 <section class="tsd-index-section">
                   <h3 class="tsd-index-heading">Properties</h3>
                   <div class="tsd-index-list">
                     <a
-                      href="IExtendedCurrency.html#blockchain"
+                      href="#blockchain"
                       class="tsd-index-link tsd-is-inherited"
-                      ><svg class="tsd-kind-icon" viewBox="0 0 24 24">
+                      ><svg
+                        class="tsd-kind-icon"
+                        viewBox="0 0 24 24"
+                        aria-label="Property"
+                      >
                         <use href="../assets/icons.svg#icon-1024"></use></svg
                       ><span>blockchain</span></a
                     >
-                    <a
-                      href="IExtendedCurrency.html#childchains"
-                      class="tsd-index-link"
-                      ><svg class="tsd-kind-icon" viewBox="0 0 24 24">
+                    <a href="#childchains" class="tsd-index-link"
+                      ><svg
+                        class="tsd-kind-icon"
+                        viewBox="0 0 24 24"
+                        aria-label="Property"
+                      >
                         <use href="../assets/icons.svg#icon-1024"></use></svg
                       ><span>child<wbr />Chains</span></a
                     >
-                    <a
-                      href="IExtendedCurrency.html#currency"
-                      class="tsd-index-link tsd-is-inherited"
-                      ><svg class="tsd-kind-icon" viewBox="0 0 24 24">
+                    <a href="#currency" class="tsd-index-link tsd-is-inherited"
+                      ><svg
+                        class="tsd-kind-icon"
+                        viewBox="0 0 24 24"
+                        aria-label="Property"
+                      >
                         <use href="../assets/icons.svg#icon-1024"></use></svg
                       ><span>currency</span></a
                     >
-                    <a
-                      href="IExtendedCurrency.html#delisted"
-                      class="tsd-index-link tsd-is-inherited"
-                      ><svg class="tsd-kind-icon" viewBox="0 0 24 24">
+                    <a href="#delisted" class="tsd-index-link tsd-is-inherited"
+                      ><svg
+                        class="tsd-kind-icon"
+                        viewBox="0 0 24 24"
+                        aria-label="Property"
+                      >
                         <use href="../assets/icons.svg#icon-1024"></use></svg
                       ><span>delisted</span></a
                     >
                     <a
-                      href="IExtendedCurrency.html#depositaddress"
+                      href="#depositaddress"
                       class="tsd-index-link tsd-is-inherited"
-                      ><svg class="tsd-kind-icon" viewBox="0 0 24 24">
+                      ><svg
+                        class="tsd-kind-icon"
+                        viewBox="0 0 24 24"
+                        aria-label="Property"
+                      >
                         <use href="../assets/icons.svg#icon-1024"></use></svg
                       ><span>deposit<wbr />Address</span></a
                     >
                     <a
-                      href="IExtendedCurrency.html#description"
+                      href="#description"
                       class="tsd-index-link tsd-is-inherited"
-                      ><svg class="tsd-kind-icon" viewBox="0 0 24 24">
+                      ><svg
+                        class="tsd-kind-icon"
+                        viewBox="0 0 24 24"
+                        aria-label="Property"
+                      >
                         <use href="../assets/icons.svg#icon-1024"></use></svg
                       ><span>description</span></a
                     >
-                    <a
-                      href="IExtendedCurrency.html#id"
-                      class="tsd-index-link tsd-is-inherited"
-                      ><svg class="tsd-kind-icon" viewBox="0 0 24 24">
+                    <a href="#id" class="tsd-index-link tsd-is-inherited"
+                      ><svg
+                        class="tsd-kind-icon"
+                        viewBox="0 0 24 24"
+                        aria-label="Property"
+                      >
                         <use href="../assets/icons.svg#icon-1024"></use></svg
                       ><span>id</span></a
                     >
-                    <a
-                      href="IExtendedCurrency.html#ischildchain"
-                      class="tsd-index-link"
-                      ><svg class="tsd-kind-icon" viewBox="0 0 24 24">
+                    <a href="#ischildchain" class="tsd-index-link"
+                      ><svg
+                        class="tsd-kind-icon"
+                        viewBox="0 0 24 24"
+                        aria-label="Property"
+                      >
                         <use href="../assets/icons.svg#icon-1024"></use></svg
                       ><span>is<wbr />Child<wbr />Chain</span></a
                     >
-                    <a
-                      href="IExtendedCurrency.html#ismultichain"
-                      class="tsd-index-link"
-                      ><svg class="tsd-kind-icon" viewBox="0 0 24 24">
+                    <a href="#ismultichain" class="tsd-index-link"
+                      ><svg
+                        class="tsd-kind-icon"
+                        viewBox="0 0 24 24"
+                        aria-label="Property"
+                      >
                         <use href="../assets/icons.svg#icon-1024"></use></svg
                       ><span>is<wbr />Multi<wbr />Chain</span></a
                     >
-                    <a
-                      href="IExtendedCurrency.html#minconf"
-                      class="tsd-index-link tsd-is-inherited"
-                      ><svg class="tsd-kind-icon" viewBox="0 0 24 24">
+                    <a href="#minconf" class="tsd-index-link tsd-is-inherited"
+                      ><svg
+                        class="tsd-kind-icon"
+                        viewBox="0 0 24 24"
+                        aria-label="Property"
+                      >
                         <use href="../assets/icons.svg#icon-1024"></use></svg
                       ><span>min<wbr />Conf</span></a
                     >
-                    <a
-                      href="IExtendedCurrency.html#name"
-                      class="tsd-index-link tsd-is-inherited"
-                      ><svg class="tsd-kind-icon" viewBox="0 0 24 24">
+                    <a href="#name" class="tsd-index-link tsd-is-inherited"
+                      ><svg
+                        class="tsd-kind-icon"
+                        viewBox="0 0 24 24"
+                        aria-label="Property"
+                      >
                         <use href="../assets/icons.svg#icon-1024"></use></svg
                       ><span>name</span></a
                     >
-                    <a
-                      href="IExtendedCurrency.html#parentchain"
-                      class="tsd-index-link"
-                      ><svg class="tsd-kind-icon" viewBox="0 0 24 24">
+                    <a href="#parentchain" class="tsd-index-link"
+                      ><svg
+                        class="tsd-kind-icon"
+                        viewBox="0 0 24 24"
+                        aria-label="Property"
+                      >
                         <use href="../assets/icons.svg#icon-1024"></use></svg
                       ><span>parent<wbr />Chain</span></a
                     >
                     <a
-                      href="IExtendedCurrency.html#supportborrow"
+                      href="#supportborrow"
                       class="tsd-index-link tsd-is-inherited"
-                      ><svg class="tsd-kind-icon" viewBox="0 0 24 24">
+                      ><svg
+                        class="tsd-kind-icon"
+                        viewBox="0 0 24 24"
+                        aria-label="Property"
+                      >
                         <use href="../assets/icons.svg#icon-1024"></use></svg
                       ><span>support<wbr />Borrow</span></a
                     >
                     <a
-                      href="IExtendedCurrency.html#supportcollateral"
+                      href="#supportcollateral"
                       class="tsd-index-link tsd-is-inherited"
-                      ><svg class="tsd-kind-icon" viewBox="0 0 24 24">
+                      ><svg
+                        class="tsd-kind-icon"
+                        viewBox="0 0 24 24"
+                        aria-label="Property"
+                      >
                         <use href="../assets/icons.svg#icon-1024"></use></svg
                       ><span>support<wbr />Collateral</span></a
                     >
                     <a
-                      href="IExtendedCurrency.html#tradingstate"
+                      href="#tradingstate"
                       class="tsd-index-link tsd-is-inherited"
-                      ><svg class="tsd-kind-icon" viewBox="0 0 24 24">
+                      ><svg
+                        class="tsd-kind-icon"
+                        viewBox="0 0 24 24"
+                        aria-label="Property"
+                      >
                         <use href="../assets/icons.svg#icon-1024"></use></svg
                       ><span>trading<wbr />State</span></a
                     >
-                    <a
-                      href="IExtendedCurrency.html#type"
-                      class="tsd-index-link tsd-is-inherited"
-                      ><svg class="tsd-kind-icon" viewBox="0 0 24 24">
+                    <a href="#type" class="tsd-index-link tsd-is-inherited"
+                      ><svg
+                        class="tsd-kind-icon"
+                        viewBox="0 0 24 24"
+                        aria-label="Property"
+                      >
                         <use href="../assets/icons.svg#icon-1024"></use></svg
                       ><span>type</span></a
                     >
                     <a
-                      href="IExtendedCurrency.html#walletstate"
+                      href="#walletstate"
                       class="tsd-index-link tsd-is-inherited"
-                      ><svg class="tsd-kind-icon" viewBox="0 0 24 24">
+                      ><svg
+                        class="tsd-kind-icon"
+                        viewBox="0 0 24 24"
+                        aria-label="Property"
+                      >
                         <use href="../assets/icons.svg#icon-1024"></use></svg
                       ><span>wallet<wbr />State</span></a
                     >
                     <a
-                      href="IExtendedCurrency.html#withdrawalfee"
+                      href="#withdrawalfee"
                       class="tsd-index-link tsd-is-inherited"
-                      ><svg class="tsd-kind-icon" viewBox="0 0 24 24">
+                      ><svg
+                        class="tsd-kind-icon"
+                        viewBox="0 0 24 24"
+                        aria-label="Property"
+                      >
                         <use href="../assets/icons.svg#icon-1024"></use></svg
                       ><span>withdrawal<wbr />Fee</span></a
                     >
@@ -377,23 +448,26 @@
         </section>
         <details class="tsd-panel-group tsd-member-group tsd-accordion" open>
           <summary class="tsd-accordion-summary" data-key="section-Properties">
-            <h2>
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                <use href="../assets/icons.svg#icon-chevronDown"></use>
-              </svg>
-              Properties
-            </h2>
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              aria-hidden="true"
+            >
+              <use href="../assets/icons.svg#icon-chevronDown"></use>
+            </svg>
+            <h2>Properties</h2>
           </summary>
           <section>
             <section class="tsd-panel tsd-member tsd-is-inherited">
-              <a id="blockchain" class="tsd-anchor"></a>
-              <h3 class="tsd-anchor-link">
+              <h3 class="tsd-anchor-link" id="blockchain">
                 <span>blockchain</span
                 ><a
                   href="#blockchain"
                   aria-label="Permalink"
                   class="tsd-anchor-icon"
-                  ><svg viewBox="0 0 24 24">
+                  ><svg viewBox="0 0 24 24" aria-hidden="true">
                     <use href="../assets/icons.svg#icon-anchor"></use></svg
                 ></a>
               </h3>
@@ -421,14 +495,13 @@
               </aside>
             </section>
             <section class="tsd-panel tsd-member">
-              <a id="childchains" class="tsd-anchor"></a>
-              <h3 class="tsd-anchor-link">
+              <h3 class="tsd-anchor-link" id="childchains">
                 <span>child<wbr />Chains</span
                 ><a
                   href="#childchains"
                   aria-label="Permalink"
                   class="tsd-anchor-icon"
-                  ><svg viewBox="0 0 24 24">
+                  ><svg viewBox="0 0 24 24" aria-hidden="true">
                     <use href="../assets/icons.svg#icon-anchor"></use></svg
                 ></a>
               </h3>
@@ -451,14 +524,13 @@
               </aside>
             </section>
             <section class="tsd-panel tsd-member tsd-is-inherited">
-              <a id="currency" class="tsd-anchor"></a>
-              <h3 class="tsd-anchor-link">
+              <h3 class="tsd-anchor-link" id="currency">
                 <span>currency</span
                 ><a
                   href="#currency"
                   aria-label="Permalink"
                   class="tsd-anchor-icon"
-                  ><svg viewBox="0 0 24 24">
+                  ><svg viewBox="0 0 24 24" aria-hidden="true">
                     <use href="../assets/icons.svg#icon-anchor"></use></svg
                 ></a>
               </h3>
@@ -486,14 +558,13 @@
               </aside>
             </section>
             <section class="tsd-panel tsd-member tsd-is-inherited">
-              <a id="delisted" class="tsd-anchor"></a>
-              <h3 class="tsd-anchor-link">
+              <h3 class="tsd-anchor-link" id="delisted">
                 <span>delisted</span
                 ><a
                   href="#delisted"
                   aria-label="Permalink"
                   class="tsd-anchor-icon"
-                  ><svg viewBox="0 0 24 24">
+                  ><svg viewBox="0 0 24 24" aria-hidden="true">
                     <use href="../assets/icons.svg#icon-anchor"></use></svg
                 ></a>
               </h3>
@@ -521,14 +592,13 @@
               </aside>
             </section>
             <section class="tsd-panel tsd-member tsd-is-inherited">
-              <a id="depositaddress" class="tsd-anchor"></a>
-              <h3 class="tsd-anchor-link">
+              <h3 class="tsd-anchor-link" id="depositaddress">
                 <span>deposit<wbr />Address</span
                 ><a
                   href="#depositaddress"
                   aria-label="Permalink"
                   class="tsd-anchor-icon"
-                  ><svg viewBox="0 0 24 24">
+                  ><svg viewBox="0 0 24 24" aria-hidden="true">
                     <use href="../assets/icons.svg#icon-anchor"></use></svg
                 ></a>
               </h3>
@@ -556,14 +626,13 @@
               </aside>
             </section>
             <section class="tsd-panel tsd-member tsd-is-inherited">
-              <a id="description" class="tsd-anchor"></a>
-              <h3 class="tsd-anchor-link">
+              <h3 class="tsd-anchor-link" id="description">
                 <span>description</span
                 ><a
                   href="#description"
                   aria-label="Permalink"
                   class="tsd-anchor-icon"
-                  ><svg viewBox="0 0 24 24">
+                  ><svg viewBox="0 0 24 24" aria-hidden="true">
                     <use href="../assets/icons.svg#icon-anchor"></use></svg
                 ></a>
               </h3>
@@ -591,11 +660,10 @@
               </aside>
             </section>
             <section class="tsd-panel tsd-member tsd-is-inherited">
-              <a id="id" class="tsd-anchor"></a>
-              <h3 class="tsd-anchor-link">
+              <h3 class="tsd-anchor-link" id="id">
                 <span>id</span
                 ><a href="#id" aria-label="Permalink" class="tsd-anchor-icon"
-                  ><svg viewBox="0 0 24 24">
+                  ><svg viewBox="0 0 24 24" aria-hidden="true">
                     <use href="../assets/icons.svg#icon-anchor"></use></svg
                 ></a>
               </h3>
@@ -623,14 +691,13 @@
               </aside>
             </section>
             <section class="tsd-panel tsd-member">
-              <a id="ischildchain" class="tsd-anchor"></a>
-              <h3 class="tsd-anchor-link">
+              <h3 class="tsd-anchor-link" id="ischildchain">
                 <span>is<wbr />Child<wbr />Chain</span
                 ><a
                   href="#ischildchain"
                   aria-label="Permalink"
                   class="tsd-anchor-icon"
-                  ><svg viewBox="0 0 24 24">
+                  ><svg viewBox="0 0 24 24" aria-hidden="true">
                     <use href="../assets/icons.svg#icon-anchor"></use></svg
                 ></a>
               </h3>
@@ -652,14 +719,13 @@
               </aside>
             </section>
             <section class="tsd-panel tsd-member">
-              <a id="ismultichain" class="tsd-anchor"></a>
-              <h3 class="tsd-anchor-link">
+              <h3 class="tsd-anchor-link" id="ismultichain">
                 <span>is<wbr />Multi<wbr />Chain</span
                 ><a
                   href="#ismultichain"
                   aria-label="Permalink"
                   class="tsd-anchor-icon"
-                  ><svg viewBox="0 0 24 24">
+                  ><svg viewBox="0 0 24 24" aria-hidden="true">
                     <use href="../assets/icons.svg#icon-anchor"></use></svg
                 ></a>
               </h3>
@@ -681,14 +747,13 @@
               </aside>
             </section>
             <section class="tsd-panel tsd-member tsd-is-inherited">
-              <a id="minconf" class="tsd-anchor"></a>
-              <h3 class="tsd-anchor-link">
+              <h3 class="tsd-anchor-link" id="minconf">
                 <span>min<wbr />Conf</span
                 ><a
                   href="#minconf"
                   aria-label="Permalink"
                   class="tsd-anchor-icon"
-                  ><svg viewBox="0 0 24 24">
+                  ><svg viewBox="0 0 24 24" aria-hidden="true">
                     <use href="../assets/icons.svg#icon-anchor"></use></svg
                 ></a>
               </h3>
@@ -716,11 +781,10 @@
               </aside>
             </section>
             <section class="tsd-panel tsd-member tsd-is-inherited">
-              <a id="name" class="tsd-anchor"></a>
-              <h3 class="tsd-anchor-link">
+              <h3 class="tsd-anchor-link" id="name">
                 <span>name</span
                 ><a href="#name" aria-label="Permalink" class="tsd-anchor-icon"
-                  ><svg viewBox="0 0 24 24">
+                  ><svg viewBox="0 0 24 24" aria-hidden="true">
                     <use href="../assets/icons.svg#icon-anchor"></use></svg
                 ></a>
               </h3>
@@ -748,14 +812,13 @@
               </aside>
             </section>
             <section class="tsd-panel tsd-member">
-              <a id="parentchain" class="tsd-anchor"></a>
-              <h3 class="tsd-anchor-link">
+              <h3 class="tsd-anchor-link" id="parentchain">
                 <span>parent<wbr />Chain</span
                 ><a
                   href="#parentchain"
                   aria-label="Permalink"
                   class="tsd-anchor-icon"
-                  ><svg viewBox="0 0 24 24">
+                  ><svg viewBox="0 0 24 24" aria-hidden="true">
                     <use href="../assets/icons.svg#icon-anchor"></use></svg
                 ></a>
               </h3>
@@ -779,14 +842,13 @@
               </aside>
             </section>
             <section class="tsd-panel tsd-member tsd-is-inherited">
-              <a id="supportborrow" class="tsd-anchor"></a>
-              <h3 class="tsd-anchor-link">
+              <h3 class="tsd-anchor-link" id="supportborrow">
                 <span>support<wbr />Borrow</span
                 ><a
                   href="#supportborrow"
                   aria-label="Permalink"
                   class="tsd-anchor-icon"
-                  ><svg viewBox="0 0 24 24">
+                  ><svg viewBox="0 0 24 24" aria-hidden="true">
                     <use href="../assets/icons.svg#icon-anchor"></use></svg
                 ></a>
               </h3>
@@ -814,14 +876,13 @@
               </aside>
             </section>
             <section class="tsd-panel tsd-member tsd-is-inherited">
-              <a id="supportcollateral" class="tsd-anchor"></a>
-              <h3 class="tsd-anchor-link">
+              <h3 class="tsd-anchor-link" id="supportcollateral">
                 <span>support<wbr />Collateral</span
                 ><a
                   href="#supportcollateral"
                   aria-label="Permalink"
                   class="tsd-anchor-icon"
-                  ><svg viewBox="0 0 24 24">
+                  ><svg viewBox="0 0 24 24" aria-hidden="true">
                     <use href="../assets/icons.svg#icon-anchor"></use></svg
                 ></a>
               </h3>
@@ -849,14 +910,13 @@
               </aside>
             </section>
             <section class="tsd-panel tsd-member tsd-is-inherited">
-              <a id="tradingstate" class="tsd-anchor"></a>
-              <h3 class="tsd-anchor-link">
+              <h3 class="tsd-anchor-link" id="tradingstate">
                 <span>trading<wbr />State</span
                 ><a
                   href="#tradingstate"
                   aria-label="Permalink"
                   class="tsd-anchor-icon"
-                  ><svg viewBox="0 0 24 24">
+                  ><svg viewBox="0 0 24 24" aria-hidden="true">
                     <use href="../assets/icons.svg#icon-anchor"></use></svg
                 ></a>
               </h3>
@@ -886,11 +946,10 @@
               </aside>
             </section>
             <section class="tsd-panel tsd-member tsd-is-inherited">
-              <a id="type" class="tsd-anchor"></a>
-              <h3 class="tsd-anchor-link">
+              <h3 class="tsd-anchor-link" id="type">
                 <span>type</span
                 ><a href="#type" aria-label="Permalink" class="tsd-anchor-icon"
-                  ><svg viewBox="0 0 24 24">
+                  ><svg viewBox="0 0 24 24" aria-hidden="true">
                     <use href="../assets/icons.svg#icon-anchor"></use></svg
                 ></a>
               </h3>
@@ -918,14 +977,13 @@
               </aside>
             </section>
             <section class="tsd-panel tsd-member tsd-is-inherited">
-              <a id="walletstate" class="tsd-anchor"></a>
-              <h3 class="tsd-anchor-link">
+              <h3 class="tsd-anchor-link" id="walletstate">
                 <span>wallet<wbr />State</span
                 ><a
                   href="#walletstate"
                   aria-label="Permalink"
                   class="tsd-anchor-icon"
-                  ><svg viewBox="0 0 24 24">
+                  ><svg viewBox="0 0 24 24" aria-hidden="true">
                     <use href="../assets/icons.svg#icon-anchor"></use></svg
                 ></a>
               </h3>
@@ -955,14 +1013,13 @@
               </aside>
             </section>
             <section class="tsd-panel tsd-member tsd-is-inherited">
-              <a id="withdrawalfee" class="tsd-anchor"></a>
-              <h3 class="tsd-anchor-link">
+              <h3 class="tsd-anchor-link" id="withdrawalfee">
                 <span>withdrawal<wbr />Fee</span
                 ><a
                   href="#withdrawalfee"
                   aria-label="Permalink"
                   class="tsd-anchor-icon"
-                  ><svg viewBox="0 0 24 24">
+                  ><svg viewBox="0 0 24 24" aria-hidden="true">
                     <use href="../assets/icons.svg#icon-anchor"></use></svg
                 ></a>
               </h3>
@@ -997,11 +1054,16 @@
           <div class="tsd-navigation settings">
             <details class="tsd-accordion">
               <summary class="tsd-accordion-summary">
-                <h3>
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                    <use href="../assets/icons.svg#icon-chevronDown"></use></svg
-                  >Settings
-                </h3>
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  aria-hidden="true"
+                >
+                  <use href="../assets/icons.svg#icon-chevronDown"></use>
+                </svg>
+                <h3>Settings</h3>
               </summary>
               <div class="tsd-accordion-details">
                 <div class="tsd-filter-visibility">
@@ -1119,11 +1181,16 @@
           </div>
           <details open class="tsd-accordion tsd-page-navigation">
             <summary class="tsd-accordion-summary">
-              <h3>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                  <use href="../assets/icons.svg#icon-chevronDown"></use></svg
-                >On This Page
-              </h3>
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                aria-hidden="true"
+              >
+                <use href="../assets/icons.svg#icon-chevronDown"></use>
+              </svg>
+              <h3>On This Page</h3>
             </summary>
             <div class="tsd-accordion-details">
               <details open class="tsd-accordion tsd-page-navigation-section">
@@ -1131,81 +1198,159 @@
                   class="tsd-accordion-summary"
                   data-key="section-Properties"
                 >
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    aria-hidden="true"
+                  >
                     <use href="../assets/icons.svg#icon-chevronDown"></use></svg
                   >Properties
                 </summary>
                 <div>
                   <a href="#blockchain" class="tsd-is-inherited"
-                    ><svg class="tsd-kind-icon" viewBox="0 0 24 24">
+                    ><svg
+                      class="tsd-kind-icon"
+                      viewBox="0 0 24 24"
+                      aria-label="Property"
+                    >
                       <use href="../assets/icons.svg#icon-1024"></use></svg
                     ><span>blockchain</span></a
-                  ><a href="#childchains" class=""
-                    ><svg class="tsd-kind-icon" viewBox="0 0 24 24">
+                  ><a href="#childchains"
+                    ><svg
+                      class="tsd-kind-icon"
+                      viewBox="0 0 24 24"
+                      aria-label="Property"
+                    >
                       <use href="../assets/icons.svg#icon-1024"></use></svg
                     ><span>child<wbr />Chains</span></a
                   ><a href="#currency" class="tsd-is-inherited"
-                    ><svg class="tsd-kind-icon" viewBox="0 0 24 24">
+                    ><svg
+                      class="tsd-kind-icon"
+                      viewBox="0 0 24 24"
+                      aria-label="Property"
+                    >
                       <use href="../assets/icons.svg#icon-1024"></use></svg
                     ><span>currency</span></a
                   ><a href="#delisted" class="tsd-is-inherited"
-                    ><svg class="tsd-kind-icon" viewBox="0 0 24 24">
+                    ><svg
+                      class="tsd-kind-icon"
+                      viewBox="0 0 24 24"
+                      aria-label="Property"
+                    >
                       <use href="../assets/icons.svg#icon-1024"></use></svg
                     ><span>delisted</span></a
                   ><a href="#depositaddress" class="tsd-is-inherited"
-                    ><svg class="tsd-kind-icon" viewBox="0 0 24 24">
+                    ><svg
+                      class="tsd-kind-icon"
+                      viewBox="0 0 24 24"
+                      aria-label="Property"
+                    >
                       <use href="../assets/icons.svg#icon-1024"></use></svg
                     ><span>deposit<wbr />Address</span></a
                   ><a href="#description" class="tsd-is-inherited"
-                    ><svg class="tsd-kind-icon" viewBox="0 0 24 24">
+                    ><svg
+                      class="tsd-kind-icon"
+                      viewBox="0 0 24 24"
+                      aria-label="Property"
+                    >
                       <use href="../assets/icons.svg#icon-1024"></use></svg
                     ><span>description</span></a
                   ><a href="#id" class="tsd-is-inherited"
-                    ><svg class="tsd-kind-icon" viewBox="0 0 24 24">
+                    ><svg
+                      class="tsd-kind-icon"
+                      viewBox="0 0 24 24"
+                      aria-label="Property"
+                    >
                       <use href="../assets/icons.svg#icon-1024"></use></svg
                     ><span>id</span></a
-                  ><a href="#ischildchain" class=""
-                    ><svg class="tsd-kind-icon" viewBox="0 0 24 24">
+                  ><a href="#ischildchain"
+                    ><svg
+                      class="tsd-kind-icon"
+                      viewBox="0 0 24 24"
+                      aria-label="Property"
+                    >
                       <use href="../assets/icons.svg#icon-1024"></use></svg
                     ><span>is<wbr />Child<wbr />Chain</span></a
-                  ><a href="#ismultichain" class=""
-                    ><svg class="tsd-kind-icon" viewBox="0 0 24 24">
+                  ><a href="#ismultichain"
+                    ><svg
+                      class="tsd-kind-icon"
+                      viewBox="0 0 24 24"
+                      aria-label="Property"
+                    >
                       <use href="../assets/icons.svg#icon-1024"></use></svg
                     ><span>is<wbr />Multi<wbr />Chain</span></a
                   ><a href="#minconf" class="tsd-is-inherited"
-                    ><svg class="tsd-kind-icon" viewBox="0 0 24 24">
+                    ><svg
+                      class="tsd-kind-icon"
+                      viewBox="0 0 24 24"
+                      aria-label="Property"
+                    >
                       <use href="../assets/icons.svg#icon-1024"></use></svg
                     ><span>min<wbr />Conf</span></a
                   ><a href="#name" class="tsd-is-inherited"
-                    ><svg class="tsd-kind-icon" viewBox="0 0 24 24">
+                    ><svg
+                      class="tsd-kind-icon"
+                      viewBox="0 0 24 24"
+                      aria-label="Property"
+                    >
                       <use href="../assets/icons.svg#icon-1024"></use></svg
                     ><span>name</span></a
-                  ><a href="#parentchain" class=""
-                    ><svg class="tsd-kind-icon" viewBox="0 0 24 24">
+                  ><a href="#parentchain"
+                    ><svg
+                      class="tsd-kind-icon"
+                      viewBox="0 0 24 24"
+                      aria-label="Property"
+                    >
                       <use href="../assets/icons.svg#icon-1024"></use></svg
                     ><span>parent<wbr />Chain</span></a
                   ><a href="#supportborrow" class="tsd-is-inherited"
-                    ><svg class="tsd-kind-icon" viewBox="0 0 24 24">
+                    ><svg
+                      class="tsd-kind-icon"
+                      viewBox="0 0 24 24"
+                      aria-label="Property"
+                    >
                       <use href="../assets/icons.svg#icon-1024"></use></svg
                     ><span>support<wbr />Borrow</span></a
                   ><a href="#supportcollateral" class="tsd-is-inherited"
-                    ><svg class="tsd-kind-icon" viewBox="0 0 24 24">
+                    ><svg
+                      class="tsd-kind-icon"
+                      viewBox="0 0 24 24"
+                      aria-label="Property"
+                    >
                       <use href="../assets/icons.svg#icon-1024"></use></svg
                     ><span>support<wbr />Collateral</span></a
                   ><a href="#tradingstate" class="tsd-is-inherited"
-                    ><svg class="tsd-kind-icon" viewBox="0 0 24 24">
+                    ><svg
+                      class="tsd-kind-icon"
+                      viewBox="0 0 24 24"
+                      aria-label="Property"
+                    >
                       <use href="../assets/icons.svg#icon-1024"></use></svg
                     ><span>trading<wbr />State</span></a
                   ><a href="#type" class="tsd-is-inherited"
-                    ><svg class="tsd-kind-icon" viewBox="0 0 24 24">
+                    ><svg
+                      class="tsd-kind-icon"
+                      viewBox="0 0 24 24"
+                      aria-label="Property"
+                    >
                       <use href="../assets/icons.svg#icon-1024"></use></svg
                     ><span>type</span></a
                   ><a href="#walletstate" class="tsd-is-inherited"
-                    ><svg class="tsd-kind-icon" viewBox="0 0 24 24">
+                    ><svg
+                      class="tsd-kind-icon"
+                      viewBox="0 0 24 24"
+                      aria-label="Property"
+                    >
                       <use href="../assets/icons.svg#icon-1024"></use></svg
                     ><span>wallet<wbr />State</span></a
                   ><a href="#withdrawalfee" class="tsd-is-inherited"
-                    ><svg class="tsd-kind-icon" viewBox="0 0 24 24">
+                    ><svg
+                      class="tsd-kind-icon"
+                      viewBox="0 0 24 24"
+                      aria-label="Property"
+                    >
                       <use href="../assets/icons.svg#icon-1024"></use></svg
                     ><span>withdrawal<wbr />Fee</span></a
                   >

@@ -1,5 +1,5 @@
 <!doctype html>
-<html class="default" lang="en" data-base=".">
+<html class="default" lang="en" data-base="./">
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="x-ua-compatible" content="IE=edge" />
@@ -21,86 +21,93 @@
       document.body.style.display = "none";
       setTimeout(
         () =>
-          app ? app.showPage() : document.body.style.removeProperty("display"),
+          window.app
+            ? app.showPage()
+            : document.body.style.removeProperty("display"),
         500,
       );
     </script>
     <header class="tsd-page-toolbar">
       <div class="tsd-toolbar-contents container">
-        <div class="table-cell" id="tsd-search">
-          <div class="field">
-            <label
-              for="tsd-search-field"
-              class="tsd-widget tsd-toolbar-icon search no-caption"
-              ><svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                <use href="assets/icons.svg#icon-search"></use></svg></label
-            ><input type="text" id="tsd-search-field" aria-label="Search" />
+        <a href="index.html" class="title">poloniex-node-api</a>
+        <div id="tsd-toolbar-links"></div>
+        <button id="tsd-search-trigger" class="tsd-widget" aria-label="Search">
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 16 16"
+            fill="none"
+            aria-hidden="true"
+          >
+            <use href="assets/icons.svg#icon-search"></use>
+          </svg>
+        </button>
+        <dialog id="tsd-search" aria-label="Search">
+          <input
+            role="combobox"
+            id="tsd-search-input"
+            aria-controls="tsd-search-results"
+            aria-autocomplete="list"
+            aria-expanded="true"
+            autocapitalize="off"
+            autocomplete="off"
+            placeholder="Search the docs"
+            maxlength="100"
+          />
+          <ul role="listbox" id="tsd-search-results"></ul>
+          <div id="tsd-search-status" aria-live="polite" aria-atomic="true">
+            <div>Preparing search index...</div>
           </div>
-          <div class="field"><div id="tsd-toolbar-links"></div></div>
-          <ul class="results">
-            <li class="state loading">Preparing search index...</li>
-            <li class="state failure">The search index is not available</li>
-          </ul>
-          <a href="index.html" class="title">poloniex-node-api</a>
-        </div>
-        <div class="table-cell" id="tsd-widgets">
-          <a
-            href="#"
-            class="tsd-widget tsd-toolbar-icon menu no-caption"
-            data-toggle="menu"
-            aria-label="Menu"
-            ><svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <use href="assets/icons.svg#icon-menu"></use></svg
-          ></a>
-        </div>
+        </dialog>
+        <a
+          href="#"
+          class="tsd-widget menu"
+          id="tsd-toolbar-menu-trigger"
+          data-toggle="menu"
+          aria-label="Menu"
+          ><svg
+            width="16"
+            height="16"
+            viewBox="0 0 16 16"
+            fill="none"
+            aria-hidden="true"
+          >
+            <use href="assets/icons.svg#icon-menu"></use></svg
+        ></a>
       </div>
     </header>
     <div class="container container-main">
       <div class="col-content">
         <div class="tsd-page-title"><h1>poloniex-node-api</h1></div>
         <div class="tsd-panel tsd-typography">
-          <a
+          <h1
             id="poloniex-nodejs-api-ci-status-npm-version-coverage-status-known-vulnerabilities-code-style-prettier-contributor-covenant-semantic-release-conventional-commits-npm-license-node-version-npm-downloads-github-top-language"
-            class="tsd-anchor"
-          ></a>
-          <h1 class="tsd-anchor-link">
+            class="tsd-anchor-link"
+          >
             Poloniex Node.js API
             <a
               href="https://github.com/vansergen/poloniex-node-api/actions/workflows/ci.yml?query=branch%3Amain"
-              target="_blank"
-              class="external"
               ><img
                 src="https://github.com/vansergen/poloniex-node-api/workflows/CI/badge.svg?branch=main"
                 alt="CI Status"
             /></a>
-            <a
-              href="https://badge.fury.io/js/poloniex-node-api"
-              target="_blank"
-              class="external"
+            <a href="https://badge.fury.io/js/poloniex-node-api"
               ><img
                 src="https://badge.fury.io/js/poloniex-node-api.svg"
                 alt="npm version"
             /></a>
             <a
               href="https://coveralls.io/github/vansergen/poloniex-node-api?branch=main"
-              target="_blank"
-              class="external"
               ><img
                 src="https://coveralls.io/repos/github/vansergen/poloniex-node-api/badge.svg?branch=main"
                 alt="Coverage Status"
             /></a>
-            <a
-              href="https://snyk.io/test/github/vansergen/poloniex-node-api"
-              target="_blank"
-              class="external"
+            <a href="https://snyk.io/test/github/vansergen/poloniex-node-api"
               ><img
                 src="https://snyk.io/test/github/vansergen/poloniex-node-api/badge.svg"
                 alt="Known Vulnerabilities"
             /></a>
-            <a
-              href="https://github.com/prettier/prettier"
-              target="_blank"
-              class="external"
+            <a href="https://github.com/prettier/prettier"
               ><img
                 src="https://img.shields.io/badge/code_style-prettier-ff69b4.svg"
                 alt="code style: prettier"
@@ -110,18 +117,12 @@
                 src="https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg"
                 alt="Contributor Covenant"
             /></a>
-            <a
-              href="https://github.com/semantic-release/semantic-release"
-              target="_blank"
-              class="external"
+            <a href="https://github.com/semantic-release/semantic-release"
               ><img
                 src="https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg"
                 alt="semantic-release"
             /></a>
-            <a
-              href="https://conventionalcommits.org"
-              target="_blank"
-              class="external"
+            <a href="https://conventionalcommits.org"
               ><img
                 src="https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg"
                 alt="Conventional Commits"
@@ -145,67 +146,40 @@
               href="#poloniex-nodejs-api-ci-status-npm-version-coverage-status-known-vulnerabilities-code-style-prettier-contributor-covenant-semantic-release-conventional-commits-npm-license-node-version-npm-downloads-github-top-language"
               aria-label="Permalink"
               class="tsd-anchor-icon"
-              ><svg viewBox="0 0 24 24">
+              ><svg viewBox="0 0 24 24" aria-hidden="true">
                 <use href="assets/icons.svg#icon-anchor"></use></svg
             ></a>
           </h1>
           <p>
             Node.js library for
-            <a
-              href="https://docs.poloniex.com/"
-              target="_blank"
-              class="external"
-              >Poloniex</a
-            >.
+            <a href="https://docs.poloniex.com/">Poloniex</a>.
           </p>
-          <a id="installation" class="tsd-anchor"></a>
-          <h2 class="tsd-anchor-link">
+          <h2 id="installation" class="tsd-anchor-link">
             Installation<a
               href="#installation"
               aria-label="Permalink"
               class="tsd-anchor-icon"
-              ><svg viewBox="0 0 24 24">
+              ><svg viewBox="0 0 24 24" aria-hidden="true">
                 <use href="assets/icons.svg#icon-anchor"></use></svg
             ></a>
           </h2>
           <pre><code class="bash"><span class="hl-0">npm</span><span class="hl-1"> </span><span class="hl-2">install</span><span class="hl-1"> </span><span class="hl-2">poloniex-node-api</span>
 </code><button type="button">Copy</button></pre>
 
-          <a id="usage" class="tsd-anchor"></a>
-          <h2 class="tsd-anchor-link">
+          <h2 id="usage" class="tsd-anchor-link">
             Usage<a href="#usage" aria-label="Permalink" class="tsd-anchor-icon"
-              ><svg viewBox="0 0 24 24">
+              ><svg viewBox="0 0 24 24" aria-hidden="true">
                 <use href="assets/icons.svg#icon-anchor"></use></svg
             ></a>
           </h2>
-          <a id="legacy-api" class="tsd-anchor"></a>
-          <h3 class="tsd-anchor-link">
-            <a
-              href="https://docs.legacy.poloniex.com/"
-              target="_blank"
-              class="external"
-              >Legacy API</a
-            ><a
-              href="#legacy-api"
-              aria-label="Permalink"
-              class="tsd-anchor-icon"
-              ><svg viewBox="0 0 24 24">
-                <use href="assets/icons.svg#icon-anchor"></use></svg
-            ></a>
-          </h3>
-          <p>See <a href="./README.legacy.md">here</a></p>
-          <a id="publicclient-1" class="tsd-anchor"></a>
-          <h3 class="tsd-anchor-link">
-            <a
-              href="https://docs.poloniex.com/#public-endpoints"
-              target="_blank"
-              class="external"
+          <h3 id="publicclient" class="tsd-anchor-link">
+            <a href="https://docs.poloniex.com/#public-endpoints"
               >PublicClient</a
             ><a
-              href="#publicclient-1"
+              href="#publicclient"
               aria-label="Permalink"
               class="tsd-anchor-icon"
-              ><svg viewBox="0 0 24 24">
+              ><svg viewBox="0 0 24 24" aria-hidden="true">
                 <use href="assets/icons.svg#icon-anchor"></use></svg
             ></a>
           </h3>
@@ -216,8 +190,6 @@
             <li>
               <a
                 href="https://docs.poloniex.com/#public-endpoints-reference-data-symbol-information"
-                target="_blank"
-                class="external"
                 ><code>getMarkets</code></a
               >
             </li>
@@ -229,8 +201,6 @@
             <li>
               <a
                 href="https://docs.poloniex.com/#public-endpoints-reference-data-symbol-information"
-                target="_blank"
-                class="external"
                 ><code>getMarket</code></a
               >
             </li>
@@ -242,8 +212,6 @@
             <li>
               <a
                 href="https://docs.poloniex.com/#public-endpoints-reference-data-currency-information"
-                target="_blank"
-                class="external"
                 ><code>getCurrency</code></a
               >
             </li>
@@ -259,8 +227,6 @@
             <li>
               <a
                 href="https://docs.poloniex.com/#public-endpoints-reference-data-system-timestamp"
-                target="_blank"
-                class="external"
                 ><code>getSystemTime</code></a
               >
             </li>
@@ -272,8 +238,6 @@
             <li>
               <a
                 href="https://docs.poloniex.com/#public-endpoints-market-data-prices"
-                target="_blank"
-                class="external"
                 ><code>getPrices</code></a
               >
             </li>
@@ -285,8 +249,6 @@
             <li>
               <a
                 href="https://docs.poloniex.com/#public-endpoints-market-data-prices"
-                target="_blank"
-                class="external"
                 ><code>getPrice</code></a
               >
             </li>
@@ -298,8 +260,6 @@
             <li>
               <a
                 href="https://docs.poloniex.com/#public-endpoints-market-data-mark-price"
-                target="_blank"
-                class="external"
                 ><code>getMarkPrices</code></a
               >
             </li>
@@ -311,8 +271,6 @@
             <li>
               <a
                 href="https://docs.poloniex.com/#public-endpoints-market-data-mark-price"
-                target="_blank"
-                class="external"
                 ><code>getMarkPrice</code></a
               >
             </li>
@@ -324,8 +282,6 @@
             <li>
               <a
                 href="https://docs.poloniex.com/#public-endpoints-market-data-mark-price-components"
-                target="_blank"
-                class="external"
                 ><code>getMarkPriceComponents</code></a
               >
             </li>
@@ -337,8 +293,6 @@
             <li>
               <a
                 href="https://docs.poloniex.com/#public-endpoints-market-data-order-book"
-                target="_blank"
-                class="external"
                 ><code>getOrderBook</code></a
               >
             </li>
@@ -350,8 +304,6 @@
             <li>
               <a
                 href="https://docs.poloniex.com/#public-endpoints-market-data-candles"
-                target="_blank"
-                class="external"
                 ><code>getCandles</code></a
               >
             </li>
@@ -363,8 +315,6 @@
             <li>
               <a
                 href="https://docs.poloniex.com/#public-endpoints-market-data-trades"
-                target="_blank"
-                class="external"
                 ><code>getPublicTrades</code></a
               >
             </li>
@@ -376,8 +326,6 @@
             <li>
               <a
                 href="https://docs.poloniex.com/#public-endpoints-market-data-ticker"
-                target="_blank"
-                class="external"
                 ><code>getTickers</code></a
               >
             </li>
@@ -389,8 +337,6 @@
             <li>
               <a
                 href="https://docs.poloniex.com/#public-endpoints-market-data-ticker"
-                target="_blank"
-                class="external"
                 ><code>getTicker</code></a
               >
             </li>
@@ -402,8 +348,6 @@
             <li>
               <a
                 href="https://docs.poloniex.com/#public-endpoints-margin-collateral-info"
-                target="_blank"
-                class="external"
                 ><code>getCollateral</code></a
               >
             </li>
@@ -419,8 +363,6 @@
             <li>
               <a
                 href="https://docs.poloniex.com/#public-endpoints-margin-borrow-rates-info"
-                target="_blank"
-                class="external"
                 ><code>getBorrowRates</code></a
               >
             </li>
@@ -428,33 +370,26 @@
           <pre><code class="typescript"><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">symbol</span><span class="hl-1"> = </span><span class="hl-2">&quot;ETH_BTC&quot;</span><span class="hl-1">;</span><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">ticker</span><span class="hl-1"> = </span><span class="hl-3">await</span><span class="hl-1"> </span><span class="hl-4">client</span><span class="hl-1">.</span><span class="hl-0">getTicker</span><span class="hl-1">({ </span><span class="hl-4">symbol</span><span class="hl-1"> });</span>
 </code><button type="button">Copy</button></pre>
 
-          <a id="authenticatedclient-1" class="tsd-anchor"></a>
-          <h3 class="tsd-anchor-link">
-            <a
-              href="https://docs.poloniex.com/#authenticated-endpoints"
-              target="_blank"
-              class="external"
+          <h3 id="authenticatedclient" class="tsd-anchor-link">
+            <a href="https://docs.poloniex.com/#authenticated-endpoints"
               >AuthenticatedClient</a
             ><a
-              href="#authenticatedclient-1"
+              href="#authenticatedclient"
               aria-label="Permalink"
               class="tsd-anchor-icon"
-              ><svg viewBox="0 0 24 24">
+              ><svg viewBox="0 0 24 24" aria-hidden="true">
                 <use href="assets/icons.svg#icon-anchor"></use></svg
             ></a>
           </h3>
           <pre><code class="typescript"><span class="hl-3">import</span><span class="hl-1"> { </span><span class="hl-4">AuthenticatedClient</span><span class="hl-1"> } </span><span class="hl-3">from</span><span class="hl-1"> </span><span class="hl-2">&quot;poloniex-node-api&quot;</span><span class="hl-1">;</span><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">key</span><span class="hl-1"> = </span><span class="hl-2">&quot;poloniex-api-key&quot;</span><span class="hl-1">;</span><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">secret</span><span class="hl-1"> = </span><span class="hl-2">&quot;poloniex-api-secret&quot;</span><span class="hl-1">;</span><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">client</span><span class="hl-1"> = </span><span class="hl-5">new</span><span class="hl-1"> </span><span class="hl-0">AuthenticatedClient</span><span class="hl-1">({ </span><span class="hl-4">key</span><span class="hl-1">, </span><span class="hl-4">secret</span><span class="hl-1"> });</span>
 </code><button type="button">Copy</button></pre>
 
-          <a id="accounts" class="tsd-anchor"></a>
-          <h4 class="tsd-anchor-link">
+          <h4 id="accounts" class="tsd-anchor-link">
             <a
               href="https://docs.poloniex.com/#authenticated-endpoints-accounts"
-              target="_blank"
-              class="external"
               >Accounts</a
             ><a href="#accounts" aria-label="Permalink" class="tsd-anchor-icon"
-              ><svg viewBox="0 0 24 24">
+              ><svg viewBox="0 0 24 24" aria-hidden="true">
                 <use href="assets/icons.svg#icon-anchor"></use></svg
             ></a>
           </h4>
@@ -462,8 +397,6 @@
             <li>
               <a
                 href="https://docs.poloniex.com/#authenticated-endpoints-accounts-account-information"
-                target="_blank"
-                class="external"
                 ><code>getAccounts</code></a
               >
             </li>
@@ -475,8 +408,6 @@
             <li>
               <a
                 href="https://docs.poloniex.com/#authenticated-endpoints-accounts-all-account-balances"
-                target="_blank"
-                class="external"
                 ><code>getAccountBalances</code></a
               >
             </li>
@@ -488,8 +419,6 @@
             <li>
               <a
                 href="https://docs.poloniex.com/#authenticated-endpoints-accounts-account-activity"
-                target="_blank"
-                class="external"
                 ><code>getAccountActivity</code></a
               >
             </li>
@@ -501,8 +430,6 @@
             <li>
               <a
                 href="https://docs.poloniex.com/#authenticated-endpoints-accounts-accounts-transfer"
-                target="_blank"
-                class="external"
                 ><code>transfer</code></a
               >
             </li>
@@ -514,8 +441,6 @@
             <li>
               <a
                 href="https://docs.poloniex.com/#authenticated-endpoints-accounts-accounts-transfer-records"
-                target="_blank"
-                class="external"
                 ><code>getAccountTransfers</code></a
               >
             </li>
@@ -527,8 +452,6 @@
             <li>
               <a
                 href="https://docs.poloniex.com/#authenticated-endpoints-accounts-fee-info"
-                target="_blank"
-                class="external"
                 ><code>getFeeInfo</code></a
               >
             </li>
@@ -536,15 +459,11 @@
           <pre><code class="typescript"><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">fee_info</span><span class="hl-1"> = </span><span class="hl-3">await</span><span class="hl-1"> </span><span class="hl-4">client</span><span class="hl-1">.</span><span class="hl-0">getFeeInfo</span><span class="hl-1">();</span>
 </code><button type="button">Copy</button></pre>
 
-          <a id="wallets" class="tsd-anchor"></a>
-          <h4 class="tsd-anchor-link">
-            <a
-              href="https://docs.poloniex.com/#authenticated-endpoints-wallets"
-              target="_blank"
-              class="external"
+          <h4 id="wallets" class="tsd-anchor-link">
+            <a href="https://docs.poloniex.com/#authenticated-endpoints-wallets"
               >Wallets</a
             ><a href="#wallets" aria-label="Permalink" class="tsd-anchor-icon"
-              ><svg viewBox="0 0 24 24">
+              ><svg viewBox="0 0 24 24" aria-hidden="true">
                 <use href="assets/icons.svg#icon-anchor"></use></svg
             ></a>
           </h4>
@@ -552,8 +471,6 @@
             <li>
               <a
                 href="https://docs.poloniex.com/#authenticated-endpoints-wallets-deposit-addresses"
-                target="_blank"
-                class="external"
                 ><code>getWallets</code></a
               >
             </li>
@@ -565,8 +482,6 @@
             <li>
               <a
                 href="https://docs.poloniex.com/#authenticated-endpoints-wallets-wallets-activity-records"
-                target="_blank"
-                class="external"
                 ><code>getWalletsActivity</code></a
               >
             </li>
@@ -578,8 +493,6 @@
             <li>
               <a
                 href="https://docs.poloniex.com/#authenticated-endpoints-wallets-new-currency-address"
-                target="_blank"
-                class="external"
                 ><code>newAddress</code></a
               >
             </li>
@@ -591,8 +504,6 @@
             <li>
               <a
                 href="https://docs.poloniex.com/#authenticated-endpoints-wallets-withdraw-currency"
-                target="_blank"
-                class="external"
                 ><code>withdraw</code></a
               >
             </li>
@@ -600,15 +511,11 @@
           <pre><code class="typescript"><span class="hl-5">const</span><span class="hl-1"> { </span><span class="hl-6">withdrawalRequestsId</span><span class="hl-1"> } = </span><span class="hl-3">await</span><span class="hl-1"> </span><span class="hl-4">client</span><span class="hl-1">.</span><span class="hl-0">withdraw</span><span class="hl-1">();</span>
 </code><button type="button">Copy</button></pre>
 
-          <a id="margin" class="tsd-anchor"></a>
-          <h4 class="tsd-anchor-link">
-            <a
-              href="https://docs.poloniex.com/#authenticated-endpoints-margin"
-              target="_blank"
-              class="external"
+          <h4 id="margin" class="tsd-anchor-link">
+            <a href="https://docs.poloniex.com/#authenticated-endpoints-margin"
               >Margin</a
             ><a href="#margin" aria-label="Permalink" class="tsd-anchor-icon"
-              ><svg viewBox="0 0 24 24">
+              ><svg viewBox="0 0 24 24" aria-hidden="true">
                 <use href="assets/icons.svg#icon-anchor"></use></svg
             ></a>
           </h4>
@@ -616,8 +523,6 @@
             <li>
               <a
                 href="https://docs.poloniex.com/#authenticated-endpoints-margin-account-margin"
-                target="_blank"
-                class="external"
                 ><code>getMargin</code></a
               >
             </li>
@@ -629,8 +534,6 @@
             <li>
               <a
                 href="https://docs.poloniex.com/#authenticated-endpoints-margin-borrow-status"
-                target="_blank"
-                class="external"
                 ><code>getBorrowStatus</code></a
               >
             </li>
@@ -642,8 +545,6 @@
             <li>
               <a
                 href="https://docs.poloniex.com/#authenticated-endpoints-margin-maximum-buy-sell-amount"
-                target="_blank"
-                class="external"
                 ><code>getMaxSize</code></a
               >
             </li>
@@ -651,15 +552,11 @@
           <pre><code class="typescript"><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">size</span><span class="hl-1"> = </span><span class="hl-3">await</span><span class="hl-1"> </span><span class="hl-4">client</span><span class="hl-1">.</span><span class="hl-0">getMaxSize</span><span class="hl-1">();</span>
 </code><button type="button">Copy</button></pre>
 
-          <a id="orders" class="tsd-anchor"></a>
-          <h4 class="tsd-anchor-link">
-            <a
-              href="https://docs.poloniex.com/#authenticated-endpoints-orders"
-              target="_blank"
-              class="external"
+          <h4 id="orders" class="tsd-anchor-link">
+            <a href="https://docs.poloniex.com/#authenticated-endpoints-orders"
               >Orders</a
             ><a href="#orders" aria-label="Permalink" class="tsd-anchor-icon"
-              ><svg viewBox="0 0 24 24">
+              ><svg viewBox="0 0 24 24" aria-hidden="true">
                 <use href="assets/icons.svg#icon-anchor"></use></svg
             ></a>
           </h4>
@@ -667,8 +564,6 @@
             <li>
               <a
                 href="https://docs.poloniex.com/#authenticated-endpoints-orders-create-order"
-                target="_blank"
-                class="external"
                 ><code>createOrder</code></a
               >
             </li>
@@ -684,8 +579,6 @@
             <li>
               <a
                 href="https://docs.poloniex.com/#authenticated-endpoints-orders-create-multiple-orders"
-                target="_blank"
-                class="external"
                 ><code>createOrders</code></a
               >
             </li>
@@ -697,8 +590,6 @@
             <li>
               [<code>replaceOrder</code>](<a
                 href="https://docs.poloniex.com/#authenticated-endpoints-orders-cancel-replace-order"
-                target="_blank"
-                class="external"
                 >https://docs.poloniex.com/#authenticated-endpoints-orders-cancel-replace-order</a
               >
             </li>
@@ -714,8 +605,6 @@
             <li>
               <a
                 href="https://docs.poloniex.com/#authenticated-endpoints-orders-open-orders"
-                target="_blank"
-                class="external"
                 ><code>getOpenOrders</code></a
               >
             </li>
@@ -731,8 +620,6 @@
             <li>
               <a
                 href="https://docs.poloniex.com/#authenticated-endpoints-orders-order-details"
-                target="_blank"
-                class="external"
                 ><code>getOrder</code></a
               >
             </li>
@@ -748,8 +635,6 @@
             <li>
               <a
                 href="https://docs.poloniex.com/#authenticated-endpoints-orders-cancel-order-by-id"
-                target="_blank"
-                class="external"
                 ><code>cancelOrder</code></a
               >
             </li>
@@ -765,8 +650,6 @@
             <li>
               <a
                 href="https://docs.poloniex.com/#authenticated-endpoints-orders-cancel-multiple-orders-by-ids"
-                target="_blank"
-                class="external"
                 ><code>cancelOrders</code></a
               >
             </li>
@@ -778,8 +661,6 @@
             <li>
               <a
                 href="https://docs.poloniex.com/#authenticated-endpoints-orders-cancel-all-orders"
-                target="_blank"
-                class="external"
                 ><code>cancelAllOrders</code></a
               >
             </li>
@@ -795,8 +676,6 @@
             <li>
               <a
                 href="https://docs.poloniex.com/#authenticated-endpoints-orders-kill-switch"
-                target="_blank"
-                class="external"
                 ><code>killSwitch</code></a
               >
             </li>
@@ -808,8 +687,6 @@
             <li>
               <a
                 href="https://docs.poloniex.com/#authenticated-endpoints-orders-kill-switch-status"
-                target="_blank"
-                class="external"
                 ><code>getKillSwitch</code></a
               >
             </li>
@@ -817,18 +694,15 @@
           <pre><code class="typescript"><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">status</span><span class="hl-1"> = </span><span class="hl-3">await</span><span class="hl-1"> </span><span class="hl-4">client</span><span class="hl-1">.</span><span class="hl-0">getKillSwitch</span><span class="hl-1">();</span>
 </code><button type="button">Copy</button></pre>
 
-          <a id="smart-orders" class="tsd-anchor"></a>
-          <h4 class="tsd-anchor-link">
+          <h4 id="smart-orders" class="tsd-anchor-link">
             <a
               href="https://docs.poloniex.com/#authenticated-endpoints-smart-orders"
-              target="_blank"
-              class="external"
               >Smart Orders</a
             ><a
               href="#smart-orders"
               aria-label="Permalink"
               class="tsd-anchor-icon"
-              ><svg viewBox="0 0 24 24">
+              ><svg viewBox="0 0 24 24" aria-hidden="true">
                 <use href="assets/icons.svg#icon-anchor"></use></svg
             ></a>
           </h4>
@@ -836,8 +710,6 @@
             <li>
               <a
                 href="https://docs.poloniex.com/#authenticated-endpoints-smart-orders-create-order"
-                target="_blank"
-                class="external"
                 ><code>createSmartOrder</code></a
               >
             </li>
@@ -849,8 +721,6 @@
             <li>
               [<code>replaceSmartOrder</code>](<a
                 href="https://docs.poloniex.com/#authenticated-endpoints-smart-orders-cancel-replace-order"
-                target="_blank"
-                class="external"
                 >https://docs.poloniex.com/#authenticated-endpoints-smart-orders-cancel-replace-order</a
               >
             </li>
@@ -866,8 +736,6 @@
             <li>
               <a
                 href="https://docs.poloniex.com/#authenticated-endpoints-smart-orders-open-orders"
-                target="_blank"
-                class="external"
                 ><code>getOpenSmartOrders</code></a
               >
             </li>
@@ -883,8 +751,6 @@
             <li>
               <a
                 href="https://docs.poloniex.com/#authenticated-endpoints-smart-orders-cancel-order-by-id"
-                target="_blank"
-                class="external"
                 ><code>getSmartOrder</code></a
               >
             </li>
@@ -900,8 +766,6 @@
             <li>
               <a
                 href="https://docs.poloniex.com/#authenticated-endpoints-smart-orders-cancel-order-by-id"
-                target="_blank"
-                class="external"
                 ><code>cancelSmartOrder</code></a
               >
             </li>
@@ -917,8 +781,6 @@
             <li>
               <a
                 href="https://docs.poloniex.com/#authenticated-endpoints-smart-orders-cancel-multiple-orders-by-id"
-                target="_blank"
-                class="external"
                 ><code>cancelSmartOrders</code></a
               >
             </li>
@@ -930,8 +792,6 @@
             <li>
               <a
                 href="https://docs.poloniex.com/#authenticated-endpoints-smart-orders-cancel-all-orders"
-                target="_blank"
-                class="external"
                 ><code>cancelAllSmartOrders</code></a
               >
             </li>
@@ -943,18 +803,15 @@
           <pre><code class="typescript"><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">results</span><span class="hl-1"> = </span><span class="hl-3">await</span><span class="hl-1"> </span><span class="hl-4">client</span><span class="hl-1">.</span><span class="hl-0">cancelAllSmartOrders</span><span class="hl-1">();</span>
 </code><button type="button">Copy</button></pre>
 
-          <a id="order-history" class="tsd-anchor"></a>
-          <h4 class="tsd-anchor-link">
+          <h4 id="order-history" class="tsd-anchor-link">
             <a
               href="https://docs.poloniex.com/#authenticated-endpoints-order-history"
-              target="_blank"
-              class="external"
               >Order history</a
             ><a
               href="#order-history"
               aria-label="Permalink"
               class="tsd-anchor-icon"
-              ><svg viewBox="0 0 24 24">
+              ><svg viewBox="0 0 24 24" aria-hidden="true">
                 <use href="assets/icons.svg#icon-anchor"></use></svg
             ></a>
           </h4>
@@ -962,8 +819,6 @@
             <li>
               <a
                 href="https://docs.poloniex.com/#authenticated-endpoints-order-history-orders-history"
-                target="_blank"
-                class="external"
                 ><code>getOrders</code></a
               >
             </li>
@@ -971,15 +826,11 @@
           <pre><code class="typescript"><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">type</span><span class="hl-1"> = [</span><span class="hl-2">&quot;MARKET&quot;</span><span class="hl-1">, </span><span class="hl-2">&quot;LIMIT&quot;</span><span class="hl-1">];</span><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">side</span><span class="hl-1"> = </span><span class="hl-2">&quot;BUY&quot;</span><span class="hl-1">;</span><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">symbol</span><span class="hl-1"> = </span><span class="hl-2">&quot;TRX_USDC&quot;</span><span class="hl-1">;</span><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">states</span><span class="hl-1"> = [</span><span class="hl-2">&quot;FILLED&quot;</span><span class="hl-1">, </span><span class="hl-2">&quot;PARTIALLY_CANCELED&quot;</span><span class="hl-1">];</span><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">limit</span><span class="hl-1"> = </span><span class="hl-7">10</span><span class="hl-1">;</span><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">hideCancel</span><span class="hl-1"> = </span><span class="hl-5">true</span><span class="hl-1">;</span><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">startTime</span><span class="hl-1"> = </span><span class="hl-7">1649106321040</span><span class="hl-1">;</span><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">endTime</span><span class="hl-1"> = </span><span class="hl-7">1649427963598</span><span class="hl-1">;</span><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">orders</span><span class="hl-1"> = </span><span class="hl-3">await</span><span class="hl-1"> </span><span class="hl-4">client</span><span class="hl-1">.</span><span class="hl-0">getOrders</span><span class="hl-1">({</span><br/><span class="hl-1">  </span><span class="hl-4">type</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-4">side</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-4">symbol</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-4">states</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-4">limit</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-4">hideCancel</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-4">startTime</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-4">endTime</span><span class="hl-1">,</span><br/><span class="hl-1">});</span>
 </code><button type="button">Copy</button></pre>
 
-          <a id="trades" class="tsd-anchor"></a>
-          <h4 class="tsd-anchor-link">
-            <a
-              href="https://docs.poloniex.com/#authenticated-endpoints-trades"
-              target="_blank"
-              class="external"
+          <h4 id="trades" class="tsd-anchor-link">
+            <a href="https://docs.poloniex.com/#authenticated-endpoints-trades"
               >Trades</a
             ><a href="#trades" aria-label="Permalink" class="tsd-anchor-icon"
-              ><svg viewBox="0 0 24 24">
+              ><svg viewBox="0 0 24 24" aria-hidden="true">
                 <use href="assets/icons.svg#icon-anchor"></use></svg
             ></a>
           </h4>
@@ -987,8 +838,6 @@
             <li>
               <a
                 href="https://docs.poloniex.com/#authenticated-endpoints-trades-trade-history"
-                target="_blank"
-                class="external"
                 ><code>getTrades</code></a
               >
             </li>
@@ -1000,8 +849,6 @@
             <li>
               <a
                 href="https://docs.poloniex.com/#authenticated-endpoints-trades-trades-by-order-id"
-                target="_blank"
-                class="external"
                 ><code>getOrderTrades</code></a
               >
             </li>
@@ -1009,18 +856,14 @@
           <pre><code class="typescript"><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">id</span><span class="hl-1"> = </span><span class="hl-2">&quot;30249408733945856&quot;</span><span class="hl-1">;</span><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">trades</span><span class="hl-1"> = </span><span class="hl-3">await</span><span class="hl-1"> </span><span class="hl-4">client</span><span class="hl-1">.</span><span class="hl-0">getOrderTrades</span><span class="hl-1">({ </span><span class="hl-4">id</span><span class="hl-1"> });</span>
 </code><button type="button">Copy</button></pre>
 
-          <a id="websocketclient-1" class="tsd-anchor"></a>
-          <h3 class="tsd-anchor-link">
-            <a
-              href="https://docs.poloniex.com/#overview-websockets"
-              target="_blank"
-              class="external"
+          <h3 id="websocketclient" class="tsd-anchor-link">
+            <a href="https://docs.poloniex.com/#overview-websockets"
               >WebSocketClient</a
             ><a
-              href="#websocketclient-1"
+              href="#websocketclient"
               aria-label="Permalink"
               class="tsd-anchor-icon"
-              ><svg viewBox="0 0 24 24">
+              ><svg viewBox="0 0 24 24" aria-hidden="true">
                 <use href="assets/icons.svg#icon-anchor"></use></svg
             ></a>
           </h3>
@@ -1029,10 +872,7 @@
 
           <ul>
             <li>
-              <a
-                href="https://docs.poloniex.com/#public-channels"
-                target="_blank"
-                class="external"
+              <a href="https://docs.poloniex.com/#public-channels"
                 >connectPublicWS</a
               >
             </li>
@@ -1042,10 +882,7 @@
 
           <ul>
             <li>
-              <a
-                href="https://docs.poloniex.com/#authenticated-channels"
-                target="_blank"
-                class="external"
+              <a href="https://docs.poloniex.com/#authenticated-channels"
                 >connectPrivateWS</a
               >
             </li>
@@ -1055,10 +892,7 @@
 
           <ul>
             <li>
-              <a
-                href="https://docs.poloniex.com/#public-channels"
-                target="_blank"
-                class="external"
+              <a href="https://docs.poloniex.com/#public-channels"
                 >disconnectPublicWS</a
               >
             </li>
@@ -1068,10 +902,7 @@
 
           <ul>
             <li>
-              <a
-                href="https://docs.poloniex.com/#authenticated-channels"
-                target="_blank"
-                class="external"
+              <a href="https://docs.poloniex.com/#authenticated-channels"
                 >disconnectPrivateWS</a
               >
             </li>
@@ -1083,8 +914,6 @@
             <li>
               <a
                 href="https://docs.poloniex.com/#authenticated-channels-subscriptions-authentication"
-                target="_blank"
-                class="external"
                 >auth</a
               >
             </li>
@@ -1096,8 +925,6 @@
             <li>
               <a
                 href="https://docs.poloniex.com/#overview-div-style-display-none-websockets-div-heartbeats"
-                target="_blank"
-                class="external"
                 >pingPublic</a
               >
             </li>
@@ -1109,8 +936,6 @@
             <li>
               <a
                 href="https://docs.poloniex.com/#overview-div-style-display-none-websockets-div-heartbeats"
-                target="_blank"
-                class="external"
                 >pingPrivate</a
               >
             </li>
@@ -1122,8 +947,6 @@
             <li>
               <a
                 href="https://docs.poloniex.com/#overview-div-style-display-none-websockets-div-subscriptions-unsubscribe"
-                target="_blank"
-                class="external"
                 >unsubscribePublic</a
               >
             </li>
@@ -1135,8 +958,6 @@
             <li>
               <a
                 href="https://docs.poloniex.com/#overview-div-style-display-none-websockets-div-subscriptions-unsubscribe"
-                target="_blank"
-                class="external"
                 >unsubscribePrivate</a
               >
             </li>
@@ -1148,8 +969,6 @@
             <li>
               <a
                 href="https://docs.poloniex.com/#overview-div-style-display-none-websockets-div-subscriptions-list-subscriptions"
-                target="_blank"
-                class="external"
                 >getPublicSubscriptions</a
               >
             </li>
@@ -1161,8 +980,6 @@
             <li>
               <a
                 href="https://docs.poloniex.com/#overview-div-style-display-none-websockets-div-subscriptions-list-subscriptions"
-                target="_blank"
-                class="external"
                 >getPrivateSubscriptions</a
               >
             </li>
@@ -1174,8 +991,6 @@
             <li>
               <a
                 href="https://docs.poloniex.com/#overview-div-style-display-none-websockets-div-subscriptions-list-subscriptions"
-                target="_blank"
-                class="external"
                 ><code>send</code></a
               >
             </li>
@@ -1187,18 +1002,15 @@
           <pre><code class="typescript"><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">payload</span><span class="hl-1"> = {</span><br/><span class="hl-1">  </span><span class="hl-4">event:</span><span class="hl-1"> </span><span class="hl-2">&quot;subscribe&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-4">channel:</span><span class="hl-1"> [</span><span class="hl-2">&quot;orders&quot;</span><span class="hl-1">, </span><span class="hl-2">&quot;balances&quot;</span><span class="hl-1">],</span><br/><span class="hl-1">  </span><span class="hl-4">symbols:</span><span class="hl-1"> [</span><span class="hl-2">&quot;all&quot;</span><span class="hl-1">],</span><br/><span class="hl-1">};</span><br/><span class="hl-3">await</span><span class="hl-1"> </span><span class="hl-4">client</span><span class="hl-1">.</span><span class="hl-0">send</span><span class="hl-1">(</span><span class="hl-4">payload</span><span class="hl-1">, </span><span class="hl-2">&quot;private&quot;</span><span class="hl-1">);</span>
 </code><button type="button">Copy</button></pre>
 
-          <a id="candlesticks" class="tsd-anchor"></a>
-          <h4 class="tsd-anchor-link">
+          <h4 id="candlesticks" class="tsd-anchor-link">
             <a
               href="https://docs.poloniex.com/#public-channels-subscriptions-candlesticks"
-              target="_blank"
-              class="external"
               >Candlesticks</a
             ><a
               href="#candlesticks"
               aria-label="Permalink"
               class="tsd-anchor-icon"
-              ><svg viewBox="0 0 24 24">
+              ><svg viewBox="0 0 24 24" aria-hidden="true">
                 <use href="assets/icons.svg#icon-anchor"></use></svg
             ></a>
           </h4>
@@ -1220,15 +1032,12 @@
           <pre><code class="typescript"><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">channel</span><span class="hl-1"> = </span><span class="hl-2">&quot;candles_day_1&quot;</span><span class="hl-1">;</span><br/><span class="hl-3">for</span><span class="hl-1"> </span><span class="hl-3">await</span><span class="hl-1"> (</span><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">candle</span><span class="hl-1"> </span><span class="hl-5">of</span><span class="hl-1"> </span><span class="hl-4">client</span><span class="hl-1">.</span><span class="hl-0">candles</span><span class="hl-1">()) {</span><br/><span class="hl-1">  </span><span class="hl-4">console</span><span class="hl-1">.</span><span class="hl-0">log</span><span class="hl-1">(</span><span class="hl-4">candle</span><span class="hl-1">);</span><br/><span class="hl-1">}</span>
 </code><button type="button">Copy</button></pre>
 
-          <a id="trades-1" class="tsd-anchor"></a>
-          <h4 class="tsd-anchor-link">
+          <h4 id="trades-1" class="tsd-anchor-link">
             <a
               href="https://docs.poloniex.com/#public-channels-subscriptions-trades"
-              target="_blank"
-              class="external"
               >Trades</a
             ><a href="#trades-1" aria-label="Permalink" class="tsd-anchor-icon"
-              ><svg viewBox="0 0 24 24">
+              ><svg viewBox="0 0 24 24" aria-hidden="true">
                 <use href="assets/icons.svg#icon-anchor"></use></svg
             ></a>
           </h4>
@@ -1250,15 +1059,12 @@
           <pre><code class="typescript"><span class="hl-3">for</span><span class="hl-1"> </span><span class="hl-3">await</span><span class="hl-1"> (</span><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">trade</span><span class="hl-1"> </span><span class="hl-5">of</span><span class="hl-1"> </span><span class="hl-4">client</span><span class="hl-1">.</span><span class="hl-0">trades</span><span class="hl-1">()) {</span><br/><span class="hl-1">  </span><span class="hl-4">console</span><span class="hl-1">.</span><span class="hl-0">log</span><span class="hl-1">(</span><span class="hl-4">trade</span><span class="hl-1">);</span><br/><span class="hl-1">}</span>
 </code><button type="button">Copy</button></pre>
 
-          <a id="ticker" class="tsd-anchor"></a>
-          <h4 class="tsd-anchor-link">
+          <h4 id="ticker" class="tsd-anchor-link">
             <a
               href="https://docs.poloniex.com/#public-channels-subscriptions-ticker"
-              target="_blank"
-              class="external"
               >Ticker</a
             ><a href="#ticker" aria-label="Permalink" class="tsd-anchor-icon"
-              ><svg viewBox="0 0 24 24">
+              ><svg viewBox="0 0 24 24" aria-hidden="true">
                 <use href="assets/icons.svg#icon-anchor"></use></svg
             ></a>
           </h4>
@@ -1280,15 +1086,12 @@
           <pre><code class="typescript"><span class="hl-3">for</span><span class="hl-1"> </span><span class="hl-3">await</span><span class="hl-1"> (</span><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">ticker</span><span class="hl-1"> </span><span class="hl-5">of</span><span class="hl-1"> </span><span class="hl-4">client</span><span class="hl-1">.</span><span class="hl-0">tickers</span><span class="hl-1">()) {</span><br/><span class="hl-1">  </span><span class="hl-4">console</span><span class="hl-1">.</span><span class="hl-0">log</span><span class="hl-1">(</span><span class="hl-4">ticker</span><span class="hl-1">);</span><br/><span class="hl-1">}</span>
 </code><button type="button">Copy</button></pre>
 
-          <a id="book" class="tsd-anchor"></a>
-          <h4 class="tsd-anchor-link">
+          <h4 id="book" class="tsd-anchor-link">
             <a
               href="https://docs.poloniex.com/#public-channels-subscriptions-book"
-              target="_blank"
-              class="external"
               >Book</a
             ><a href="#book" aria-label="Permalink" class="tsd-anchor-icon"
-              ><svg viewBox="0 0 24 24">
+              ><svg viewBox="0 0 24 24" aria-hidden="true">
                 <use href="assets/icons.svg#icon-anchor"></use></svg
             ></a>
           </h4>
@@ -1310,18 +1113,15 @@
           <pre><code class="typescript"><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">depth</span><span class="hl-1"> = </span><span class="hl-7">10</span><span class="hl-1">;</span><br/><span class="hl-3">for</span><span class="hl-1"> </span><span class="hl-3">await</span><span class="hl-1"> (</span><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">book</span><span class="hl-1"> </span><span class="hl-5">of</span><span class="hl-1"> </span><span class="hl-4">client</span><span class="hl-1">.</span><span class="hl-0">books</span><span class="hl-1">({ </span><span class="hl-4">depth</span><span class="hl-1"> })) {</span><br/><span class="hl-1">  </span><span class="hl-4">console</span><span class="hl-1">.</span><span class="hl-0">log</span><span class="hl-1">(</span><span class="hl-4">book</span><span class="hl-1">);</span><br/><span class="hl-1">}</span>
 </code><button type="button">Copy</button></pre>
 
-          <a id="book-level-2" class="tsd-anchor"></a>
-          <h4 class="tsd-anchor-link">
+          <h4 id="book-level-2" class="tsd-anchor-link">
             <a
               href="https://docs.poloniex.com/#public-channels-subscriptions-book-level-2"
-              target="_blank"
-              class="external"
               >Book Level 2</a
             ><a
               href="#book-level-2"
               aria-label="Permalink"
               class="tsd-anchor-icon"
-              ><svg viewBox="0 0 24 24">
+              ><svg viewBox="0 0 24 24" aria-hidden="true">
                 <use href="assets/icons.svg#icon-anchor"></use></svg
             ></a>
           </h4>
@@ -1343,15 +1143,12 @@
           <pre><code class="typescript"><span class="hl-3">for</span><span class="hl-1"> </span><span class="hl-3">await</span><span class="hl-1"> (</span><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">book</span><span class="hl-1"> </span><span class="hl-5">of</span><span class="hl-1"> </span><span class="hl-4">client</span><span class="hl-1">.</span><span class="hl-0">booksLv2</span><span class="hl-1">()) {</span><br/><span class="hl-1">  </span><span class="hl-4">console</span><span class="hl-1">.</span><span class="hl-0">log</span><span class="hl-1">(</span><span class="hl-4">book</span><span class="hl-1">);</span><br/><span class="hl-1">}</span>
 </code><button type="button">Copy</button></pre>
 
-          <a id="orders-1" class="tsd-anchor"></a>
-          <h4 class="tsd-anchor-link">
+          <h4 id="orders-1" class="tsd-anchor-link">
             <a
               href="https://docs.poloniex.com/#authenticated-channels-subscriptions-orders"
-              target="_blank"
-              class="external"
               >Orders</a
             ><a href="#orders-1" aria-label="Permalink" class="tsd-anchor-icon"
-              ><svg viewBox="0 0 24 24">
+              ><svg viewBox="0 0 24 24" aria-hidden="true">
                 <use href="assets/icons.svg#icon-anchor"></use></svg
             ></a>
           </h4>
@@ -1373,15 +1170,12 @@
           <pre><code class="typescript"><span class="hl-3">for</span><span class="hl-1"> </span><span class="hl-3">await</span><span class="hl-1"> (</span><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">order</span><span class="hl-1"> </span><span class="hl-5">of</span><span class="hl-1"> </span><span class="hl-4">client</span><span class="hl-1">.</span><span class="hl-0">orders</span><span class="hl-1">()) {</span><br/><span class="hl-1">  </span><span class="hl-4">console</span><span class="hl-1">.</span><span class="hl-0">log</span><span class="hl-1">(</span><span class="hl-4">order</span><span class="hl-1">);</span><br/><span class="hl-1">}</span>
 </code><button type="button">Copy</button></pre>
 
-          <a id="balances" class="tsd-anchor"></a>
-          <h4 class="tsd-anchor-link">
+          <h4 id="balances" class="tsd-anchor-link">
             <a
               href="https://docs.poloniex.com/#authenticated-channels-subscriptions-balances"
-              target="_blank"
-              class="external"
               >Balances</a
             ><a href="#balances" aria-label="Permalink" class="tsd-anchor-icon"
-              ><svg viewBox="0 0 24 24">
+              ><svg viewBox="0 0 24 24" aria-hidden="true">
                 <use href="assets/icons.svg#icon-anchor"></use></svg
             ></a>
           </h4>
@@ -1403,23 +1197,21 @@
           <pre><code class="typescript"><span class="hl-3">for</span><span class="hl-1"> </span><span class="hl-3">await</span><span class="hl-1"> (</span><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">balance</span><span class="hl-1"> </span><span class="hl-5">of</span><span class="hl-1"> </span><span class="hl-4">client</span><span class="hl-1">.</span><span class="hl-0">balances</span><span class="hl-1">()) {</span><br/><span class="hl-1">  </span><span class="hl-4">console</span><span class="hl-1">.</span><span class="hl-0">log</span><span class="hl-1">(</span><span class="hl-4">balance</span><span class="hl-1">);</span><br/><span class="hl-1">}</span>
 </code><button type="button">Copy</button></pre>
 
-          <a id="test" class="tsd-anchor"></a>
-          <h3 class="tsd-anchor-link">
+          <h3 id="test" class="tsd-anchor-link">
             Test<a href="#test" aria-label="Permalink" class="tsd-anchor-icon"
-              ><svg viewBox="0 0 24 24">
+              ><svg viewBox="0 0 24 24" aria-hidden="true">
                 <use href="assets/icons.svg#icon-anchor"></use></svg
             ></a>
           </h3>
           <pre><code class="bash"><span class="hl-0">npm</span><span class="hl-1"> </span><span class="hl-2">test</span>
 </code><button type="button">Copy</button></pre>
 
-          <a id="coverage" class="tsd-anchor"></a>
-          <h3 class="tsd-anchor-link">
+          <h3 id="coverage" class="tsd-anchor-link">
             Coverage<a
               href="#coverage"
               aria-label="Permalink"
               class="tsd-anchor-icon"
-              ><svg viewBox="0 0 24 24">
+              ><svg viewBox="0 0 24 24" aria-hidden="true">
                 <use href="assets/icons.svg#icon-anchor"></use></svg
             ></a>
           </h3>
@@ -1432,11 +1224,16 @@
           <div class="tsd-navigation settings">
             <details class="tsd-accordion">
               <summary class="tsd-accordion-summary">
-                <h3>
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                    <use href="assets/icons.svg#icon-chevronDown"></use></svg
-                  >Settings
-                </h3>
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  aria-hidden="true"
+                >
+                  <use href="assets/icons.svg#icon-chevronDown"></use>
+                </svg>
+                <h3>Settings</h3>
               </summary>
               <div class="tsd-accordion-details">
                 <div class="tsd-filter-visibility">
@@ -1554,21 +1351,26 @@
           </div>
           <details open class="tsd-accordion tsd-page-navigation">
             <summary class="tsd-accordion-summary">
-              <h3>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                  <use href="assets/icons.svg#icon-chevronDown"></use></svg
-                >On This Page
-              </h3>
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                aria-hidden="true"
+              >
+                <use href="assets/icons.svg#icon-chevronDown"></use>
+              </svg>
+              <h3>On This Page</h3>
             </summary>
             <div class="tsd-accordion-details">
               <a
                 href="#poloniex-nodejs-api-ci-status-npm-version-coverage-status-known-vulnerabilities-code-style-prettier-contributor-covenant-semantic-release-conventional-commits-npm-license-node-version-npm-downloads-github-top-language"
                 ><span
-                  >Poloniex <wbr />Node.js API CI <wbr />Status npm version
-                  <wbr />Coverage <wbr />Status <wbr />Known
+                  >Poloniex <wbr />Node.js <wbr />API <wbr />CI <wbr />Status
+                  npm version <wbr />Coverage <wbr />Status <wbr />Known
                   <wbr />Vulnerabilities code style: prettier <wbr />Contributor
                   <wbr />Covenant semantic-<wbr />release <wbr />Conventional
-                  <wbr />Commits NPM license node version npm downloads
+                  <wbr />Commits <wbr />NPM license node version npm downloads
                   <wbr />Git<wbr />Hub top language</span
                 ></a
               >
@@ -1582,15 +1384,12 @@
                 <li>
                   <ul>
                     <li>
-                      <a href="#legacy-api"><span>Legacy API</span></a>
-                    </li>
-                    <li>
-                      <a href="#publicclient-1"
+                      <a href="#publicclient"
                         ><span>Public<wbr />Client</span></a
                       >
                     </li>
                     <li>
-                      <a href="#authenticatedclient-1"
+                      <a href="#authenticatedclient"
                         ><span>Authenticated<wbr />Client</span></a
                       >
                     </li>
@@ -1624,7 +1423,7 @@
                       </ul>
                     </li>
                     <li>
-                      <a href="#websocketclient-1"
+                      <a href="#websocketclient"
                         ><span>Web<wbr />Socket<wbr />Client</span></a
                       >
                     </li>
@@ -1669,7 +1468,7 @@
         </div>
         <div class="site-menu">
           <nav class="tsd-navigation">
-            <a href="modules.html" class="current">poloniex-node-api</a>
+            <a href="modules.html">poloniex-node-api</a>
             <ul class="tsd-small-nested-navigation" id="tsd-nav-container">
               <li>Loading...</li>
             </ul>
