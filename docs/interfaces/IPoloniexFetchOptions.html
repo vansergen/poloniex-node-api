@@ -106,6 +106,8 @@
             href="#body"
             >body</a
           ><span class="tsd-signature-symbol">?:</span>
+          <span class="tsd-signature-type">null</span>
+          <span class="tsd-signature-symbol">|</span>
           <span class="tsd-signature-type">BodyInit</span
           ><span class="tsd-signature-symbol">;</span><br />    <a
             class="tsd-kind-property"
@@ -119,18 +121,6 @@
             >credentials</a
           ><span class="tsd-signature-symbol">?:</span>
           <span class="tsd-signature-type">RequestCredentials</span
-          ><span class="tsd-signature-symbol">;</span><br />    <a
-            class="tsd-kind-property"
-            href="#dispatcher"
-            >dispatcher</a
-          ><span class="tsd-signature-symbol">?:</span>
-          <span class="tsd-signature-type">Dispatcher</span
-          ><span class="tsd-signature-symbol">;</span><br />    <a
-            class="tsd-kind-property"
-            href="#duplex"
-            >duplex</a
-          ><span class="tsd-signature-symbol">?:</span>
-          <span class="tsd-signature-type">&quot;half&quot;</span
           ><span class="tsd-signature-symbol">;</span><br />    <a
             class="tsd-kind-property"
             href="#headers"
@@ -173,6 +163,12 @@
             href="../types/IRecordType.html"
             class="tsd-signature-type tsd-kind-type-alias"
             >IRecordType</a
+          ><span class="tsd-signature-symbol">;</span><br />    <a
+            class="tsd-kind-property"
+            href="#priority"
+            >priority</a
+          ><span class="tsd-signature-symbol">?:</span>
+          <span class="tsd-signature-type">RequestPriority</span
           ><span class="tsd-signature-symbol">;</span><br />    <a
             class="tsd-kind-property"
             href="#redirect"
@@ -224,7 +220,7 @@
             >}</span
           >
         </div>
-        <section class="tsd-panel tsd-hierarchy" data-refl="22">
+        <section class="tsd-panel tsd-hierarchy" data-refl="21">
           <h4>
             Hierarchy (<a href="../hierarchy.html#IPoloniexFetchOptions"
               >View Summary</a
@@ -327,28 +323,6 @@
                       ><span>credentials?</span></a
                     >
                     <a
-                      href="#dispatcher"
-                      class="tsd-index-link tsd-is-inherited tsd-is-external"
-                      ><svg
-                        class="tsd-kind-icon"
-                        viewBox="0 0 24 24"
-                        aria-label="Property"
-                      >
-                        <use href="../assets/icons.svg#icon-1024"></use></svg
-                      ><span>dispatcher?</span></a
-                    >
-                    <a
-                      href="#duplex"
-                      class="tsd-index-link tsd-is-inherited tsd-is-external"
-                      ><svg
-                        class="tsd-kind-icon"
-                        viewBox="0 0 24 24"
-                        aria-label="Property"
-                      >
-                        <use href="../assets/icons.svg#icon-1024"></use></svg
-                      ><span>duplex?</span></a
-                    >
-                    <a
                       href="#headers"
                       class="tsd-index-link tsd-is-inherited tsd-is-external"
                       ><svg
@@ -411,6 +385,17 @@
                       >
                         <use href="../assets/icons.svg#icon-1024"></use></svg
                       ><span>options?</span></a
+                    >
+                    <a
+                      href="#priority"
+                      class="tsd-index-link tsd-is-inherited tsd-is-external"
+                      ><svg
+                        class="tsd-kind-icon"
+                        viewBox="0 0 24 24"
+                        aria-label="Property"
+                      >
+                        <use href="../assets/icons.svg#icon-1024"></use></svg
+                      ><span>priority?</span></a
                     >
                     <a
                       href="#redirect"
@@ -534,7 +519,7 @@
               <aside class="tsd-sources">
                 <p>Inherited from IFetchOptions.base_url</p>
                 <ul>
-                  <li>Defined in node_modules/rpc-request/dist/index.d.ts:4</li>
+                  <li>Defined in node_modules/rpc-request/dist/index.d.ts:3</li>
                 </ul>
               </aside>
             </section>
@@ -551,12 +536,20 @@
               <div class="tsd-signature">
                 <span class="tsd-kind-property">body</span
                 ><span class="tsd-signature-symbol">?:</span>
+                <span class="tsd-signature-type">null</span>
+                <span class="tsd-signature-symbol">|</span>
                 <span class="tsd-signature-type">BodyInit</span>
               </div>
+              <div class="tsd-comment tsd-typography">
+                <p>A BodyInit object or null to set request's body.</p>
+              </div>
+              <div class="tsd-comment tsd-typography"></div>
               <aside class="tsd-sources">
                 <p>Inherited from IFetchOptions.body</p>
                 <ul>
-                  <li>Defined in node_modules/undici/types/fetch.d.ts:122</li>
+                  <li>
+                    Defined in node_modules/typescript/lib/lib.dom.d.ts:1922
+                  </li>
                 </ul>
               </aside>
             </section>
@@ -575,10 +568,19 @@
                 ><span class="tsd-signature-symbol">?:</span>
                 <span class="tsd-signature-type">RequestCache</span>
               </div>
+              <div class="tsd-comment tsd-typography">
+                <p>
+                  A string indicating how the request will interact with the
+                  browser's cache to set request's cache.
+                </p>
+              </div>
+              <div class="tsd-comment tsd-typography"></div>
               <aside class="tsd-sources">
                 <p>Inherited from IFetchOptions.cache</p>
                 <ul>
-                  <li>Defined in node_modules/undici/types/fetch.d.ts:123</li>
+                  <li>
+                    Defined in node_modules/typescript/lib/lib.dom.d.ts:1924
+                  </li>
                 </ul>
               </aside>
             </section>
@@ -600,60 +602,20 @@
                 ><span class="tsd-signature-symbol">?:</span>
                 <span class="tsd-signature-type">RequestCredentials</span>
               </div>
+              <div class="tsd-comment tsd-typography">
+                <p>
+                  A string indicating whether credentials will be sent with the
+                  request always, never, or only when sent to a same-origin URL.
+                  Sets request's credentials.
+                </p>
+              </div>
+              <div class="tsd-comment tsd-typography"></div>
               <aside class="tsd-sources">
                 <p>Inherited from IFetchOptions.credentials</p>
                 <ul>
-                  <li>Defined in node_modules/undici/types/fetch.d.ts:124</li>
-                </ul>
-              </aside>
-            </section>
-            <section
-              class="tsd-panel tsd-member tsd-is-inherited tsd-is-external"
-            >
-              <h3 class="tsd-anchor-link" id="dispatcher">
-                <code class="tsd-tag">Optional</code><span>dispatcher</span
-                ><a
-                  href="#dispatcher"
-                  aria-label="Permalink"
-                  class="tsd-anchor-icon"
-                  ><svg viewBox="0 0 24 24" aria-hidden="true">
-                    <use href="../assets/icons.svg#icon-anchor"></use></svg
-                ></a>
-              </h3>
-              <div class="tsd-signature">
-                <span class="tsd-kind-property">dispatcher</span
-                ><span class="tsd-signature-symbol">?:</span>
-                <span class="tsd-signature-type">Dispatcher</span>
-              </div>
-              <aside class="tsd-sources">
-                <p>Inherited from IFetchOptions.dispatcher</p>
-                <ul>
-                  <li>Defined in node_modules/undici/types/fetch.d.ts:125</li>
-                </ul>
-              </aside>
-            </section>
-            <section
-              class="tsd-panel tsd-member tsd-is-inherited tsd-is-external"
-            >
-              <h3 class="tsd-anchor-link" id="duplex">
-                <code class="tsd-tag">Optional</code><span>duplex</span
-                ><a
-                  href="#duplex"
-                  aria-label="Permalink"
-                  class="tsd-anchor-icon"
-                  ><svg viewBox="0 0 24 24" aria-hidden="true">
-                    <use href="../assets/icons.svg#icon-anchor"></use></svg
-                ></a>
-              </h3>
-              <div class="tsd-signature">
-                <span class="tsd-kind-property">duplex</span
-                ><span class="tsd-signature-symbol">?:</span>
-                <span class="tsd-signature-type">&quot;half&quot;</span>
-              </div>
-              <aside class="tsd-sources">
-                <p>Inherited from IFetchOptions.duplex</p>
-                <ul>
-                  <li>Defined in node_modules/undici/types/fetch.d.ts:126</li>
+                  <li>
+                    Defined in node_modules/typescript/lib/lib.dom.d.ts:1926
+                  </li>
                 </ul>
               </aside>
             </section>
@@ -675,10 +637,19 @@
                 ><span class="tsd-signature-symbol">?:</span>
                 <span class="tsd-signature-type">HeadersInit</span>
               </div>
+              <div class="tsd-comment tsd-typography">
+                <p>
+                  A Headers object, an object literal, or an array of two-item
+                  arrays to set request's headers.
+                </p>
+              </div>
+              <div class="tsd-comment tsd-typography"></div>
               <aside class="tsd-sources">
                 <p>Inherited from IFetchOptions.headers</p>
                 <ul>
-                  <li>Defined in node_modules/undici/types/fetch.d.ts:127</li>
+                  <li>
+                    Defined in node_modules/typescript/lib/lib.dom.d.ts:1928
+                  </li>
                 </ul>
               </aside>
             </section>
@@ -700,10 +671,19 @@
                 ><span class="tsd-signature-symbol">?:</span>
                 <span class="tsd-signature-type">string</span>
               </div>
+              <div class="tsd-comment tsd-typography">
+                <p>
+                  A cryptographic hash of the resource to be fetched by request.
+                  Sets request's integrity.
+                </p>
+              </div>
+              <div class="tsd-comment tsd-typography"></div>
               <aside class="tsd-sources">
                 <p>Inherited from IFetchOptions.integrity</p>
                 <ul>
-                  <li>Defined in node_modules/undici/types/fetch.d.ts:128</li>
+                  <li>
+                    Defined in node_modules/typescript/lib/lib.dom.d.ts:1930
+                  </li>
                 </ul>
               </aside>
             </section>
@@ -725,10 +705,16 @@
                 ><span class="tsd-signature-symbol">?:</span>
                 <span class="tsd-signature-type">boolean</span>
               </div>
+              <div class="tsd-comment tsd-typography">
+                <p>A boolean to set request's keepalive.</p>
+              </div>
+              <div class="tsd-comment tsd-typography"></div>
               <aside class="tsd-sources">
                 <p>Inherited from IFetchOptions.keepalive</p>
                 <ul>
-                  <li>Defined in node_modules/undici/types/fetch.d.ts:129</li>
+                  <li>
+                    Defined in node_modules/typescript/lib/lib.dom.d.ts:1932
+                  </li>
                 </ul>
               </aside>
             </section>
@@ -750,10 +736,16 @@
                 ><span class="tsd-signature-symbol">?:</span>
                 <span class="tsd-signature-type">string</span>
               </div>
+              <div class="tsd-comment tsd-typography">
+                <p>A string to set request's method.</p>
+              </div>
+              <div class="tsd-comment tsd-typography"></div>
               <aside class="tsd-sources">
                 <p>Inherited from IFetchOptions.method</p>
                 <ul>
-                  <li>Defined in node_modules/undici/types/fetch.d.ts:130</li>
+                  <li>
+                    Defined in node_modules/typescript/lib/lib.dom.d.ts:1934
+                  </li>
                 </ul>
               </aside>
             </section>
@@ -772,10 +764,19 @@
                 ><span class="tsd-signature-symbol">?:</span>
                 <span class="tsd-signature-type">RequestMode</span>
               </div>
+              <div class="tsd-comment tsd-typography">
+                <p>
+                  A string to indicate whether the request will use CORS, or
+                  will be restricted to same-origin URLs. Sets request's mode.
+                </p>
+              </div>
+              <div class="tsd-comment tsd-typography"></div>
               <aside class="tsd-sources">
                 <p>Inherited from IFetchOptions.mode</p>
                 <ul>
-                  <li>Defined in node_modules/undici/types/fetch.d.ts:131</li>
+                  <li>
+                    Defined in node_modules/typescript/lib/lib.dom.d.ts:1936
+                  </li>
                 </ul>
               </aside>
             </section>
@@ -817,6 +818,33 @@
             <section
               class="tsd-panel tsd-member tsd-is-inherited tsd-is-external"
             >
+              <h3 class="tsd-anchor-link" id="priority">
+                <code class="tsd-tag">Optional</code><span>priority</span
+                ><a
+                  href="#priority"
+                  aria-label="Permalink"
+                  class="tsd-anchor-icon"
+                  ><svg viewBox="0 0 24 24" aria-hidden="true">
+                    <use href="../assets/icons.svg#icon-anchor"></use></svg
+                ></a>
+              </h3>
+              <div class="tsd-signature">
+                <span class="tsd-kind-property">priority</span
+                ><span class="tsd-signature-symbol">?:</span>
+                <span class="tsd-signature-type">RequestPriority</span>
+              </div>
+              <aside class="tsd-sources">
+                <p>Inherited from IFetchOptions.priority</p>
+                <ul>
+                  <li>
+                    Defined in node_modules/typescript/lib/lib.dom.d.ts:1937
+                  </li>
+                </ul>
+              </aside>
+            </section>
+            <section
+              class="tsd-panel tsd-member tsd-is-inherited tsd-is-external"
+            >
               <h3 class="tsd-anchor-link" id="redirect">
                 <code class="tsd-tag">Optional</code><span>redirect</span
                 ><a
@@ -832,10 +860,20 @@
                 ><span class="tsd-signature-symbol">?:</span>
                 <span class="tsd-signature-type">RequestRedirect</span>
               </div>
+              <div class="tsd-comment tsd-typography">
+                <p>
+                  A string indicating whether request follows redirects, results
+                  in an error upon encountering a redirect, or returns the
+                  redirect (in an opaque fashion). Sets request's redirect.
+                </p>
+              </div>
+              <div class="tsd-comment tsd-typography"></div>
               <aside class="tsd-sources">
                 <p>Inherited from IFetchOptions.redirect</p>
                 <ul>
-                  <li>Defined in node_modules/undici/types/fetch.d.ts:132</li>
+                  <li>
+                    Defined in node_modules/typescript/lib/lib.dom.d.ts:1939
+                  </li>
                 </ul>
               </aside>
             </section>
@@ -857,10 +895,20 @@
                 ><span class="tsd-signature-symbol">?:</span>
                 <span class="tsd-signature-type">string</span>
               </div>
+              <div class="tsd-comment tsd-typography">
+                <p>
+                  A string whose value is a same-origin URL,
+                  &quot;about:client&quot;, or the empty string, to set
+                  request's referrer.
+                </p>
+              </div>
+              <div class="tsd-comment tsd-typography"></div>
               <aside class="tsd-sources">
                 <p>Inherited from IFetchOptions.referrer</p>
                 <ul>
-                  <li>Defined in node_modules/undici/types/fetch.d.ts:133</li>
+                  <li>
+                    Defined in node_modules/typescript/lib/lib.dom.d.ts:1941
+                  </li>
                 </ul>
               </aside>
             </section>
@@ -883,10 +931,16 @@
                 ><span class="tsd-signature-symbol">?:</span>
                 <span class="tsd-signature-type">ReferrerPolicy</span>
               </div>
+              <div class="tsd-comment tsd-typography">
+                <p>A referrer policy to set request's referrerPolicy.</p>
+              </div>
+              <div class="tsd-comment tsd-typography"></div>
               <aside class="tsd-sources">
                 <p>Inherited from IFetchOptions.referrerPolicy</p>
                 <ul>
-                  <li>Defined in node_modules/undici/types/fetch.d.ts:134</li>
+                  <li>
+                    Defined in node_modules/typescript/lib/lib.dom.d.ts:1943
+                  </li>
                 </ul>
               </aside>
             </section>
@@ -911,7 +965,7 @@
               <aside class="tsd-sources">
                 <p>Inherited from IFetchOptions.reject</p>
                 <ul>
-                  <li>Defined in node_modules/rpc-request/dist/index.d.ts:6</li>
+                  <li>Defined in node_modules/rpc-request/dist/index.d.ts:5</li>
                 </ul>
               </aside>
             </section>
@@ -935,10 +989,16 @@
                 <span class="tsd-signature-symbol">|</span>
                 <span class="tsd-signature-type">AbortSignal</span>
               </div>
+              <div class="tsd-comment tsd-typography">
+                <p>An AbortSignal to set request's signal.</p>
+              </div>
+              <div class="tsd-comment tsd-typography"></div>
               <aside class="tsd-sources">
                 <p>Inherited from IFetchOptions.signal</p>
                 <ul>
-                  <li>Defined in node_modules/undici/types/fetch.d.ts:135</li>
+                  <li>
+                    Defined in node_modules/typescript/lib/lib.dom.d.ts:1945
+                  </li>
                 </ul>
               </aside>
             </section>
@@ -965,7 +1025,7 @@
               <aside class="tsd-sources">
                 <p>Inherited from IFetchOptions.transform</p>
                 <ul>
-                  <li>Defined in node_modules/rpc-request/dist/index.d.ts:5</li>
+                  <li>Defined in node_modules/rpc-request/dist/index.d.ts:4</li>
                 </ul>
               </aside>
             </section>
@@ -987,10 +1047,19 @@
                 ><span class="tsd-signature-symbol">?:</span>
                 <span class="tsd-signature-type">null</span>
               </div>
+              <div class="tsd-comment tsd-typography">
+                <p>
+                  Can only be null. Used to disassociate request from any
+                  Window.
+                </p>
+              </div>
+              <div class="tsd-comment tsd-typography"></div>
               <aside class="tsd-sources">
                 <p>Inherited from IFetchOptions.window</p>
                 <ul>
-                  <li>Defined in node_modules/undici/types/fetch.d.ts:136</li>
+                  <li>
+                    Defined in node_modules/typescript/lib/lib.dom.d.ts:1947
+                  </li>
                 </ul>
               </aside>
             </section>
@@ -1191,24 +1260,6 @@
                     >
                       <use href="../assets/icons.svg#icon-1024"></use></svg
                     ><span>credentials</span></a
-                  ><a
-                    href="#dispatcher"
-                    class="tsd-is-inherited tsd-is-external"
-                    ><svg
-                      class="tsd-kind-icon"
-                      viewBox="0 0 24 24"
-                      aria-label="Property"
-                    >
-                      <use href="../assets/icons.svg#icon-1024"></use></svg
-                    ><span>dispatcher</span></a
-                  ><a href="#duplex" class="tsd-is-inherited tsd-is-external"
-                    ><svg
-                      class="tsd-kind-icon"
-                      viewBox="0 0 24 24"
-                      aria-label="Property"
-                    >
-                      <use href="../assets/icons.svg#icon-1024"></use></svg
-                    ><span>duplex</span></a
                   ><a href="#headers" class="tsd-is-inherited tsd-is-external"
                     ><svg
                       class="tsd-kind-icon"
@@ -1257,6 +1308,14 @@
                     >
                       <use href="../assets/icons.svg#icon-1024"></use></svg
                     ><span>options</span></a
+                  ><a href="#priority" class="tsd-is-inherited tsd-is-external"
+                    ><svg
+                      class="tsd-kind-icon"
+                      viewBox="0 0 24 24"
+                      aria-label="Property"
+                    >
+                      <use href="../assets/icons.svg#icon-1024"></use></svg
+                    ><span>priority</span></a
                   ><a href="#redirect" class="tsd-is-inherited tsd-is-external"
                     ><svg
                       class="tsd-kind-icon"

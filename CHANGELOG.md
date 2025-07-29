@@ -1,5 +1,11 @@
 # Changelog
 
+## [8.0.3](https://github.com/vansergen/poloniex-node-api/compare/v8.0.2...v8.0.3) (2025-07-29)
+
+### Dependencies
+
+- bump rpc-request from 8.0.0 to 9.0.0 ([cd240eb](https://github.com/vansergen/poloniex-node-api/commit/cd240eb63e21aa72825a0570e5cb93e77decc69c))
+
 ## [8.0.2](https://github.com/vansergen/poloniex-node-api/compare/v8.0.1...v8.0.2) (2025-05-04)
 
 ### Dependencies
