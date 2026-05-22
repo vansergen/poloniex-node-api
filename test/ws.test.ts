@@ -2715,7 +2715,7 @@ describe("WebSocketClient", () => {
     const auth_client = new WebSocketClient({ key, ws_url });
     await rejects(
       auth_client.auth(),
-      new Error("Auth credintials are missing"),
+      new Error("Auth credentials are missing"),
     );
   });
 
@@ -3525,7 +3525,7 @@ describe("WebSocketClient", () => {
           try {
             deepStrictEqual(type, "public");
             ok(error instanceof Error);
-            ok(error.message === "Message cound not be parsed by `JSON.parse`");
+            ok(error.message === "Message could not be parsed by `JSON.parse`");
             ok(error.cause instanceof SyntaxError);
             resolve();
           } catch (err) {

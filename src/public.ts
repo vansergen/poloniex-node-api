@@ -68,6 +68,8 @@ export interface ISymbolInformation {
     minAmount: string;
     highestBid: string;
     lowestAsk: string;
+    maxQuantity?: string;
+    maxAmount?: string;
   };
   crossMargin: { supportCrossMargin: boolean; maxLeverage: number };
 }
@@ -87,6 +89,8 @@ export interface ICurrency {
   walletState: "DISABLED" | "ENABLED";
   supportCollateral: boolean;
   supportBorrow: boolean;
+  walletDepositState?: "DISABLED" | "ENABLED";
+  walletWithdrawalState?: "DISABLED" | "ENABLED";
 }
 
 export interface IExtendedCurrency extends ICurrency {
@@ -94,6 +98,33 @@ export interface IExtendedCurrency extends ICurrency {
   isMultiChain: boolean;
   isChildChain: boolean;
   childChains: string[];
+}
+
+export interface INetworkInfo {
+  id: number;
+  coin: string;
+  name: string;
+  currencyType: string;
+  blockchain: string;
+  withdrawalEnable: boolean;
+  depositEnable: boolean;
+  depositAddress: string | null;
+  withdrawMin: string | null;
+  decimals: number;
+  withdrawFee: string;
+  minConfirm: number;
+  contractAddress: string | null;
+}
+
+export interface ICurrencyV2 {
+  id: number;
+  coin: string;
+  delisted: boolean;
+  tradeEnable: boolean;
+  name: string;
+  supportCollateral: boolean;
+  supportBorrow: boolean;
+  networkList: INetworkInfo[];
 }
 
 export interface ISystemTimestamp {
@@ -308,6 +339,17 @@ export class PublicClient extends Fetch {
     );
 
     return PublicClient.#formatCurrency(info);
+  }
+
+  /** Get data for a supported currency (v2) or all supported currencies (v2). */
+  public getCurrencyV2(query: { coin: string }): Promise<ICurrencyV2>;
+  public getCurrencyV2(query?: { coin?: undefined }): Promise<ICurrencyV2[]>;
+  public getCurrencyV2({ coin }: { coin?: string | undefined } = {}): Promise<
+    ICurrencyV2 | ICurrencyV2[]
+  > {
+    return this.get<ICurrencyV2 | ICurrencyV2[]>(
+      typeof coin === "undefined" ? "/v2/currencies" : `/v2/currencies/${coin}`,
+    );
   }
 
   /** Get current server time. */

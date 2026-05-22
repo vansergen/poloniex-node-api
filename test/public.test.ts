@@ -8,9 +8,11 @@ import {
   type ICandle,
   type ICollateral,
   type ICurrency,
+  type ICurrencyV2,
   type IExtendedCurrency,
   type IMarkPrice,
   type IMarkPriceComponents,
+  type INetworkInfo,
   type IOrderBook,
   type IPrice,
   type IPublicTrade,
@@ -302,6 +304,81 @@ describe("PublicClient", () => {
       currency,
     });
     deepStrictEqual(data, { ...response[currency], currency });
+  });
+
+  test(".getCurrencyV2()", async () => {
+    const network: INetworkInfo = {
+      id: 446,
+      coin: "AAVE",
+      name: "Ethereum",
+      currencyType: "address",
+      blockchain: "ETH",
+      withdrawalEnable: true,
+      depositEnable: true,
+      depositAddress: null,
+      withdrawMin: null,
+      decimals: 8,
+      withdrawFee: "0.22553338",
+      minConfirm: 12,
+      contractAddress: "0x7fc66500c84a76ad7e9c93437bfc5ac33e2ddae9",
+    };
+    const currency: ICurrencyV2 = {
+      id: 446,
+      coin: "AAVE",
+      delisted: false,
+      tradeEnable: true,
+      name: "Aave",
+      supportCollateral: false,
+      supportBorrow: false,
+      networkList: [network],
+    };
+    const coin = "AAVE";
+    const path = `v2/currencies/${coin}`;
+    const url = new URL(path, ApiUrl);
+    mockPool
+      .intercept({ path: url.pathname, method: "GET" })
+      .reply(200, currency);
+
+    const data = await client.getCurrencyV2({ coin });
+    deepStrictEqual(data, currency);
+  });
+
+  test(".getCurrencyV2() (with no `coin`)", async () => {
+    const network: INetworkInfo = {
+      id: 446,
+      coin: "AAVE",
+      name: "Ethereum",
+      currencyType: "address",
+      blockchain: "ETH",
+      withdrawalEnable: true,
+      depositEnable: true,
+      depositAddress: null,
+      withdrawMin: null,
+      decimals: 8,
+      withdrawFee: "0.22553338",
+      minConfirm: 12,
+      contractAddress: "0x7fc66500c84a76ad7e9c93437bfc5ac33e2ddae9",
+    };
+    const currencies: ICurrencyV2[] = [
+      {
+        id: 446,
+        coin: "AAVE",
+        delisted: false,
+        tradeEnable: true,
+        name: "Aave",
+        supportCollateral: false,
+        supportBorrow: false,
+        networkList: [network],
+      },
+    ];
+    const path = `v2/currencies`;
+    const url = new URL(path, ApiUrl);
+    mockPool
+      .intercept({ path: url.pathname, method: "GET" })
+      .reply(200, currencies);
+
+    const data = await client.getCurrencyV2();
+    deepStrictEqual(data, currencies);
   });
 
   test(".getSystemTime()", async () => {

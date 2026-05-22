@@ -18,6 +18,8 @@ import {
   type ICanceledSmartOrder,
   type IFee,
   type IHistoricalOrder,
+  type IHistoricalSmartOrder,
+  type IInterestHistory,
   type IKillSwitch,
   type IMarginInfo,
   type IMaxSize,
@@ -28,6 +30,7 @@ import {
   type IOrderIds,
   type ISmartOrder,
   type ITrade,
+  type IWithdrawV2Options,
   signatureVersion,
 } from "../index.js";
 import { mockPool } from "./mock.js";
@@ -81,7 +84,7 @@ describe("AuthenticatedClient", () => {
     const other_client = new AuthenticatedClient({ key, secret });
     await rejects(
       () => other_client.fetch("/", { options: [] }),
-      new TypeError("`options` shoud not be an array"),
+      new TypeError("`options` should not be an array"),
     );
   });
 
@@ -414,6 +417,29 @@ describe("AuthenticatedClient", () => {
     deepStrictEqual(data, transfers);
   });
 
+  test(".getAccountTransfer()", async () => {
+    const transfer: IAccountTransfer = {
+      id: "23421267",
+      fromAccount: "SPOT",
+      toAccount: "FUTURES",
+      currency: "USDT",
+      amount: "10.5",
+      state: "SUCCESS",
+      createTime: 1656000618690,
+    };
+    const { id } = transfer;
+
+    const uri = `/accounts/transfer/${id}`;
+    const method = "GET";
+    const { pathname: path } = new URL(uri, client.base_url);
+    const query = { signTimestamp };
+    const intercept_options = { path, method, headers, query };
+    mockPool.intercept(intercept_options).reply(200, transfer);
+
+    const data = await client.getAccountTransfer({ id });
+    deepStrictEqual(data, transfer);
+  });
+
   test(".getFeeInfo()", async () => {
     const fees: IFee = {
       trxDiscount: true,
@@ -443,6 +469,47 @@ describe("AuthenticatedClient", () => {
 
     const data = await client.getFeeInfo();
     deepStrictEqual(data, fees);
+  });
+
+  test(".getInterestHistory()", async () => {
+    const history: IInterestHistory[] = [
+      {
+        id: "224617",
+        interestAccuredTime: 1649318400000,
+        currencyName: "USDT",
+        principal: "100",
+        interest: "0.00277778",
+        interestRate: "0.000666667",
+      },
+    ];
+    const startTime = 1649106321040;
+    const endTime = 1649427963598;
+    const limit = 10;
+    const options = { startTime, endTime, limit };
+
+    const uri = "/accounts/interest/history";
+    const method = "GET";
+    const { pathname: path } = new URL(uri, client.base_url);
+    const query = { ...options, signTimestamp };
+    const intercept_options = { path, method, headers, query };
+    mockPool.intercept(intercept_options).reply(200, history);
+
+    const data = await client.getInterestHistory(options);
+    deepStrictEqual(data, history);
+  });
+
+  test(".getInterestHistory() (with no `options`)", async () => {
+    const history: IInterestHistory[] = [];
+
+    const uri = "/accounts/interest/history";
+    const method = "GET";
+    const { pathname: path } = new URL(uri, client.base_url);
+    const query = { signTimestamp };
+    const intercept_options = { path, method, headers, query };
+    mockPool.intercept(intercept_options).reply(200, history);
+
+    const data = await client.getInterestHistory();
+    deepStrictEqual(data, history);
   });
 
   test(".getWallets()", async () => {
@@ -738,6 +805,25 @@ describe("AuthenticatedClient", () => {
     mockPool.intercept(intercept_options).reply(200, { withdrawalRequestsId });
 
     const data = await client.withdraw(options);
+    deepStrictEqual(data, { withdrawalRequestsId });
+  });
+
+  test(".withdrawV2()", async () => {
+    const withdrawalRequestsId = 33485232;
+    const options: IWithdrawV2Options = {
+      coin: "USDT",
+      network: "TRX",
+      amount: "100",
+      address: "TXkDNMJe3b6JDRxfCgXHmKs8xGTSFB3Vkk",
+    };
+
+    const uri = "/v2/wallets/withdraw";
+    const method = "POST";
+    const { pathname: path } = new URL(uri, client.base_url);
+    const intercept_options = { path, method, headers, body: body(options) };
+    mockPool.intercept(intercept_options).reply(200, { withdrawalRequestsId });
+
+    const data = await client.withdrawV2(options);
     deepStrictEqual(data, { withdrawalRequestsId });
   });
 
@@ -1354,8 +1440,8 @@ describe("AuthenticatedClient", () => {
 
   test(".killSwitch()", async () => {
     const status: IKillSwitch = {
-      startTime: "1665456130",
-      cancellationTime: "1665456190",
+      startTime: 1665456130,
+      cancellationTime: 1665456190,
     };
     const timeout = 60;
     const options = { timeout: timeout.toString() };
@@ -1387,8 +1473,8 @@ describe("AuthenticatedClient", () => {
 
   test(".getKillSwitch()", async () => {
     const status: IKillSwitch = {
-      startTime: "1665456130",
-      cancellationTime: "1665456190",
+      startTime: 1665456130,
+      cancellationTime: 1665456190,
     };
 
     const uri = "/orders/killSwitchStatus";
@@ -1605,6 +1691,22 @@ describe("AuthenticatedClient", () => {
     mockPool.intercept(intercept_options).reply(200, orders);
 
     const data = await client.getOpenSmartOrders();
+    deepStrictEqual(data, orders);
+  });
+
+  test(".getOpenSmartOrders() (with `type` array)", async () => {
+    const orders: IOpenSmartOrder[] = [];
+    const type = ["STOP" as const, "TRAILING_STOP" as const];
+    const options = { type };
+
+    const uri = "/smartorders";
+    const method = "GET";
+    const { pathname: path } = new URL(uri, client.base_url);
+    const query = { type: type.toString(), signTimestamp };
+    const intercept_options = { path, method, headers, query };
+    mockPool.intercept(intercept_options).reply(200, orders);
+
+    const data = await client.getOpenSmartOrders(options);
     deepStrictEqual(data, orders);
   });
 
@@ -1932,6 +2034,64 @@ describe("AuthenticatedClient", () => {
     mockPool.intercept(intercept_options).reply(200, orders);
 
     const data = await client.getOrders();
+    deepStrictEqual(data, orders);
+  });
+
+  test(".getSmartOrderHistory()", async () => {
+    const orders: IHistoricalSmartOrder[] = [
+      {
+        id: "78923445",
+        clientOrderId: "smart-1",
+        symbol: "BTC_USDT",
+        accountType: "SPOT",
+        side: "BUY",
+        type: "STOP_LIMIT",
+        timeInForce: "GTC",
+        price: "40000",
+        quantity: "0.1",
+        amount: "0",
+        stopPrice: "39000",
+        state: "FILLED",
+        createTime: 1649106321041,
+        updateTime: 1649427963597,
+      },
+    ];
+    const type = ["STOP" as const, "STOP_LIMIT" as const];
+    const side = "BUY" as const;
+    const symbol = "BTC_USDT";
+    const states = ["FILLED" as const, "CANCELED" as const];
+    const limit = 10;
+    const startTime = 1649106321040;
+    const endTime = 1649427963598;
+    const options = { type, side, symbol, states, limit, startTime, endTime };
+
+    const uri = "/smartorders/history";
+    const method = "GET";
+    const { pathname: path } = new URL(uri, client.base_url);
+    const query = {
+      ...options,
+      states: options.states.toString(),
+      type: options.type.toString(),
+      signTimestamp,
+    };
+    const intercept_options = { path, method, headers, query };
+    mockPool.intercept(intercept_options).reply(200, orders);
+
+    const data = await client.getSmartOrderHistory(options);
+    deepStrictEqual(data, orders);
+  });
+
+  test(".getSmartOrderHistory() (with no `options`)", async () => {
+    const orders: IHistoricalSmartOrder[] = [];
+
+    const uri = "/smartorders/history";
+    const method = "GET";
+    const { pathname: path } = new URL(uri, client.base_url);
+    const query = { signTimestamp };
+    const intercept_options = { path, method, headers, query };
+    mockPool.intercept(intercept_options).reply(200, orders);
+
+    const data = await client.getSmartOrderHistory();
     deepStrictEqual(data, orders);
   });
 
