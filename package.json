@@ -62,7 +62,7 @@
     "@types/ws": "^8.18.1"
   },
   "devDependencies": {
-    "@binden/commitlint-config": "^2.1.0",
+    "@binden/commitlint-config": "^3.0.0",
     "@binden/eslint-config-ts": "^6.0.1",
     "@binden/semantic-release-config": "^3.0.0",
     "@binden/tsconfig": "^3.0.0",
