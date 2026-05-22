@@ -9,7 +9,7 @@ export default [
   {
     rules: {
       "@typescript-eslint/prefer-promise-reject-errors": "warn",
-      "sort-imports": "warn",
+      "sort-imports": "off",
     },
   },
   {

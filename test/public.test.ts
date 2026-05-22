@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/no-floating-promises */
 import { deepStrictEqual } from "node:assert";
-import { MockAgent, getGlobalDispatcher, setGlobalDispatcher } from "undici";
+import { describe, test } from "node:test";
 import {
   ApiUrl,
   DefaultSymbol,
@@ -19,24 +20,10 @@ import {
   type ITicker,
   PublicClient,
 } from "../index.js";
+import { mockPool } from "./mock.js";
 
-suite("PublicClient", () => {
-  const api_url = new URL(ApiUrl);
+describe("PublicClient", () => {
   const client = new PublicClient();
-
-  const globalDispatcher = getGlobalDispatcher();
-  const mockAgent = new MockAgent();
-  const mockPool = mockAgent.get(api_url.origin);
-
-  suiteSetup(() => {
-    setGlobalDispatcher(mockAgent);
-    mockAgent.disableNetConnect();
-  });
-
-  suiteTeardown(() => {
-    mockAgent.enableNetConnect();
-    setGlobalDispatcher(globalDispatcher);
-  });
 
   test("constructor", () => {
     deepStrictEqual(client.symbol, DefaultSymbol);

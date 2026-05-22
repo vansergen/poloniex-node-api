@@ -1,4 +1,6 @@
+/* eslint-disable @typescript-eslint/no-floating-promises */
 import { deepStrictEqual } from "node:assert";
+import { describe, test } from "node:test";
 import {
   type ISignedHeaders,
   signature,
@@ -6,7 +8,7 @@ import {
   signatureVersion,
 } from "../index.js";
 
-suite("signature", () => {
+describe("signature", () => {
   test("correct headers", () => {
     const key = "poloniex-api-key";
     const signTimestamp = "1674197467415";

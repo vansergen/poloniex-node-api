@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-floating-promises */
 import { deepStrictEqual, rejects } from "node:assert";
 import { isDeepStrictEqual } from "node:util";
-import { MockAgent, getGlobalDispatcher, setGlobalDispatcher } from "undici";
+import { describe, test } from "node:test";
 import {
   AccountActivities,
   ApiUrl,
@@ -29,9 +30,9 @@ import {
   type ITrade,
   signatureVersion,
 } from "../index.js";
+import { mockPool } from "./mock.js";
 
-suite("AuthenticatedClient", () => {
-  const api_url = new URL(ApiUrl);
+describe("AuthenticatedClient", () => {
   const key = "poloniex-api-key";
   const secret = "poloniex-api-secret";
   const signTimestamp = Date.now().toString();
@@ -50,7 +51,7 @@ suite("AuthenticatedClient", () => {
   }
   function body(
     options: Record<string, unknown> | unknown[],
-  ): (string: string) => boolean {
+  ): (string: string | null) => boolean {
     return (string: string | null): boolean => {
       if (Object.keys(options).length === 0) {
         return string === null;
@@ -60,20 +61,6 @@ suite("AuthenticatedClient", () => {
       return isDeepStrictEqual(JSON.parse(string), options);
     };
   }
-
-  const globalDispatcher = getGlobalDispatcher();
-  const mockAgent = new MockAgent();
-  const mockPool = mockAgent.get(api_url.origin);
-
-  suiteSetup(() => {
-    setGlobalDispatcher(mockAgent);
-    mockAgent.disableNetConnect();
-  });
-
-  suiteTeardown(() => {
-    mockAgent.enableNetConnect();
-    setGlobalDispatcher(globalDispatcher);
-  });
 
   test("constructor", () => {
     const symbol = "ETH_BTC";

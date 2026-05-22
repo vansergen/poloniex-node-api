@@ -1,5 +1,6 @@
-/* eslint-disable @typescript-eslint/prefer-promise-reject-errors */
+/* eslint-disable @typescript-eslint/no-floating-promises, @typescript-eslint/prefer-promise-reject-errors */
 import { deepStrictEqual, ok, rejects } from "node:assert";
+import { afterEach, beforeEach, describe, test } from "node:test";
 import {
   DefaultSymbol,
   type IBook,
@@ -34,18 +35,18 @@ const signTimestamp = "1";
 const key = "<POLONIEX_API_KEY>";
 const secret = "<POLONIEX_API_SECRET>";
 
-suite("WebSocketClient", () => {
+describe("WebSocketClient", () => {
   // eslint-disable-next-line init-declarations
   let client: WebSocketClient;
   // eslint-disable-next-line init-declarations
   let server: WebSocketServer;
 
-  setup(() => {
+  beforeEach(() => {
     server = new WebSocketServer({ port });
     client = new WebSocketClient({ ws_url });
   });
 
-  teardown(async () => {
+  afterEach(async () => {
     server.clients.forEach((c) => {
       c.close();
     });
@@ -3480,7 +3481,7 @@ suite("WebSocketClient", () => {
     );
   });
 
-  suite("private methods", () => {
+  describe("private methods", () => {
     test(".#send() (when WebSocket is not connected)", async () => {
       const auth_client = new WebSocketClient({ ws_url, key, secret });
       await rejects(

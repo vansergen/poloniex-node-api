@@ -858,6 +858,7 @@ export class WebSocketClient extends EventEmitter {
           if (ws_type === type) {
             listeners.remove_listeners();
 
+            // eslint-disable-next-line @typescript-eslint/prefer-promise-reject-errors
             reject(error);
           }
         },
@@ -1052,6 +1053,7 @@ export class WebSocketClient extends EventEmitter {
 
         error: (error: unknown): void => {
           ws.off("close", listeners.close);
+          // eslint-disable-next-line @typescript-eslint/prefer-promise-reject-errors
           reject(error);
         },
       };
