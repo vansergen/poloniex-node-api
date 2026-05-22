@@ -103,8 +103,9 @@ export interface ISubscribeEvent<T extends IChannel = IChannel> extends IEvent {
   symbols?: string[];
 }
 
-export interface IUnsubscribeEvent<T extends IChannel = IChannel>
-  extends IEvent {
+export interface IUnsubscribeEvent<
+  T extends IChannel = IChannel,
+> extends IEvent {
   event: "unsubscribe";
   channel: T;
 }

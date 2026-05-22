@@ -9,8 +9,10 @@ import { signature } from "./signature.js";
 
 type IActivityType = "deposits" | "withdrawals";
 
-export interface IActivityOptions
-  extends Record<string, Date | number | string | undefined> {
+export interface IActivityOptions extends Record<
+  string,
+  Date | number | string | undefined
+> {
   start: Date | number | string;
   end: Date | number | string;
   activityType?: IActivityType;
@@ -43,8 +45,10 @@ export interface IOrderOptions extends IRecordType {
 
 type IDirection = "NEXT" | "PRE";
 
-export interface IReplaceOrderOptions
-  extends Omit<IOrderOptions, "accountType" | "side" | "symbol"> {
+export interface IReplaceOrderOptions extends Omit<
+  IOrderOptions,
+  "accountType" | "side" | "symbol"
+> {
   allowBorrow?: boolean;
   proceedOnFailure?: boolean;
 }
@@ -59,17 +63,18 @@ export interface IOpenOrdersOptions extends IRecordType {
 
 type ISmartOrderType = "STOP_LIMIT" | "STOP";
 
-export interface ISmartOrderOptions
-  extends Omit<IOrderOptions, "allowBorrow" | "type"> {
+export interface ISmartOrderOptions extends Omit<
+  IOrderOptions,
+  "allowBorrow" | "type"
+> {
   stopPrice: string;
   type?: ISmartOrderType | undefined;
 }
 
-export interface IReplaceSmartOrderOptions
-  extends Omit<
-    ISmartOrderOptions,
-    "accountType" | "side" | "stopPrice" | "symbol"
-  > {
+export interface IReplaceSmartOrderOptions extends Omit<
+  ISmartOrderOptions,
+  "accountType" | "side" | "stopPrice" | "symbol"
+> {
   stopPrice?: string;
   proceedOnFailure?: boolean;
 }
@@ -271,18 +276,17 @@ type ISmartOrderState =
   | "PENDING_NEW"
   | "TRIGGERED";
 
-export interface ISmartOrder
-  extends Omit<
-    IOrder,
-    | "avgPrice"
-    | "cancelReason"
-    | "filledAmount"
-    | "filledQuantity"
-    | "loan"
-    | "orderSource"
-    | "state"
-    | "type"
-  > {
+export interface ISmartOrder extends Omit<
+  IOrder,
+  | "avgPrice"
+  | "cancelReason"
+  | "filledAmount"
+  | "filledQuantity"
+  | "loan"
+  | "orderSource"
+  | "state"
+  | "type"
+> {
   type: ISmartOrderType;
   state: ISmartOrderState;
   stopPrice: string;
