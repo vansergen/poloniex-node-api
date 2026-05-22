@@ -430,7 +430,9 @@ export class AuthenticatedClient extends PublicClient {
 
     if (method === "GET") {
       if (Array.isArray(options)) {
-        return Promise.reject(new TypeError("`options` shoud not be an array"));
+        return Promise.reject(
+          new TypeError("`options` should not be an array"),
+        );
       }
       PublicClient.setQuery(searchParams, options);
     } else if (has_body) {

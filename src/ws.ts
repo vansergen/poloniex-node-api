@@ -617,7 +617,7 @@ export class WebSocketClient extends EventEmitter {
   /** Authenticate to the private websocket. */
   public async auth({ signal }: ISignal = {}): Promise<ISuccessAuth> {
     if (!this.#auth) {
-      throw new Error("Auth credintials are missing");
+      throw new Error("Auth credentials are missing");
     }
 
     const signTimestamp = this.#signTimestamp();
@@ -1005,7 +1005,7 @@ export class WebSocketClient extends EventEmitter {
           } catch (error) {
             this.emit(
               "error",
-              new Error("Message cound not be parsed by `JSON.parse`", {
+              new Error("Message could not be parsed by `JSON.parse`", {
                 cause: error,
               }),
               type,
