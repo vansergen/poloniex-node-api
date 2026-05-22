@@ -96,19 +96,19 @@
             href="#base_url"
             >base_url</a
           ><span class="tsd-signature-symbol">?:</span>
-          <span class="tsd-signature-type">null</span>
-          <span class="tsd-signature-symbol">|</span>
           <span class="tsd-signature-type">string</span>
           <span class="tsd-signature-symbol">|</span>
-          <span class="tsd-signature-type">URL</span
+          <span class="tsd-signature-type">URL</span>
+          <span class="tsd-signature-symbol">|</span>
+          <span class="tsd-signature-type">null</span
           ><span class="tsd-signature-symbol">;</span><br />    <a
             class="tsd-kind-property"
             href="#body"
             >body</a
           ><span class="tsd-signature-symbol">?:</span>
-          <span class="tsd-signature-type">null</span>
+          <span class="tsd-signature-type">BodyInit</span>
           <span class="tsd-signature-symbol">|</span>
-          <span class="tsd-signature-type">BodyInit</span
+          <span class="tsd-signature-type">null</span
           ><span class="tsd-signature-symbol">;</span><br />    <a
             class="tsd-kind-property"
             href="#cache"
@@ -198,17 +198,17 @@
             href="#signal"
             >signal</a
           ><span class="tsd-signature-symbol">?:</span>
-          <span class="tsd-signature-type">null</span>
+          <span class="tsd-signature-type">AbortSignal</span>
           <span class="tsd-signature-symbol">|</span>
-          <span class="tsd-signature-type">AbortSignal</span
+          <span class="tsd-signature-type">null</span
           ><span class="tsd-signature-symbol">;</span><br />    <a
             class="tsd-kind-property"
             href="#transform"
             >transform</a
           ><span class="tsd-signature-symbol">?:</span>
-          <span class="tsd-signature-type">null</span>
+          <span class="tsd-signature-type">ITransformType</span>
           <span class="tsd-signature-symbol">|</span>
-          <span class="tsd-signature-type">ITransformType</span
+          <span class="tsd-signature-type">null</span
           ><span class="tsd-signature-symbol">;</span><br />    <a
             class="tsd-kind-property"
             href="#window"
@@ -510,14 +510,20 @@
               <div class="tsd-signature">
                 <span class="tsd-kind-property">base_url</span
                 ><span class="tsd-signature-symbol">?:</span>
-                <span class="tsd-signature-type">null</span>
-                <span class="tsd-signature-symbol">|</span>
                 <span class="tsd-signature-type">string</span>
                 <span class="tsd-signature-symbol">|</span>
                 <span class="tsd-signature-type">URL</span>
+                <span class="tsd-signature-symbol">|</span>
+                <span class="tsd-signature-type">null</span>
               </div>
               <aside class="tsd-sources">
-                <p>Inherited from IFetchOptions.base_url</p>
+                <p>
+                  Inherited from
+                  <a href="IPoloniexGetOptions.html">IPoloniexGetOptions</a>.<a
+                    href="IPoloniexGetOptions.html#base_url"
+                    >base_url</a
+                  >
+                </p>
                 <ul>
                   <li>Defined in node_modules/rpc-request/dist/index.d.ts:3</li>
                 </ul>
@@ -536,19 +542,18 @@
               <div class="tsd-signature">
                 <span class="tsd-kind-property">body</span
                 ><span class="tsd-signature-symbol">?:</span>
-                <span class="tsd-signature-type">null</span>
-                <span class="tsd-signature-symbol">|</span>
                 <span class="tsd-signature-type">BodyInit</span>
+                <span class="tsd-signature-symbol">|</span>
+                <span class="tsd-signature-type">null</span>
               </div>
               <div class="tsd-comment tsd-typography">
                 <p>A BodyInit object or null to set request's body.</p>
               </div>
-              <div class="tsd-comment tsd-typography"></div>
               <aside class="tsd-sources">
                 <p>Inherited from IFetchOptions.body</p>
                 <ul>
                   <li>
-                    Defined in node_modules/typescript/lib/lib.dom.d.ts:1922
+                    Defined in node_modules/typescript/lib/lib.dom.d.ts:2554
                   </li>
                 </ul>
               </aside>
@@ -574,12 +579,11 @@
                   browser's cache to set request's cache.
                 </p>
               </div>
-              <div class="tsd-comment tsd-typography"></div>
               <aside class="tsd-sources">
                 <p>Inherited from IFetchOptions.cache</p>
                 <ul>
                   <li>
-                    Defined in node_modules/typescript/lib/lib.dom.d.ts:1924
+                    Defined in node_modules/typescript/lib/lib.dom.d.ts:2556
                   </li>
                 </ul>
               </aside>
@@ -609,12 +613,11 @@
                   Sets request's credentials.
                 </p>
               </div>
-              <div class="tsd-comment tsd-typography"></div>
               <aside class="tsd-sources">
                 <p>Inherited from IFetchOptions.credentials</p>
                 <ul>
                   <li>
-                    Defined in node_modules/typescript/lib/lib.dom.d.ts:1926
+                    Defined in node_modules/typescript/lib/lib.dom.d.ts:2558
                   </li>
                 </ul>
               </aside>
@@ -643,12 +646,11 @@
                   arrays to set request's headers.
                 </p>
               </div>
-              <div class="tsd-comment tsd-typography"></div>
               <aside class="tsd-sources">
                 <p>Inherited from IFetchOptions.headers</p>
                 <ul>
                   <li>
-                    Defined in node_modules/typescript/lib/lib.dom.d.ts:1928
+                    Defined in node_modules/typescript/lib/lib.dom.d.ts:2560
                   </li>
                 </ul>
               </aside>
@@ -677,12 +679,11 @@
                   Sets request's integrity.
                 </p>
               </div>
-              <div class="tsd-comment tsd-typography"></div>
               <aside class="tsd-sources">
                 <p>Inherited from IFetchOptions.integrity</p>
                 <ul>
                   <li>
-                    Defined in node_modules/typescript/lib/lib.dom.d.ts:1930
+                    Defined in node_modules/typescript/lib/lib.dom.d.ts:2562
                   </li>
                 </ul>
               </aside>
@@ -708,12 +709,11 @@
               <div class="tsd-comment tsd-typography">
                 <p>A boolean to set request's keepalive.</p>
               </div>
-              <div class="tsd-comment tsd-typography"></div>
               <aside class="tsd-sources">
                 <p>Inherited from IFetchOptions.keepalive</p>
                 <ul>
                   <li>
-                    Defined in node_modules/typescript/lib/lib.dom.d.ts:1932
+                    Defined in node_modules/typescript/lib/lib.dom.d.ts:2564
                   </li>
                 </ul>
               </aside>
@@ -739,12 +739,11 @@
               <div class="tsd-comment tsd-typography">
                 <p>A string to set request's method.</p>
               </div>
-              <div class="tsd-comment tsd-typography"></div>
               <aside class="tsd-sources">
                 <p>Inherited from IFetchOptions.method</p>
                 <ul>
                   <li>
-                    Defined in node_modules/typescript/lib/lib.dom.d.ts:1934
+                    Defined in node_modules/typescript/lib/lib.dom.d.ts:2566
                   </li>
                 </ul>
               </aside>
@@ -770,12 +769,11 @@
                   will be restricted to same-origin URLs. Sets request's mode.
                 </p>
               </div>
-              <div class="tsd-comment tsd-typography"></div>
               <aside class="tsd-sources">
                 <p>Inherited from IFetchOptions.mode</p>
                 <ul>
                   <li>
-                    Defined in node_modules/typescript/lib/lib.dom.d.ts:1936
+                    Defined in node_modules/typescript/lib/lib.dom.d.ts:2568
                   </li>
                 </ul>
               </aside>
@@ -837,7 +835,7 @@
                 <p>Inherited from IFetchOptions.priority</p>
                 <ul>
                   <li>
-                    Defined in node_modules/typescript/lib/lib.dom.d.ts:1937
+                    Defined in node_modules/typescript/lib/lib.dom.d.ts:2569
                   </li>
                 </ul>
               </aside>
@@ -867,12 +865,11 @@
                   redirect (in an opaque fashion). Sets request's redirect.
                 </p>
               </div>
-              <div class="tsd-comment tsd-typography"></div>
               <aside class="tsd-sources">
                 <p>Inherited from IFetchOptions.redirect</p>
                 <ul>
                   <li>
-                    Defined in node_modules/typescript/lib/lib.dom.d.ts:1939
+                    Defined in node_modules/typescript/lib/lib.dom.d.ts:2571
                   </li>
                 </ul>
               </aside>
@@ -902,12 +899,11 @@
                   request's referrer.
                 </p>
               </div>
-              <div class="tsd-comment tsd-typography"></div>
               <aside class="tsd-sources">
                 <p>Inherited from IFetchOptions.referrer</p>
                 <ul>
                   <li>
-                    Defined in node_modules/typescript/lib/lib.dom.d.ts:1941
+                    Defined in node_modules/typescript/lib/lib.dom.d.ts:2573
                   </li>
                 </ul>
               </aside>
@@ -934,12 +930,11 @@
               <div class="tsd-comment tsd-typography">
                 <p>A referrer policy to set request's referrerPolicy.</p>
               </div>
-              <div class="tsd-comment tsd-typography"></div>
               <aside class="tsd-sources">
                 <p>Inherited from IFetchOptions.referrerPolicy</p>
                 <ul>
                   <li>
-                    Defined in node_modules/typescript/lib/lib.dom.d.ts:1943
+                    Defined in node_modules/typescript/lib/lib.dom.d.ts:2575
                   </li>
                 </ul>
               </aside>
@@ -963,7 +958,13 @@
                 <span class="tsd-signature-type">boolean</span>
               </div>
               <aside class="tsd-sources">
-                <p>Inherited from IFetchOptions.reject</p>
+                <p>
+                  Inherited from
+                  <a href="IPoloniexGetOptions.html">IPoloniexGetOptions</a>.<a
+                    href="IPoloniexGetOptions.html#reject"
+                    >reject</a
+                  >
+                </p>
                 <ul>
                   <li>Defined in node_modules/rpc-request/dist/index.d.ts:5</li>
                 </ul>
@@ -985,19 +986,18 @@
               <div class="tsd-signature">
                 <span class="tsd-kind-property">signal</span
                 ><span class="tsd-signature-symbol">?:</span>
-                <span class="tsd-signature-type">null</span>
-                <span class="tsd-signature-symbol">|</span>
                 <span class="tsd-signature-type">AbortSignal</span>
+                <span class="tsd-signature-symbol">|</span>
+                <span class="tsd-signature-type">null</span>
               </div>
               <div class="tsd-comment tsd-typography">
                 <p>An AbortSignal to set request's signal.</p>
               </div>
-              <div class="tsd-comment tsd-typography"></div>
               <aside class="tsd-sources">
                 <p>Inherited from IFetchOptions.signal</p>
                 <ul>
                   <li>
-                    Defined in node_modules/typescript/lib/lib.dom.d.ts:1945
+                    Defined in node_modules/typescript/lib/lib.dom.d.ts:2577
                   </li>
                 </ul>
               </aside>
@@ -1018,12 +1018,18 @@
               <div class="tsd-signature">
                 <span class="tsd-kind-property">transform</span
                 ><span class="tsd-signature-symbol">?:</span>
-                <span class="tsd-signature-type">null</span>
-                <span class="tsd-signature-symbol">|</span>
                 <span class="tsd-signature-type">ITransformType</span>
+                <span class="tsd-signature-symbol">|</span>
+                <span class="tsd-signature-type">null</span>
               </div>
               <aside class="tsd-sources">
-                <p>Inherited from IFetchOptions.transform</p>
+                <p>
+                  Inherited from
+                  <a href="IPoloniexGetOptions.html">IPoloniexGetOptions</a>.<a
+                    href="IPoloniexGetOptions.html#transform"
+                    >transform</a
+                  >
+                </p>
                 <ul>
                   <li>Defined in node_modules/rpc-request/dist/index.d.ts:4</li>
                 </ul>
@@ -1053,12 +1059,11 @@
                   Window.
                 </p>
               </div>
-              <div class="tsd-comment tsd-typography"></div>
               <aside class="tsd-sources">
                 <p>Inherited from IFetchOptions.window</p>
                 <ul>
                   <li>
-                    Defined in node_modules/typescript/lib/lib.dom.d.ts:1947
+                    Defined in node_modules/typescript/lib/lib.dom.d.ts:2579
                   </li>
                 </ul>
               </aside>

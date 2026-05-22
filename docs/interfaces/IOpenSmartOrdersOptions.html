@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="x-ua-compatible" content="IE=edge" />
-    <title>IBookData | poloniex-node-api</title>
+    <title>IOpenSmartOrdersOptions | poloniex-node-api</title>
     <meta name="description" content="Documentation for poloniex-node-api" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="../assets/style.css" />
@@ -84,71 +84,103 @@
       <div class="col-content">
         <div class="tsd-page-title">
           <ul class="tsd-breadcrumb" aria-label="Breadcrumb">
-            <li><a href="" aria-current="page">IBookData</a></li>
+            <li><a href="" aria-current="page">IOpenSmartOrdersOptions</a></li>
           </ul>
-          <h1>Interface IBookData</h1>
+          <h1>Interface IOpenSmartOrdersOptions</h1>
         </div>
         <div class="tsd-signature">
           <span class="tsd-signature-keyword">interface</span>
-          <span class="tsd-kind-interface">IBookData</span>
+          <span class="tsd-kind-interface">IOpenSmartOrdersOptions</span>
           <span class="tsd-signature-symbol">{</span><br />    <a
             class="tsd-kind-property"
-            href="#asks"
-            >asks</a
-          ><span class="tsd-signature-symbol">:</span>
-          <span class="tsd-signature-symbol">[</span
-          ><span class="tsd-signature-type">string</span
-          ><span class="tsd-signature-symbol">,</span>
-          <span class="tsd-signature-type">string</span
-          ><span class="tsd-signature-symbol">]</span
+            href="#limit"
+            >limit</a
+          ><span class="tsd-signature-symbol">?:</span>
+          <span class="tsd-signature-type">number</span
+          ><span class="tsd-signature-symbol">;</span><br />    <a
+            class="tsd-kind-property"
+            href="#type"
+            >type</a
+          ><span class="tsd-signature-symbol">?:</span>
+          <span class="tsd-signature-type">ISmartOrderType</span>
+          <span class="tsd-signature-symbol">|</span>
+          <span class="tsd-signature-type">ISmartOrderType</span
           ><span class="tsd-signature-symbol">[]</span
-          ><span class="tsd-signature-symbol">;</span><br />    <a
-            class="tsd-kind-property"
-            href="#bids"
-            >bids</a
-          ><span class="tsd-signature-symbol">:</span>
-          <span class="tsd-signature-symbol">[</span
-          ><span class="tsd-signature-type">string</span
-          ><span class="tsd-signature-symbol">,</span>
-          <span class="tsd-signature-type">string</span
-          ><span class="tsd-signature-symbol">]</span
-          ><span class="tsd-signature-symbol">[]</span
-          ><span class="tsd-signature-symbol">;</span><br />    <a
-            class="tsd-kind-property"
-            href="#createtime"
-            >createTime</a
-          ><span class="tsd-signature-symbol">:</span>
-          <span class="tsd-signature-type">number</span
-          ><span class="tsd-signature-symbol">;</span><br />    <a
-            class="tsd-kind-property"
-            href="#id"
-            >id</a
-          ><span class="tsd-signature-symbol">:</span>
-          <span class="tsd-signature-type">number</span
-          ><span class="tsd-signature-symbol">;</span><br />    <a
-            class="tsd-kind-property"
-            href="#symbol"
-            >symbol</a
+          ><span class="tsd-signature-symbol">;</span><br />    <span
+            class="tsd-signature-symbol"
+            >[</span
+          ><span class="tsd-kind-index-signature">key</span
           ><span class="tsd-signature-symbol">:</span>
           <span class="tsd-signature-type">string</span
-          ><span class="tsd-signature-symbol">;</span><br />    <a
-            class="tsd-kind-property"
-            href="#ts"
-            >ts</a
-          ><span class="tsd-signature-symbol">:</span>
-          <span class="tsd-signature-type">number</span
+          ><span class="tsd-signature-symbol">]:</span>
+          <span class="tsd-signature-type">string</span>
+          <span class="tsd-signature-symbol">|</span>
+          <span class="tsd-signature-type">number</span>
+          <span class="tsd-signature-symbol">|</span>
+          <span class="tsd-signature-type">boolean</span>
+          <span class="tsd-signature-symbol">|</span>
+          <span class="tsd-signature-type">string</span
+          ><span class="tsd-signature-symbol">[]</span>
+          <span class="tsd-signature-symbol">|</span>
+          <span class="tsd-signature-type">undefined</span
           ><span class="tsd-signature-symbol">;</span><br /><span
             class="tsd-signature-symbol"
             >}</span
           >
         </div>
+        <section class="tsd-panel tsd-hierarchy" data-refl="472">
+          <h4>
+            Hierarchy (<a href="../hierarchy.html#IOpenSmartOrdersOptions"
+              >View Summary</a
+            >)
+          </h4>
+          <ul class="tsd-hierarchy">
+            <li class="tsd-hierarchy-item">
+              <a
+                href="../types/IRecordType.html"
+                class="tsd-signature-type tsd-kind-type-alias"
+                >IRecordType</a
+              >
+              <ul class="tsd-hierarchy">
+                <li class="tsd-hierarchy-item">
+                  <span class="tsd-hierarchy-target"
+                    >IOpenSmartOrdersOptions</span
+                  >
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+        <section class="tsd-panel">
+          <h4 class="tsd-before-signature">Indexable</h4>
+          <ul class="tsd-signatures">
+            <li class="tsd-index-signature">
+              <div class="tsd-signature">
+                <span class="tsd-signature-symbol">[</span
+                ><span class="tsd-kind-parameter">key</span>:
+                <span class="tsd-signature-type">string</span
+                ><span class="tsd-signature-symbol">]:</span>
+                <span class="tsd-signature-type">string</span>
+                <span class="tsd-signature-symbol">|</span>
+                <span class="tsd-signature-type">number</span>
+                <span class="tsd-signature-symbol">|</span>
+                <span class="tsd-signature-type">boolean</span>
+                <span class="tsd-signature-symbol">|</span>
+                <span class="tsd-signature-type">string</span
+                ><span class="tsd-signature-symbol">[]</span>
+                <span class="tsd-signature-symbol">|</span>
+                <span class="tsd-signature-type">undefined</span>
+              </div>
+            </li>
+          </ul>
+        </section>
         <aside class="tsd-sources">
           <ul>
             <li>
               Defined in
               <a
-                href="https://github.com/vansergen/poloniex-node-api/blob/main/src/ws.ts#L184"
-                >src/ws.ts:184</a
+                href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L129"
+                >src/auth.ts:129</a
               >
             </li>
           </ul>
@@ -172,59 +204,23 @@
                 <section class="tsd-index-section">
                   <h3 class="tsd-index-heading">Properties</h3>
                   <div class="tsd-index-list">
-                    <a href="#asks" class="tsd-index-link"
+                    <a href="#limit" class="tsd-index-link"
                       ><svg
                         class="tsd-kind-icon"
                         viewBox="0 0 24 24"
                         aria-label="Property"
                       >
                         <use href="../assets/icons.svg#icon-1024"></use></svg
-                      ><span>asks</span></a
+                      ><span>limit?</span></a
                     >
-                    <a href="#bids" class="tsd-index-link"
+                    <a href="#type" class="tsd-index-link"
                       ><svg
                         class="tsd-kind-icon"
                         viewBox="0 0 24 24"
                         aria-label="Property"
                       >
                         <use href="../assets/icons.svg#icon-1024"></use></svg
-                      ><span>bids</span></a
-                    >
-                    <a href="#createtime" class="tsd-index-link"
-                      ><svg
-                        class="tsd-kind-icon"
-                        viewBox="0 0 24 24"
-                        aria-label="Property"
-                      >
-                        <use href="../assets/icons.svg#icon-1024"></use></svg
-                      ><span>create<wbr />Time</span></a
-                    >
-                    <a href="#id" class="tsd-index-link"
-                      ><svg
-                        class="tsd-kind-icon"
-                        viewBox="0 0 24 24"
-                        aria-label="Property"
-                      >
-                        <use href="../assets/icons.svg#icon-1024"></use></svg
-                      ><span>id</span></a
-                    >
-                    <a href="#symbol" class="tsd-index-link"
-                      ><svg
-                        class="tsd-kind-icon"
-                        viewBox="0 0 24 24"
-                        aria-label="Property"
-                      >
-                        <use href="../assets/icons.svg#icon-1024"></use></svg
-                      ><span>symbol</span></a
-                    >
-                    <a href="#ts" class="tsd-index-link"
-                      ><svg
-                        class="tsd-kind-icon"
-                        viewBox="0 0 24 24"
-                        aria-label="Property"
-                      >
-                        <use href="../assets/icons.svg#icon-1024"></use></svg
-                      ><span>ts</span></a
+                      ><span>type?</span></a
                     >
                   </div>
                 </section>
@@ -247,21 +243,44 @@
           </summary>
           <section>
             <section class="tsd-panel tsd-member">
-              <h3 class="tsd-anchor-link" id="asks">
-                <span>asks</span
-                ><a href="#asks" aria-label="Permalink" class="tsd-anchor-icon"
+              <h3 class="tsd-anchor-link" id="limit">
+                <code class="tsd-tag">Optional</code><span>limit</span
+                ><a href="#limit" aria-label="Permalink" class="tsd-anchor-icon"
                   ><svg viewBox="0 0 24 24" aria-hidden="true">
                     <use href="../assets/icons.svg#icon-anchor"></use></svg
                 ></a>
               </h3>
               <div class="tsd-signature">
-                <span class="tsd-kind-property">asks</span
-                ><span class="tsd-signature-symbol">:</span>
-                <span class="tsd-signature-symbol">[</span
-                ><span class="tsd-signature-type">string</span
-                ><span class="tsd-signature-symbol">,</span>
-                <span class="tsd-signature-type">string</span
-                ><span class="tsd-signature-symbol">]</span
+                <span class="tsd-kind-property">limit</span
+                ><span class="tsd-signature-symbol">?:</span>
+                <span class="tsd-signature-type">number</span>
+              </div>
+              <aside class="tsd-sources">
+                <ul>
+                  <li>
+                    Defined in
+                    <a
+                      href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L130"
+                      >src/auth.ts:130</a
+                    >
+                  </li>
+                </ul>
+              </aside>
+            </section>
+            <section class="tsd-panel tsd-member">
+              <h3 class="tsd-anchor-link" id="type">
+                <code class="tsd-tag">Optional</code><span>type</span
+                ><a href="#type" aria-label="Permalink" class="tsd-anchor-icon"
+                  ><svg viewBox="0 0 24 24" aria-hidden="true">
+                    <use href="../assets/icons.svg#icon-anchor"></use></svg
+                ></a>
+              </h3>
+              <div class="tsd-signature">
+                <span class="tsd-kind-property">type</span
+                ><span class="tsd-signature-symbol">?:</span>
+                <span class="tsd-signature-type">ISmartOrderType</span>
+                <span class="tsd-signature-symbol">|</span>
+                <span class="tsd-signature-type">ISmartOrderType</span
                 ><span class="tsd-signature-symbol">[]</span>
               </div>
               <aside class="tsd-sources">
@@ -269,144 +288,8 @@
                   <li>
                     Defined in
                     <a
-                      href="https://github.com/vansergen/poloniex-node-api/blob/main/src/ws.ts#L187"
-                      >src/ws.ts:187</a
-                    >
-                  </li>
-                </ul>
-              </aside>
-            </section>
-            <section class="tsd-panel tsd-member">
-              <h3 class="tsd-anchor-link" id="bids">
-                <span>bids</span
-                ><a href="#bids" aria-label="Permalink" class="tsd-anchor-icon"
-                  ><svg viewBox="0 0 24 24" aria-hidden="true">
-                    <use href="../assets/icons.svg#icon-anchor"></use></svg
-                ></a>
-              </h3>
-              <div class="tsd-signature">
-                <span class="tsd-kind-property">bids</span
-                ><span class="tsd-signature-symbol">:</span>
-                <span class="tsd-signature-symbol">[</span
-                ><span class="tsd-signature-type">string</span
-                ><span class="tsd-signature-symbol">,</span>
-                <span class="tsd-signature-type">string</span
-                ><span class="tsd-signature-symbol">]</span
-                ><span class="tsd-signature-symbol">[]</span>
-              </div>
-              <aside class="tsd-sources">
-                <ul>
-                  <li>
-                    Defined in
-                    <a
-                      href="https://github.com/vansergen/poloniex-node-api/blob/main/src/ws.ts#L188"
-                      >src/ws.ts:188</a
-                    >
-                  </li>
-                </ul>
-              </aside>
-            </section>
-            <section class="tsd-panel tsd-member">
-              <h3 class="tsd-anchor-link" id="createtime">
-                <span>create<wbr />Time</span
-                ><a
-                  href="#createtime"
-                  aria-label="Permalink"
-                  class="tsd-anchor-icon"
-                  ><svg viewBox="0 0 24 24" aria-hidden="true">
-                    <use href="../assets/icons.svg#icon-anchor"></use></svg
-                ></a>
-              </h3>
-              <div class="tsd-signature">
-                <span class="tsd-kind-property">createTime</span
-                ><span class="tsd-signature-symbol">:</span>
-                <span class="tsd-signature-type">number</span>
-              </div>
-              <aside class="tsd-sources">
-                <ul>
-                  <li>
-                    Defined in
-                    <a
-                      href="https://github.com/vansergen/poloniex-node-api/blob/main/src/ws.ts#L186"
-                      >src/ws.ts:186</a
-                    >
-                  </li>
-                </ul>
-              </aside>
-            </section>
-            <section class="tsd-panel tsd-member">
-              <h3 class="tsd-anchor-link" id="id">
-                <span>id</span
-                ><a href="#id" aria-label="Permalink" class="tsd-anchor-icon"
-                  ><svg viewBox="0 0 24 24" aria-hidden="true">
-                    <use href="../assets/icons.svg#icon-anchor"></use></svg
-                ></a>
-              </h3>
-              <div class="tsd-signature">
-                <span class="tsd-kind-property">id</span
-                ><span class="tsd-signature-symbol">:</span>
-                <span class="tsd-signature-type">number</span>
-              </div>
-              <aside class="tsd-sources">
-                <ul>
-                  <li>
-                    Defined in
-                    <a
-                      href="https://github.com/vansergen/poloniex-node-api/blob/main/src/ws.ts#L189"
-                      >src/ws.ts:189</a
-                    >
-                  </li>
-                </ul>
-              </aside>
-            </section>
-            <section class="tsd-panel tsd-member">
-              <h3 class="tsd-anchor-link" id="symbol">
-                <span>symbol</span
-                ><a
-                  href="#symbol"
-                  aria-label="Permalink"
-                  class="tsd-anchor-icon"
-                  ><svg viewBox="0 0 24 24" aria-hidden="true">
-                    <use href="../assets/icons.svg#icon-anchor"></use></svg
-                ></a>
-              </h3>
-              <div class="tsd-signature">
-                <span class="tsd-kind-property">symbol</span
-                ><span class="tsd-signature-symbol">:</span>
-                <span class="tsd-signature-type">string</span>
-              </div>
-              <aside class="tsd-sources">
-                <ul>
-                  <li>
-                    Defined in
-                    <a
-                      href="https://github.com/vansergen/poloniex-node-api/blob/main/src/ws.ts#L185"
-                      >src/ws.ts:185</a
-                    >
-                  </li>
-                </ul>
-              </aside>
-            </section>
-            <section class="tsd-panel tsd-member">
-              <h3 class="tsd-anchor-link" id="ts">
-                <span>ts</span
-                ><a href="#ts" aria-label="Permalink" class="tsd-anchor-icon"
-                  ><svg viewBox="0 0 24 24" aria-hidden="true">
-                    <use href="../assets/icons.svg#icon-anchor"></use></svg
-                ></a>
-              </h3>
-              <div class="tsd-signature">
-                <span class="tsd-kind-property">ts</span
-                ><span class="tsd-signature-symbol">:</span>
-                <span class="tsd-signature-type">number</span>
-              </div>
-              <aside class="tsd-sources">
-                <ul>
-                  <li>
-                    Defined in
-                    <a
-                      href="https://github.com/vansergen/poloniex-node-api/blob/main/src/ws.ts#L190"
-                      >src/ws.ts:190</a
+                      href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L131"
+                      >src/auth.ts:131</a
                     >
                   </li>
                 </ul>
@@ -575,54 +458,22 @@
                   >Properties
                 </summary>
                 <div>
-                  <a href="#asks"
+                  <a href="#limit"
                     ><svg
                       class="tsd-kind-icon"
                       viewBox="0 0 24 24"
                       aria-label="Property"
                     >
                       <use href="../assets/icons.svg#icon-1024"></use></svg
-                    ><span>asks</span></a
-                  ><a href="#bids"
+                    ><span>limit</span></a
+                  ><a href="#type"
                     ><svg
                       class="tsd-kind-icon"
                       viewBox="0 0 24 24"
                       aria-label="Property"
                     >
                       <use href="../assets/icons.svg#icon-1024"></use></svg
-                    ><span>bids</span></a
-                  ><a href="#createtime"
-                    ><svg
-                      class="tsd-kind-icon"
-                      viewBox="0 0 24 24"
-                      aria-label="Property"
-                    >
-                      <use href="../assets/icons.svg#icon-1024"></use></svg
-                    ><span>create<wbr />Time</span></a
-                  ><a href="#id"
-                    ><svg
-                      class="tsd-kind-icon"
-                      viewBox="0 0 24 24"
-                      aria-label="Property"
-                    >
-                      <use href="../assets/icons.svg#icon-1024"></use></svg
-                    ><span>id</span></a
-                  ><a href="#symbol"
-                    ><svg
-                      class="tsd-kind-icon"
-                      viewBox="0 0 24 24"
-                      aria-label="Property"
-                    >
-                      <use href="../assets/icons.svg#icon-1024"></use></svg
-                    ><span>symbol</span></a
-                  ><a href="#ts"
-                    ><svg
-                      class="tsd-kind-icon"
-                      viewBox="0 0 24 24"
-                      aria-label="Property"
-                    >
-                      <use href="../assets/icons.svg#icon-1024"></use></svg
-                    ><span>ts</span></a
+                    ><span>type</span></a
                   >
                 </div>
               </details>

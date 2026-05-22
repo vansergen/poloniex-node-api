@@ -88,7 +88,7 @@
           </ul>
           <h1>Class AuthenticatedClient</h1>
         </div>
-        <section class="tsd-panel tsd-hierarchy" data-refl="694">
+        <section class="tsd-panel tsd-hierarchy" data-refl="793">
           <h4>
             Hierarchy (<a href="../hierarchy.html#AuthenticatedClient"
               >View Summary</a
@@ -114,8 +114,8 @@
             <li>
               Defined in
               <a
-                href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L374"
-                >src/auth.ts:374</a
+                href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L440"
+                >src/auth.ts:440</a
               >
             </li>
           </ul>
@@ -344,6 +344,15 @@
                         <use href="../assets/icons.svg#icon-2048"></use></svg
                       ><span>get<wbr />Accounts</span></a
                     >
+                    <a href="#getaccounttransfer" class="tsd-index-link"
+                      ><svg
+                        class="tsd-kind-icon"
+                        viewBox="0 0 24 24"
+                        aria-label="Method"
+                      >
+                        <use href="../assets/icons.svg#icon-2048"></use></svg
+                      ><span>get<wbr />Account<wbr />Transfer</span></a
+                    >
                     <a href="#getaccounttransfers" class="tsd-index-link"
                       ><svg
                         class="tsd-kind-icon"
@@ -406,6 +415,17 @@
                         <use href="../assets/icons.svg#icon-2048"></use></svg
                       ><span>get<wbr />Currency</span></a
                     >
+                    <a
+                      href="#getcurrencyv2"
+                      class="tsd-index-link tsd-is-inherited"
+                      ><svg
+                        class="tsd-kind-icon"
+                        viewBox="0 0 24 24"
+                        aria-label="Method"
+                      >
+                        <use href="../assets/icons.svg#icon-2048"></use></svg
+                      ><span>get<wbr />Currency<wbr />V2</span></a
+                    >
                     <a href="#getfeeinfo" class="tsd-index-link"
                       ><svg
                         class="tsd-kind-icon"
@@ -414,6 +434,15 @@
                       >
                         <use href="../assets/icons.svg#icon-2048"></use></svg
                       ><span>get<wbr />Fee<wbr />Info</span></a
+                    >
+                    <a href="#getinteresthistory" class="tsd-index-link"
+                      ><svg
+                        class="tsd-kind-icon"
+                        viewBox="0 0 24 24"
+                        aria-label="Method"
+                      >
+                        <use href="../assets/icons.svg#icon-2048"></use></svg
+                      ><span>get<wbr />Interest<wbr />History</span></a
                     >
                     <a href="#getkillswitch" class="tsd-index-link"
                       ><svg
@@ -591,6 +620,15 @@
                         <use href="../assets/icons.svg#icon-2048"></use></svg
                       ><span>get<wbr />Smart<wbr />Order</span></a
                     >
+                    <a href="#getsmartorderhistory" class="tsd-index-link"
+                      ><svg
+                        class="tsd-kind-icon"
+                        viewBox="0 0 24 24"
+                        aria-label="Method"
+                      >
+                        <use href="../assets/icons.svg#icon-2048"></use></svg
+                      ><span>get<wbr />Smart<wbr />Order<wbr />History</span></a
+                    >
                     <a
                       href="#getsystemtime"
                       class="tsd-index-link tsd-is-inherited"
@@ -754,6 +792,15 @@
                         <use href="../assets/icons.svg#icon-2048"></use></svg
                       ><span>withdraw</span></a
                     >
+                    <a href="#withdrawv2" class="tsd-index-link"
+                      ><svg
+                        class="tsd-kind-icon"
+                        viewBox="0 0 24 24"
+                        aria-label="Method"
+                      >
+                        <use href="../assets/icons.svg#icon-2048"></use></svg
+                      ><span>withdraw<wbr />V2</span></a
+                    >
                     <a href="#setquery" class="tsd-index-link tsd-is-inherited"
                       ><svg
                         class="tsd-kind-icon"
@@ -864,8 +911,8 @@
                         <li>
                           Defined in
                           <a
-                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L379"
-                            >src/auth.ts:379</a
+                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L445"
+                            >src/auth.ts:445</a
                           >
                         </li>
                       </ul>
@@ -920,8 +967,8 @@
                         <li>
                           Defined in
                           <a
-                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/public.ts#L234"
-                            >src/public.ts:234</a
+                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/public.ts#L265"
+                            >src/public.ts:265</a
                           >
                         </li>
                       </ul>
@@ -1034,8 +1081,8 @@
                         <li>
                           Defined in
                           <a
-                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/public.ts#L239"
-                            >src/public.ts:239</a
+                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/public.ts#L270"
+                            >src/public.ts:270</a
                           >
                         </li>
                       </ul>
@@ -1064,15 +1111,16 @@
                     <span class="tsd-kind-get-signature">transform</span
                     ><span class="tsd-signature-symbol">()</span
                     ><span class="tsd-signature-symbol">:</span>
-                    <span class="tsd-signature-type">null</span>
-                    <span class="tsd-signature-symbol">|</span>
                     <span class="tsd-signature-type">ITransformType</span>
+                    <span class="tsd-signature-symbol">|</span>
+                    <span class="tsd-signature-type">null</span>
                   </div>
                   <div class="tsd-description">
                     <h4 class="tsd-returns-title">
-                      Returns <span class="tsd-signature-type">null</span>
-                      <span class="tsd-signature-symbol">|</span>
+                      Returns
                       <span class="tsd-signature-type">ITransformType</span>
+                      <span class="tsd-signature-symbol">|</span>
+                      <span class="tsd-signature-type">null</span>
                     </h4>
                     <aside class="tsd-sources">
                       <p>Inherited from PublicClient.transform</p>
@@ -1199,14 +1247,13 @@
                       ><span class="tsd-signature-symbol">[]</span
                       ><span class="tsd-signature-symbol">&gt;</span>
                     </h4>
-                    <div class="tsd-comment tsd-typography"></div>
                     <aside class="tsd-sources">
                       <ul>
                         <li>
                           Defined in
                           <a
-                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L665"
-                            >src/auth.ts:665</a
+                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L756"
+                            >src/auth.ts:756</a
                           >
                         </li>
                       </ul>
@@ -1238,20 +1285,29 @@
                       class="tsd-kind-parameter"
                       >options</span
                     ><span class="tsd-signature-symbol">?:</span>
-                    <span class="tsd-signature-symbol">{</span>
-                    <span class="tsd-kind-property">accountTypes</span
+                    <span class="tsd-signature-symbol">{</span
+                    ><br />        <span class="tsd-kind-property"
+                      >accountTypes</span
                     ><span class="tsd-signature-symbol">?:</span>
                     <a
                       href="../types/IAccountType.html"
                       class="tsd-signature-type tsd-kind-type-alias"
                       >IAccountType</a
                     ><span class="tsd-signature-symbol">[]</span
-                    ><span class="tsd-signature-symbol">;</span>
-                    <span class="tsd-kind-property">symbols</span
+                    ><span class="tsd-signature-symbol">;</span
+                    ><br />        <span class="tsd-kind-property"
+                      >orderTypes</span
+                    ><span class="tsd-signature-symbol">?:</span>
+                    <span class="tsd-signature-type">ISmartOrderType</span
+                    ><span class="tsd-signature-symbol">[]</span
+                    ><span class="tsd-signature-symbol">;</span
+                    ><br />        <span class="tsd-kind-property">symbols</span
                     ><span class="tsd-signature-symbol">?:</span>
                     <span class="tsd-signature-type">string</span
-                    ><span class="tsd-signature-symbol">[]</span>
-                    <span class="tsd-signature-symbol">}</span
+                    ><span class="tsd-signature-symbol">[]</span
+                    ><span class="tsd-signature-symbol">;</span><br />    <span
+                      class="tsd-signature-symbol"
+                      >}</span
                     ><span class="tsd-signature-symbol">,</span><br /><span
                       class="tsd-signature-symbol"
                       >)</span
@@ -1282,20 +1338,30 @@
                         <li>
                           <span
                             ><span class="tsd-kind-parameter">options</span>:
-                            <span class="tsd-signature-symbol">{</span>
-                            <span class="tsd-kind-property">accountTypes</span
+                            <span class="tsd-signature-symbol">{</span
+                            ><br />    <span class="tsd-kind-property"
+                              >accountTypes</span
                             ><span class="tsd-signature-symbol">?:</span>
                             <a
                               href="../types/IAccountType.html"
                               class="tsd-signature-type tsd-kind-type-alias"
                               >IAccountType</a
                             ><span class="tsd-signature-symbol">[]</span
-                            ><span class="tsd-signature-symbol">;</span>
-                            <span class="tsd-kind-property">symbols</span
+                            ><span class="tsd-signature-symbol">;</span
+                            ><br />    <span class="tsd-kind-property"
+                              >orderTypes</span
+                            ><span class="tsd-signature-symbol">?:</span>
+                            <span class="tsd-signature-type"
+                              >ISmartOrderType</span
+                            ><span class="tsd-signature-symbol">[]</span
+                            ><span class="tsd-signature-symbol">;</span
+                            ><br />    <span class="tsd-kind-property"
+                              >symbols</span
                             ><span class="tsd-signature-symbol">?:</span>
                             <span class="tsd-signature-type">string</span
-                            ><span class="tsd-signature-symbol">[]</span>
-                            <span class="tsd-signature-symbol">}</span
+                            ><span class="tsd-signature-symbol">[]</span
+                            ><span class="tsd-signature-symbol">;</span
+                            ><br /><span class="tsd-signature-symbol">}</span
                             ><span class="tsd-signature-symbol">
                               = {}</span
                             ></span
@@ -1313,14 +1379,13 @@
                       ><span class="tsd-signature-symbol">[]</span
                       ><span class="tsd-signature-symbol">&gt;</span>
                     </h4>
-                    <div class="tsd-comment tsd-typography"></div>
                     <aside class="tsd-sources">
                       <ul>
                         <li>
                           Defined in
                           <a
-                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L790"
-                            >src/auth.ts:790</a
+                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L884"
+                            >src/auth.ts:884</a
                           >
                         </li>
                       </ul>
@@ -1412,14 +1477,13 @@
                         >ICanceledOrder</a
                       ><span class="tsd-signature-symbol">&gt;</span>
                     </h4>
-                    <div class="tsd-comment tsd-typography"></div>
                     <aside class="tsd-sources">
                       <ul>
                         <li>
                           Defined in
                           <a
-                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L624"
-                            >src/auth.ts:624</a
+                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L715"
+                            >src/auth.ts:715</a
                           >
                         </li>
                       </ul>
@@ -1523,14 +1587,13 @@
                       ><span class="tsd-signature-symbol">[]</span
                       ><span class="tsd-signature-symbol">&gt;</span>
                     </h4>
-                    <div class="tsd-comment tsd-typography"></div>
                     <aside class="tsd-sources">
                       <ul>
                         <li>
                           Defined in
                           <a
-                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L642"
-                            >src/auth.ts:642</a
+                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L733"
+                            >src/auth.ts:733</a
                           >
                         </li>
                       </ul>
@@ -1625,14 +1688,13 @@
                         >ICanceledSmartOrder</a
                       ><span class="tsd-signature-symbol">&gt;</span>
                     </h4>
-                    <div class="tsd-comment tsd-typography"></div>
                     <aside class="tsd-sources">
                       <ul>
                         <li>
                           Defined in
                           <a
-                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L746"
-                            >src/auth.ts:746</a
+                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L840"
+                            >src/auth.ts:840</a
                           >
                         </li>
                       </ul>
@@ -1737,14 +1799,13 @@
                       ><span class="tsd-signature-symbol">[]</span
                       ><span class="tsd-signature-symbol">&gt;</span>
                     </h4>
-                    <div class="tsd-comment tsd-typography"></div>
                     <aside class="tsd-sources">
                       <ul>
                         <li>
                           Defined in
                           <a
-                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L766"
-                            >src/auth.ts:766</a
+                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L860"
+                            >src/auth.ts:860</a
                           >
                         </li>
                       </ul>
@@ -1820,14 +1881,13 @@
                         >IOrderId</a
                       ><span class="tsd-signature-symbol">&gt;</span>
                     </h4>
-                    <div class="tsd-comment tsd-typography"></div>
                     <aside class="tsd-sources">
                       <ul>
                         <li>
                           Defined in
                           <a
-                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L569"
-                            >src/auth.ts:569</a
+                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L660"
+                            >src/auth.ts:660</a
                           >
                         </li>
                       </ul>
@@ -1907,14 +1967,13 @@
                         >IOrderIds</a
                       ><span class="tsd-signature-symbol">&gt;</span>
                     </h4>
-                    <div class="tsd-comment tsd-typography"></div>
                     <aside class="tsd-sources">
                       <ul>
                         <li>
                           Defined in
                           <a
-                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L574"
-                            >src/auth.ts:574</a
+                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L665"
+                            >src/auth.ts:665</a
                           >
                         </li>
                       </ul>
@@ -1993,14 +2052,13 @@
                         >IOrderId</a
                       ><span class="tsd-signature-symbol">&gt;</span>
                     </h4>
-                    <div class="tsd-comment tsd-typography"></div>
                     <aside class="tsd-sources">
                       <ul>
                         <li>
                           Defined in
                           <a
-                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L692"
-                            >src/auth.ts:692</a
+                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L783"
+                            >src/auth.ts:783</a
                           >
                         </li>
                       </ul>
@@ -2122,8 +2180,8 @@
                         <li>
                           Defined in
                           <a
-                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L405"
-                            >src/auth.ts:405</a
+                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L471"
+                            >src/auth.ts:471</a
                           >
                         </li>
                       </ul>
@@ -2248,8 +2306,8 @@
                         <li>
                           Defined in
                           <a
-                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L419"
-                            >src/auth.ts:419</a
+                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L485"
+                            >src/auth.ts:485</a
                           >
                         </li>
                       </ul>
@@ -2368,8 +2426,8 @@
                         <li>
                           Defined in
                           <a
-                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L391"
-                            >src/auth.ts:391</a
+                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L457"
+                            >src/auth.ts:457</a
                           >
                         </li>
                       </ul>
@@ -2460,14 +2518,13 @@
                       ><span class="tsd-signature-symbol">[]</span
                       ><span class="tsd-signature-symbol">&gt;</span>
                     </h4>
-                    <div class="tsd-comment tsd-typography"></div>
                     <aside class="tsd-sources">
                       <ul>
                         <li>
                           Defined in
                           <a
-                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L486"
-                            >src/auth.ts:486</a
+                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L554"
+                            >src/auth.ts:554</a
                           >
                         </li>
                       </ul>
@@ -2552,14 +2609,13 @@
                       ><span class="tsd-signature-symbol">]</span
                       ><span class="tsd-signature-symbol">&gt;</span>
                     </h4>
-                    <div class="tsd-comment tsd-typography"></div>
                     <aside class="tsd-sources">
                       <ul>
                         <li>
                           Defined in
                           <a
-                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L469"
-                            >src/auth.ts:469</a
+                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L537"
+                            >src/auth.ts:537</a
                           >
                         </li>
                       </ul>
@@ -2640,14 +2696,13 @@
                       ><span class="tsd-signature-symbol">[]</span
                       ><span class="tsd-signature-symbol">&gt;</span>
                     </h4>
-                    <div class="tsd-comment tsd-typography"></div>
                     <aside class="tsd-sources">
                       <ul>
                         <li>
                           Defined in
                           <a
-                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L472"
-                            >src/auth.ts:472</a
+                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L540"
+                            >src/auth.ts:540</a
                           >
                         </li>
                       </ul>
@@ -2703,14 +2758,101 @@
                       ><span class="tsd-signature-symbol">[]</span
                       ><span class="tsd-signature-symbol">&gt;</span>
                     </h4>
-                    <div class="tsd-comment tsd-typography"></div>
                     <aside class="tsd-sources">
                       <ul>
                         <li>
                           Defined in
                           <a
-                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L464"
-                            >src/auth.ts:464</a
+                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L532"
+                            >src/auth.ts:532</a
+                          >
+                        </li>
+                      </ul>
+                    </aside>
+                  </div>
+                </li>
+              </ul>
+            </section>
+            <section class="tsd-panel tsd-member">
+              <h3 class="tsd-anchor-link" id="getaccounttransfer">
+                <span>get<wbr />Account<wbr />Transfer</span
+                ><a
+                  href="#getaccounttransfer"
+                  aria-label="Permalink"
+                  class="tsd-anchor-icon"
+                  ><svg viewBox="0 0 24 24" aria-hidden="true">
+                    <use href="../assets/icons.svg#icon-anchor"></use></svg
+                ></a>
+              </h3>
+              <ul class="tsd-signatures">
+                <li class="">
+                  <div
+                    class="tsd-signature tsd-anchor-link"
+                    id="getaccounttransfer-1"
+                  >
+                    <span class="tsd-kind-call-signature"
+                      >getAccountTransfer</span
+                    ><span class="tsd-signature-symbol">(</span
+                    ><span class="tsd-kind-parameter">__namedParameters</span
+                    ><span class="tsd-signature-symbol">:</span>
+                    <span class="tsd-signature-symbol">{</span>
+                    <span class="tsd-kind-property">id</span
+                    ><span class="tsd-signature-symbol">:</span>
+                    <span class="tsd-signature-type">string</span>
+                    <span class="tsd-signature-symbol">}</span
+                    ><span class="tsd-signature-symbol">)</span
+                    ><span class="tsd-signature-symbol">:</span>
+                    <span class="tsd-signature-type">Promise</span
+                    ><span class="tsd-signature-symbol">&lt;</span
+                    ><a
+                      href="../interfaces/IAccountTransfer.html"
+                      class="tsd-signature-type tsd-kind-interface"
+                      >IAccountTransfer</a
+                    ><span class="tsd-signature-symbol">&gt;</span
+                    ><a
+                      href="#getaccounttransfer-1"
+                      aria-label="Permalink"
+                      class="tsd-anchor-icon"
+                      ><svg viewBox="0 0 24 24" aria-hidden="true">
+                        <use href="../assets/icons.svg#icon-anchor"></use></svg
+                    ></a>
+                  </div>
+                  <div class="tsd-description">
+                    <div class="tsd-comment tsd-typography">
+                      <p>Get a single transfer record by ID.</p>
+                    </div>
+                    <div class="tsd-parameters">
+                      <h4 class="tsd-parameters-title">Parameters</h4>
+                      <ul class="tsd-parameter-list">
+                        <li>
+                          <span
+                            ><span class="tsd-kind-parameter"
+                              >__namedParameters</span
+                            >: <span class="tsd-signature-symbol">{</span>
+                            <span class="tsd-kind-property">id</span
+                            ><span class="tsd-signature-symbol">:</span>
+                            <span class="tsd-signature-type">string</span>
+                            <span class="tsd-signature-symbol">}</span></span
+                          >
+                        </li>
+                      </ul>
+                    </div>
+                    <h4 class="tsd-returns-title">
+                      Returns <span class="tsd-signature-type">Promise</span
+                      ><span class="tsd-signature-symbol">&lt;</span
+                      ><a
+                        href="../interfaces/IAccountTransfer.html"
+                        class="tsd-signature-type tsd-kind-interface"
+                        >IAccountTransfer</a
+                      ><span class="tsd-signature-symbol">&gt;</span>
+                    </h4>
+                    <aside class="tsd-sources">
+                      <ul>
+                        <li>
+                          Defined in
+                          <a
+                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L573"
+                            >src/auth.ts:573</a
                           >
                         </li>
                       </ul>
@@ -2797,14 +2939,13 @@
                       ><span class="tsd-signature-symbol">[]</span
                       ><span class="tsd-signature-symbol">&gt;</span>
                     </h4>
-                    <div class="tsd-comment tsd-typography"></div>
                     <aside class="tsd-sources">
                       <ul>
                         <li>
                           Defined in
                           <a
-                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L498"
-                            >src/auth.ts:498</a
+                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L566"
+                            >src/auth.ts:566</a
                           >
                         </li>
                       </ul>
@@ -2866,7 +3007,6 @@
                       ><span class="tsd-signature-symbol">[]</span
                       ><span class="tsd-signature-symbol">&gt;</span>
                     </h4>
-                    <div class="tsd-comment tsd-typography"></div>
                     <aside class="tsd-sources">
                       <p>
                         Inherited from
@@ -2879,8 +3019,8 @@
                         <li>
                           Defined in
                           <a
-                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/public.ts#L403"
-                            >src/public.ts:403</a
+                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/public.ts#L445"
+                            >src/public.ts:445</a
                           >
                         </li>
                       </ul>
@@ -2923,6 +3063,7 @@
                       href="../interfaces/IBorrow.html"
                       class="tsd-signature-type tsd-kind-interface"
                       >IBorrow</a
+                    ><span class="tsd-signature-symbol">[]</span
                     ><span class="tsd-signature-symbol">&gt;</span
                     ><a
                       href="#getborrowstatus-1"
@@ -2961,16 +3102,16 @@
                         href="../interfaces/IBorrow.html"
                         class="tsd-signature-type tsd-kind-interface"
                         >IBorrow</a
+                      ><span class="tsd-signature-symbol">[]</span
                       ><span class="tsd-signature-symbol">&gt;</span>
                     </h4>
-                    <div class="tsd-comment tsd-typography"></div>
                     <aside class="tsd-sources">
                       <ul>
                         <li>
                           Defined in
                           <a
-                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L557"
-                            >src/auth.ts:557</a
+                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L648"
+                            >src/auth.ts:648</a
                           >
                         </li>
                       </ul>
@@ -3052,7 +3193,6 @@
                       ><span class="tsd-signature-symbol">[]</span
                       ><span class="tsd-signature-symbol">&gt;</span>
                     </h4>
-                    <div class="tsd-comment tsd-typography"></div>
                     <aside class="tsd-sources">
                       <p>
                         Inherited from
@@ -3065,8 +3205,8 @@
                         <li>
                           Defined in
                           <a
-                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/public.ts#L356"
-                            >src/public.ts:356</a
+                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/public.ts#L398"
+                            >src/public.ts:398</a
                           >
                         </li>
                       </ul>
@@ -3149,7 +3289,6 @@
                         >ICollateral</a
                       ><span class="tsd-signature-symbol">&gt;</span>
                     </h4>
-                    <div class="tsd-comment tsd-typography"></div>
                     <aside class="tsd-sources">
                       <p>
                         Inherited from
@@ -3162,8 +3301,8 @@
                         <li>
                           Defined in
                           <a
-                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/public.ts#L386"
-                            >src/public.ts:386</a
+                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/public.ts#L428"
+                            >src/public.ts:428</a
                           >
                         </li>
                       </ul>
@@ -3235,7 +3374,6 @@
                       ><span class="tsd-signature-symbol">[]</span
                       ><span class="tsd-signature-symbol">&gt;</span>
                     </h4>
-                    <div class="tsd-comment tsd-typography"></div>
                     <aside class="tsd-sources">
                       <p>
                         Inherited from
@@ -3248,8 +3386,8 @@
                         <li>
                           Defined in
                           <a
-                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/public.ts#L387"
-                            >src/public.ts:387</a
+                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/public.ts#L429"
+                            >src/public.ts:429</a
                           >
                         </li>
                       </ul>
@@ -3342,7 +3480,6 @@
                         >IExtendedCurrency</a
                       ><span class="tsd-signature-symbol">&gt;</span>
                     </h4>
-                    <div class="tsd-comment tsd-typography"></div>
                     <aside class="tsd-sources">
                       <p>
                         Inherited from
@@ -3355,8 +3492,8 @@
                         <li>
                           Defined in
                           <a
-                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/public.ts#L271"
-                            >src/public.ts:271</a
+                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/public.ts#L302"
+                            >src/public.ts:302</a
                           >
                         </li>
                       </ul>
@@ -3437,7 +3574,6 @@
                       ><span class="tsd-signature-symbol">[]</span
                       ><span class="tsd-signature-symbol">&gt;</span>
                     </h4>
-                    <div class="tsd-comment tsd-typography"></div>
                     <aside class="tsd-sources">
                       <p>
                         Inherited from
@@ -3450,8 +3586,8 @@
                         <li>
                           Defined in
                           <a
-                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/public.ts#L275"
-                            >src/public.ts:275</a
+                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/public.ts#L306"
+                            >src/public.ts:306</a
                           >
                         </li>
                       </ul>
@@ -3530,7 +3666,6 @@
                         >ICurrency</a
                       ><span class="tsd-signature-symbol">&gt;</span>
                     </h4>
-                    <div class="tsd-comment tsd-typography"></div>
                     <aside class="tsd-sources">
                       <p>
                         Inherited from
@@ -3543,8 +3678,8 @@
                         <li>
                           Defined in
                           <a
-                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/public.ts#L279"
-                            >src/public.ts:279</a
+                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/public.ts#L310"
+                            >src/public.ts:310</a
                           >
                         </li>
                       </ul>
@@ -3626,7 +3761,6 @@
                       ><span class="tsd-signature-symbol">[]</span
                       ><span class="tsd-signature-symbol">&gt;</span>
                     </h4>
-                    <div class="tsd-comment tsd-typography"></div>
                     <aside class="tsd-sources">
                       <p>
                         Inherited from
@@ -3639,8 +3773,189 @@
                         <li>
                           Defined in
                           <a
-                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/public.ts#L283"
-                            >src/public.ts:283</a
+                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/public.ts#L314"
+                            >src/public.ts:314</a
+                          >
+                        </li>
+                      </ul>
+                    </aside>
+                  </div>
+                </li>
+              </ul>
+            </section>
+            <section class="tsd-panel tsd-member tsd-is-inherited">
+              <h3 class="tsd-anchor-link" id="getcurrencyv2">
+                <span>get<wbr />Currency<wbr />V2</span
+                ><a
+                  href="#getcurrencyv2"
+                  aria-label="Permalink"
+                  class="tsd-anchor-icon"
+                  ><svg viewBox="0 0 24 24" aria-hidden="true">
+                    <use href="../assets/icons.svg#icon-anchor"></use></svg
+                ></a>
+              </h3>
+              <ul class="tsd-signatures tsd-is-inherited">
+                <li class="tsd-is-inherited">
+                  <div
+                    class="tsd-signature tsd-anchor-link"
+                    id="getcurrencyv2-1"
+                  >
+                    <span class="tsd-kind-call-signature">getCurrencyV2</span
+                    ><span class="tsd-signature-symbol">(</span
+                    ><span class="tsd-kind-parameter">query</span
+                    ><span class="tsd-signature-symbol">:</span>
+                    <span class="tsd-signature-symbol">{</span>
+                    <span class="tsd-kind-property">coin</span
+                    ><span class="tsd-signature-symbol">:</span>
+                    <span class="tsd-signature-type">string</span>
+                    <span class="tsd-signature-symbol">}</span
+                    ><span class="tsd-signature-symbol">)</span
+                    ><span class="tsd-signature-symbol">:</span>
+                    <span class="tsd-signature-type">Promise</span
+                    ><span class="tsd-signature-symbol">&lt;</span
+                    ><a
+                      href="../interfaces/ICurrencyV2.html"
+                      class="tsd-signature-type tsd-kind-interface"
+                      >ICurrencyV2</a
+                    ><span class="tsd-signature-symbol">&gt;</span
+                    ><a
+                      href="#getcurrencyv2-1"
+                      aria-label="Permalink"
+                      class="tsd-anchor-icon"
+                      ><svg viewBox="0 0 24 24" aria-hidden="true">
+                        <use href="../assets/icons.svg#icon-anchor"></use></svg
+                    ></a>
+                  </div>
+                  <div class="tsd-description">
+                    <div class="tsd-comment tsd-typography">
+                      <p>
+                        Get data for a supported currency (v2) or all supported
+                        currencies (v2).
+                      </p>
+                    </div>
+                    <div class="tsd-parameters">
+                      <h4 class="tsd-parameters-title">Parameters</h4>
+                      <ul class="tsd-parameter-list">
+                        <li>
+                          <span
+                            ><span class="tsd-kind-parameter">query</span>:
+                            <span class="tsd-signature-symbol">{</span>
+                            <span class="tsd-kind-property">coin</span
+                            ><span class="tsd-signature-symbol">:</span>
+                            <span class="tsd-signature-type">string</span>
+                            <span class="tsd-signature-symbol">}</span></span
+                          >
+                        </li>
+                      </ul>
+                    </div>
+                    <h4 class="tsd-returns-title">
+                      Returns <span class="tsd-signature-type">Promise</span
+                      ><span class="tsd-signature-symbol">&lt;</span
+                      ><a
+                        href="../interfaces/ICurrencyV2.html"
+                        class="tsd-signature-type tsd-kind-interface"
+                        >ICurrencyV2</a
+                      ><span class="tsd-signature-symbol">&gt;</span>
+                    </h4>
+                    <aside class="tsd-sources">
+                      <p>
+                        Inherited from
+                        <a href="PublicClient.html">PublicClient</a>.<a
+                          href="PublicClient.html#getcurrencyv2"
+                          >getCurrencyV2</a
+                        >
+                      </p>
+                      <ul>
+                        <li>
+                          Defined in
+                          <a
+                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/public.ts#L345"
+                            >src/public.ts:345</a
+                          >
+                        </li>
+                      </ul>
+                    </aside>
+                  </div>
+                </li>
+                <li class="tsd-is-inherited">
+                  <div
+                    class="tsd-signature tsd-anchor-link"
+                    id="getcurrencyv2-2"
+                  >
+                    <span class="tsd-kind-call-signature">getCurrencyV2</span
+                    ><span class="tsd-signature-symbol">(</span
+                    ><span class="tsd-kind-parameter">query</span
+                    ><span class="tsd-signature-symbol">?:</span>
+                    <span class="tsd-signature-symbol">{</span>
+                    <span class="tsd-kind-property">coin</span
+                    ><span class="tsd-signature-symbol">?:</span>
+                    <span class="tsd-signature-type">undefined</span>
+                    <span class="tsd-signature-symbol">}</span
+                    ><span class="tsd-signature-symbol">)</span
+                    ><span class="tsd-signature-symbol">:</span>
+                    <span class="tsd-signature-type">Promise</span
+                    ><span class="tsd-signature-symbol">&lt;</span
+                    ><a
+                      href="../interfaces/ICurrencyV2.html"
+                      class="tsd-signature-type tsd-kind-interface"
+                      >ICurrencyV2</a
+                    ><span class="tsd-signature-symbol">[]</span
+                    ><span class="tsd-signature-symbol">&gt;</span
+                    ><a
+                      href="#getcurrencyv2-2"
+                      aria-label="Permalink"
+                      class="tsd-anchor-icon"
+                      ><svg viewBox="0 0 24 24" aria-hidden="true">
+                        <use href="../assets/icons.svg#icon-anchor"></use></svg
+                    ></a>
+                  </div>
+                  <div class="tsd-description">
+                    <div class="tsd-comment tsd-typography">
+                      <p>
+                        Get data for a supported currency (v2) or all supported
+                        currencies (v2).
+                      </p>
+                    </div>
+                    <div class="tsd-parameters">
+                      <h4 class="tsd-parameters-title">Parameters</h4>
+                      <ul class="tsd-parameter-list">
+                        <li>
+                          <span
+                            ><code class="tsd-tag">Optional</code
+                            ><span class="tsd-kind-parameter">query</span>:
+                            <span class="tsd-signature-symbol">{</span>
+                            <span class="tsd-kind-property">coin</span
+                            ><span class="tsd-signature-symbol">?:</span>
+                            <span class="tsd-signature-type">undefined</span>
+                            <span class="tsd-signature-symbol">}</span></span
+                          >
+                        </li>
+                      </ul>
+                    </div>
+                    <h4 class="tsd-returns-title">
+                      Returns <span class="tsd-signature-type">Promise</span
+                      ><span class="tsd-signature-symbol">&lt;</span
+                      ><a
+                        href="../interfaces/ICurrencyV2.html"
+                        class="tsd-signature-type tsd-kind-interface"
+                        >ICurrencyV2</a
+                      ><span class="tsd-signature-symbol">[]</span
+                      ><span class="tsd-signature-symbol">&gt;</span>
+                    </h4>
+                    <aside class="tsd-sources">
+                      <p>
+                        Inherited from
+                        <a href="PublicClient.html">PublicClient</a>.<a
+                          href="PublicClient.html#getcurrencyv2"
+                          >getCurrencyV2</a
+                        >
+                      </p>
+                      <ul>
+                        <li>
+                          Defined in
+                          <a
+                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/public.ts#L346"
+                            >src/public.ts:346</a
                           >
                         </li>
                       </ul>
@@ -3694,14 +4009,106 @@
                         >IFee</a
                       ><span class="tsd-signature-symbol">&gt;</span>
                     </h4>
-                    <div class="tsd-comment tsd-typography"></div>
                     <aside class="tsd-sources">
                       <ul>
                         <li>
                           Defined in
                           <a
-                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L505"
-                            >src/auth.ts:505</a
+                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L578"
+                            >src/auth.ts:578</a
+                          >
+                        </li>
+                      </ul>
+                    </aside>
+                  </div>
+                </li>
+              </ul>
+            </section>
+            <section class="tsd-panel tsd-member">
+              <h3 class="tsd-anchor-link" id="getinteresthistory">
+                <span>get<wbr />Interest<wbr />History</span
+                ><a
+                  href="#getinteresthistory"
+                  aria-label="Permalink"
+                  class="tsd-anchor-icon"
+                  ><svg viewBox="0 0 24 24" aria-hidden="true">
+                    <use href="../assets/icons.svg#icon-anchor"></use></svg
+                ></a>
+              </h3>
+              <ul class="tsd-signatures">
+                <li class="">
+                  <div
+                    class="tsd-signature tsd-anchor-link"
+                    id="getinteresthistory-1"
+                  >
+                    <span class="tsd-kind-call-signature"
+                      >getInterestHistory</span
+                    ><span class="tsd-signature-symbol">(</span><br />    <span
+                      class="tsd-kind-parameter"
+                      >options</span
+                    ><span class="tsd-signature-symbol">?:</span>
+                    <a
+                      href="../types/IInterestHistoryOptions.html"
+                      class="tsd-signature-type tsd-kind-type-alias"
+                      >IInterestHistoryOptions</a
+                    ><span class="tsd-signature-symbol">,</span><br /><span
+                      class="tsd-signature-symbol"
+                      >)</span
+                    ><span class="tsd-signature-symbol">:</span>
+                    <span class="tsd-signature-type">Promise</span
+                    ><span class="tsd-signature-symbol">&lt;</span
+                    ><a
+                      href="../interfaces/IInterestHistory.html"
+                      class="tsd-signature-type tsd-kind-interface"
+                      >IInterestHistory</a
+                    ><span class="tsd-signature-symbol">[]</span
+                    ><span class="tsd-signature-symbol">&gt;</span
+                    ><a
+                      href="#getinteresthistory-1"
+                      aria-label="Permalink"
+                      class="tsd-anchor-icon"
+                      ><svg viewBox="0 0 24 24" aria-hidden="true">
+                        <use href="../assets/icons.svg#icon-anchor"></use></svg
+                    ></a>
+                  </div>
+                  <div class="tsd-description">
+                    <div class="tsd-comment tsd-typography">
+                      <p>Get interest history.</p>
+                    </div>
+                    <div class="tsd-parameters">
+                      <h4 class="tsd-parameters-title">Parameters</h4>
+                      <ul class="tsd-parameter-list">
+                        <li>
+                          <span
+                            ><span class="tsd-kind-parameter">options</span>:
+                            <a
+                              href="../types/IInterestHistoryOptions.html"
+                              class="tsd-signature-type tsd-kind-type-alias"
+                              >IInterestHistoryOptions</a
+                            ><span class="tsd-signature-symbol">
+                              = {}</span
+                            ></span
+                          >
+                        </li>
+                      </ul>
+                    </div>
+                    <h4 class="tsd-returns-title">
+                      Returns <span class="tsd-signature-type">Promise</span
+                      ><span class="tsd-signature-symbol">&lt;</span
+                      ><a
+                        href="../interfaces/IInterestHistory.html"
+                        class="tsd-signature-type tsd-kind-interface"
+                        >IInterestHistory</a
+                      ><span class="tsd-signature-symbol">[]</span
+                      ><span class="tsd-signature-symbol">&gt;</span>
+                    </h4>
+                    <aside class="tsd-sources">
+                      <ul>
+                        <li>
+                          Defined in
+                          <a
+                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L583"
+                            >src/auth.ts:583</a
                           >
                         </li>
                       </ul>
@@ -3758,14 +4165,13 @@
                         >IKillSwitch</a
                       ><span class="tsd-signature-symbol">&gt;</span>
                     </h4>
-                    <div class="tsd-comment tsd-typography"></div>
                     <aside class="tsd-sources">
                       <ul>
                         <li>
                           Defined in
                           <a
-                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L687"
-                            >src/auth.ts:687</a
+                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L778"
+                            >src/auth.ts:778</a
                           >
                         </li>
                       </ul>
@@ -3857,14 +4263,13 @@
                         >IMarginInfo</a
                       ><span class="tsd-signature-symbol">&gt;</span>
                     </h4>
-                    <div class="tsd-comment tsd-typography"></div>
                     <aside class="tsd-sources">
                       <ul>
                         <li>
                           Defined in
                           <a
-                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L548"
-                            >src/auth.ts:548</a
+                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L639"
+                            >src/auth.ts:639</a
                           >
                         </li>
                       </ul>
@@ -3952,7 +4357,6 @@
                       ><span class="tsd-signature-symbol">]</span
                       ><span class="tsd-signature-symbol">&gt;</span>
                     </h4>
-                    <div class="tsd-comment tsd-typography"></div>
                     <aside class="tsd-sources">
                       <p>
                         Inherited from
@@ -3965,8 +4369,8 @@
                         <li>
                           Defined in
                           <a
-                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/public.ts#L264"
-                            >src/public.ts:264</a
+                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/public.ts#L295"
+                            >src/public.ts:295</a
                           >
                         </li>
                       </ul>
@@ -4022,7 +4426,6 @@
                       ><span class="tsd-signature-symbol">[]</span
                       ><span class="tsd-signature-symbol">&gt;</span>
                     </h4>
-                    <div class="tsd-comment tsd-typography"></div>
                     <aside class="tsd-sources">
                       <p>
                         Inherited from
@@ -4035,8 +4438,8 @@
                         <li>
                           Defined in
                           <a
-                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/public.ts#L259"
-                            >src/public.ts:259</a
+                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/public.ts#L290"
+                            >src/public.ts:290</a
                           >
                         </li>
                       </ul>
@@ -4122,7 +4525,6 @@
                         >IMarkPrice</a
                       ><span class="tsd-signature-symbol">&gt;</span>
                     </h4>
-                    <div class="tsd-comment tsd-typography"></div>
                     <aside class="tsd-sources">
                       <p>
                         Inherited from
@@ -4135,8 +4537,8 @@
                         <li>
                           Defined in
                           <a
-                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/public.ts#L334"
-                            >src/public.ts:334</a
+                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/public.ts#L376"
+                            >src/public.ts:376</a
                           >
                         </li>
                       </ul>
@@ -4226,7 +4628,6 @@
                         >IMarkPriceComponents</a
                       ><span class="tsd-signature-symbol">&gt;</span>
                     </h4>
-                    <div class="tsd-comment tsd-typography"></div>
                     <aside class="tsd-sources">
                       <p>
                         Inherited from
@@ -4239,8 +4640,8 @@
                         <li>
                           Defined in
                           <a
-                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/public.ts#L339"
-                            >src/public.ts:339</a
+                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/public.ts#L381"
+                            >src/public.ts:381</a
                           >
                         </li>
                       </ul>
@@ -4299,7 +4700,6 @@
                       ><span class="tsd-signature-symbol">[]</span
                       ><span class="tsd-signature-symbol">&gt;</span>
                     </h4>
-                    <div class="tsd-comment tsd-typography"></div>
                     <aside class="tsd-sources">
                       <p>
                         Inherited from
@@ -4312,8 +4712,8 @@
                         <li>
                           Defined in
                           <a
-                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/public.ts#L329"
-                            >src/public.ts:329</a
+                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/public.ts#L371"
+                            >src/public.ts:371</a
                           >
                         </li>
                       </ul>
@@ -4397,14 +4797,13 @@
                         >IMaxSize</a
                       ><span class="tsd-signature-symbol">&gt;</span>
                     </h4>
-                    <div class="tsd-comment tsd-typography"></div>
                     <aside class="tsd-sources">
                       <ul>
                         <li>
                           Defined in
                           <a
-                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L564"
-                            >src/auth.ts:564</a
+                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L655"
+                            >src/auth.ts:655</a
                           >
                         </li>
                       </ul>
@@ -4487,14 +4886,13 @@
                       ><span class="tsd-signature-symbol">[]</span
                       ><span class="tsd-signature-symbol">&gt;</span>
                     </h4>
-                    <div class="tsd-comment tsd-typography"></div>
                     <aside class="tsd-sources">
                       <ul>
                         <li>
                           Defined in
                           <a
-                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L602"
-                            >src/auth.ts:602</a
+                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L693"
+                            >src/auth.ts:693</a
                           >
                         </li>
                       </ul>
@@ -4522,15 +4920,17 @@
                   >
                     <span class="tsd-kind-call-signature"
                       >getOpenSmartOrders</span
-                    ><span class="tsd-signature-symbol">(</span
-                    ><span class="tsd-kind-parameter">options</span
+                    ><span class="tsd-signature-symbol">(</span><br />    <span
+                      class="tsd-kind-parameter"
+                      >__namedParameters</span
                     ><span class="tsd-signature-symbol">?:</span>
-                    <span class="tsd-signature-symbol">{</span>
-                    <span class="tsd-kind-property">limit</span
-                    ><span class="tsd-signature-symbol">?:</span>
-                    <span class="tsd-signature-type">number</span>
-                    <span class="tsd-signature-symbol">}</span
-                    ><span class="tsd-signature-symbol">)</span
+                    <a
+                      href="../interfaces/IOpenSmartOrdersOptions.html"
+                      class="tsd-signature-type tsd-kind-interface"
+                      >IOpenSmartOrdersOptions</a
+                    ><span class="tsd-signature-symbol">,</span><br /><span
+                      class="tsd-signature-symbol"
+                      >)</span
                     ><span class="tsd-signature-symbol">:</span>
                     <span class="tsd-signature-type">Promise</span
                     ><span class="tsd-signature-symbol">&lt;</span
@@ -4557,12 +4957,13 @@
                       <ul class="tsd-parameter-list">
                         <li>
                           <span
-                            ><span class="tsd-kind-parameter">options</span>:
-                            <span class="tsd-signature-symbol">{</span>
-                            <span class="tsd-kind-property">limit</span
-                            ><span class="tsd-signature-symbol">?:</span>
-                            <span class="tsd-signature-type">number</span>
-                            <span class="tsd-signature-symbol">}</span
+                            ><span class="tsd-kind-parameter"
+                              >__namedParameters</span
+                            >:
+                            <a
+                              href="../interfaces/IOpenSmartOrdersOptions.html"
+                              class="tsd-signature-type tsd-kind-interface"
+                              >IOpenSmartOrdersOptions</a
                             ><span class="tsd-signature-symbol">
                               = {}</span
                             ></span
@@ -4580,14 +4981,13 @@
                       ><span class="tsd-signature-symbol">[]</span
                       ><span class="tsd-signature-symbol">&gt;</span>
                     </h4>
-                    <div class="tsd-comment tsd-typography"></div>
                     <aside class="tsd-sources">
                       <ul>
                         <li>
                           Defined in
                           <a
-                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L719"
-                            >src/auth.ts:719</a
+                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L810"
+                            >src/auth.ts:810</a
                           >
                         </li>
                       </ul>
@@ -4676,14 +5076,13 @@
                         >IOrder</a
                       ><span class="tsd-signature-symbol">&gt;</span>
                     </h4>
-                    <div class="tsd-comment tsd-typography"></div>
                     <aside class="tsd-sources">
                       <ul>
                         <li>
                           Defined in
                           <a
-                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L609"
-                            >src/auth.ts:609</a
+                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L700"
+                            >src/auth.ts:700</a
                           >
                         </li>
                       </ul>
@@ -4766,7 +5165,6 @@
                         >IOrderBook</a
                       ><span class="tsd-signature-symbol">&gt;</span>
                     </h4>
-                    <div class="tsd-comment tsd-typography"></div>
                     <aside class="tsd-sources">
                       <p>
                         Inherited from
@@ -4779,8 +5177,8 @@
                         <li>
                           Defined in
                           <a
-                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/public.ts#L348"
-                            >src/public.ts:348</a
+                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/public.ts#L390"
+                            >src/public.ts:390</a
                           >
                         </li>
                       </ul>
@@ -4862,14 +5260,13 @@
                       ><span class="tsd-signature-symbol">[]</span
                       ><span class="tsd-signature-symbol">&gt;</span>
                     </h4>
-                    <div class="tsd-comment tsd-typography"></div>
                     <aside class="tsd-sources">
                       <ul>
                         <li>
                           Defined in
                           <a
-                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L797"
-                            >src/auth.ts:797</a
+                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L895"
+                            >src/auth.ts:895</a
                           >
                         </li>
                       </ul>
@@ -4955,14 +5352,13 @@
                       ><span class="tsd-signature-symbol">[]</span
                       ><span class="tsd-signature-symbol">&gt;</span>
                     </h4>
-                    <div class="tsd-comment tsd-typography"></div>
                     <aside class="tsd-sources">
                       <ul>
                         <li>
                           Defined in
                           <a
-                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L818"
-                            >src/auth.ts:818</a
+                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L931"
+                            >src/auth.ts:931</a
                           >
                         </li>
                       </ul>
@@ -5043,7 +5439,6 @@
                         >IPrice</a
                       ><span class="tsd-signature-symbol">&gt;</span>
                     </h4>
-                    <div class="tsd-comment tsd-typography"></div>
                     <aside class="tsd-sources">
                       <p>
                         Inherited from
@@ -5056,8 +5451,8 @@
                         <li>
                           Defined in
                           <a
-                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/public.ts#L324"
-                            >src/public.ts:324</a
+                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/public.ts#L366"
+                            >src/public.ts:366</a
                           >
                         </li>
                       </ul>
@@ -5113,7 +5508,6 @@
                       ><span class="tsd-signature-symbol">[]</span
                       ><span class="tsd-signature-symbol">&gt;</span>
                     </h4>
-                    <div class="tsd-comment tsd-typography"></div>
                     <aside class="tsd-sources">
                       <p>
                         Inherited from
@@ -5126,8 +5520,8 @@
                         <li>
                           Defined in
                           <a
-                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/public.ts#L319"
-                            >src/public.ts:319</a
+                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/public.ts#L361"
+                            >src/public.ts:361</a
                           >
                         </li>
                       </ul>
@@ -5215,7 +5609,6 @@
                       ><span class="tsd-signature-symbol">[]</span
                       ><span class="tsd-signature-symbol">&gt;</span>
                     </h4>
-                    <div class="tsd-comment tsd-typography"></div>
                     <aside class="tsd-sources">
                       <p>
                         Inherited from
@@ -5228,8 +5621,8 @@
                         <li>
                           Defined in
                           <a
-                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/public.ts#L368"
-                            >src/public.ts:368</a
+                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/public.ts#L410"
+                            >src/public.ts:410</a
                           >
                         </li>
                       </ul>
@@ -5277,12 +5670,13 @@
                     ><span class="tsd-signature-symbol">:</span>
                     <span class="tsd-signature-type">Promise</span
                     ><span class="tsd-signature-symbol">&lt;</span
-                    ><span class="tsd-signature-type">null</span>
-                    <span class="tsd-signature-symbol">|</span>
-                    <a
+                    ><a
                       href="../interfaces/ISmartOrder.html"
                       class="tsd-signature-type tsd-kind-interface"
                       >ISmartOrder</a
+                    >
+                    <span class="tsd-signature-symbol">|</span>
+                    <span class="tsd-signature-type">null</span
                     ><span class="tsd-signature-symbol">&gt;</span
                     ><a
                       href="#getsmartorder-1"
@@ -5320,22 +5714,117 @@
                     <h4 class="tsd-returns-title">
                       Returns <span class="tsd-signature-type">Promise</span
                       ><span class="tsd-signature-symbol">&lt;</span
-                      ><span class="tsd-signature-type">null</span>
-                      <span class="tsd-signature-symbol">|</span>
-                      <a
+                      ><a
                         href="../interfaces/ISmartOrder.html"
                         class="tsd-signature-type tsd-kind-interface"
                         >ISmartOrder</a
+                      >
+                      <span class="tsd-signature-symbol">|</span>
+                      <span class="tsd-signature-type">null</span
                       ><span class="tsd-signature-symbol">&gt;</span>
                     </h4>
-                    <div class="tsd-comment tsd-typography"></div>
                     <aside class="tsd-sources">
                       <ul>
                         <li>
                           Defined in
                           <a
-                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L726"
-                            >src/auth.ts:726</a
+                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L820"
+                            >src/auth.ts:820</a
+                          >
+                        </li>
+                      </ul>
+                    </aside>
+                  </div>
+                </li>
+              </ul>
+            </section>
+            <section class="tsd-panel tsd-member">
+              <h3 class="tsd-anchor-link" id="getsmartorderhistory">
+                <span>get<wbr />Smart<wbr />Order<wbr />History</span
+                ><a
+                  href="#getsmartorderhistory"
+                  aria-label="Permalink"
+                  class="tsd-anchor-icon"
+                  ><svg viewBox="0 0 24 24" aria-hidden="true">
+                    <use href="../assets/icons.svg#icon-anchor"></use></svg
+                ></a>
+              </h3>
+              <ul class="tsd-signatures">
+                <li class="">
+                  <div
+                    class="tsd-signature tsd-anchor-link"
+                    id="getsmartorderhistory-1"
+                  >
+                    <span class="tsd-kind-call-signature"
+                      >getSmartOrderHistory</span
+                    ><span class="tsd-signature-symbol">(</span><br />    <span
+                      class="tsd-kind-parameter"
+                      >__namedParameters</span
+                    ><span class="tsd-signature-symbol">?:</span>
+                    <a
+                      href="../interfaces/ISmartOrdersOptions.html"
+                      class="tsd-signature-type tsd-kind-interface"
+                      >ISmartOrdersOptions</a
+                    ><span class="tsd-signature-symbol">,</span><br /><span
+                      class="tsd-signature-symbol"
+                      >)</span
+                    ><span class="tsd-signature-symbol">:</span>
+                    <span class="tsd-signature-type">Promise</span
+                    ><span class="tsd-signature-symbol">&lt;</span
+                    ><a
+                      href="../interfaces/IHistoricalSmartOrder.html"
+                      class="tsd-signature-type tsd-kind-interface"
+                      >IHistoricalSmartOrder</a
+                    ><span class="tsd-signature-symbol">[]</span
+                    ><span class="tsd-signature-symbol">&gt;</span
+                    ><a
+                      href="#getsmartorderhistory-1"
+                      aria-label="Permalink"
+                      class="tsd-anchor-icon"
+                      ><svg viewBox="0 0 24 24" aria-hidden="true">
+                        <use href="../assets/icons.svg#icon-anchor"></use></svg
+                    ></a>
+                  </div>
+                  <div class="tsd-description">
+                    <div class="tsd-comment tsd-typography">
+                      <p>Get a list of historical smart orders.</p>
+                    </div>
+                    <div class="tsd-parameters">
+                      <h4 class="tsd-parameters-title">Parameters</h4>
+                      <ul class="tsd-parameter-list">
+                        <li>
+                          <span
+                            ><span class="tsd-kind-parameter"
+                              >__namedParameters</span
+                            >:
+                            <a
+                              href="../interfaces/ISmartOrdersOptions.html"
+                              class="tsd-signature-type tsd-kind-interface"
+                              >ISmartOrdersOptions</a
+                            ><span class="tsd-signature-symbol">
+                              = {}</span
+                            ></span
+                          >
+                        </li>
+                      </ul>
+                    </div>
+                    <h4 class="tsd-returns-title">
+                      Returns <span class="tsd-signature-type">Promise</span
+                      ><span class="tsd-signature-symbol">&lt;</span
+                      ><a
+                        href="../interfaces/IHistoricalSmartOrder.html"
+                        class="tsd-signature-type tsd-kind-interface"
+                        >IHistoricalSmartOrder</a
+                      ><span class="tsd-signature-symbol">[]</span
+                      ><span class="tsd-signature-symbol">&gt;</span>
+                    </h4>
+                    <aside class="tsd-sources">
+                      <ul>
+                        <li>
+                          Defined in
+                          <a
+                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L908"
+                            >src/auth.ts:908</a
                           >
                         </li>
                       </ul>
@@ -5392,7 +5881,6 @@
                         >ISystemTimestamp</a
                       ><span class="tsd-signature-symbol">&gt;</span>
                     </h4>
-                    <div class="tsd-comment tsd-typography"></div>
                     <aside class="tsd-sources">
                       <p>
                         Inherited from
@@ -5405,8 +5893,8 @@
                         <li>
                           Defined in
                           <a
-                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/public.ts#L314"
-                            >src/public.ts:314</a
+                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/public.ts#L356"
+                            >src/public.ts:356</a
                           >
                         </li>
                       </ul>
@@ -5487,7 +5975,6 @@
                         >ITicker</a
                       ><span class="tsd-signature-symbol">&gt;</span>
                     </h4>
-                    <div class="tsd-comment tsd-typography"></div>
                     <aside class="tsd-sources">
                       <p>
                         Inherited from
@@ -5500,8 +5987,8 @@
                         <li>
                           Defined in
                           <a
-                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/public.ts#L381"
-                            >src/public.ts:381</a
+                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/public.ts#L423"
+                            >src/public.ts:423</a
                           >
                         </li>
                       </ul>
@@ -5557,7 +6044,6 @@
                       ><span class="tsd-signature-symbol">[]</span
                       ><span class="tsd-signature-symbol">&gt;</span>
                     </h4>
-                    <div class="tsd-comment tsd-typography"></div>
                     <aside class="tsd-sources">
                       <p>
                         Inherited from
@@ -5570,8 +6056,8 @@
                         <li>
                           Defined in
                           <a
-                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/public.ts#L376"
-                            >src/public.ts:376</a
+                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/public.ts#L418"
+                            >src/public.ts:418</a
                           >
                         </li>
                       </ul>
@@ -5653,14 +6139,13 @@
                       ><span class="tsd-signature-symbol">[]</span
                       ><span class="tsd-signature-symbol">&gt;</span>
                     </h4>
-                    <div class="tsd-comment tsd-typography"></div>
                     <aside class="tsd-sources">
                       <ul>
                         <li>
                           Defined in
                           <a
-                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L810"
-                            >src/auth.ts:810</a
+                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L923"
+                            >src/auth.ts:923</a
                           >
                         </li>
                       </ul>
@@ -5744,14 +6229,13 @@
                       ><span class="tsd-signature-symbol">&gt;</span
                       ><span class="tsd-signature-symbol">&gt;</span>
                     </h4>
-                    <div class="tsd-comment tsd-typography"></div>
                     <aside class="tsd-sources">
                       <ul>
                         <li>
                           Defined in
                           <a
-                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L510"
-                            >src/auth.ts:510</a
+                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L592"
+                            >src/auth.ts:592</a
                           >
                         </li>
                       </ul>
@@ -5836,14 +6320,13 @@
                         >IActivity</a
                       ><span class="tsd-signature-symbol">&gt;</span>
                     </h4>
-                    <div class="tsd-comment tsd-typography"></div>
                     <aside class="tsd-sources">
                       <ul>
                         <li>
                           Defined in
                           <a
-                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L517"
-                            >src/auth.ts:517</a
+                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L599"
+                            >src/auth.ts:599</a
                           >
                         </li>
                       </ul>
@@ -6008,8 +6491,8 @@
                         <li>
                           Defined in
                           <a
-                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L671"
-                            >src/auth.ts:671</a
+                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L762"
+                            >src/auth.ts:762</a
                           >
                         </li>
                       </ul>
@@ -6088,14 +6571,13 @@
                       <span class="tsd-signature-symbol">}</span
                       ><span class="tsd-signature-symbol">&gt;</span>
                     </h4>
-                    <div class="tsd-comment tsd-typography"></div>
                     <aside class="tsd-sources">
                       <ul>
                         <li>
                           Defined in
                           <a
-                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L532"
-                            >src/auth.ts:532</a
+                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L614"
+                            >src/auth.ts:614</a
                           >
                         </li>
                       </ul>
@@ -6437,8 +6919,8 @@
                         <li>
                           Defined in
                           <a
-                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L398"
-                            >src/auth.ts:398</a
+                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L464"
+                            >src/auth.ts:464</a
                           >
                         </li>
                       </ul>
@@ -6557,8 +7039,8 @@
                         <li>
                           Defined in
                           <a
-                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L412"
-                            >src/auth.ts:412</a
+                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L478"
+                            >src/auth.ts:478</a
                           >
                         </li>
                       </ul>
@@ -6677,14 +7159,13 @@
                         >IOrderId</a
                       ><span class="tsd-signature-symbol">&gt;</span>
                     </h4>
-                    <div class="tsd-comment tsd-typography"></div>
                     <aside class="tsd-sources">
                       <ul>
                         <li>
                           Defined in
                           <a
-                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L582"
-                            >src/auth.ts:582</a
+                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L673"
+                            >src/auth.ts:673</a
                           >
                         </li>
                       </ul>
@@ -6802,14 +7283,13 @@
                         >IOrderId</a
                       ><span class="tsd-signature-symbol">&gt;</span>
                     </h4>
-                    <div class="tsd-comment tsd-typography"></div>
                     <aside class="tsd-sources">
                       <ul>
                         <li>
                           Defined in
                           <a
-                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L697"
-                            >src/auth.ts:697</a
+                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L788"
+                            >src/auth.ts:788</a
                           >
                         </li>
                       </ul>
@@ -6890,14 +7370,13 @@
                       <span class="tsd-signature-symbol">}</span
                       ><span class="tsd-signature-symbol">&gt;</span>
                     </h4>
-                    <div class="tsd-comment tsd-typography"></div>
                     <aside class="tsd-sources">
                       <ul>
                         <li>
                           Defined in
                           <a
-                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L493"
-                            >src/auth.ts:493</a
+                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L561"
+                            >src/auth.ts:561</a
                           >
                         </li>
                       </ul>
@@ -6978,14 +7457,103 @@
                       <span class="tsd-signature-symbol">}</span
                       ><span class="tsd-signature-symbol">&gt;</span>
                     </h4>
-                    <div class="tsd-comment tsd-typography"></div>
                     <aside class="tsd-sources">
                       <ul>
                         <li>
                           Defined in
                           <a
-                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L539"
-                            >src/auth.ts:539</a
+                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L621"
+                            >src/auth.ts:621</a
+                          >
+                        </li>
+                      </ul>
+                    </aside>
+                  </div>
+                </li>
+              </ul>
+            </section>
+            <section class="tsd-panel tsd-member">
+              <h3 class="tsd-anchor-link" id="withdrawv2">
+                <span>withdraw<wbr />V2</span
+                ><a
+                  href="#withdrawv2"
+                  aria-label="Permalink"
+                  class="tsd-anchor-icon"
+                  ><svg viewBox="0 0 24 24" aria-hidden="true">
+                    <use href="../assets/icons.svg#icon-anchor"></use></svg
+                ></a>
+              </h3>
+              <ul class="tsd-signatures">
+                <li class="">
+                  <div class="tsd-signature tsd-anchor-link" id="withdrawv2-1">
+                    <span class="tsd-kind-call-signature">withdrawV2</span
+                    ><span class="tsd-signature-symbol">(</span><br />    <span
+                      class="tsd-kind-parameter"
+                      >options</span
+                    ><span class="tsd-signature-symbol">:</span>
+                    <a
+                      href="../interfaces/IWithdrawV2Options.html"
+                      class="tsd-signature-type tsd-kind-interface"
+                      >IWithdrawV2Options</a
+                    ><span class="tsd-signature-symbol">,</span><br /><span
+                      class="tsd-signature-symbol"
+                      >)</span
+                    ><span class="tsd-signature-symbol">:</span>
+                    <span class="tsd-signature-type">Promise</span
+                    ><span class="tsd-signature-symbol">&lt;</span
+                    ><span class="tsd-signature-symbol">{</span>
+                    <span class="tsd-kind-property">withdrawalRequestsId</span
+                    ><span class="tsd-signature-symbol">:</span>
+                    <span class="tsd-signature-type">number</span>
+                    <span class="tsd-signature-symbol">}</span
+                    ><span class="tsd-signature-symbol">&gt;</span
+                    ><a
+                      href="#withdrawv2-1"
+                      aria-label="Permalink"
+                      class="tsd-anchor-icon"
+                      ><svg viewBox="0 0 24 24" aria-hidden="true">
+                        <use href="../assets/icons.svg#icon-anchor"></use></svg
+                    ></a>
+                  </div>
+                  <div class="tsd-description">
+                    <div class="tsd-comment tsd-typography">
+                      <p>
+                        Immediately place a withdrawal (v2) with explicit
+                        network selection.
+                      </p>
+                    </div>
+                    <div class="tsd-parameters">
+                      <h4 class="tsd-parameters-title">Parameters</h4>
+                      <ul class="tsd-parameter-list">
+                        <li>
+                          <span
+                            ><span class="tsd-kind-parameter">options</span>:
+                            <a
+                              href="../interfaces/IWithdrawV2Options.html"
+                              class="tsd-signature-type tsd-kind-interface"
+                              >IWithdrawV2Options</a
+                            ></span
+                          >
+                        </li>
+                      </ul>
+                    </div>
+                    <h4 class="tsd-returns-title">
+                      Returns <span class="tsd-signature-type">Promise</span
+                      ><span class="tsd-signature-symbol">&lt;</span
+                      ><span class="tsd-signature-symbol">{</span>
+                      <span class="tsd-kind-property">withdrawalRequestsId</span
+                      ><span class="tsd-signature-symbol">:</span>
+                      <span class="tsd-signature-type">number</span>
+                      <span class="tsd-signature-symbol">}</span
+                      ><span class="tsd-signature-symbol">&gt;</span>
+                    </h4>
+                    <aside class="tsd-sources">
+                      <ul>
+                        <li>
+                          Defined in
+                          <a
+                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L630"
+                            >src/auth.ts:630</a
                           >
                         </li>
                       </ul>
@@ -7071,8 +7639,8 @@
                         <li>
                           Defined in
                           <a
-                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/public.ts#L407"
-                            >src/public.ts:407</a
+                            href="https://github.com/vansergen/poloniex-node-api/blob/main/src/public.ts#L449"
+                            >src/public.ts:449</a
                           >
                         </li>
                       </ul>
@@ -7450,6 +8018,14 @@
                     >
                       <use href="../assets/icons.svg#icon-2048"></use></svg
                     ><span>get<wbr />Accounts</span></a
+                  ><a href="#getaccounttransfer"
+                    ><svg
+                      class="tsd-kind-icon"
+                      viewBox="0 0 24 24"
+                      aria-label="Method"
+                    >
+                      <use href="../assets/icons.svg#icon-2048"></use></svg
+                    ><span>get<wbr />Account<wbr />Transfer</span></a
                   ><a href="#getaccounttransfers"
                     ><svg
                       class="tsd-kind-icon"
@@ -7498,6 +8074,14 @@
                     >
                       <use href="../assets/icons.svg#icon-2048"></use></svg
                     ><span>get<wbr />Currency</span></a
+                  ><a href="#getcurrencyv2" class="tsd-is-inherited"
+                    ><svg
+                      class="tsd-kind-icon"
+                      viewBox="0 0 24 24"
+                      aria-label="Method"
+                    >
+                      <use href="../assets/icons.svg#icon-2048"></use></svg
+                    ><span>get<wbr />Currency<wbr />V2</span></a
                   ><a href="#getfeeinfo"
                     ><svg
                       class="tsd-kind-icon"
@@ -7506,6 +8090,14 @@
                     >
                       <use href="../assets/icons.svg#icon-2048"></use></svg
                     ><span>get<wbr />Fee<wbr />Info</span></a
+                  ><a href="#getinteresthistory"
+                    ><svg
+                      class="tsd-kind-icon"
+                      viewBox="0 0 24 24"
+                      aria-label="Method"
+                    >
+                      <use href="../assets/icons.svg#icon-2048"></use></svg
+                    ><span>get<wbr />Interest<wbr />History</span></a
                   ><a href="#getkillswitch"
                     ><svg
                       class="tsd-kind-icon"
@@ -7650,6 +8242,14 @@
                     >
                       <use href="../assets/icons.svg#icon-2048"></use></svg
                     ><span>get<wbr />Smart<wbr />Order</span></a
+                  ><a href="#getsmartorderhistory"
+                    ><svg
+                      class="tsd-kind-icon"
+                      viewBox="0 0 24 24"
+                      aria-label="Method"
+                    >
+                      <use href="../assets/icons.svg#icon-2048"></use></svg
+                    ><span>get<wbr />Smart<wbr />Order<wbr />History</span></a
                   ><a href="#getsystemtime" class="tsd-is-inherited"
                     ><svg
                       class="tsd-kind-icon"
@@ -7786,6 +8386,14 @@
                     >
                       <use href="../assets/icons.svg#icon-2048"></use></svg
                     ><span>withdraw</span></a
+                  ><a href="#withdrawv2"
+                    ><svg
+                      class="tsd-kind-icon"
+                      viewBox="0 0 24 24"
+                      aria-label="Method"
+                    >
+                      <use href="../assets/icons.svg#icon-2048"></use></svg
+                    ><span>withdraw<wbr />V2</span></a
                   ><a href="#setquery" class="tsd-is-inherited"
                     ><svg
                       class="tsd-kind-icon"

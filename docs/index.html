@@ -152,7 +152,7 @@
           </h1>
           <p>
             Node.js library for
-            <a href="https://docs.poloniex.com/">Poloniex</a>.
+            <a href="https://api-docs.poloniex.com/spot">Poloniex</a>.
           </p>
           <h2 id="installation" class="tsd-anchor-link">
             Installation<a
@@ -173,7 +173,8 @@
             ></a>
           </h2>
           <h3 id="publicclient" class="tsd-anchor-link">
-            <a href="https://docs.poloniex.com/#public-endpoints"
+            <a
+              href="https://api-docs.poloniex.com/spot/api/public/reference-data"
               >PublicClient</a
             ><a
               href="#publicclient"
@@ -189,7 +190,7 @@
           <ul>
             <li>
               <a
-                href="https://docs.poloniex.com/#public-endpoints-reference-data-symbol-information"
+                href="https://api-docs.poloniex.com/spot/api/public/reference-data#symbol-information"
                 ><code>getMarkets</code></a
               >
             </li>
@@ -200,7 +201,7 @@
           <ul>
             <li>
               <a
-                href="https://docs.poloniex.com/#public-endpoints-reference-data-symbol-information"
+                href="https://api-docs.poloniex.com/spot/api/public/reference-data#symbol-information"
                 ><code>getMarket</code></a
               >
             </li>
@@ -211,7 +212,7 @@
           <ul>
             <li>
               <a
-                href="https://docs.poloniex.com/#public-endpoints-reference-data-currency-information"
+                href="https://api-docs.poloniex.com/spot/api/public/reference-data#currency-information"
                 ><code>getCurrency</code></a
               >
             </li>
@@ -226,7 +227,22 @@
           <ul>
             <li>
               <a
-                href="https://docs.poloniex.com/#public-endpoints-reference-data-system-timestamp"
+                href="https://api-docs.poloniex.com/spot/api/public/reference-data#currencyv2-information"
+                ><code>getCurrencyV2</code></a
+              >
+            </li>
+          </ul>
+          <pre><code class="typescript"><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">coin</span><span class="hl-1"> = </span><span class="hl-2">&quot;BNB&quot;</span><span class="hl-1">;</span><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">currency_v2</span><span class="hl-1"> = </span><span class="hl-3">await</span><span class="hl-1"> </span><span class="hl-4">client</span><span class="hl-1">.</span><span class="hl-0">getCurrencyV2</span><span class="hl-1">({ </span><span class="hl-4">coin</span><span class="hl-1"> });</span>
+</code><button type="button">Copy</button></pre>
+
+          <p>or</p>
+          <pre><code class="typescript"><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">all</span><span class="hl-1"> = </span><span class="hl-3">await</span><span class="hl-1"> </span><span class="hl-4">client</span><span class="hl-1">.</span><span class="hl-0">getCurrencyV2</span><span class="hl-1">();</span>
+</code><button type="button">Copy</button></pre>
+
+          <ul>
+            <li>
+              <a
+                href="https://api-docs.poloniex.com/spot/api/public/reference-data#system-timestamp"
                 ><code>getSystemTime</code></a
               >
             </li>
@@ -237,7 +253,7 @@
           <ul>
             <li>
               <a
-                href="https://docs.poloniex.com/#public-endpoints-market-data-prices"
+                href="https://api-docs.poloniex.com/spot/api/public/market-data#prices"
                 ><code>getPrices</code></a
               >
             </li>
@@ -248,7 +264,7 @@
           <ul>
             <li>
               <a
-                href="https://docs.poloniex.com/#public-endpoints-market-data-prices"
+                href="https://api-docs.poloniex.com/spot/api/public/market-data#prices"
                 ><code>getPrice</code></a
               >
             </li>
@@ -259,7 +275,7 @@
           <ul>
             <li>
               <a
-                href="https://docs.poloniex.com/#public-endpoints-market-data-mark-price"
+                href="https://api-docs.poloniex.com/spot/api/public/market-data#mark-price"
                 ><code>getMarkPrices</code></a
               >
             </li>
@@ -270,7 +286,7 @@
           <ul>
             <li>
               <a
-                href="https://docs.poloniex.com/#public-endpoints-market-data-mark-price"
+                href="https://api-docs.poloniex.com/spot/api/public/market-data#mark-price"
                 ><code>getMarkPrice</code></a
               >
             </li>
@@ -281,7 +297,7 @@
           <ul>
             <li>
               <a
-                href="https://docs.poloniex.com/#public-endpoints-market-data-mark-price-components"
+                href="https://api-docs.poloniex.com/spot/api/public/market-data#mark-price-components"
                 ><code>getMarkPriceComponents</code></a
               >
             </li>
@@ -292,7 +308,7 @@
           <ul>
             <li>
               <a
-                href="https://docs.poloniex.com/#public-endpoints-market-data-order-book"
+                href="https://api-docs.poloniex.com/spot/api/public/market-data#order-book"
                 ><code>getOrderBook</code></a
               >
             </li>
@@ -303,18 +319,18 @@
           <ul>
             <li>
               <a
-                href="https://docs.poloniex.com/#public-endpoints-market-data-candles"
+                href="https://api-docs.poloniex.com/spot/api/public/market-data#candles"
                 ><code>getCandles</code></a
               >
             </li>
           </ul>
-          <pre><code class="typescript"><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">symbol</span><span class="hl-1"> = </span><span class="hl-2">&quot;ETH_BTC&quot;</span><span class="hl-1">;</span><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">interval</span><span class="hl-1"> = </span><span class="hl-2">&quot;HOUR_1&quot;</span><span class="hl-1">;</span><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">limit</span><span class="hl-1"> = </span><span class="hl-7">2</span><span class="hl-1">;</span><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">endTime</span><span class="hl-1"> = </span><span class="hl-4">Date</span><span class="hl-1">.</span><span class="hl-0">now</span><span class="hl-1">();</span><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">startTime</span><span class="hl-1"> = </span><span class="hl-4">endTime</span><span class="hl-1"> - </span><span class="hl-7">1000</span><span class="hl-1"> * </span><span class="hl-7">60</span><span class="hl-1"> * </span><span class="hl-7">60</span><span class="hl-1"> * </span><span class="hl-7">24</span><span class="hl-1">;</span><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">candles</span><span class="hl-1"> = </span><span class="hl-3">await</span><span class="hl-1"> </span><span class="hl-4">client</span><span class="hl-1">.</span><span class="hl-0">getOrderBook</span><span class="hl-1">({</span><br/><span class="hl-1">  </span><span class="hl-4">symbol</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-4">interval</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-4">limit</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-4">startTime</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-4">endTime</span><span class="hl-1">,</span><br/><span class="hl-1">});</span>
+          <pre><code class="typescript"><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">symbol</span><span class="hl-1"> = </span><span class="hl-2">&quot;ETH_BTC&quot;</span><span class="hl-1">;</span><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">interval</span><span class="hl-1"> = </span><span class="hl-2">&quot;HOUR_1&quot;</span><span class="hl-1">;</span><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">limit</span><span class="hl-1"> = </span><span class="hl-7">2</span><span class="hl-1">;</span><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">endTime</span><span class="hl-1"> = </span><span class="hl-4">Date</span><span class="hl-1">.</span><span class="hl-0">now</span><span class="hl-1">();</span><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">startTime</span><span class="hl-1"> = </span><span class="hl-4">endTime</span><span class="hl-1"> - </span><span class="hl-7">1000</span><span class="hl-1"> * </span><span class="hl-7">60</span><span class="hl-1"> * </span><span class="hl-7">60</span><span class="hl-1"> * </span><span class="hl-7">24</span><span class="hl-1">;</span><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">candles</span><span class="hl-1"> = </span><span class="hl-3">await</span><span class="hl-1"> </span><span class="hl-4">client</span><span class="hl-1">.</span><span class="hl-0">getCandles</span><span class="hl-1">({</span><br/><span class="hl-1">  </span><span class="hl-4">symbol</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-4">interval</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-4">limit</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-4">startTime</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-4">endTime</span><span class="hl-1">,</span><br/><span class="hl-1">});</span>
 </code><button type="button">Copy</button></pre>
 
           <ul>
             <li>
               <a
-                href="https://docs.poloniex.com/#public-endpoints-market-data-trades"
+                href="https://api-docs.poloniex.com/spot/api/public/market-data#trades"
                 ><code>getPublicTrades</code></a
               >
             </li>
@@ -325,7 +341,7 @@
           <ul>
             <li>
               <a
-                href="https://docs.poloniex.com/#public-endpoints-market-data-ticker"
+                href="https://api-docs.poloniex.com/spot/api/public/market-data#ticker"
                 ><code>getTickers</code></a
               >
             </li>
@@ -336,7 +352,7 @@
           <ul>
             <li>
               <a
-                href="https://docs.poloniex.com/#public-endpoints-market-data-ticker"
+                href="https://api-docs.poloniex.com/spot/api/public/market-data#ticker"
                 ><code>getTicker</code></a
               >
             </li>
@@ -347,7 +363,7 @@
           <ul>
             <li>
               <a
-                href="https://docs.poloniex.com/#public-endpoints-margin-collateral-info"
+                href="https://api-docs.poloniex.com/spot/api/public/margin#collateral-info"
                 ><code>getCollateral</code></a
               >
             </li>
@@ -362,16 +378,16 @@
           <ul>
             <li>
               <a
-                href="https://docs.poloniex.com/#public-endpoints-margin-borrow-rates-info"
+                href="https://api-docs.poloniex.com/spot/api/public/margin#borrow-rates-info"
                 ><code>getBorrowRates</code></a
               >
             </li>
           </ul>
-          <pre><code class="typescript"><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">symbol</span><span class="hl-1"> = </span><span class="hl-2">&quot;ETH_BTC&quot;</span><span class="hl-1">;</span><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">ticker</span><span class="hl-1"> = </span><span class="hl-3">await</span><span class="hl-1"> </span><span class="hl-4">client</span><span class="hl-1">.</span><span class="hl-0">getTicker</span><span class="hl-1">({ </span><span class="hl-4">symbol</span><span class="hl-1"> });</span>
+          <pre><code class="typescript"><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">rates</span><span class="hl-1"> = </span><span class="hl-3">await</span><span class="hl-1"> </span><span class="hl-4">client</span><span class="hl-1">.</span><span class="hl-0">getBorrowRates</span><span class="hl-1">();</span>
 </code><button type="button">Copy</button></pre>
 
           <h3 id="authenticatedclient" class="tsd-anchor-link">
-            <a href="https://docs.poloniex.com/#authenticated-endpoints"
+            <a href="https://api-docs.poloniex.com/spot/api/private/account"
               >AuthenticatedClient</a
             ><a
               href="#authenticatedclient"
@@ -385,8 +401,7 @@
 </code><button type="button">Copy</button></pre>
 
           <h4 id="accounts" class="tsd-anchor-link">
-            <a
-              href="https://docs.poloniex.com/#authenticated-endpoints-accounts"
+            <a href="https://api-docs.poloniex.com/spot/api/private/account"
               >Accounts</a
             ><a href="#accounts" aria-label="Permalink" class="tsd-anchor-icon"
               ><svg viewBox="0 0 24 24" aria-hidden="true">
@@ -396,7 +411,7 @@
           <ul>
             <li>
               <a
-                href="https://docs.poloniex.com/#authenticated-endpoints-accounts-account-information"
+                href="https://api-docs.poloniex.com/spot/api/private/account#account-information"
                 ><code>getAccounts</code></a
               >
             </li>
@@ -407,7 +422,7 @@
           <ul>
             <li>
               <a
-                href="https://docs.poloniex.com/#authenticated-endpoints-accounts-all-account-balances"
+                href="https://api-docs.poloniex.com/spot/api/private/account#all-account-balances"
                 ><code>getAccountBalances</code></a
               >
             </li>
@@ -418,7 +433,7 @@
           <ul>
             <li>
               <a
-                href="https://docs.poloniex.com/#authenticated-endpoints-accounts-account-activity"
+                href="https://api-docs.poloniex.com/spot/api/private/account#account-activity"
                 ><code>getAccountActivity</code></a
               >
             </li>
@@ -429,18 +444,18 @@
           <ul>
             <li>
               <a
-                href="https://docs.poloniex.com/#authenticated-endpoints-accounts-accounts-transfer"
+                href="https://api-docs.poloniex.com/spot/api/private/account#accounts-transfer"
                 ><code>transfer</code></a
               >
             </li>
           </ul>
-          <pre><code class="typescript"><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">currency</span><span class="hl-1"> = </span><span class="hl-2">&quot;USDT&quot;</span><span class="hl-1">;</span><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">amount</span><span class="hl-1"> = </span><span class="hl-2">&quot;10.5&quot;</span><span class="hl-1">;</span><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">fromAccount</span><span class="hl-1"> = </span><span class="hl-2">&quot;SPOT&quot;</span><span class="hl-1">;</span><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">toAccount</span><span class="hl-1"> = </span><span class="hl-2">&quot;FUTURES&quot;</span><span class="hl-1">;</span><br/><span class="hl-5">const</span><span class="hl-1"> { </span><span class="hl-6">transferId</span><span class="hl-1"> } = </span><span class="hl-3">await</span><span class="hl-1"> </span><span class="hl-4">client</span><span class="hl-1">.</span><span class="hl-0">transfer</span><span class="hl-1">({</span><br/><span class="hl-1">  </span><span class="hl-4">currency</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-4">amout</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-4">fromAccount</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-4">toAccount</span><span class="hl-1">,</span><br/><span class="hl-1">});</span>
+          <pre><code class="typescript"><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">currency</span><span class="hl-1"> = </span><span class="hl-2">&quot;USDT&quot;</span><span class="hl-1">;</span><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">amount</span><span class="hl-1"> = </span><span class="hl-2">&quot;10.5&quot;</span><span class="hl-1">;</span><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">fromAccount</span><span class="hl-1"> = </span><span class="hl-2">&quot;SPOT&quot;</span><span class="hl-1">;</span><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">toAccount</span><span class="hl-1"> = </span><span class="hl-2">&quot;FUTURES&quot;</span><span class="hl-1">;</span><br/><span class="hl-5">const</span><span class="hl-1"> { </span><span class="hl-6">transferId</span><span class="hl-1"> } = </span><span class="hl-3">await</span><span class="hl-1"> </span><span class="hl-4">client</span><span class="hl-1">.</span><span class="hl-0">transfer</span><span class="hl-1">({</span><br/><span class="hl-1">  </span><span class="hl-4">currency</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-4">amount</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-4">fromAccount</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-4">toAccount</span><span class="hl-1">,</span><br/><span class="hl-1">});</span>
 </code><button type="button">Copy</button></pre>
 
           <ul>
             <li>
               <a
-                href="https://docs.poloniex.com/#authenticated-endpoints-accounts-accounts-transfer-records"
+                href="https://api-docs.poloniex.com/spot/api/private/account#accounts-transfer-records"
                 ><code>getAccountTransfers</code></a
               >
             </li>
@@ -451,7 +466,18 @@
           <ul>
             <li>
               <a
-                href="https://docs.poloniex.com/#authenticated-endpoints-accounts-fee-info"
+                href="https://api-docs.poloniex.com/spot/api/private/account#accounts-transfer-records"
+                ><code>getAccountTransfer</code></a
+              >
+            </li>
+          </ul>
+          <pre><code class="typescript"><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">id</span><span class="hl-1"> = </span><span class="hl-2">&quot;23421267&quot;</span><span class="hl-1">;</span><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">transfer</span><span class="hl-1"> = </span><span class="hl-3">await</span><span class="hl-1"> </span><span class="hl-4">client</span><span class="hl-1">.</span><span class="hl-0">getAccountTransfer</span><span class="hl-1">({ </span><span class="hl-4">id</span><span class="hl-1"> });</span>
+</code><button type="button">Copy</button></pre>
+
+          <ul>
+            <li>
+              <a
+                href="https://api-docs.poloniex.com/spot/api/private/account#fee-info"
                 ><code>getFeeInfo</code></a
               >
             </li>
@@ -459,8 +485,19 @@
           <pre><code class="typescript"><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">fee_info</span><span class="hl-1"> = </span><span class="hl-3">await</span><span class="hl-1"> </span><span class="hl-4">client</span><span class="hl-1">.</span><span class="hl-0">getFeeInfo</span><span class="hl-1">();</span>
 </code><button type="button">Copy</button></pre>
 
+          <ul>
+            <li>
+              <a
+                href="https://api-docs.poloniex.com/spot/api/private/account#interest-history"
+                ><code>getInterestHistory</code></a
+              >
+            </li>
+          </ul>
+          <pre><code class="typescript"><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">startTime</span><span class="hl-1"> = </span><span class="hl-4">Date</span><span class="hl-1">.</span><span class="hl-0">now</span><span class="hl-1">() - </span><span class="hl-7">1000</span><span class="hl-1"> * </span><span class="hl-7">60</span><span class="hl-1"> * </span><span class="hl-7">60</span><span class="hl-1"> * </span><span class="hl-7">24</span><span class="hl-1"> * </span><span class="hl-7">7</span><span class="hl-1">;</span><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">endTime</span><span class="hl-1"> = </span><span class="hl-4">Date</span><span class="hl-1">.</span><span class="hl-0">now</span><span class="hl-1">();</span><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">history</span><span class="hl-1"> = </span><span class="hl-3">await</span><span class="hl-1"> </span><span class="hl-4">client</span><span class="hl-1">.</span><span class="hl-0">getInterestHistory</span><span class="hl-1">({ </span><span class="hl-4">startTime</span><span class="hl-1">, </span><span class="hl-4">endTime</span><span class="hl-1"> });</span>
+</code><button type="button">Copy</button></pre>
+
           <h4 id="wallets" class="tsd-anchor-link">
-            <a href="https://docs.poloniex.com/#authenticated-endpoints-wallets"
+            <a href="https://api-docs.poloniex.com/spot/api/private/wallet"
               >Wallets</a
             ><a href="#wallets" aria-label="Permalink" class="tsd-anchor-icon"
               ><svg viewBox="0 0 24 24" aria-hidden="true">
@@ -470,7 +507,7 @@
           <ul>
             <li>
               <a
-                href="https://docs.poloniex.com/#authenticated-endpoints-wallets-deposit-addresses"
+                href="https://api-docs.poloniex.com/spot/api/private/wallet#deposit-addresses"
                 ><code>getWallets</code></a
               >
             </li>
@@ -481,38 +518,49 @@
           <ul>
             <li>
               <a
-                href="https://docs.poloniex.com/#authenticated-endpoints-wallets-wallets-activity-records"
+                href="https://api-docs.poloniex.com/spot/api/private/wallet#wallets-activity-records"
                 ><code>getWalletsActivity</code></a
               >
             </li>
           </ul>
-          <pre><code class="typescript"><span class="hl-5">const</span><span class="hl-1"> { </span><span class="hl-6">deposits</span><span class="hl-1">, </span><span class="hl-6">withdrawals</span><span class="hl-1"> } = </span><span class="hl-3">await</span><span class="hl-1"> </span><span class="hl-4">client</span><span class="hl-1">.</span><span class="hl-0">getWalletsActivity</span><span class="hl-1">();</span>
+          <pre><code class="typescript"><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">start</span><span class="hl-1"> = </span><span class="hl-4">Date</span><span class="hl-1">.</span><span class="hl-0">now</span><span class="hl-1">() - </span><span class="hl-7">1000</span><span class="hl-1"> * </span><span class="hl-7">60</span><span class="hl-1"> * </span><span class="hl-7">60</span><span class="hl-1"> * </span><span class="hl-7">24</span><span class="hl-1">;</span><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">end</span><span class="hl-1"> = </span><span class="hl-4">Date</span><span class="hl-1">.</span><span class="hl-0">now</span><span class="hl-1">();</span><br/><span class="hl-5">const</span><span class="hl-1"> { </span><span class="hl-6">deposits</span><span class="hl-1">, </span><span class="hl-6">withdrawals</span><span class="hl-1"> } = </span><span class="hl-3">await</span><span class="hl-1"> </span><span class="hl-4">client</span><span class="hl-1">.</span><span class="hl-0">getWalletsActivity</span><span class="hl-1">({</span><br/><span class="hl-1">  </span><span class="hl-4">start</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-4">end</span><span class="hl-1">,</span><br/><span class="hl-1">});</span>
 </code><button type="button">Copy</button></pre>
 
           <ul>
             <li>
               <a
-                href="https://docs.poloniex.com/#authenticated-endpoints-wallets-new-currency-address"
+                href="https://api-docs.poloniex.com/spot/api/private/wallet#new-currency-address"
                 ><code>newAddress</code></a
               >
             </li>
           </ul>
-          <pre><code class="typescript"><span class="hl-5">const</span><span class="hl-1"> { </span><span class="hl-6">address</span><span class="hl-1"> } = </span><span class="hl-3">await</span><span class="hl-1"> </span><span class="hl-4">client</span><span class="hl-1">.</span><span class="hl-0">newAddress</span><span class="hl-1">();</span>
+          <pre><code class="typescript"><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">currency</span><span class="hl-1"> = </span><span class="hl-2">&quot;TRX&quot;</span><span class="hl-1">;</span><br/><span class="hl-5">const</span><span class="hl-1"> { </span><span class="hl-6">address</span><span class="hl-1"> } = </span><span class="hl-3">await</span><span class="hl-1"> </span><span class="hl-4">client</span><span class="hl-1">.</span><span class="hl-0">newAddress</span><span class="hl-1">({ </span><span class="hl-4">currency</span><span class="hl-1"> });</span>
 </code><button type="button">Copy</button></pre>
 
           <ul>
             <li>
               <a
-                href="https://docs.poloniex.com/#authenticated-endpoints-wallets-withdraw-currency"
+                href="https://api-docs.poloniex.com/spot/api/private/wallet#withdraw-currency"
                 ><code>withdraw</code></a
               >
             </li>
           </ul>
-          <pre><code class="typescript"><span class="hl-5">const</span><span class="hl-1"> { </span><span class="hl-6">withdrawalRequestsId</span><span class="hl-1"> } = </span><span class="hl-3">await</span><span class="hl-1"> </span><span class="hl-4">client</span><span class="hl-1">.</span><span class="hl-0">withdraw</span><span class="hl-1">();</span>
+          <pre><code class="typescript"><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">currency</span><span class="hl-1"> = </span><span class="hl-2">&quot;ETH&quot;</span><span class="hl-1">;</span><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">amount</span><span class="hl-1"> = </span><span class="hl-2">&quot;1.50&quot;</span><span class="hl-1">;</span><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">address</span><span class="hl-1"> = </span><span class="hl-2">&quot;0xbb8d0d7c346daecc2380dabaa91f3ccf8ae232fb4&quot;</span><span class="hl-1">;</span><br/><span class="hl-5">const</span><span class="hl-1"> { </span><span class="hl-6">withdrawalRequestsId</span><span class="hl-1"> } = </span><span class="hl-3">await</span><span class="hl-1"> </span><span class="hl-4">client</span><span class="hl-1">.</span><span class="hl-0">withdraw</span><span class="hl-1">({</span><br/><span class="hl-1">  </span><span class="hl-4">currency</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-4">amount</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-4">address</span><span class="hl-1">,</span><br/><span class="hl-1">});</span>
+</code><button type="button">Copy</button></pre>
+
+          <ul>
+            <li>
+              <a
+                href="https://api-docs.poloniex.com/spot/api/private/wallet#withdraw-currency-v2"
+                ><code>withdrawV2</code></a
+              >
+            </li>
+          </ul>
+          <pre><code class="typescript"><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">coin</span><span class="hl-1"> = </span><span class="hl-2">&quot;USDT&quot;</span><span class="hl-1">;</span><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">network</span><span class="hl-1"> = </span><span class="hl-2">&quot;TRX&quot;</span><span class="hl-1">;</span><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">amount</span><span class="hl-1"> = </span><span class="hl-2">&quot;100&quot;</span><span class="hl-1">;</span><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">address</span><span class="hl-1"> = </span><span class="hl-2">&quot;TXkDNMJe3b6JDRxfCgXHmKs8xGTSFB3Vkk&quot;</span><span class="hl-1">;</span><br/><span class="hl-5">const</span><span class="hl-1"> { </span><span class="hl-6">withdrawalRequestsId</span><span class="hl-1"> } = </span><span class="hl-3">await</span><span class="hl-1"> </span><span class="hl-4">client</span><span class="hl-1">.</span><span class="hl-0">withdrawV2</span><span class="hl-1">({</span><br/><span class="hl-1">  </span><span class="hl-4">coin</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-4">network</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-4">amount</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-4">address</span><span class="hl-1">,</span><br/><span class="hl-1">});</span>
 </code><button type="button">Copy</button></pre>
 
           <h4 id="margin" class="tsd-anchor-link">
-            <a href="https://docs.poloniex.com/#authenticated-endpoints-margin"
+            <a href="https://api-docs.poloniex.com/spot/api/private/margin"
               >Margin</a
             ><a href="#margin" aria-label="Permalink" class="tsd-anchor-icon"
               ><svg viewBox="0 0 24 24" aria-hidden="true">
@@ -522,7 +570,7 @@
           <ul>
             <li>
               <a
-                href="https://docs.poloniex.com/#authenticated-endpoints-margin-account-margin"
+                href="https://api-docs.poloniex.com/spot/api/private/margin#account-margin"
                 ><code>getMargin</code></a
               >
             </li>
@@ -533,7 +581,7 @@
           <ul>
             <li>
               <a
-                href="https://docs.poloniex.com/#authenticated-endpoints-margin-borrow-status"
+                href="https://api-docs.poloniex.com/spot/api/private/margin#borrow-status"
                 ><code>getBorrowStatus</code></a
               >
             </li>
@@ -544,7 +592,7 @@
           <ul>
             <li>
               <a
-                href="https://docs.poloniex.com/#authenticated-endpoints-margin-maximum-buy-sell-amount"
+                href="https://api-docs.poloniex.com/spot/api/private/margin#maximum-buy-sell-amount"
                 ><code>getMaxSize</code></a
               >
             </li>
@@ -553,7 +601,7 @@
 </code><button type="button">Copy</button></pre>
 
           <h4 id="orders" class="tsd-anchor-link">
-            <a href="https://docs.poloniex.com/#authenticated-endpoints-orders"
+            <a href="https://api-docs.poloniex.com/spot/api/private/order"
               >Orders</a
             ><a href="#orders" aria-label="Permalink" class="tsd-anchor-icon"
               ><svg viewBox="0 0 24 24" aria-hidden="true">
@@ -563,7 +611,7 @@
           <ul>
             <li>
               <a
-                href="https://docs.poloniex.com/#authenticated-endpoints-orders-create-order"
+                href="https://api-docs.poloniex.com/spot/api/private/order#create-order"
                 ><code>createOrder</code></a
               >
             </li>
@@ -578,7 +626,7 @@
           <ul>
             <li>
               <a
-                href="https://docs.poloniex.com/#authenticated-endpoints-orders-create-multiple-orders"
+                href="https://api-docs.poloniex.com/spot/api/private/order#create-multiple-orders"
                 ><code>createOrders</code></a
               >
             </li>
@@ -588,9 +636,9 @@
 
           <ul>
             <li>
-              [<code>replaceOrder</code>](<a
-                href="https://docs.poloniex.com/#authenticated-endpoints-orders-cancel-replace-order"
-                >https://docs.poloniex.com/#authenticated-endpoints-orders-cancel-replace-order</a
+              <a
+                href="https://api-docs.poloniex.com/spot/api/private/order#cancel-replace-order"
+                ><code>replaceOrder</code></a
               >
             </li>
           </ul>
@@ -604,7 +652,7 @@
           <ul>
             <li>
               <a
-                href="https://docs.poloniex.com/#authenticated-endpoints-orders-open-orders"
+                href="https://api-docs.poloniex.com/spot/api/private/order#open-orders"
                 ><code>getOpenOrders</code></a
               >
             </li>
@@ -619,7 +667,7 @@
           <ul>
             <li>
               <a
-                href="https://docs.poloniex.com/#authenticated-endpoints-orders-order-details"
+                href="https://api-docs.poloniex.com/spot/api/private/order#order-details"
                 ><code>getOrder</code></a
               >
             </li>
@@ -634,7 +682,7 @@
           <ul>
             <li>
               <a
-                href="https://docs.poloniex.com/#authenticated-endpoints-orders-cancel-order-by-id"
+                href="https://api-docs.poloniex.com/spot/api/private/order#cancel-order-by-id"
                 ><code>cancelOrder</code></a
               >
             </li>
@@ -649,7 +697,7 @@
           <ul>
             <li>
               <a
-                href="https://docs.poloniex.com/#authenticated-endpoints-orders-cancel-multiple-orders-by-ids"
+                href="https://api-docs.poloniex.com/spot/api/private/order#cancel-multiple-orders-by-ids"
                 ><code>cancelOrders</code></a
               >
             </li>
@@ -660,7 +708,7 @@
           <ul>
             <li>
               <a
-                href="https://docs.poloniex.com/#authenticated-endpoints-orders-cancel-all-orders"
+                href="https://api-docs.poloniex.com/spot/api/private/order#cancel-all-orders"
                 ><code>cancelAllOrders</code></a
               >
             </li>
@@ -675,7 +723,7 @@
           <ul>
             <li>
               <a
-                href="https://docs.poloniex.com/#authenticated-endpoints-orders-kill-switch"
+                href="https://api-docs.poloniex.com/spot/api/private/order#kill-switch"
                 ><code>killSwitch</code></a
               >
             </li>
@@ -686,7 +734,7 @@
           <ul>
             <li>
               <a
-                href="https://docs.poloniex.com/#authenticated-endpoints-orders-kill-switch-status"
+                href="https://api-docs.poloniex.com/spot/api/private/order#kill-switch-status"
                 ><code>getKillSwitch</code></a
               >
             </li>
@@ -695,8 +743,7 @@
 </code><button type="button">Copy</button></pre>
 
           <h4 id="smart-orders" class="tsd-anchor-link">
-            <a
-              href="https://docs.poloniex.com/#authenticated-endpoints-smart-orders"
+            <a href="https://api-docs.poloniex.com/spot/api/private/smart-order"
               >Smart Orders</a
             ><a
               href="#smart-orders"
@@ -709,7 +756,7 @@
           <ul>
             <li>
               <a
-                href="https://docs.poloniex.com/#authenticated-endpoints-smart-orders-create-order"
+                href="https://api-docs.poloniex.com/spot/api/private/smart-order#create-order"
                 ><code>createSmartOrder</code></a
               >
             </li>
@@ -719,23 +766,23 @@
 
           <ul>
             <li>
-              [<code>replaceSmartOrder</code>](<a
-                href="https://docs.poloniex.com/#authenticated-endpoints-smart-orders-cancel-replace-order"
-                >https://docs.poloniex.com/#authenticated-endpoints-smart-orders-cancel-replace-order</a
+              <a
+                href="https://api-docs.poloniex.com/spot/api/private/smart-order#cancel-replace-order"
+                ><code>replaceSmartOrder</code></a
               >
             </li>
           </ul>
-          <pre><code class="typescript"><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">id</span><span class="hl-1"> = </span><span class="hl-2">&quot;234235233423&quot;</span><span class="hl-1">;</span><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">stopPrice</span><span class="hl-1"> = </span><span class="hl-2">&quot;18000&quot;</span><span class="hl-1">;</span><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">clientOrderId</span><span class="hl-1"> = </span><span class="hl-2">&quot;1234Abc&quot;</span><span class="hl-1">;</span><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">response</span><span class="hl-1"> = </span><span class="hl-3">await</span><span class="hl-1"> </span><span class="hl-4">client</span><span class="hl-1">.</span><span class="hl-0">replaceOrder</span><span class="hl-1">(</span><br/><span class="hl-1">  { </span><span class="hl-4">id</span><span class="hl-1"> },</span><br/><span class="hl-1">  { </span><span class="hl-4">stopPrice</span><span class="hl-1">, </span><span class="hl-4">clientOrderId</span><span class="hl-1"> },</span><br/><span class="hl-1">);</span>
+          <pre><code class="typescript"><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">id</span><span class="hl-1"> = </span><span class="hl-2">&quot;234235233423&quot;</span><span class="hl-1">;</span><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">stopPrice</span><span class="hl-1"> = </span><span class="hl-2">&quot;18000&quot;</span><span class="hl-1">;</span><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">clientOrderId</span><span class="hl-1"> = </span><span class="hl-2">&quot;1234Abc&quot;</span><span class="hl-1">;</span><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">response</span><span class="hl-1"> = </span><span class="hl-3">await</span><span class="hl-1"> </span><span class="hl-4">client</span><span class="hl-1">.</span><span class="hl-0">replaceSmartOrder</span><span class="hl-1">(</span><br/><span class="hl-1">  { </span><span class="hl-4">id</span><span class="hl-1"> },</span><br/><span class="hl-1">  { </span><span class="hl-4">stopPrice</span><span class="hl-1">, </span><span class="hl-4">clientOrderId</span><span class="hl-1"> },</span><br/><span class="hl-1">);</span>
 </code><button type="button">Copy</button></pre>
 
           <p>or by <code>clientOrderId</code></p>
-          <pre><code class="typescript"><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">clientOrderId</span><span class="hl-1"> = </span><span class="hl-2">&quot;1234Abc&quot;</span><span class="hl-1">;</span><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">price</span><span class="hl-1"> = </span><span class="hl-2">&quot;18000&quot;</span><span class="hl-1">;</span><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">quantity</span><span class="hl-1"> = </span><span class="hl-2">&quot;20&quot;</span><span class="hl-1">;</span><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">response</span><span class="hl-1"> = </span><span class="hl-3">await</span><span class="hl-1"> </span><span class="hl-4">client</span><span class="hl-1">.</span><span class="hl-0">replaceOrder</span><span class="hl-1">(</span><br/><span class="hl-1">  { </span><span class="hl-4">clientOrderId</span><span class="hl-1"> },</span><br/><span class="hl-1">  { </span><span class="hl-4">stopPrice</span><span class="hl-1">, </span><span class="hl-4">quantity</span><span class="hl-1"> },</span><br/><span class="hl-1">);</span>
+          <pre><code class="typescript"><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">clientOrderId</span><span class="hl-1"> = </span><span class="hl-2">&quot;1234Abc&quot;</span><span class="hl-1">;</span><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">stopPrice</span><span class="hl-1"> = </span><span class="hl-2">&quot;18000&quot;</span><span class="hl-1">;</span><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">quantity</span><span class="hl-1"> = </span><span class="hl-2">&quot;20&quot;</span><span class="hl-1">;</span><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">response</span><span class="hl-1"> = </span><span class="hl-3">await</span><span class="hl-1"> </span><span class="hl-4">client</span><span class="hl-1">.</span><span class="hl-0">replaceSmartOrder</span><span class="hl-1">(</span><br/><span class="hl-1">  { </span><span class="hl-4">clientOrderId</span><span class="hl-1"> },</span><br/><span class="hl-1">  { </span><span class="hl-4">stopPrice</span><span class="hl-1">, </span><span class="hl-4">quantity</span><span class="hl-1"> },</span><br/><span class="hl-1">);</span>
 </code><button type="button">Copy</button></pre>
 
           <ul>
             <li>
               <a
-                href="https://docs.poloniex.com/#authenticated-endpoints-smart-orders-open-orders"
+                href="https://api-docs.poloniex.com/spot/api/private/smart-order#open-orders"
                 ><code>getOpenSmartOrders</code></a
               >
             </li>
@@ -750,7 +797,7 @@
           <ul>
             <li>
               <a
-                href="https://docs.poloniex.com/#authenticated-endpoints-smart-orders-cancel-order-by-id"
+                href="https://api-docs.poloniex.com/spot/api/private/smart-order#order-details"
                 ><code>getSmartOrder</code></a
               >
             </li>
@@ -765,7 +812,7 @@
           <ul>
             <li>
               <a
-                href="https://docs.poloniex.com/#authenticated-endpoints-smart-orders-cancel-order-by-id"
+                href="https://api-docs.poloniex.com/spot/api/private/smart-order#cancel-order-by-id"
                 ><code>cancelSmartOrder</code></a
               >
             </li>
@@ -780,7 +827,7 @@
           <ul>
             <li>
               <a
-                href="https://docs.poloniex.com/#authenticated-endpoints-smart-orders-cancel-multiple-orders-by-id"
+                href="https://api-docs.poloniex.com/spot/api/private/smart-order#cancel-multiple-orders-by-id"
                 ><code>cancelSmartOrders</code></a
               >
             </li>
@@ -791,7 +838,7 @@
           <ul>
             <li>
               <a
-                href="https://docs.poloniex.com/#authenticated-endpoints-smart-orders-cancel-all-orders"
+                href="https://api-docs.poloniex.com/spot/api/private/smart-order#cancel-all-orders"
                 ><code>cancelAllSmartOrders</code></a
               >
             </li>
@@ -805,7 +852,7 @@
 
           <h4 id="order-history" class="tsd-anchor-link">
             <a
-              href="https://docs.poloniex.com/#authenticated-endpoints-order-history"
+              href="https://api-docs.poloniex.com/spot/api/private/order-history"
               >Order history</a
             ><a
               href="#order-history"
@@ -818,7 +865,7 @@
           <ul>
             <li>
               <a
-                href="https://docs.poloniex.com/#authenticated-endpoints-order-history-orders-history"
+                href="https://api-docs.poloniex.com/spot/api/private/order-history#orders-history"
                 ><code>getOrders</code></a
               >
             </li>
@@ -826,8 +873,19 @@
           <pre><code class="typescript"><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">type</span><span class="hl-1"> = [</span><span class="hl-2">&quot;MARKET&quot;</span><span class="hl-1">, </span><span class="hl-2">&quot;LIMIT&quot;</span><span class="hl-1">];</span><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">side</span><span class="hl-1"> = </span><span class="hl-2">&quot;BUY&quot;</span><span class="hl-1">;</span><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">symbol</span><span class="hl-1"> = </span><span class="hl-2">&quot;TRX_USDC&quot;</span><span class="hl-1">;</span><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">states</span><span class="hl-1"> = [</span><span class="hl-2">&quot;FILLED&quot;</span><span class="hl-1">, </span><span class="hl-2">&quot;PARTIALLY_CANCELED&quot;</span><span class="hl-1">];</span><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">limit</span><span class="hl-1"> = </span><span class="hl-7">10</span><span class="hl-1">;</span><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">hideCancel</span><span class="hl-1"> = </span><span class="hl-5">true</span><span class="hl-1">;</span><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">startTime</span><span class="hl-1"> = </span><span class="hl-7">1649106321040</span><span class="hl-1">;</span><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">endTime</span><span class="hl-1"> = </span><span class="hl-7">1649427963598</span><span class="hl-1">;</span><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">orders</span><span class="hl-1"> = </span><span class="hl-3">await</span><span class="hl-1"> </span><span class="hl-4">client</span><span class="hl-1">.</span><span class="hl-0">getOrders</span><span class="hl-1">({</span><br/><span class="hl-1">  </span><span class="hl-4">type</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-4">side</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-4">symbol</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-4">states</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-4">limit</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-4">hideCancel</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-4">startTime</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-4">endTime</span><span class="hl-1">,</span><br/><span class="hl-1">});</span>
 </code><button type="button">Copy</button></pre>
 
+          <ul>
+            <li>
+              <a
+                href="https://api-docs.poloniex.com/spot/api/private/order-history#smart-orders-history"
+                ><code>getSmartOrderHistory</code></a
+              >
+            </li>
+          </ul>
+          <pre><code class="typescript"><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">type</span><span class="hl-1"> = [</span><span class="hl-2">&quot;STOP&quot;</span><span class="hl-1">, </span><span class="hl-2">&quot;STOP_LIMIT&quot;</span><span class="hl-1">];</span><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">side</span><span class="hl-1"> = </span><span class="hl-2">&quot;BUY&quot;</span><span class="hl-1">;</span><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">symbol</span><span class="hl-1"> = </span><span class="hl-2">&quot;BTC_USDT&quot;</span><span class="hl-1">;</span><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">states</span><span class="hl-1"> = [</span><span class="hl-2">&quot;FILLED&quot;</span><span class="hl-1">, </span><span class="hl-2">&quot;CANCELED&quot;</span><span class="hl-1">];</span><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">limit</span><span class="hl-1"> = </span><span class="hl-7">10</span><span class="hl-1">;</span><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">startTime</span><span class="hl-1"> = </span><span class="hl-7">1649106321040</span><span class="hl-1">;</span><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">endTime</span><span class="hl-1"> = </span><span class="hl-7">1649427963598</span><span class="hl-1">;</span><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">orders</span><span class="hl-1"> = </span><span class="hl-3">await</span><span class="hl-1"> </span><span class="hl-4">client</span><span class="hl-1">.</span><span class="hl-0">getSmartOrderHistory</span><span class="hl-1">({</span><br/><span class="hl-1">  </span><span class="hl-4">type</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-4">side</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-4">symbol</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-4">states</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-4">limit</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-4">startTime</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-4">endTime</span><span class="hl-1">,</span><br/><span class="hl-1">});</span>
+</code><button type="button">Copy</button></pre>
+
           <h4 id="trades" class="tsd-anchor-link">
-            <a href="https://docs.poloniex.com/#authenticated-endpoints-trades"
+            <a href="https://api-docs.poloniex.com/spot/api/private/trade"
               >Trades</a
             ><a href="#trades" aria-label="Permalink" class="tsd-anchor-icon"
               ><svg viewBox="0 0 24 24" aria-hidden="true">
@@ -837,7 +895,7 @@
           <ul>
             <li>
               <a
-                href="https://docs.poloniex.com/#authenticated-endpoints-trades-trade-history"
+                href="https://api-docs.poloniex.com/spot/api/private/trade#trade-history"
                 ><code>getTrades</code></a
               >
             </li>
@@ -848,7 +906,7 @@
           <ul>
             <li>
               <a
-                href="https://docs.poloniex.com/#authenticated-endpoints-trades-trades-by-order-id"
+                href="https://api-docs.poloniex.com/spot/api/private/trade#trades-by-order-id"
                 ><code>getOrderTrades</code></a
               >
             </li>
@@ -857,7 +915,7 @@
 </code><button type="button">Copy</button></pre>
 
           <h3 id="websocketclient" class="tsd-anchor-link">
-            <a href="https://docs.poloniex.com/#overview-websockets"
+            <a href="https://api-docs.poloniex.com/spot/websocket"
               >WebSocketClient</a
             ><a
               href="#websocketclient"
@@ -872,7 +930,7 @@
 
           <ul>
             <li>
-              <a href="https://docs.poloniex.com/#public-channels"
+              <a href="https://api-docs.poloniex.com/spot/websocket"
                 >connectPublicWS</a
               >
             </li>
@@ -882,7 +940,8 @@
 
           <ul>
             <li>
-              <a href="https://docs.poloniex.com/#authenticated-channels"
+              <a
+                href="https://api-docs.poloniex.com/spot/websocket/authentication"
                 >connectPrivateWS</a
               >
             </li>
@@ -892,7 +951,7 @@
 
           <ul>
             <li>
-              <a href="https://docs.poloniex.com/#public-channels"
+              <a href="https://api-docs.poloniex.com/spot/websocket"
                 >disconnectPublicWS</a
               >
             </li>
@@ -902,7 +961,8 @@
 
           <ul>
             <li>
-              <a href="https://docs.poloniex.com/#authenticated-channels"
+              <a
+                href="https://api-docs.poloniex.com/spot/websocket/authentication"
                 >disconnectPrivateWS</a
               >
             </li>
@@ -913,7 +973,7 @@
           <ul>
             <li>
               <a
-                href="https://docs.poloniex.com/#authenticated-channels-subscriptions-authentication"
+                href="https://api-docs.poloniex.com/spot/websocket/authentication"
                 >auth</a
               >
             </li>
@@ -923,8 +983,7 @@
 
           <ul>
             <li>
-              <a
-                href="https://docs.poloniex.com/#overview-div-style-display-none-websockets-div-heartbeats"
+              <a href="https://api-docs.poloniex.com/spot/websocket#heartbeats"
                 >pingPublic</a
               >
             </li>
@@ -934,8 +993,7 @@
 
           <ul>
             <li>
-              <a
-                href="https://docs.poloniex.com/#overview-div-style-display-none-websockets-div-heartbeats"
+              <a href="https://api-docs.poloniex.com/spot/websocket#heartbeats"
                 >pingPrivate</a
               >
             </li>
@@ -945,8 +1003,7 @@
 
           <ul>
             <li>
-              <a
-                href="https://docs.poloniex.com/#overview-div-style-display-none-websockets-div-subscriptions-unsubscribe"
+              <a href="https://api-docs.poloniex.com/spot/websocket#unsubscribe"
                 >unsubscribePublic</a
               >
             </li>
@@ -956,8 +1013,7 @@
 
           <ul>
             <li>
-              <a
-                href="https://docs.poloniex.com/#overview-div-style-display-none-websockets-div-subscriptions-unsubscribe"
+              <a href="https://api-docs.poloniex.com/spot/websocket#unsubscribe"
                 >unsubscribePrivate</a
               >
             </li>
@@ -968,7 +1024,7 @@
           <ul>
             <li>
               <a
-                href="https://docs.poloniex.com/#overview-div-style-display-none-websockets-div-subscriptions-list-subscriptions"
+                href="https://api-docs.poloniex.com/spot/websocket#list-subscriptions"
                 >getPublicSubscriptions</a
               >
             </li>
@@ -979,7 +1035,7 @@
           <ul>
             <li>
               <a
-                href="https://docs.poloniex.com/#overview-div-style-display-none-websockets-div-subscriptions-list-subscriptions"
+                href="https://api-docs.poloniex.com/spot/websocket#list-subscriptions"
                 >getPrivateSubscriptions</a
               >
             </li>
@@ -990,7 +1046,7 @@
           <ul>
             <li>
               <a
-                href="https://docs.poloniex.com/#overview-div-style-display-none-websockets-div-subscriptions-list-subscriptions"
+                href="https://api-docs.poloniex.com/spot/websocket#subscriptions"
                 ><code>send</code></a
               >
             </li>
@@ -1004,7 +1060,7 @@
 
           <h4 id="candlesticks" class="tsd-anchor-link">
             <a
-              href="https://docs.poloniex.com/#public-channels-subscriptions-candlesticks"
+              href="https://api-docs.poloniex.com/spot/websocket/market-data#candlesticks"
               >Candlesticks</a
             ><a
               href="#candlesticks"
@@ -1017,24 +1073,24 @@
           <ul>
             <li><code>subscribeCandles</code></li>
           </ul>
-          <pre><code class="typescript"><span class="hl-3">await</span><span class="hl-1"> </span><span class="hl-4">client</span><span class="hl-1">.</span><span class="hl-0">subscribeCandles</span><span class="hl-1">();</span>
+          <pre><code class="typescript"><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">channel</span><span class="hl-1"> = </span><span class="hl-2">&quot;candles_day_1&quot;</span><span class="hl-1">;</span><br/><span class="hl-3">await</span><span class="hl-1"> </span><span class="hl-4">client</span><span class="hl-1">.</span><span class="hl-0">subscribeCandles</span><span class="hl-1">({ </span><span class="hl-4">channel</span><span class="hl-1"> });</span>
 </code><button type="button">Copy</button></pre>
 
           <ul>
             <li><code>unsubscribeCandles</code></li>
           </ul>
-          <pre><code class="typescript"><span class="hl-3">await</span><span class="hl-1"> </span><span class="hl-4">client</span><span class="hl-1">.</span><span class="hl-0">unsubscribeCandles</span><span class="hl-1">();</span>
+          <pre><code class="typescript"><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">channel</span><span class="hl-1"> = </span><span class="hl-2">&quot;candles_day_1&quot;</span><span class="hl-1">;</span><br/><span class="hl-3">await</span><span class="hl-1"> </span><span class="hl-4">client</span><span class="hl-1">.</span><span class="hl-0">unsubscribeCandles</span><span class="hl-1">({ </span><span class="hl-4">channel</span><span class="hl-1"> });</span>
 </code><button type="button">Copy</button></pre>
 
           <ul>
             <li><code>candles</code></li>
           </ul>
-          <pre><code class="typescript"><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">channel</span><span class="hl-1"> = </span><span class="hl-2">&quot;candles_day_1&quot;</span><span class="hl-1">;</span><br/><span class="hl-3">for</span><span class="hl-1"> </span><span class="hl-3">await</span><span class="hl-1"> (</span><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">candle</span><span class="hl-1"> </span><span class="hl-5">of</span><span class="hl-1"> </span><span class="hl-4">client</span><span class="hl-1">.</span><span class="hl-0">candles</span><span class="hl-1">()) {</span><br/><span class="hl-1">  </span><span class="hl-4">console</span><span class="hl-1">.</span><span class="hl-0">log</span><span class="hl-1">(</span><span class="hl-4">candle</span><span class="hl-1">);</span><br/><span class="hl-1">}</span>
+          <pre><code class="typescript"><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">channel</span><span class="hl-1"> = </span><span class="hl-2">&quot;candles_day_1&quot;</span><span class="hl-1">;</span><br/><span class="hl-3">for</span><span class="hl-1"> </span><span class="hl-3">await</span><span class="hl-1"> (</span><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">candle</span><span class="hl-1"> </span><span class="hl-5">of</span><span class="hl-1"> </span><span class="hl-4">client</span><span class="hl-1">.</span><span class="hl-0">candles</span><span class="hl-1">({ </span><span class="hl-4">channel</span><span class="hl-1"> })) {</span><br/><span class="hl-1">  </span><span class="hl-4">console</span><span class="hl-1">.</span><span class="hl-0">log</span><span class="hl-1">(</span><span class="hl-4">candle</span><span class="hl-1">);</span><br/><span class="hl-1">}</span>
 </code><button type="button">Copy</button></pre>
 
           <h4 id="trades-1" class="tsd-anchor-link">
             <a
-              href="https://docs.poloniex.com/#public-channels-subscriptions-trades"
+              href="https://api-docs.poloniex.com/spot/websocket/market-data#trades"
               >Trades</a
             ><a href="#trades-1" aria-label="Permalink" class="tsd-anchor-icon"
               ><svg viewBox="0 0 24 24" aria-hidden="true">
@@ -1061,7 +1117,7 @@
 
           <h4 id="ticker" class="tsd-anchor-link">
             <a
-              href="https://docs.poloniex.com/#public-channels-subscriptions-ticker"
+              href="https://api-docs.poloniex.com/spot/websocket/market-data#ticker"
               >Ticker</a
             ><a href="#ticker" aria-label="Permalink" class="tsd-anchor-icon"
               ><svg viewBox="0 0 24 24" aria-hidden="true">
@@ -1088,7 +1144,7 @@
 
           <h4 id="book" class="tsd-anchor-link">
             <a
-              href="https://docs.poloniex.com/#public-channels-subscriptions-book"
+              href="https://api-docs.poloniex.com/spot/websocket/market-data#book"
               >Book</a
             ><a href="#book" aria-label="Permalink" class="tsd-anchor-icon"
               ><svg viewBox="0 0 24 24" aria-hidden="true">
@@ -1115,7 +1171,7 @@
 
           <h4 id="book-level-2" class="tsd-anchor-link">
             <a
-              href="https://docs.poloniex.com/#public-channels-subscriptions-book-level-2"
+              href="https://api-docs.poloniex.com/spot/websocket/market-data#book-level-2"
               >Book Level 2</a
             ><a
               href="#book-level-2"
@@ -1144,8 +1200,7 @@
 </code><button type="button">Copy</button></pre>
 
           <h4 id="orders-1" class="tsd-anchor-link">
-            <a
-              href="https://docs.poloniex.com/#authenticated-channels-subscriptions-orders"
+            <a href="https://api-docs.poloniex.com/spot/websocket/order"
               >Orders</a
             ><a href="#orders-1" aria-label="Permalink" class="tsd-anchor-icon"
               ><svg viewBox="0 0 24 24" aria-hidden="true">
@@ -1171,8 +1226,7 @@
 </code><button type="button">Copy</button></pre>
 
           <h4 id="balances" class="tsd-anchor-link">
-            <a
-              href="https://docs.poloniex.com/#authenticated-channels-subscriptions-balances"
+            <a href="https://api-docs.poloniex.com/spot/websocket/balance"
               >Balances</a
             ><a href="#balances" aria-label="Permalink" class="tsd-anchor-icon"
               ><svg viewBox="0 0 24 24" aria-hidden="true">

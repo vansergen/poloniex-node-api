@@ -93,9 +93,27 @@
           <span class="tsd-kind-interface">ISmartOrderOptions</span>
           <span class="tsd-signature-symbol">{</span><br />    <a
             class="tsd-kind-property"
+            href="#limitoffset"
+            >limitOffset</a
+          ><span class="tsd-signature-symbol">?:</span>
+          <span class="tsd-signature-type">string</span
+          ><span class="tsd-signature-symbol">;</span><br />    <a
+            class="tsd-kind-property"
+            href="#operator"
+            >operator</a
+          ><span class="tsd-signature-symbol">?:</span>
+          <span class="tsd-signature-type">string</span
+          ><span class="tsd-signature-symbol">;</span><br />    <a
+            class="tsd-kind-property"
             href="#stopprice"
             >stopPrice</a
           ><span class="tsd-signature-symbol">:</span>
+          <span class="tsd-signature-type">string</span
+          ><span class="tsd-signature-symbol">;</span><br />    <a
+            class="tsd-kind-property"
+            href="#trailingoffset"
+            >trailingOffset</a
+          ><span class="tsd-signature-symbol">?:</span>
           <span class="tsd-signature-type">string</span
           ><span class="tsd-signature-symbol">;</span><br />    <a
             class="tsd-kind-property"
@@ -110,8 +128,6 @@
           ><span class="tsd-signature-symbol">:</span>
           <span class="tsd-signature-type">string</span
           ><span class="tsd-signature-symbol">]:</span>
-          <span class="tsd-signature-type">undefined</span>
-          <span class="tsd-signature-symbol">|</span>
           <span class="tsd-signature-type">string</span>
           <span class="tsd-signature-symbol">|</span>
           <span class="tsd-signature-type">number</span>
@@ -119,7 +135,9 @@
           <span class="tsd-signature-type">boolean</span>
           <span class="tsd-signature-symbol">|</span>
           <span class="tsd-signature-type">string</span
-          ><span class="tsd-signature-symbol">[]</span
+          ><span class="tsd-signature-symbol">[]</span>
+          <span class="tsd-signature-symbol">|</span>
+          <span class="tsd-signature-type">undefined</span
           ><span class="tsd-signature-symbol">;</span><br />    <span
             class="tsd-signature-symbol"
             >[</span
@@ -127,8 +145,6 @@
           ><span class="tsd-signature-symbol">:</span>
           <span class="tsd-signature-type">number</span
           ><span class="tsd-signature-symbol">]:</span>
-          <span class="tsd-signature-type">undefined</span>
-          <span class="tsd-signature-symbol">|</span>
           <span class="tsd-signature-type">string</span>
           <span class="tsd-signature-symbol">|</span>
           <span class="tsd-signature-type">number</span>
@@ -136,13 +152,15 @@
           <span class="tsd-signature-type">boolean</span>
           <span class="tsd-signature-symbol">|</span>
           <span class="tsd-signature-type">string</span
-          ><span class="tsd-signature-symbol">[]</span
+          ><span class="tsd-signature-symbol">[]</span>
+          <span class="tsd-signature-symbol">|</span>
+          <span class="tsd-signature-type">undefined</span
           ><span class="tsd-signature-symbol">;</span><br /><span
             class="tsd-signature-symbol"
             >}</span
           >
         </div>
-        <section class="tsd-panel tsd-hierarchy" data-refl="385">
+        <section class="tsd-panel tsd-hierarchy" data-refl="434">
           <h4>Hierarchy</h4>
           <ul class="tsd-hierarchy">
             <li class="tsd-hierarchy-item">
@@ -174,8 +192,6 @@
                 ><span class="tsd-kind-parameter">key</span>:
                 <span class="tsd-signature-type">string</span
                 ><span class="tsd-signature-symbol">]:</span>
-                <span class="tsd-signature-type">undefined</span>
-                <span class="tsd-signature-symbol">|</span>
                 <span class="tsd-signature-type">string</span>
                 <span class="tsd-signature-symbol">|</span>
                 <span class="tsd-signature-type">number</span>
@@ -184,6 +200,8 @@
                 <span class="tsd-signature-symbol">|</span>
                 <span class="tsd-signature-type">string</span
                 ><span class="tsd-signature-symbol">[]</span>
+                <span class="tsd-signature-symbol">|</span>
+                <span class="tsd-signature-type">undefined</span>
               </div>
             </li>
             <li class="tsd-index-signature">
@@ -192,8 +210,6 @@
                 ><span class="tsd-kind-parameter">key</span>:
                 <span class="tsd-signature-type">number</span
                 ><span class="tsd-signature-symbol">]:</span>
-                <span class="tsd-signature-type">undefined</span>
-                <span class="tsd-signature-symbol">|</span>
                 <span class="tsd-signature-type">string</span>
                 <span class="tsd-signature-symbol">|</span>
                 <span class="tsd-signature-type">number</span>
@@ -202,6 +218,8 @@
                 <span class="tsd-signature-symbol">|</span>
                 <span class="tsd-signature-type">string</span
                 ><span class="tsd-signature-symbol">[]</span>
+                <span class="tsd-signature-symbol">|</span>
+                <span class="tsd-signature-type">undefined</span>
               </div>
             </li>
           </ul>
@@ -211,8 +229,8 @@
             <li>
               Defined in
               <a
-                href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L62"
-                >src/auth.ts:62</a
+                href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L81"
+                >src/auth.ts:81</a
               >
             </li>
           </ul>
@@ -236,6 +254,24 @@
                 <section class="tsd-index-section">
                   <h3 class="tsd-index-heading">Properties</h3>
                   <div class="tsd-index-list">
+                    <a href="#limitoffset" class="tsd-index-link"
+                      ><svg
+                        class="tsd-kind-icon"
+                        viewBox="0 0 24 24"
+                        aria-label="Property"
+                      >
+                        <use href="../assets/icons.svg#icon-1024"></use></svg
+                      ><span>limit<wbr />Offset?</span></a
+                    >
+                    <a href="#operator" class="tsd-index-link"
+                      ><svg
+                        class="tsd-kind-icon"
+                        viewBox="0 0 24 24"
+                        aria-label="Property"
+                      >
+                        <use href="../assets/icons.svg#icon-1024"></use></svg
+                      ><span>operator?</span></a
+                    >
                     <a href="#stopprice" class="tsd-index-link"
                       ><svg
                         class="tsd-kind-icon"
@@ -244,6 +280,15 @@
                       >
                         <use href="../assets/icons.svg#icon-1024"></use></svg
                       ><span>stop<wbr />Price</span></a
+                    >
+                    <a href="#trailingoffset" class="tsd-index-link"
+                      ><svg
+                        class="tsd-kind-icon"
+                        viewBox="0 0 24 24"
+                        aria-label="Property"
+                      >
+                        <use href="../assets/icons.svg#icon-1024"></use></svg
+                      ><span>trailing<wbr />Offset?</span></a
                     >
                     <a href="#type" class="tsd-index-link"
                       ><svg
@@ -275,6 +320,63 @@
           </summary>
           <section>
             <section class="tsd-panel tsd-member">
+              <h3 class="tsd-anchor-link" id="limitoffset">
+                <code class="tsd-tag">Optional</code
+                ><span>limit<wbr />Offset</span
+                ><a
+                  href="#limitoffset"
+                  aria-label="Permalink"
+                  class="tsd-anchor-icon"
+                  ><svg viewBox="0 0 24 24" aria-hidden="true">
+                    <use href="../assets/icons.svg#icon-anchor"></use></svg
+                ></a>
+              </h3>
+              <div class="tsd-signature">
+                <span class="tsd-kind-property">limitOffset</span
+                ><span class="tsd-signature-symbol">?:</span>
+                <span class="tsd-signature-type">string</span>
+              </div>
+              <aside class="tsd-sources">
+                <ul>
+                  <li>
+                    Defined in
+                    <a
+                      href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L88"
+                      >src/auth.ts:88</a
+                    >
+                  </li>
+                </ul>
+              </aside>
+            </section>
+            <section class="tsd-panel tsd-member">
+              <h3 class="tsd-anchor-link" id="operator">
+                <code class="tsd-tag">Optional</code><span>operator</span
+                ><a
+                  href="#operator"
+                  aria-label="Permalink"
+                  class="tsd-anchor-icon"
+                  ><svg viewBox="0 0 24 24" aria-hidden="true">
+                    <use href="../assets/icons.svg#icon-anchor"></use></svg
+                ></a>
+              </h3>
+              <div class="tsd-signature">
+                <span class="tsd-kind-property">operator</span
+                ><span class="tsd-signature-symbol">?:</span>
+                <span class="tsd-signature-type">string</span>
+              </div>
+              <aside class="tsd-sources">
+                <ul>
+                  <li>
+                    Defined in
+                    <a
+                      href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L89"
+                      >src/auth.ts:89</a
+                    >
+                  </li>
+                </ul>
+              </aside>
+            </section>
+            <section class="tsd-panel tsd-member">
               <h3 class="tsd-anchor-link" id="stopprice">
                 <span>stop<wbr />Price</span
                 ><a
@@ -295,8 +397,37 @@
                   <li>
                     Defined in
                     <a
-                      href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L64"
-                      >src/auth.ts:64</a
+                      href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L85"
+                      >src/auth.ts:85</a
+                    >
+                  </li>
+                </ul>
+              </aside>
+            </section>
+            <section class="tsd-panel tsd-member">
+              <h3 class="tsd-anchor-link" id="trailingoffset">
+                <code class="tsd-tag">Optional</code
+                ><span>trailing<wbr />Offset</span
+                ><a
+                  href="#trailingoffset"
+                  aria-label="Permalink"
+                  class="tsd-anchor-icon"
+                  ><svg viewBox="0 0 24 24" aria-hidden="true">
+                    <use href="../assets/icons.svg#icon-anchor"></use></svg
+                ></a>
+              </h3>
+              <div class="tsd-signature">
+                <span class="tsd-kind-property">trailingOffset</span
+                ><span class="tsd-signature-symbol">?:</span>
+                <span class="tsd-signature-type">string</span>
+              </div>
+              <aside class="tsd-sources">
+                <ul>
+                  <li>
+                    Defined in
+                    <a
+                      href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L87"
+                      >src/auth.ts:87</a
                     >
                   </li>
                 </ul>
@@ -320,8 +451,8 @@
                   <li>
                     Defined in
                     <a
-                      href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L65"
-                      >src/auth.ts:65</a
+                      href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L86"
+                      >src/auth.ts:86</a
                     >
                   </li>
                 </ul>
@@ -490,7 +621,23 @@
                   >Properties
                 </summary>
                 <div>
-                  <a href="#stopprice"
+                  <a href="#limitoffset"
+                    ><svg
+                      class="tsd-kind-icon"
+                      viewBox="0 0 24 24"
+                      aria-label="Property"
+                    >
+                      <use href="../assets/icons.svg#icon-1024"></use></svg
+                    ><span>limit<wbr />Offset</span></a
+                  ><a href="#operator"
+                    ><svg
+                      class="tsd-kind-icon"
+                      viewBox="0 0 24 24"
+                      aria-label="Property"
+                    >
+                      <use href="../assets/icons.svg#icon-1024"></use></svg
+                    ><span>operator</span></a
+                  ><a href="#stopprice"
                     ><svg
                       class="tsd-kind-icon"
                       viewBox="0 0 24 24"
@@ -498,6 +645,14 @@
                     >
                       <use href="../assets/icons.svg#icon-1024"></use></svg
                     ><span>stop<wbr />Price</span></a
+                  ><a href="#trailingoffset"
+                    ><svg
+                      class="tsd-kind-icon"
+                      viewBox="0 0 24 24"
+                      aria-label="Property"
+                    >
+                      <use href="../assets/icons.svg#icon-1024"></use></svg
+                    ><span>trailing<wbr />Offset</span></a
                   ><a href="#type"
                     ><svg
                       class="tsd-kind-icon"

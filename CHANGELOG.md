@@ -1,5 +1,23 @@
 # Changelog
 
+## [9.0.0](https://github.com/vansergen/poloniex-node-api/compare/v8.0.3...v9.0.0) (2026-05-22)
+
+### ⚠ BREAKING CHANGES
+
+- drop Node.js `<24.16.0` support
+
+### Features
+
+- add missing API methods ([b7fbaed](https://github.com/vansergen/poloniex-node-api/commit/b7fbaedd10b9849e3d65665a620a1eb004b43d62))
+
+### Performance Improvements
+
+- drop Node.js `<24.16.0` support ([555ece9](https://github.com/vansergen/poloniex-node-api/commit/555ece9076654c0e1c5fadedb1b83987682007e0))
+
+### Dependencies
+
+- bump `ws` to `v8.21.0` ([c951590](https://github.com/vansergen/poloniex-node-api/commit/c9515906742e794046de3510d4d0b0f2e9b94dd3))
+
 ## [8.0.3](https://github.com/vansergen/poloniex-node-api/compare/v8.0.2...v8.0.3) (2025-07-29)
 
 ### Dependencies

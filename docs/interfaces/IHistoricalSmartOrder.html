@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="x-ua-compatible" content="IE=edge" />
-    <title>ICandle | poloniex-node-api</title>
+    <title>IHistoricalSmartOrder | poloniex-node-api</title>
     <meta name="description" content="Documentation for poloniex-node-api" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="../assets/style.css" />
@@ -84,14 +84,29 @@
       <div class="col-content">
         <div class="tsd-page-title">
           <ul class="tsd-breadcrumb" aria-label="Breadcrumb">
-            <li><a href="" aria-current="page">ICandle</a></li>
+            <li><a href="" aria-current="page">IHistoricalSmartOrder</a></li>
           </ul>
-          <h1>Interface ICandle</h1>
+          <h1>Interface IHistoricalSmartOrder</h1>
         </div>
         <div class="tsd-signature">
           <span class="tsd-signature-keyword">interface</span>
-          <span class="tsd-kind-interface">ICandle</span>
+          <span class="tsd-kind-interface">IHistoricalSmartOrder</span>
           <span class="tsd-signature-symbol">{</span><br />    <a
+            class="tsd-kind-property"
+            href="#accounttype"
+            >accountType</a
+          ><span class="tsd-signature-symbol">:</span>
+          <a
+            href="../types/IAccountType.html"
+            class="tsd-signature-type tsd-kind-type-alias"
+            >IAccountType</a
+          ><span class="tsd-signature-symbol">;</span><br />    <a
+            class="tsd-kind-property"
+            href="#activationprice"
+            >activationPrice</a
+          ><span class="tsd-signature-symbol">?:</span>
+          <span class="tsd-signature-type">string</span
+          ><span class="tsd-signature-symbol">;</span><br />    <a
             class="tsd-kind-property"
             href="#amount"
             >amount</a
@@ -99,79 +114,38 @@
           <span class="tsd-signature-type">string</span
           ><span class="tsd-signature-symbol">;</span><br />    <a
             class="tsd-kind-property"
-            href="#buytakeramount"
-            >buyTakerAmount</a
+            href="#clientorderid"
+            >clientOrderId</a
           ><span class="tsd-signature-symbol">:</span>
           <span class="tsd-signature-type">string</span
           ><span class="tsd-signature-symbol">;</span><br />    <a
             class="tsd-kind-property"
-            href="#buytakerquantity"
-            >buyTakerQuantity</a
-          ><span class="tsd-signature-symbol">:</span>
-          <span class="tsd-signature-type">string</span
-          ><span class="tsd-signature-symbol">;</span><br />    <a
-            class="tsd-kind-property"
-            href="#close"
-            >close</a
-          ><span class="tsd-signature-symbol">:</span>
-          <span class="tsd-signature-type">string</span
-          ><span class="tsd-signature-symbol">;</span><br />    <a
-            class="tsd-kind-property"
-            href="#closetime"
-            >closeTime</a
+            href="#createtime"
+            >createTime</a
           ><span class="tsd-signature-symbol">:</span>
           <span class="tsd-signature-type">number</span
           ><span class="tsd-signature-symbol">;</span><br />    <a
             class="tsd-kind-property"
-            href="#high"
-            >high</a
+            href="#id"
+            >id</a
           ><span class="tsd-signature-symbol">:</span>
           <span class="tsd-signature-type">string</span
           ><span class="tsd-signature-symbol">;</span><br />    <a
             class="tsd-kind-property"
-            href="#interval"
-            >interval</a
-          ><span class="tsd-signature-symbol">:</span><br />        <span
-            class="tsd-signature-symbol"
-            >|</span
-          >
-          <span class="tsd-signature-type">&quot;DAY_1&quot;</span
-          ><br />        <span class="tsd-signature-symbol">|</span>
-          <span class="tsd-signature-type">&quot;DAY_3&quot;</span
-          ><br />        <span class="tsd-signature-symbol">|</span>
-          <span class="tsd-signature-type">&quot;HOUR_1&quot;</span
-          ><br />        <span class="tsd-signature-symbol">|</span>
-          <span class="tsd-signature-type">&quot;HOUR_2&quot;</span
-          ><br />        <span class="tsd-signature-symbol">|</span>
-          <span class="tsd-signature-type">&quot;HOUR_4&quot;</span
-          ><br />        <span class="tsd-signature-symbol">|</span>
-          <span class="tsd-signature-type">&quot;HOUR_6&quot;</span
-          ><br />        <span class="tsd-signature-symbol">|</span>
-          <span class="tsd-signature-type">&quot;HOUR_12&quot;</span
-          ><br />        <span class="tsd-signature-symbol">|</span>
-          <span class="tsd-signature-type">&quot;MINUTE_1&quot;</span
-          ><br />        <span class="tsd-signature-symbol">|</span>
-          <span class="tsd-signature-type">&quot;MINUTE_5&quot;</span
-          ><br />        <span class="tsd-signature-symbol">|</span>
-          <span class="tsd-signature-type">&quot;MINUTE_10&quot;</span
-          ><br />        <span class="tsd-signature-symbol">|</span>
-          <span class="tsd-signature-type">&quot;MINUTE_15&quot;</span
-          ><br />        <span class="tsd-signature-symbol">|</span>
-          <span class="tsd-signature-type">&quot;MINUTE_30&quot;</span
-          ><br />        <span class="tsd-signature-symbol">|</span>
-          <span class="tsd-signature-type">&quot;MONTH_1&quot;</span
-          ><br />        <span class="tsd-signature-symbol">|</span>
-          <span class="tsd-signature-type">&quot;WEEK_1&quot;</span
-          ><span class="tsd-signature-symbol">;</span><br />    <a
-            class="tsd-kind-property"
-            href="#low"
-            >low</a
-          ><span class="tsd-signature-symbol">:</span>
+            href="#limitoffset"
+            >limitOffset</a
+          ><span class="tsd-signature-symbol">?:</span>
           <span class="tsd-signature-type">string</span
           ><span class="tsd-signature-symbol">;</span><br />    <a
             class="tsd-kind-property"
-            href="#open"
-            >open</a
+            href="#operator"
+            >operator</a
+          ><span class="tsd-signature-symbol">?:</span>
+          <span class="tsd-signature-type">string</span
+          ><span class="tsd-signature-symbol">;</span><br />    <a
+            class="tsd-kind-property"
+            href="#price"
+            >price</a
           ><span class="tsd-signature-symbol">:</span>
           <span class="tsd-signature-type">string</span
           ><span class="tsd-signature-symbol">;</span><br />    <a
@@ -182,40 +156,95 @@
           <span class="tsd-signature-type">string</span
           ><span class="tsd-signature-symbol">;</span><br />    <a
             class="tsd-kind-property"
-            href="#starttime"
-            >startTime</a
+            href="#side"
+            >side</a
           ><span class="tsd-signature-symbol">:</span>
-          <span class="tsd-signature-type">number</span
+          <a
+            href="../types/ISide.html"
+            class="tsd-signature-type tsd-kind-type-alias"
+            >ISide</a
           ><span class="tsd-signature-symbol">;</span><br />    <a
             class="tsd-kind-property"
-            href="#tradecount"
-            >tradeCount</a
+            href="#state"
+            >state</a
           ><span class="tsd-signature-symbol">:</span>
-          <span class="tsd-signature-type">number</span
+          <span class="tsd-signature-type">IHistorySmartOrderState</span
           ><span class="tsd-signature-symbol">;</span><br />    <a
             class="tsd-kind-property"
-            href="#ts"
-            >ts</a
-          ><span class="tsd-signature-symbol">:</span>
-          <span class="tsd-signature-type">number</span
-          ><span class="tsd-signature-symbol">;</span><br />    <a
-            class="tsd-kind-property"
-            href="#weightedaverage"
-            >weightedAverage</a
+            href="#stopprice"
+            >stopPrice</a
           ><span class="tsd-signature-symbol">:</span>
           <span class="tsd-signature-type">string</span
+          ><span class="tsd-signature-symbol">;</span><br />    <a
+            class="tsd-kind-property"
+            href="#symbol"
+            >symbol</a
+          ><span class="tsd-signature-symbol">:</span>
+          <span class="tsd-signature-type">string</span
+          ><span class="tsd-signature-symbol">;</span><br />    <a
+            class="tsd-kind-property"
+            href="#timeinforce"
+            >timeInForce</a
+          ><span class="tsd-signature-symbol">:</span>
+          <a
+            href="../types/ITimeInForce.html"
+            class="tsd-signature-type tsd-kind-type-alias"
+            >ITimeInForce</a
+          ><span class="tsd-signature-symbol">;</span><br />    <a
+            class="tsd-kind-property"
+            href="#trailingoffset"
+            >trailingOffset</a
+          ><span class="tsd-signature-symbol">?:</span>
+          <span class="tsd-signature-type">string</span
+          ><span class="tsd-signature-symbol">;</span><br />    <a
+            class="tsd-kind-property"
+            href="#type"
+            >type</a
+          ><span class="tsd-signature-symbol">:</span>
+          <span class="tsd-signature-type">ISmartOrderType</span
+          ><span class="tsd-signature-symbol">;</span><br />    <a
+            class="tsd-kind-property"
+            href="#updatetime"
+            >updateTime</a
+          ><span class="tsd-signature-symbol">:</span>
+          <span class="tsd-signature-type">number</span
           ><span class="tsd-signature-symbol">;</span><br /><span
             class="tsd-signature-symbol"
             >}</span
           >
         </div>
+        <section class="tsd-panel tsd-hierarchy" data-refl="708">
+          <h4>Hierarchy</h4>
+          <ul class="tsd-hierarchy">
+            <li class="tsd-hierarchy-item">
+              <span class="tsd-signature-type">Omit</span
+              ><span class="tsd-signature-symbol">&lt;</span
+              ><a
+                href="ISmartOrder.html"
+                class="tsd-signature-type tsd-kind-interface"
+                >ISmartOrder</a
+              ><span class="tsd-signature-symbol">,</span>
+              <span class="tsd-signature-type">&quot;state&quot;</span>
+              <span class="tsd-signature-symbol">|</span>
+              <span class="tsd-signature-type">&quot;triggeredOrder&quot;</span
+              ><span class="tsd-signature-symbol">&gt;</span>
+              <ul class="tsd-hierarchy">
+                <li class="tsd-hierarchy-item">
+                  <span class="tsd-hierarchy-target"
+                    >IHistoricalSmartOrder</span
+                  >
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </section>
         <aside class="tsd-sources">
           <ul>
             <li>
               Defined in
               <a
-                href="https://github.com/vansergen/poloniex-node-api/blob/main/src/public.ts#L184"
-                >src/public.ts:184</a
+                href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L364"
+                >src/auth.ts:364</a
               >
             </li>
           </ul>
@@ -239,7 +268,29 @@
                 <section class="tsd-index-section">
                   <h3 class="tsd-index-heading">Properties</h3>
                   <div class="tsd-index-list">
-                    <a href="#amount" class="tsd-index-link"
+                    <a
+                      href="#accounttype"
+                      class="tsd-index-link tsd-is-inherited"
+                      ><svg
+                        class="tsd-kind-icon"
+                        viewBox="0 0 24 24"
+                        aria-label="Property"
+                      >
+                        <use href="../assets/icons.svg#icon-1024"></use></svg
+                      ><span>account<wbr />Type</span></a
+                    >
+                    <a
+                      href="#activationprice"
+                      class="tsd-index-link tsd-is-inherited"
+                      ><svg
+                        class="tsd-kind-icon"
+                        viewBox="0 0 24 24"
+                        aria-label="Property"
+                      >
+                        <use href="../assets/icons.svg#icon-1024"></use></svg
+                      ><span>activation<wbr />Price?</span></a
+                    >
+                    <a href="#amount" class="tsd-index-link tsd-is-inherited"
                       ><svg
                         class="tsd-kind-icon"
                         viewBox="0 0 24 24"
@@ -248,79 +299,67 @@
                         <use href="../assets/icons.svg#icon-1024"></use></svg
                       ><span>amount</span></a
                     >
-                    <a href="#buytakeramount" class="tsd-index-link"
+                    <a
+                      href="#clientorderid"
+                      class="tsd-index-link tsd-is-inherited"
                       ><svg
                         class="tsd-kind-icon"
                         viewBox="0 0 24 24"
                         aria-label="Property"
                       >
                         <use href="../assets/icons.svg#icon-1024"></use></svg
-                      ><span>buy<wbr />Taker<wbr />Amount</span></a
+                      ><span>client<wbr />Order<wbr />Id</span></a
                     >
-                    <a href="#buytakerquantity" class="tsd-index-link"
+                    <a
+                      href="#createtime"
+                      class="tsd-index-link tsd-is-inherited"
                       ><svg
                         class="tsd-kind-icon"
                         viewBox="0 0 24 24"
                         aria-label="Property"
                       >
                         <use href="../assets/icons.svg#icon-1024"></use></svg
-                      ><span>buy<wbr />Taker<wbr />Quantity</span></a
+                      ><span>create<wbr />Time</span></a
                     >
-                    <a href="#close" class="tsd-index-link"
+                    <a href="#id" class="tsd-index-link tsd-is-inherited"
                       ><svg
                         class="tsd-kind-icon"
                         viewBox="0 0 24 24"
                         aria-label="Property"
                       >
                         <use href="../assets/icons.svg#icon-1024"></use></svg
-                      ><span>close</span></a
+                      ><span>id</span></a
                     >
-                    <a href="#closetime" class="tsd-index-link"
+                    <a
+                      href="#limitoffset"
+                      class="tsd-index-link tsd-is-inherited"
                       ><svg
                         class="tsd-kind-icon"
                         viewBox="0 0 24 24"
                         aria-label="Property"
                       >
                         <use href="../assets/icons.svg#icon-1024"></use></svg
-                      ><span>close<wbr />Time</span></a
+                      ><span>limit<wbr />Offset?</span></a
                     >
-                    <a href="#high" class="tsd-index-link"
+                    <a href="#operator" class="tsd-index-link tsd-is-inherited"
                       ><svg
                         class="tsd-kind-icon"
                         viewBox="0 0 24 24"
                         aria-label="Property"
                       >
                         <use href="../assets/icons.svg#icon-1024"></use></svg
-                      ><span>high</span></a
+                      ><span>operator?</span></a
                     >
-                    <a href="#interval" class="tsd-index-link"
+                    <a href="#price" class="tsd-index-link tsd-is-inherited"
                       ><svg
                         class="tsd-kind-icon"
                         viewBox="0 0 24 24"
                         aria-label="Property"
                       >
                         <use href="../assets/icons.svg#icon-1024"></use></svg
-                      ><span>interval</span></a
+                      ><span>price</span></a
                     >
-                    <a href="#low" class="tsd-index-link"
-                      ><svg
-                        class="tsd-kind-icon"
-                        viewBox="0 0 24 24"
-                        aria-label="Property"
-                      >
-                        <use href="../assets/icons.svg#icon-1024"></use></svg
-                      ><span>low</span></a
-                    >
-                    <a href="#open" class="tsd-index-link"
-                      ><svg
-                        class="tsd-kind-icon"
-                        viewBox="0 0 24 24"
-                        aria-label="Property"
-                      >
-                        <use href="../assets/icons.svg#icon-1024"></use></svg
-                      ><span>open</span></a
-                    >
-                    <a href="#quantity" class="tsd-index-link"
+                    <a href="#quantity" class="tsd-index-link tsd-is-inherited"
                       ><svg
                         class="tsd-kind-icon"
                         viewBox="0 0 24 24"
@@ -329,41 +368,83 @@
                         <use href="../assets/icons.svg#icon-1024"></use></svg
                       ><span>quantity</span></a
                     >
-                    <a href="#starttime" class="tsd-index-link"
+                    <a href="#side" class="tsd-index-link tsd-is-inherited"
                       ><svg
                         class="tsd-kind-icon"
                         viewBox="0 0 24 24"
                         aria-label="Property"
                       >
                         <use href="../assets/icons.svg#icon-1024"></use></svg
-                      ><span>start<wbr />Time</span></a
+                      ><span>side</span></a
                     >
-                    <a href="#tradecount" class="tsd-index-link"
+                    <a href="#state" class="tsd-index-link"
                       ><svg
                         class="tsd-kind-icon"
                         viewBox="0 0 24 24"
                         aria-label="Property"
                       >
                         <use href="../assets/icons.svg#icon-1024"></use></svg
-                      ><span>trade<wbr />Count</span></a
+                      ><span>state</span></a
                     >
-                    <a href="#ts" class="tsd-index-link"
+                    <a href="#stopprice" class="tsd-index-link tsd-is-inherited"
                       ><svg
                         class="tsd-kind-icon"
                         viewBox="0 0 24 24"
                         aria-label="Property"
                       >
                         <use href="../assets/icons.svg#icon-1024"></use></svg
-                      ><span>ts</span></a
+                      ><span>stop<wbr />Price</span></a
                     >
-                    <a href="#weightedaverage" class="tsd-index-link"
+                    <a href="#symbol" class="tsd-index-link tsd-is-inherited"
                       ><svg
                         class="tsd-kind-icon"
                         viewBox="0 0 24 24"
                         aria-label="Property"
                       >
                         <use href="../assets/icons.svg#icon-1024"></use></svg
-                      ><span>weighted<wbr />Average</span></a
+                      ><span>symbol</span></a
+                    >
+                    <a
+                      href="#timeinforce"
+                      class="tsd-index-link tsd-is-inherited"
+                      ><svg
+                        class="tsd-kind-icon"
+                        viewBox="0 0 24 24"
+                        aria-label="Property"
+                      >
+                        <use href="../assets/icons.svg#icon-1024"></use></svg
+                      ><span>time<wbr />In<wbr />Force</span></a
+                    >
+                    <a
+                      href="#trailingoffset"
+                      class="tsd-index-link tsd-is-inherited"
+                      ><svg
+                        class="tsd-kind-icon"
+                        viewBox="0 0 24 24"
+                        aria-label="Property"
+                      >
+                        <use href="../assets/icons.svg#icon-1024"></use></svg
+                      ><span>trailing<wbr />Offset?</span></a
+                    >
+                    <a href="#type" class="tsd-index-link tsd-is-inherited"
+                      ><svg
+                        class="tsd-kind-icon"
+                        viewBox="0 0 24 24"
+                        aria-label="Property"
+                      >
+                        <use href="../assets/icons.svg#icon-1024"></use></svg
+                      ><span>type</span></a
+                    >
+                    <a
+                      href="#updatetime"
+                      class="tsd-index-link tsd-is-inherited"
+                      ><svg
+                        class="tsd-kind-icon"
+                        viewBox="0 0 24 24"
+                        aria-label="Property"
+                      >
+                        <use href="../assets/icons.svg#icon-1024"></use></svg
+                      ><span>update<wbr />Time</span></a
                     >
                   </div>
                 </section>
@@ -385,7 +466,80 @@
             <h2>Properties</h2>
           </summary>
           <section>
-            <section class="tsd-panel tsd-member">
+            <section class="tsd-panel tsd-member tsd-is-inherited">
+              <h3 class="tsd-anchor-link" id="accounttype">
+                <span>account<wbr />Type</span
+                ><a
+                  href="#accounttype"
+                  aria-label="Permalink"
+                  class="tsd-anchor-icon"
+                  ><svg viewBox="0 0 24 24" aria-hidden="true">
+                    <use href="../assets/icons.svg#icon-anchor"></use></svg
+                ></a>
+              </h3>
+              <div class="tsd-signature">
+                <span class="tsd-kind-property">accountType</span
+                ><span class="tsd-signature-symbol">:</span>
+                <a
+                  href="../types/IAccountType.html"
+                  class="tsd-signature-type tsd-kind-type-alias"
+                  >IAccountType</a
+                >
+              </div>
+              <aside class="tsd-sources">
+                <p>
+                  Inherited from <a href="IOrder.html">IOrder</a>.<a
+                    href="IOrder.html#accounttype"
+                    >accountType</a
+                  >
+                </p>
+                <ul>
+                  <li>
+                    Defined in
+                    <a
+                      href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L287"
+                      >src/auth.ts:287</a
+                    >
+                  </li>
+                </ul>
+              </aside>
+            </section>
+            <section class="tsd-panel tsd-member tsd-is-inherited">
+              <h3 class="tsd-anchor-link" id="activationprice">
+                <code class="tsd-tag">Optional</code
+                ><span>activation<wbr />Price</span
+                ><a
+                  href="#activationprice"
+                  aria-label="Permalink"
+                  class="tsd-anchor-icon"
+                  ><svg viewBox="0 0 24 24" aria-hidden="true">
+                    <use href="../assets/icons.svg#icon-anchor"></use></svg
+                ></a>
+              </h3>
+              <div class="tsd-signature">
+                <span class="tsd-kind-property">activationPrice</span
+                ><span class="tsd-signature-symbol">?:</span>
+                <span class="tsd-signature-type">string</span>
+              </div>
+              <aside class="tsd-sources">
+                <p>
+                  Inherited from <a href="ISmartOrder.html">ISmartOrder</a>.<a
+                    href="ISmartOrder.html#activationprice"
+                    >activationPrice</a
+                  >
+                </p>
+                <ul>
+                  <li>
+                    Defined in
+                    <a
+                      href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L331"
+                      >src/auth.ts:331</a
+                    >
+                  </li>
+                </ul>
+              </aside>
+            </section>
+            <section class="tsd-panel tsd-member tsd-is-inherited">
               <h3 class="tsd-anchor-link" id="amount">
                 <span>amount</span
                 ><a
@@ -402,22 +556,28 @@
                 <span class="tsd-signature-type">string</span>
               </div>
               <aside class="tsd-sources">
+                <p>
+                  Inherited from <a href="IOrder.html">IOrder</a>.<a
+                    href="IOrder.html#amount"
+                    >amount</a
+                  >
+                </p>
                 <ul>
                   <li>
                     Defined in
                     <a
-                      href="https://github.com/vansergen/poloniex-node-api/blob/main/src/public.ts#L189"
-                      >src/public.ts:189</a
+                      href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L294"
+                      >src/auth.ts:294</a
                     >
                   </li>
                 </ul>
               </aside>
             </section>
-            <section class="tsd-panel tsd-member">
-              <h3 class="tsd-anchor-link" id="buytakeramount">
-                <span>buy<wbr />Taker<wbr />Amount</span
+            <section class="tsd-panel tsd-member tsd-is-inherited">
+              <h3 class="tsd-anchor-link" id="clientorderid">
+                <span>client<wbr />Order<wbr />Id</span
                 ><a
-                  href="#buytakeramount"
+                  href="#clientorderid"
                   aria-label="Permalink"
                   class="tsd-anchor-icon"
                   ><svg viewBox="0 0 24 24" aria-hidden="true">
@@ -425,27 +585,33 @@
                 ></a>
               </h3>
               <div class="tsd-signature">
-                <span class="tsd-kind-property">buyTakerAmount</span
+                <span class="tsd-kind-property">clientOrderId</span
                 ><span class="tsd-signature-symbol">:</span>
                 <span class="tsd-signature-type">string</span>
               </div>
               <aside class="tsd-sources">
+                <p>
+                  Inherited from <a href="IOrder.html">IOrder</a>.<a
+                    href="IOrder.html#clientorderid"
+                    >clientOrderId</a
+                  >
+                </p>
                 <ul>
                   <li>
                     Defined in
                     <a
-                      href="https://github.com/vansergen/poloniex-node-api/blob/main/src/public.ts#L191"
-                      >src/public.ts:191</a
+                      href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L284"
+                      >src/auth.ts:284</a
                     >
                   </li>
                 </ul>
               </aside>
             </section>
-            <section class="tsd-panel tsd-member">
-              <h3 class="tsd-anchor-link" id="buytakerquantity">
-                <span>buy<wbr />Taker<wbr />Quantity</span
+            <section class="tsd-panel tsd-member tsd-is-inherited">
+              <h3 class="tsd-anchor-link" id="createtime">
+                <span>create<wbr />Time</span
                 ><a
-                  href="#buytakerquantity"
+                  href="#createtime"
                   aria-label="Permalink"
                   class="tsd-anchor-icon"
                   ><svg viewBox="0 0 24 24" aria-hidden="true">
@@ -453,105 +619,65 @@
                 ></a>
               </h3>
               <div class="tsd-signature">
-                <span class="tsd-kind-property">buyTakerQuantity</span
-                ><span class="tsd-signature-symbol">:</span>
-                <span class="tsd-signature-type">string</span>
-              </div>
-              <aside class="tsd-sources">
-                <ul>
-                  <li>
-                    Defined in
-                    <a
-                      href="https://github.com/vansergen/poloniex-node-api/blob/main/src/public.ts#L192"
-                      >src/public.ts:192</a
-                    >
-                  </li>
-                </ul>
-              </aside>
-            </section>
-            <section class="tsd-panel tsd-member">
-              <h3 class="tsd-anchor-link" id="close">
-                <span>close</span
-                ><a href="#close" aria-label="Permalink" class="tsd-anchor-icon"
-                  ><svg viewBox="0 0 24 24" aria-hidden="true">
-                    <use href="../assets/icons.svg#icon-anchor"></use></svg
-                ></a>
-              </h3>
-              <div class="tsd-signature">
-                <span class="tsd-kind-property">close</span
-                ><span class="tsd-signature-symbol">:</span>
-                <span class="tsd-signature-type">string</span>
-              </div>
-              <aside class="tsd-sources">
-                <ul>
-                  <li>
-                    Defined in
-                    <a
-                      href="https://github.com/vansergen/poloniex-node-api/blob/main/src/public.ts#L188"
-                      >src/public.ts:188</a
-                    >
-                  </li>
-                </ul>
-              </aside>
-            </section>
-            <section class="tsd-panel tsd-member">
-              <h3 class="tsd-anchor-link" id="closetime">
-                <span>close<wbr />Time</span
-                ><a
-                  href="#closetime"
-                  aria-label="Permalink"
-                  class="tsd-anchor-icon"
-                  ><svg viewBox="0 0 24 24" aria-hidden="true">
-                    <use href="../assets/icons.svg#icon-anchor"></use></svg
-                ></a>
-              </h3>
-              <div class="tsd-signature">
-                <span class="tsd-kind-property">closeTime</span
+                <span class="tsd-kind-property">createTime</span
                 ><span class="tsd-signature-symbol">:</span>
                 <span class="tsd-signature-type">number</span>
               </div>
               <aside class="tsd-sources">
+                <p>
+                  Inherited from <a href="IOrder.html">IOrder</a>.<a
+                    href="IOrder.html#createtime"
+                    >createTime</a
+                  >
+                </p>
                 <ul>
                   <li>
                     Defined in
                     <a
-                      href="https://github.com/vansergen/poloniex-node-api/blob/main/src/public.ts#L198"
-                      >src/public.ts:198</a
+                      href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L297"
+                      >src/auth.ts:297</a
                     >
                   </li>
                 </ul>
               </aside>
             </section>
-            <section class="tsd-panel tsd-member">
-              <h3 class="tsd-anchor-link" id="high">
-                <span>high</span
-                ><a href="#high" aria-label="Permalink" class="tsd-anchor-icon"
+            <section class="tsd-panel tsd-member tsd-is-inherited">
+              <h3 class="tsd-anchor-link" id="id">
+                <span>id</span
+                ><a href="#id" aria-label="Permalink" class="tsd-anchor-icon"
                   ><svg viewBox="0 0 24 24" aria-hidden="true">
                     <use href="../assets/icons.svg#icon-anchor"></use></svg
                 ></a>
               </h3>
               <div class="tsd-signature">
-                <span class="tsd-kind-property">high</span
+                <span class="tsd-kind-property">id</span
                 ><span class="tsd-signature-symbol">:</span>
                 <span class="tsd-signature-type">string</span>
               </div>
               <aside class="tsd-sources">
+                <p>
+                  Inherited from <a href="IOrder.html">IOrder</a>.<a
+                    href="IOrder.html#id"
+                    >id</a
+                  >
+                </p>
                 <ul>
                   <li>
                     Defined in
                     <a
-                      href="https://github.com/vansergen/poloniex-node-api/blob/main/src/public.ts#L186"
-                      >src/public.ts:186</a
+                      href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L283"
+                      >src/auth.ts:283</a
                     >
                   </li>
                 </ul>
               </aside>
             </section>
-            <section class="tsd-panel tsd-member">
-              <h3 class="tsd-anchor-link" id="interval">
-                <span>interval</span
+            <section class="tsd-panel tsd-member tsd-is-inherited">
+              <h3 class="tsd-anchor-link" id="limitoffset">
+                <code class="tsd-tag">Optional</code
+                ><span>limit<wbr />Offset</span
                 ><a
-                  href="#interval"
+                  href="#limitoffset"
                   aria-label="Permalink"
                   class="tsd-anchor-icon"
                   ><svg viewBox="0 0 24 24" aria-hidden="true">
@@ -559,102 +685,94 @@
                 ></a>
               </h3>
               <div class="tsd-signature">
-                <span class="tsd-kind-property">interval</span
-                ><span class="tsd-signature-symbol">:</span><br />    <span
-                  class="tsd-signature-symbol"
-                  >|</span
-                >
-                <span class="tsd-signature-type">&quot;DAY_1&quot;</span
-                ><br />    <span class="tsd-signature-symbol">|</span>
-                <span class="tsd-signature-type">&quot;DAY_3&quot;</span
-                ><br />    <span class="tsd-signature-symbol">|</span>
-                <span class="tsd-signature-type">&quot;HOUR_1&quot;</span
-                ><br />    <span class="tsd-signature-symbol">|</span>
-                <span class="tsd-signature-type">&quot;HOUR_2&quot;</span
-                ><br />    <span class="tsd-signature-symbol">|</span>
-                <span class="tsd-signature-type">&quot;HOUR_4&quot;</span
-                ><br />    <span class="tsd-signature-symbol">|</span>
-                <span class="tsd-signature-type">&quot;HOUR_6&quot;</span
-                ><br />    <span class="tsd-signature-symbol">|</span>
-                <span class="tsd-signature-type">&quot;HOUR_12&quot;</span
-                ><br />    <span class="tsd-signature-symbol">|</span>
-                <span class="tsd-signature-type">&quot;MINUTE_1&quot;</span
-                ><br />    <span class="tsd-signature-symbol">|</span>
-                <span class="tsd-signature-type">&quot;MINUTE_5&quot;</span
-                ><br />    <span class="tsd-signature-symbol">|</span>
-                <span class="tsd-signature-type">&quot;MINUTE_10&quot;</span
-                ><br />    <span class="tsd-signature-symbol">|</span>
-                <span class="tsd-signature-type">&quot;MINUTE_15&quot;</span
-                ><br />    <span class="tsd-signature-symbol">|</span>
-                <span class="tsd-signature-type">&quot;MINUTE_30&quot;</span
-                ><br />    <span class="tsd-signature-symbol">|</span>
-                <span class="tsd-signature-type">&quot;MONTH_1&quot;</span
-                ><br />    <span class="tsd-signature-symbol">|</span>
-                <span class="tsd-signature-type">&quot;WEEK_1&quot;</span>
+                <span class="tsd-kind-property">limitOffset</span
+                ><span class="tsd-signature-symbol">?:</span>
+                <span class="tsd-signature-type">string</span>
               </div>
               <aside class="tsd-sources">
+                <p>
+                  Inherited from <a href="ISmartOrder.html">ISmartOrder</a>.<a
+                    href="ISmartOrder.html#limitoffset"
+                    >limitOffset</a
+                  >
+                </p>
                 <ul>
                   <li>
                     Defined in
                     <a
-                      href="https://github.com/vansergen/poloniex-node-api/blob/main/src/public.ts#L196"
-                      >src/public.ts:196</a
+                      href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L333"
+                      >src/auth.ts:333</a
                     >
                   </li>
                 </ul>
               </aside>
             </section>
-            <section class="tsd-panel tsd-member">
-              <h3 class="tsd-anchor-link" id="low">
-                <span>low</span
-                ><a href="#low" aria-label="Permalink" class="tsd-anchor-icon"
+            <section class="tsd-panel tsd-member tsd-is-inherited">
+              <h3 class="tsd-anchor-link" id="operator">
+                <code class="tsd-tag">Optional</code><span>operator</span
+                ><a
+                  href="#operator"
+                  aria-label="Permalink"
+                  class="tsd-anchor-icon"
                   ><svg viewBox="0 0 24 24" aria-hidden="true">
                     <use href="../assets/icons.svg#icon-anchor"></use></svg
                 ></a>
               </h3>
               <div class="tsd-signature">
-                <span class="tsd-kind-property">low</span
-                ><span class="tsd-signature-symbol">:</span>
+                <span class="tsd-kind-property">operator</span
+                ><span class="tsd-signature-symbol">?:</span>
                 <span class="tsd-signature-type">string</span>
               </div>
               <aside class="tsd-sources">
+                <p>
+                  Inherited from <a href="ISmartOrder.html">ISmartOrder</a>.<a
+                    href="ISmartOrder.html#operator"
+                    >operator</a
+                  >
+                </p>
                 <ul>
                   <li>
                     Defined in
                     <a
-                      href="https://github.com/vansergen/poloniex-node-api/blob/main/src/public.ts#L185"
-                      >src/public.ts:185</a
+                      href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L334"
+                      >src/auth.ts:334</a
                     >
                   </li>
                 </ul>
               </aside>
             </section>
-            <section class="tsd-panel tsd-member">
-              <h3 class="tsd-anchor-link" id="open">
-                <span>open</span
-                ><a href="#open" aria-label="Permalink" class="tsd-anchor-icon"
+            <section class="tsd-panel tsd-member tsd-is-inherited">
+              <h3 class="tsd-anchor-link" id="price">
+                <span>price</span
+                ><a href="#price" aria-label="Permalink" class="tsd-anchor-icon"
                   ><svg viewBox="0 0 24 24" aria-hidden="true">
                     <use href="../assets/icons.svg#icon-anchor"></use></svg
                 ></a>
               </h3>
               <div class="tsd-signature">
-                <span class="tsd-kind-property">open</span
+                <span class="tsd-kind-property">price</span
                 ><span class="tsd-signature-symbol">:</span>
                 <span class="tsd-signature-type">string</span>
               </div>
               <aside class="tsd-sources">
+                <p>
+                  Inherited from <a href="IOrder.html">IOrder</a>.<a
+                    href="IOrder.html#price"
+                    >price</a
+                  >
+                </p>
                 <ul>
                   <li>
                     Defined in
                     <a
-                      href="https://github.com/vansergen/poloniex-node-api/blob/main/src/public.ts#L187"
-                      >src/public.ts:187</a
+                      href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L292"
+                      >src/auth.ts:292</a
                     >
                   </li>
                 </ul>
               </aside>
             </section>
-            <section class="tsd-panel tsd-member">
+            <section class="tsd-panel tsd-member tsd-is-inherited">
               <h3 class="tsd-anchor-link" id="quantity">
                 <span>quantity</span
                 ><a
@@ -671,22 +789,88 @@
                 <span class="tsd-signature-type">string</span>
               </div>
               <aside class="tsd-sources">
+                <p>
+                  Inherited from <a href="IOrder.html">IOrder</a>.<a
+                    href="IOrder.html#quantity"
+                    >quantity</a
+                  >
+                </p>
                 <ul>
                   <li>
                     Defined in
                     <a
-                      href="https://github.com/vansergen/poloniex-node-api/blob/main/src/public.ts#L190"
-                      >src/public.ts:190</a
+                      href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L291"
+                      >src/auth.ts:291</a
+                    >
+                  </li>
+                </ul>
+              </aside>
+            </section>
+            <section class="tsd-panel tsd-member tsd-is-inherited">
+              <h3 class="tsd-anchor-link" id="side">
+                <span>side</span
+                ><a href="#side" aria-label="Permalink" class="tsd-anchor-icon"
+                  ><svg viewBox="0 0 24 24" aria-hidden="true">
+                    <use href="../assets/icons.svg#icon-anchor"></use></svg
+                ></a>
+              </h3>
+              <div class="tsd-signature">
+                <span class="tsd-kind-property">side</span
+                ><span class="tsd-signature-symbol">:</span>
+                <a
+                  href="../types/ISide.html"
+                  class="tsd-signature-type tsd-kind-type-alias"
+                  >ISide</a
+                >
+              </div>
+              <aside class="tsd-sources">
+                <p>
+                  Inherited from <a href="IOrder.html">IOrder</a>.<a
+                    href="IOrder.html#side"
+                    >side</a
+                  >
+                </p>
+                <ul>
+                  <li>
+                    Defined in
+                    <a
+                      href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L288"
+                      >src/auth.ts:288</a
                     >
                   </li>
                 </ul>
               </aside>
             </section>
             <section class="tsd-panel tsd-member">
-              <h3 class="tsd-anchor-link" id="starttime">
-                <span>start<wbr />Time</span
+              <h3 class="tsd-anchor-link" id="state">
+                <span>state</span
+                ><a href="#state" aria-label="Permalink" class="tsd-anchor-icon"
+                  ><svg viewBox="0 0 24 24" aria-hidden="true">
+                    <use href="../assets/icons.svg#icon-anchor"></use></svg
+                ></a>
+              </h3>
+              <div class="tsd-signature">
+                <span class="tsd-kind-property">state</span
+                ><span class="tsd-signature-symbol">:</span>
+                <span class="tsd-signature-type">IHistorySmartOrderState</span>
+              </div>
+              <aside class="tsd-sources">
+                <ul>
+                  <li>
+                    Defined in
+                    <a
+                      href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L368"
+                      >src/auth.ts:368</a
+                    >
+                  </li>
+                </ul>
+              </aside>
+            </section>
+            <section class="tsd-panel tsd-member tsd-is-inherited">
+              <h3 class="tsd-anchor-link" id="stopprice">
+                <span>stop<wbr />Price</span
                 ><a
-                  href="#starttime"
+                  href="#stopprice"
                   aria-label="Permalink"
                   class="tsd-anchor-icon"
                   ><svg viewBox="0 0 24 24" aria-hidden="true">
@@ -694,98 +878,195 @@
                 ></a>
               </h3>
               <div class="tsd-signature">
-                <span class="tsd-kind-property">startTime</span
-                ><span class="tsd-signature-symbol">:</span>
-                <span class="tsd-signature-type">number</span>
-              </div>
-              <aside class="tsd-sources">
-                <ul>
-                  <li>
-                    Defined in
-                    <a
-                      href="https://github.com/vansergen/poloniex-node-api/blob/main/src/public.ts#L197"
-                      >src/public.ts:197</a
-                    >
-                  </li>
-                </ul>
-              </aside>
-            </section>
-            <section class="tsd-panel tsd-member">
-              <h3 class="tsd-anchor-link" id="tradecount">
-                <span>trade<wbr />Count</span
-                ><a
-                  href="#tradecount"
-                  aria-label="Permalink"
-                  class="tsd-anchor-icon"
-                  ><svg viewBox="0 0 24 24" aria-hidden="true">
-                    <use href="../assets/icons.svg#icon-anchor"></use></svg
-                ></a>
-              </h3>
-              <div class="tsd-signature">
-                <span class="tsd-kind-property">tradeCount</span
-                ><span class="tsd-signature-symbol">:</span>
-                <span class="tsd-signature-type">number</span>
-              </div>
-              <aside class="tsd-sources">
-                <ul>
-                  <li>
-                    Defined in
-                    <a
-                      href="https://github.com/vansergen/poloniex-node-api/blob/main/src/public.ts#L193"
-                      >src/public.ts:193</a
-                    >
-                  </li>
-                </ul>
-              </aside>
-            </section>
-            <section class="tsd-panel tsd-member">
-              <h3 class="tsd-anchor-link" id="ts">
-                <span>ts</span
-                ><a href="#ts" aria-label="Permalink" class="tsd-anchor-icon"
-                  ><svg viewBox="0 0 24 24" aria-hidden="true">
-                    <use href="../assets/icons.svg#icon-anchor"></use></svg
-                ></a>
-              </h3>
-              <div class="tsd-signature">
-                <span class="tsd-kind-property">ts</span
-                ><span class="tsd-signature-symbol">:</span>
-                <span class="tsd-signature-type">number</span>
-              </div>
-              <aside class="tsd-sources">
-                <ul>
-                  <li>
-                    Defined in
-                    <a
-                      href="https://github.com/vansergen/poloniex-node-api/blob/main/src/public.ts#L194"
-                      >src/public.ts:194</a
-                    >
-                  </li>
-                </ul>
-              </aside>
-            </section>
-            <section class="tsd-panel tsd-member">
-              <h3 class="tsd-anchor-link" id="weightedaverage">
-                <span>weighted<wbr />Average</span
-                ><a
-                  href="#weightedaverage"
-                  aria-label="Permalink"
-                  class="tsd-anchor-icon"
-                  ><svg viewBox="0 0 24 24" aria-hidden="true">
-                    <use href="../assets/icons.svg#icon-anchor"></use></svg
-                ></a>
-              </h3>
-              <div class="tsd-signature">
-                <span class="tsd-kind-property">weightedAverage</span
+                <span class="tsd-kind-property">stopPrice</span
                 ><span class="tsd-signature-symbol">:</span>
                 <span class="tsd-signature-type">string</span>
               </div>
               <aside class="tsd-sources">
+                <p>
+                  Inherited from <a href="ISmartOrder.html">ISmartOrder</a>.<a
+                    href="ISmartOrder.html#stopprice"
+                    >stopPrice</a
+                  >
+                </p>
                 <ul>
                   <li>
                     Defined in
                     <a
-                      href="https://github.com/vansergen/poloniex-node-api/blob/main/src/public.ts#L195"
-                      >src/public.ts:195</a
+                      href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L329"
+                      >src/auth.ts:329</a
+                    >
+                  </li>
+                </ul>
+              </aside>
+            </section>
+            <section class="tsd-panel tsd-member tsd-is-inherited">
+              <h3 class="tsd-anchor-link" id="symbol">
+                <span>symbol</span
+                ><a
+                  href="#symbol"
+                  aria-label="Permalink"
+                  class="tsd-anchor-icon"
+                  ><svg viewBox="0 0 24 24" aria-hidden="true">
+                    <use href="../assets/icons.svg#icon-anchor"></use></svg
+                ></a>
+              </h3>
+              <div class="tsd-signature">
+                <span class="tsd-kind-property">symbol</span
+                ><span class="tsd-signature-symbol">:</span>
+                <span class="tsd-signature-type">string</span>
+              </div>
+              <aside class="tsd-sources">
+                <p>
+                  Inherited from <a href="IOrder.html">IOrder</a>.<a
+                    href="IOrder.html#symbol"
+                    >symbol</a
+                  >
+                </p>
+                <ul>
+                  <li>
+                    Defined in
+                    <a
+                      href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L285"
+                      >src/auth.ts:285</a
+                    >
+                  </li>
+                </ul>
+              </aside>
+            </section>
+            <section class="tsd-panel tsd-member tsd-is-inherited">
+              <h3 class="tsd-anchor-link" id="timeinforce">
+                <span>time<wbr />In<wbr />Force</span
+                ><a
+                  href="#timeinforce"
+                  aria-label="Permalink"
+                  class="tsd-anchor-icon"
+                  ><svg viewBox="0 0 24 24" aria-hidden="true">
+                    <use href="../assets/icons.svg#icon-anchor"></use></svg
+                ></a>
+              </h3>
+              <div class="tsd-signature">
+                <span class="tsd-kind-property">timeInForce</span
+                ><span class="tsd-signature-symbol">:</span>
+                <a
+                  href="../types/ITimeInForce.html"
+                  class="tsd-signature-type tsd-kind-type-alias"
+                  >ITimeInForce</a
+                >
+              </div>
+              <aside class="tsd-sources">
+                <p>
+                  Inherited from <a href="IOrder.html">IOrder</a>.<a
+                    href="IOrder.html#timeinforce"
+                    >timeInForce</a
+                  >
+                </p>
+                <ul>
+                  <li>
+                    Defined in
+                    <a
+                      href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L290"
+                      >src/auth.ts:290</a
+                    >
+                  </li>
+                </ul>
+              </aside>
+            </section>
+            <section class="tsd-panel tsd-member tsd-is-inherited">
+              <h3 class="tsd-anchor-link" id="trailingoffset">
+                <code class="tsd-tag">Optional</code
+                ><span>trailing<wbr />Offset</span
+                ><a
+                  href="#trailingoffset"
+                  aria-label="Permalink"
+                  class="tsd-anchor-icon"
+                  ><svg viewBox="0 0 24 24" aria-hidden="true">
+                    <use href="../assets/icons.svg#icon-anchor"></use></svg
+                ></a>
+              </h3>
+              <div class="tsd-signature">
+                <span class="tsd-kind-property">trailingOffset</span
+                ><span class="tsd-signature-symbol">?:</span>
+                <span class="tsd-signature-type">string</span>
+              </div>
+              <aside class="tsd-sources">
+                <p>
+                  Inherited from <a href="ISmartOrder.html">ISmartOrder</a>.<a
+                    href="ISmartOrder.html#trailingoffset"
+                    >trailingOffset</a
+                  >
+                </p>
+                <ul>
+                  <li>
+                    Defined in
+                    <a
+                      href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L332"
+                      >src/auth.ts:332</a
+                    >
+                  </li>
+                </ul>
+              </aside>
+            </section>
+            <section class="tsd-panel tsd-member tsd-is-inherited">
+              <h3 class="tsd-anchor-link" id="type">
+                <span>type</span
+                ><a href="#type" aria-label="Permalink" class="tsd-anchor-icon"
+                  ><svg viewBox="0 0 24 24" aria-hidden="true">
+                    <use href="../assets/icons.svg#icon-anchor"></use></svg
+                ></a>
+              </h3>
+              <div class="tsd-signature">
+                <span class="tsd-kind-property">type</span
+                ><span class="tsd-signature-symbol">:</span>
+                <span class="tsd-signature-type">ISmartOrderType</span>
+              </div>
+              <aside class="tsd-sources">
+                <p>
+                  Inherited from <a href="ISmartOrder.html">ISmartOrder</a>.<a
+                    href="ISmartOrder.html#type"
+                    >type</a
+                  >
+                </p>
+                <ul>
+                  <li>
+                    Defined in
+                    <a
+                      href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L327"
+                      >src/auth.ts:327</a
+                    >
+                  </li>
+                </ul>
+              </aside>
+            </section>
+            <section class="tsd-panel tsd-member tsd-is-inherited">
+              <h3 class="tsd-anchor-link" id="updatetime">
+                <span>update<wbr />Time</span
+                ><a
+                  href="#updatetime"
+                  aria-label="Permalink"
+                  class="tsd-anchor-icon"
+                  ><svg viewBox="0 0 24 24" aria-hidden="true">
+                    <use href="../assets/icons.svg#icon-anchor"></use></svg
+                ></a>
+              </h3>
+              <div class="tsd-signature">
+                <span class="tsd-kind-property">updateTime</span
+                ><span class="tsd-signature-symbol">:</span>
+                <span class="tsd-signature-type">number</span>
+              </div>
+              <aside class="tsd-sources">
+                <p>
+                  Inherited from <a href="IOrder.html">IOrder</a>.<a
+                    href="IOrder.html#updatetime"
+                    >updateTime</a
+                  >
+                </p>
+                <ul>
+                  <li>
+                    Defined in
+                    <a
+                      href="https://github.com/vansergen/poloniex-node-api/blob/main/src/auth.ts#L298"
+                      >src/auth.ts:298</a
                     >
                   </li>
                 </ul>
@@ -954,7 +1235,23 @@
                   >Properties
                 </summary>
                 <div>
-                  <a href="#amount"
+                  <a href="#accounttype" class="tsd-is-inherited"
+                    ><svg
+                      class="tsd-kind-icon"
+                      viewBox="0 0 24 24"
+                      aria-label="Property"
+                    >
+                      <use href="../assets/icons.svg#icon-1024"></use></svg
+                    ><span>account<wbr />Type</span></a
+                  ><a href="#activationprice" class="tsd-is-inherited"
+                    ><svg
+                      class="tsd-kind-icon"
+                      viewBox="0 0 24 24"
+                      aria-label="Property"
+                    >
+                      <use href="../assets/icons.svg#icon-1024"></use></svg
+                    ><span>activation<wbr />Price</span></a
+                  ><a href="#amount" class="tsd-is-inherited"
                     ><svg
                       class="tsd-kind-icon"
                       viewBox="0 0 24 24"
@@ -962,71 +1259,55 @@
                     >
                       <use href="../assets/icons.svg#icon-1024"></use></svg
                     ><span>amount</span></a
-                  ><a href="#buytakeramount"
+                  ><a href="#clientorderid" class="tsd-is-inherited"
                     ><svg
                       class="tsd-kind-icon"
                       viewBox="0 0 24 24"
                       aria-label="Property"
                     >
                       <use href="../assets/icons.svg#icon-1024"></use></svg
-                    ><span>buy<wbr />Taker<wbr />Amount</span></a
-                  ><a href="#buytakerquantity"
+                    ><span>client<wbr />Order<wbr />Id</span></a
+                  ><a href="#createtime" class="tsd-is-inherited"
                     ><svg
                       class="tsd-kind-icon"
                       viewBox="0 0 24 24"
                       aria-label="Property"
                     >
                       <use href="../assets/icons.svg#icon-1024"></use></svg
-                    ><span>buy<wbr />Taker<wbr />Quantity</span></a
-                  ><a href="#close"
+                    ><span>create<wbr />Time</span></a
+                  ><a href="#id" class="tsd-is-inherited"
                     ><svg
                       class="tsd-kind-icon"
                       viewBox="0 0 24 24"
                       aria-label="Property"
                     >
                       <use href="../assets/icons.svg#icon-1024"></use></svg
-                    ><span>close</span></a
-                  ><a href="#closetime"
+                    ><span>id</span></a
+                  ><a href="#limitoffset" class="tsd-is-inherited"
                     ><svg
                       class="tsd-kind-icon"
                       viewBox="0 0 24 24"
                       aria-label="Property"
                     >
                       <use href="../assets/icons.svg#icon-1024"></use></svg
-                    ><span>close<wbr />Time</span></a
-                  ><a href="#high"
+                    ><span>limit<wbr />Offset</span></a
+                  ><a href="#operator" class="tsd-is-inherited"
                     ><svg
                       class="tsd-kind-icon"
                       viewBox="0 0 24 24"
                       aria-label="Property"
                     >
                       <use href="../assets/icons.svg#icon-1024"></use></svg
-                    ><span>high</span></a
-                  ><a href="#interval"
+                    ><span>operator</span></a
+                  ><a href="#price" class="tsd-is-inherited"
                     ><svg
                       class="tsd-kind-icon"
                       viewBox="0 0 24 24"
                       aria-label="Property"
                     >
                       <use href="../assets/icons.svg#icon-1024"></use></svg
-                    ><span>interval</span></a
-                  ><a href="#low"
-                    ><svg
-                      class="tsd-kind-icon"
-                      viewBox="0 0 24 24"
-                      aria-label="Property"
-                    >
-                      <use href="../assets/icons.svg#icon-1024"></use></svg
-                    ><span>low</span></a
-                  ><a href="#open"
-                    ><svg
-                      class="tsd-kind-icon"
-                      viewBox="0 0 24 24"
-                      aria-label="Property"
-                    >
-                      <use href="../assets/icons.svg#icon-1024"></use></svg
-                    ><span>open</span></a
-                  ><a href="#quantity"
+                    ><span>price</span></a
+                  ><a href="#quantity" class="tsd-is-inherited"
                     ><svg
                       class="tsd-kind-icon"
                       viewBox="0 0 24 24"
@@ -1034,38 +1315,70 @@
                     >
                       <use href="../assets/icons.svg#icon-1024"></use></svg
                     ><span>quantity</span></a
-                  ><a href="#starttime"
+                  ><a href="#side" class="tsd-is-inherited"
                     ><svg
                       class="tsd-kind-icon"
                       viewBox="0 0 24 24"
                       aria-label="Property"
                     >
                       <use href="../assets/icons.svg#icon-1024"></use></svg
-                    ><span>start<wbr />Time</span></a
-                  ><a href="#tradecount"
+                    ><span>side</span></a
+                  ><a href="#state"
                     ><svg
                       class="tsd-kind-icon"
                       viewBox="0 0 24 24"
                       aria-label="Property"
                     >
                       <use href="../assets/icons.svg#icon-1024"></use></svg
-                    ><span>trade<wbr />Count</span></a
-                  ><a href="#ts"
+                    ><span>state</span></a
+                  ><a href="#stopprice" class="tsd-is-inherited"
                     ><svg
                       class="tsd-kind-icon"
                       viewBox="0 0 24 24"
                       aria-label="Property"
                     >
                       <use href="../assets/icons.svg#icon-1024"></use></svg
-                    ><span>ts</span></a
-                  ><a href="#weightedaverage"
+                    ><span>stop<wbr />Price</span></a
+                  ><a href="#symbol" class="tsd-is-inherited"
                     ><svg
                       class="tsd-kind-icon"
                       viewBox="0 0 24 24"
                       aria-label="Property"
                     >
                       <use href="../assets/icons.svg#icon-1024"></use></svg
-                    ><span>weighted<wbr />Average</span></a
+                    ><span>symbol</span></a
+                  ><a href="#timeinforce" class="tsd-is-inherited"
+                    ><svg
+                      class="tsd-kind-icon"
+                      viewBox="0 0 24 24"
+                      aria-label="Property"
+                    >
+                      <use href="../assets/icons.svg#icon-1024"></use></svg
+                    ><span>time<wbr />In<wbr />Force</span></a
+                  ><a href="#trailingoffset" class="tsd-is-inherited"
+                    ><svg
+                      class="tsd-kind-icon"
+                      viewBox="0 0 24 24"
+                      aria-label="Property"
+                    >
+                      <use href="../assets/icons.svg#icon-1024"></use></svg
+                    ><span>trailing<wbr />Offset</span></a
+                  ><a href="#type" class="tsd-is-inherited"
+                    ><svg
+                      class="tsd-kind-icon"
+                      viewBox="0 0 24 24"
+                      aria-label="Property"
+                    >
+                      <use href="../assets/icons.svg#icon-1024"></use></svg
+                    ><span>type</span></a
+                  ><a href="#updatetime" class="tsd-is-inherited"
+                    ><svg
+                      class="tsd-kind-icon"
+                      viewBox="0 0 24 24"
+                      aria-label="Property"
+                    >
+                      <use href="../assets/icons.svg#icon-1024"></use></svg
+                    ><span>update<wbr />Time</span></a
                   >
                 </div>
               </details>
