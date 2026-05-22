@@ -35,8 +35,7 @@
     "prettier": "prettier -c .",
     "prettier:write": "prettier -c -w .",
     "preversion": "npm run docs:build",
-    "test": "mocha",
-    "ts-node": "node --loader ts-node/esm"
+    "test": "node --import tsx --test test/*.test.ts"
   },
   "repository": {
     "type": "git",
@@ -66,13 +65,11 @@
     "@binden/eslint-config-ts": "^6.0.1",
     "@binden/semantic-release-config": "^3.0.4",
     "@binden/tsconfig": "^3.0.0",
-    "@types/mocha": "^10.0.10",
     "c8": "^11.0.0",
     "husky": "^9.1.7",
     "lint-staged": "^17.0.5",
-    "mocha": "^11.7.6",
     "prettier": "^3.8.3",
-    "ts-node": "^10.9.2",
+    "tsx": "^4.22.3",
     "typedoc": "^0.28.19",
     "undici": "^7.25.0"
   },
