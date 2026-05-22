@@ -103,8 +103,9 @@ export interface ISubscribeEvent<T extends IChannel = IChannel> extends IEvent {
   symbols?: string[];
 }
 
-export interface IUnsubscribeEvent<T extends IChannel = IChannel>
-  extends IEvent {
+export interface IUnsubscribeEvent<
+  T extends IChannel = IChannel,
+> extends IEvent {
   event: "unsubscribe";
   channel: T;
 }
@@ -616,7 +617,7 @@ export class WebSocketClient extends EventEmitter {
   /** Authenticate to the private websocket. */
   public async auth({ signal }: ISignal = {}): Promise<ISuccessAuth> {
     if (!this.#auth) {
-      throw new Error("Auth credintials are missing");
+      throw new Error("Auth credentials are missing");
     }
 
     const signTimestamp = this.#signTimestamp();
@@ -857,6 +858,7 @@ export class WebSocketClient extends EventEmitter {
           if (ws_type === type) {
             listeners.remove_listeners();
 
+            // eslint-disable-next-line @typescript-eslint/prefer-promise-reject-errors
             reject(error);
           }
         },
@@ -1003,7 +1005,7 @@ export class WebSocketClient extends EventEmitter {
           } catch (error) {
             this.emit(
               "error",
-              new Error("Message cound not be parsed by `JSON.parse`", {
+              new Error("Message could not be parsed by `JSON.parse`", {
                 cause: error,
               }),
               type,
@@ -1051,6 +1053,7 @@ export class WebSocketClient extends EventEmitter {
 
         error: (error: unknown): void => {
           ws.off("close", listeners.close);
+          // eslint-disable-next-line @typescript-eslint/prefer-promise-reject-errors
           reject(error);
         },
       };

@@ -9,8 +9,8 @@
     "test": "test"
   },
   "engines": {
-    "node": ">=22.12.0",
-    "npm": ">=10.9.0"
+    "node": ">=24.16.0",
+    "npm": ">=11.13.0"
   },
   "type": "module",
   "types": "./dist/index.d.ts",
@@ -19,13 +19,12 @@
     "build:remove": "rm -rf dist",
     "ci:all": "npm ci && npm run prettier && npm run eslint && npm run commitlint && npm test && npm publish --dry-run && npm run docs:build && npm run coverage",
     "commitlint": "commitlint --verbose --from=365c8e3e62a60820dbb3136f7928495248770395",
-    "coverage": "c8 npm test",
+    "coverage": "mkdir -p coverage && node --import=tsx --test --experimental-test-coverage --test-reporter=spec --test-reporter-destination=stdout --test-reporter=lcov --test-reporter-destination=coverage/lcov.info **/*.test.ts",
     "docs:build": "typedoc",
     "eslint": "eslint --no-warn-ignored **/*.ts",
     "eslint:fix": "npm run eslint -- --fix",
     "install:clean": "npm install",
     "postbuild": "prettier -c -w dist",
-    "postcoverage": "c8 report --reporter=lcov",
     "postdocs:build": "prettier -c -w docs",
     "postpublish": "npm run build:remove",
     "prebuild": "npm run build:remove",
@@ -35,8 +34,7 @@
     "prettier": "prettier -c .",
     "prettier:write": "prettier -c -w .",
     "preversion": "npm run docs:build",
-    "test": "mocha",
-    "ts-node": "node --loader ts-node/esm"
+    "test": "node --import tsx --test test/*.test.ts"
   },
   "repository": {
     "type": "git",
@@ -56,25 +54,21 @@
   "homepage": "https://github.com/vansergen/poloniex-node-api#readme",
   "dependencies": {
     "rpc-request": "^9.0.0",
-    "ws": "^8.18.2"
+    "ws": "^8.21.0"
   },
   "peerDependencies": {
     "@types/ws": "^8.18.1"
   },
   "devDependencies": {
-    "@binden/commitlint-config": "^2.1.0",
-    "@binden/semantic-release-config": "^3.0.0",
-    "@binden/tsconfig": "^3.0.0",
-    "@types/mocha": "^10.0.10",
-    "c8": "^10.1.3",
-    "eslint-config-binden-ts": "^5.0.2",
+    "@binden/commitlint-config": "^3.0.0",
+    "@binden/eslint-config-ts": "^6.0.1",
+    "@binden/semantic-release-config": "^3.0.4",
+    "@binden/tsconfig": "^4.0.1",
     "husky": "^9.1.7",
-    "lint-staged": "^16.1.2",
-    "mocha": "^11.7.1",
-    "prettier": "^3.5.3",
-    "ts-node": "^10.9.2",
-    "typedoc": "^0.28.7",
-    "undici": "^7.16.0"
+    "lint-staged": "^17.0.5",
+    "prettier": "^3.8.3",
+    "tsx": "^4.22.3",
+    "typedoc": "^0.28.19"
   },
   "funding": {
     "type": "Coinbase Commerce",

@@ -9,8 +9,10 @@ import { signature } from "./signature.js";
 
 type IActivityType = "deposits" | "withdrawals";
 
-export interface IActivityOptions
-  extends Record<string, Date | number | string | undefined> {
+export interface IActivityOptions extends Record<
+  string,
+  Date | number | string | undefined
+> {
   start: Date | number | string;
   end: Date | number | string;
   activityType?: IActivityType;
@@ -21,6 +23,15 @@ export interface IWithdrawOptions extends IRecordType {
   amount: string;
   address: string;
   paymentId?: string;
+  allowBorrow?: boolean;
+}
+
+export interface IWithdrawV2Options extends IRecordType {
+  coin: string;
+  network: string;
+  amount: string;
+  address: string;
+  addressTag?: string;
   allowBorrow?: boolean;
 }
 
@@ -39,12 +50,16 @@ export interface IOrderOptions extends IRecordType {
   amount?: string;
   clientOrderId?: string;
   allowBorrow?: boolean;
+  stpMode?: string;
+  slippageTolerance?: string;
 }
 
 type IDirection = "NEXT" | "PRE";
 
-export interface IReplaceOrderOptions
-  extends Omit<IOrderOptions, "accountType" | "side" | "symbol"> {
+export interface IReplaceOrderOptions extends Omit<
+  IOrderOptions,
+  "accountType" | "side" | "symbol"
+> {
   allowBorrow?: boolean;
   proceedOnFailure?: boolean;
 }
@@ -57,24 +72,38 @@ export interface IOpenOrdersOptions extends IRecordType {
   limit?: number | string | undefined;
 }
 
-type ISmartOrderType = "STOP_LIMIT" | "STOP";
+type ISmartOrderType =
+  | "STOP_LIMIT"
+  | "STOP"
+  | "TRAILING_STOP"
+  | "TRAILING_STOP_LIMIT";
 
-export interface ISmartOrderOptions
-  extends Omit<IOrderOptions, "allowBorrow" | "type"> {
+export interface ISmartOrderOptions extends Omit<
+  IOrderOptions,
+  "allowBorrow" | "type"
+> {
   stopPrice: string;
   type?: ISmartOrderType | undefined;
+  trailingOffset?: string | undefined;
+  limitOffset?: string | undefined;
+  operator?: string | undefined;
 }
 
-export interface IReplaceSmartOrderOptions
-  extends Omit<
-    ISmartOrderOptions,
-    "accountType" | "side" | "stopPrice" | "symbol"
-  > {
+export interface IReplaceSmartOrderOptions extends Omit<
+  ISmartOrderOptions,
+  "accountType" | "side" | "stopPrice" | "symbol"
+> {
   stopPrice?: string;
   proceedOnFailure?: boolean;
 }
 
 type IHistoryOrderState =
+  | "CANCELED"
+  | "FAILED"
+  | "FILLED"
+  | "PARTIALLY_CANCELED";
+
+type IHistorySmartOrderState =
   | "CANCELED"
   | "FAILED"
   | "FILLED"
@@ -87,6 +116,19 @@ export interface IOrdersOptions extends IOpenOrdersOptions {
   hideCancel?: boolean | undefined;
   startTime?: number | undefined;
   endTime?: number | undefined;
+}
+
+export interface ISmartOrdersOptions extends Omit<
+  IOrdersOptions,
+  "type" | "states"
+> {
+  type?: ISmartOrderType | ISmartOrderType[] | undefined;
+  states?: IHistorySmartOrderState | IHistorySmartOrderState[] | undefined;
+}
+
+export interface IOpenSmartOrdersOptions extends IRecordType {
+  limit?: number | undefined;
+  type?: ISmartOrderType | ISmartOrderType[] | undefined;
 }
 
 export interface ITradeOptions {
@@ -271,22 +313,25 @@ type ISmartOrderState =
   | "PENDING_NEW"
   | "TRIGGERED";
 
-export interface ISmartOrder
-  extends Omit<
-    IOrder,
-    | "avgPrice"
-    | "cancelReason"
-    | "filledAmount"
-    | "filledQuantity"
-    | "loan"
-    | "orderSource"
-    | "state"
-    | "type"
-  > {
+export interface ISmartOrder extends Omit<
+  IOrder,
+  | "avgPrice"
+  | "cancelReason"
+  | "filledAmount"
+  | "filledQuantity"
+  | "loan"
+  | "orderSource"
+  | "state"
+  | "type"
+> {
   type: ISmartOrderType;
   state: ISmartOrderState;
   stopPrice: string;
   triggeredOrder?: IOrder;
+  activationPrice?: string;
+  trailingOffset?: string;
+  limitOffset?: string;
+  operator?: string;
 }
 
 export interface ICanceledOrder {
@@ -298,8 +343,8 @@ export interface ICanceledOrder {
 }
 
 export interface IKillSwitch {
-  startTime: string;
-  cancellationTime: string;
+  startTime: number;
+  cancellationTime: number;
 }
 
 export interface IOpenSmartOrder extends Omit<ISmartOrder, "triggeredOrder"> {
@@ -314,6 +359,13 @@ export interface ICanceledSmartOrder extends Omit<ICanceledOrder, "state"> {
 
 export interface IHistoricalOrder extends IOrder {
   state: IHistoryOrderState;
+}
+
+export interface IHistoricalSmartOrder extends Omit<
+  ISmartOrder,
+  "state" | "triggeredOrder"
+> {
+  state: IHistorySmartOrderState;
 }
 
 export type IMatchRole = "MAKER" | "TAKER";
@@ -363,6 +415,20 @@ export interface IFee {
   takerRate: string;
   volume30D: string;
   specialFeeRates: { symbol: string; makerRate: string; takerRate: string }[];
+}
+
+export type IInterestHistoryOptions = Omit<
+  IAccountActivityOptions,
+  "activityType" | "currency"
+>;
+
+export interface IInterestHistory {
+  id: string;
+  interestAccuredTime: number;
+  currencyName: string;
+  principal: string;
+  interest: string;
+  interestRate: string;
 }
 
 export interface AuthenticatedClientOptions extends IPublicClientOptions {
@@ -426,7 +492,9 @@ export class AuthenticatedClient extends PublicClient {
 
     if (method === "GET") {
       if (Array.isArray(options)) {
-        return Promise.reject(new TypeError("`options` shoud not be an array"));
+        return Promise.reject(
+          new TypeError("`options` should not be an array"),
+        );
       }
       PublicClient.setQuery(searchParams, options);
     } else if (has_body) {
@@ -501,9 +569,23 @@ export class AuthenticatedClient extends PublicClient {
     return this.get<IAccountTransfer[]>("/accounts/transfer", { options });
   }
 
+  /** Get a single transfer record by ID. */
+  public getAccountTransfer({ id }: { id: string }): Promise<IAccountTransfer> {
+    return this.get<IAccountTransfer>(`/accounts/transfer/${id}`);
+  }
+
   /** Get fee rate. */
   public getFeeInfo(): Promise<IFee> {
     return this.get<IFee>("/feeinfo");
+  }
+
+  /** Get interest history. */
+  public getInterestHistory(
+    options: IInterestHistoryOptions = {},
+  ): Promise<IInterestHistory[]> {
+    return this.get<IInterestHistory[]>("/accounts/interest/history", {
+      options,
+    });
   }
 
   /** Get deposit addresses. */
@@ -544,6 +626,15 @@ export class AuthenticatedClient extends PublicClient {
     });
   }
 
+  /** Immediately place a withdrawal (v2) with explicit network selection. */
+  public withdrawV2(
+    options: IWithdrawV2Options,
+  ): Promise<{ withdrawalRequestsId: number }> {
+    return this.post<{ withdrawalRequestsId: number }>("/v2/wallets/withdraw", {
+      options,
+    });
+  }
+
   /** Get account margin information. */
   public getMargin({
     accountType = "SPOT",
@@ -556,8 +647,8 @@ export class AuthenticatedClient extends PublicClient {
   /** Get borrow status of currencies. */
   public getBorrowStatus(
     options: { currency?: string } = {},
-  ): Promise<IBorrow> {
-    return this.get<IBorrow>("/margin/borrowStatus", { options });
+  ): Promise<IBorrow[]> {
+    return this.get<IBorrow[]>("/margin/borrowStatus", { options });
   }
 
   /** Get maximum and available buy/sell amount for a given symbol. */
@@ -716,9 +807,12 @@ export class AuthenticatedClient extends PublicClient {
   }
 
   /** Get a list of (pending) smart orders. */
-  public getOpenSmartOrders(
-    options: { limit?: number } = {},
-  ): Promise<IOpenSmartOrder[]> {
+  public getOpenSmartOrders({
+    ...options
+  }: IOpenSmartOrdersOptions = {}): Promise<IOpenSmartOrder[]> {
+    if (Array.isArray(options.type)) {
+      options.type = options.type.join(",") as ISmartOrderType;
+    }
     return this.get<IOpenSmartOrder[]>("/smartorders", { options });
   }
 
@@ -788,7 +882,11 @@ export class AuthenticatedClient extends PublicClient {
 
   /** Batch cancel all orders. */
   public cancelAllSmartOrders(
-    options: { symbols?: string[]; accountTypes?: IAccountType[] } = {},
+    options: {
+      symbols?: string[];
+      accountTypes?: IAccountType[];
+      orderTypes?: ISmartOrderType[];
+    } = {},
   ): Promise<ICanceledSmartOrder[]> {
     return this.delete<ICanceledSmartOrder[]>("/smartorders", { options });
   }
@@ -804,6 +902,21 @@ export class AuthenticatedClient extends PublicClient {
       options.type = options.type.join(",") as IOrderType;
     }
     return this.get<IHistoricalOrder[]>("/orders/history", { options });
+  }
+
+  /** Get a list of historical smart orders. */
+  public getSmartOrderHistory({
+    ...options
+  }: ISmartOrdersOptions = {}): Promise<IHistoricalSmartOrder[]> {
+    if (Array.isArray(options.states)) {
+      options.states = options.states.join(",") as IHistorySmartOrderState;
+    }
+    if (Array.isArray(options.type)) {
+      options.type = options.type.join(",") as ISmartOrderType;
+    }
+    return this.get<IHistoricalSmartOrder[]>("/smartorders/history", {
+      options,
+    });
   }
 
   /** Get a list of all trades. */
