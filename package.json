@@ -65,7 +65,7 @@
     "@binden/semantic-release-config": "^3.0.4",
     "@binden/tsconfig": "^4.0.1",
     "husky": "^9.1.7",
-    "lint-staged": "^17.0.7",
+    "lint-staged": "^17.0.8",
     "prettier": "^3.8.3",
     "tsx": "^4.22.4",
     "typedoc": "^0.28.19"
